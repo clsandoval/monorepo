@@ -3,7 +3,7 @@ type: project
 name: Fitness
 status: active
 tags: [health, fat-loss, training]
-updated: 2026-08-01
+updated: 2026-08-02
 
 ---
 
@@ -121,6 +121,16 @@ post-trip flush low or a water-rebound high manufactures a phantom gap.
   rows. Cable opens up lat pulldowns, cable rows, face pulls, tricep/curl isolation, cable lateral
   raises — and lat pulldown is a real progression tool toward pull-ups.
 - **Priority: consistency over intensity.** Travels often — miss a day, pick up the cycle where it left off. Travel = just the rope.
+- **MORNINGS ARE NOT AVAILABLE (added 2026-08-02, his own read):** on waking he is "magnetically drawn"
+  to a coffee shop first thing and cannot get himself to train. Treat this as a fixed feature of the
+  day, not a willpower problem — **never prescribe a morning session.**
+  - **Slot:** on return home. The trigger is walking in the door → shoes on → rope. An undefined
+    "later today" is what actually kills the session, not motivation.
+  - **Minimum viable session: 5 min rope + 2 lifts (~15 min).** The full 4-lift/40-min session is what
+    his brain prices and declines. Prescribe the 15-min floor; the full rotation is the good-day upside.
+  - Missed days are never repaid — pick up the rotation where it left off (see consistency rule above).
+  - **Training is the second lever.** Fat loss is stuck on the calorie ceiling, not on training volume;
+    lifts exist to hold the muscle Phase 2 builds from. A sub-2000 week beats a perfect gym week.
 - **Daily session:** 30–40 min = **5 min jump rope** + **4 lifts**, always full body (push + pull + hinge/squat + core).
 - **3-day rotation** — cycle A → B → C → repeat:
   - **Day A:** Smith incline bench 3×8 · **barbell rows 3×10** · RDLs 3×8 · leg extensions 3×10 (no flat bench — incline only, both press days)
