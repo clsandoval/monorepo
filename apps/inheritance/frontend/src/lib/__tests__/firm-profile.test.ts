@@ -74,6 +74,7 @@ function makeFirmRow(overrides: Record<string, unknown> = {}): Record<string, un
     counsel_name: 'Atty. Juan Santos',
     counsel_email: 'juan@santoslaw.ph',
     counsel_phone: '+63 917 123 4567',
+    roll_of_attorneys_no: 'R-654321',
     ibp_roll_no: '123456',
     ptr_no: '7891011',
     mcle_compliance_no: 'VII-0012345',
@@ -200,6 +201,7 @@ describe('firm-branding > firm-profile lib', () => {
         counselName: 'Atty. Juan Santos',
         counselEmail: 'juan@santoslaw.ph',
         counselPhone: '+63 917 123 4567',
+        rollOfAttorneysNo: 'R-654321',
         ibpRollNo: '123456',
         ptrNo: '7891011',
         mcleComplianceNo: 'VII-0012345',
@@ -218,6 +220,52 @@ describe('firm-branding > firm-profile lib', () => {
       expect(row).toHaveProperty('mcle_compliance_no', 'VII-0012345');
       expect(row).toHaveProperty('letterhead_color', '#1E3A5F');
       expect(row).toHaveProperty('secondary_color', '#C9A84C');
+    });
+  });
+
+  // ── roll_of_attorneys_no (migration 016) ──────────────────────
+  //
+  // The Roll of Attorneys number is stored separately from the IBP roll
+  // number. These cases exist to catch the two fields being wired to one
+  // another, which would print one stored number under two labels.
+
+  describe('rollOfAttorneysNo', () => {
+    it('defaultFirmProfile leaves rollOfAttorneysNo null', () => {
+      expect(defaultFirmProfile().rollOfAttorneysNo).toBeNull();
+    });
+
+    it('rowToFirmProfile reads roll_of_attorneys_no', () => {
+      const profile = rowToFirmProfile({ roll_of_attorneys_no: 'R-000001' });
+      expect(profile.rollOfAttorneysNo).toBe('R-000001');
+    });
+
+    it('rowToFirmProfile gives null when the column is absent', () => {
+      expect(rowToFirmProfile({}).rollOfAttorneysNo).toBeNull();
+    });
+
+    it('firmProfileToRow always emits roll_of_attorneys_no, null included', () => {
+      const row = firmProfileToRow(defaultFirmProfile());
+      expect(Object.prototype.hasOwnProperty.call(row, 'roll_of_attorneys_no')).toBe(true);
+      expect(row.roll_of_attorneys_no).toBeNull();
+    });
+
+    it('round-trips independently of ibpRollNo', () => {
+      const p: FirmProfile = {
+        ...defaultFirmProfile(),
+        rollOfAttorneysNo: 'R-000001',
+        ibpRollNo: 'IBP-000002',
+      };
+      expect(rowToFirmProfile(firmProfileToRow(p))).toEqual(p);
+    });
+
+    it('saveFirmProfile sends roll_of_attorneys_no and does not touch ibp_roll_no', async () => {
+      const mockUpsert = vi.fn().mockResolvedValue({ data: null, error: null });
+      mockFrom.mockReturnValue({ upsert: mockUpsert });
+
+      await saveFirmProfile('user-1', { rollOfAttorneysNo: 'R-9' });
+      const payload = mockUpsert.mock.calls[0][0];
+      expect(payload).toHaveProperty('roll_of_attorneys_no', 'R-9');
+      expect(Object.prototype.hasOwnProperty.call(payload, 'ibp_roll_no')).toBe(false);
     });
   });
 

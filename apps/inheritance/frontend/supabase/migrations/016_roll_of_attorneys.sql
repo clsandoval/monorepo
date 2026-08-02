@@ -1,0 +1,30 @@
+-- 016_roll_of_attorneys.sql
+--
+-- Adds one nullable column, `roll_of_attorneys_no`, to `user_profiles`.
+--
+-- WHY A NEW COLUMN RATHER THAN A REUSED ONE. `001_initial_schema.sql` already
+-- gives `user_profiles` three lawyer identifiers: `ibp_roll_no`, `ptr_no` and
+-- `mcle_compliance_no`. An attorney attribution block on a filed instrument
+-- states five things — counsel's name, the Roll of Attorneys number, the IBP
+-- roll number, the PTR number and the MCLE compliance number — and the Roll of
+-- Attorneys number is a separate identifier from the IBP roll number, issued by
+-- a different body. It therefore gets a column of its own.
+--
+-- WHY `ibp_roll_no` IS LEFT ENTIRELY ALONE. The settings form labels that field
+-- "IBP Roll No." and the PDF letterhead prints it under the same words. Pointing
+-- the stored value at a different meaning would change what an already-entered
+-- number denotes without anyone re-entering it, and printing one stored number
+-- under two labels would state one fact twice while claiming it is two facts.
+-- Both are silent wrongness, which this repository ranks worse than loud
+-- failure. So `ibp_roll_no` keeps its name, its label and its meaning.
+--
+-- The column is nullable with no default, so every existing row keeps a NULL
+-- and nothing is back-filled with a number nobody typed. `IF NOT EXISTS` makes a
+-- re-applied migration a no-op rather than an error.
+--
+-- No policy is created, dropped or altered here. `user_profiles` already carries
+-- `user_profiles_own` (`FOR ALL USING (auth.uid() = id) WITH CHECK (auth.uid() =
+-- id)`) from `001_initial_schema.sql`, and ADD COLUMN leaves it untouched, so the
+-- new column inherits exactly the row scope every sibling column already has.
+
+ALTER TABLE user_profiles ADD COLUMN IF NOT EXISTS roll_of_attorneys_no TEXT;

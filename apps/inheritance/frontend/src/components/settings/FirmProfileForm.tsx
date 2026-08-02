@@ -93,6 +93,15 @@ export function FirmProfileForm({ profile, onSave, saving }: FirmProfileFormProp
         </div>
 
         <div className="space-y-2">
+          <Label htmlFor="rollOfAttorneysNo">Roll of Attorneys No.</Label>
+          <Input
+            id="rollOfAttorneysNo"
+            value={form.rollOfAttorneysNo ?? ''}
+            onChange={(e) => handleChange('rollOfAttorneysNo', e.target.value)}
+          />
+        </div>
+
+        <div className="space-y-2">
           <Label htmlFor="ibpRollNo">IBP Roll No.</Label>
           <Input
             id="ibpRollNo"

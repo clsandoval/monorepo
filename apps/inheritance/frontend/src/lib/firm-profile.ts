@@ -8,6 +8,12 @@ export interface FirmProfile {
   counselName: string | null;
   counselEmail: string | null;
   counselPhone: string | null;
+  /**
+   * The Roll of Attorneys number, a separate identifier from `ibpRollNo`.
+   * Stored in its own column, added by migration 016, so that no
+   * already-entered IBP roll number silently changes meaning.
+   */
+  rollOfAttorneysNo: string | null;
   ibpRollNo: string | null;
   ptrNo: string | null;
   mcleComplianceNo: string | null;
@@ -31,6 +37,7 @@ export function defaultFirmProfile(): FirmProfile {
     counselName: null,
     counselEmail: null,
     counselPhone: null,
+    rollOfAttorneysNo: null,
     ibpRollNo: null,
     ptrNo: null,
     mcleComplianceNo: null,
@@ -50,6 +57,7 @@ export function rowToFirmProfile(row: Record<string, unknown>): FirmProfile {
     counselName: (row.counsel_name as string | null) ?? null,
     counselEmail: (row.counsel_email as string | null) ?? null,
     counselPhone: (row.counsel_phone as string | null) ?? null,
+    rollOfAttorneysNo: (row.roll_of_attorneys_no as string | null) ?? null,
     ibpRollNo: (row.ibp_roll_no as string | null) ?? null,
     ptrNo: (row.ptr_no as string | null) ?? null,
     mcleComplianceNo: (row.mcle_compliance_no as string | null) ?? null,
@@ -69,6 +77,7 @@ export function firmProfileToRow(profile: FirmProfile): Record<string, unknown> 
     counsel_name: profile.counselName,
     counsel_email: profile.counselEmail,
     counsel_phone: profile.counselPhone,
+    roll_of_attorneys_no: profile.rollOfAttorneysNo,
     ibp_roll_no: profile.ibpRollNo,
     ptr_no: profile.ptrNo,
     mcle_compliance_no: profile.mcleComplianceNo,
@@ -103,6 +112,7 @@ export async function saveFirmProfile(userId: string, updates: Partial<FirmProfi
   if (updates.counselName !== undefined) snakeUpdates.counsel_name = updates.counselName;
   if (updates.counselEmail !== undefined) snakeUpdates.counsel_email = updates.counselEmail;
   if (updates.counselPhone !== undefined) snakeUpdates.counsel_phone = updates.counselPhone;
+  if (updates.rollOfAttorneysNo !== undefined) snakeUpdates.roll_of_attorneys_no = updates.rollOfAttorneysNo;
   if (updates.ibpRollNo !== undefined) snakeUpdates.ibp_roll_no = updates.ibpRollNo;
   if (updates.ptrNo !== undefined) snakeUpdates.ptr_no = updates.ptrNo;
   if (updates.mcleComplianceNo !== undefined) snakeUpdates.mcle_compliance_no = updates.mcleComplianceNo;
