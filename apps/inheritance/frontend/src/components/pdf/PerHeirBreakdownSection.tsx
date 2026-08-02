@@ -4,7 +4,7 @@
  */
 import { View, Text, StyleSheet } from '@react-pdf/renderer';
 import type { InheritanceShare, Person } from '../../types';
-import { formatPesoPdf } from './pdf-text';
+import { formatPesoPdf, citationLine } from './pdf-text';
 import { resolveArticle } from '../../data/ncc-articles';
 
 export interface PerHeirBreakdownSectionProps {
@@ -96,11 +96,17 @@ export function PerHeirBreakdownSection({ shares }: PerHeirBreakdownSectionProps
                 {share.legal_basis.map((key, i) => {
                   // One resolver. react-pdf primitives carry no DOM attributes, so
                   // the loud state here is the literal text — which is the correct
-                  // behaviour for a document that gets printed and filed.
+                  // behaviour for a document that gets printed and filed. The
+                  // joining of the citation to its description now happens in
+                  // `pdf-text.ts`, so this display layer states no article of its
+                  // own and cannot derive one.
                   const { raw, description, resolved } = resolveArticle(key);
                   return (
                     <Text key={i} style={styles.citation}>
-                      {raw}: {resolved ? description : 'CITATION NOT RESOLVED'}
+                      {citationLine(
+                        raw,
+                        resolved && description !== null ? description : 'CITATION NOT RESOLVED',
+                      )}
                     </Text>
                   );
                 })}

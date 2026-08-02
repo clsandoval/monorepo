@@ -55,3 +55,43 @@ export function formatPesoPdf(centavos: number | string | bigint): string {
 export function toPdfSafeText(text: string): string {
   return text.split(PESO_SIGN).join(PDF_PESO_PREFIX);
 }
+
+/**
+ * A trailing parenthetical of the shape `(Art. <digits> NCC)`, together with any
+ * whitespace immediately preceding it.
+ *
+ * Why it exists, measured rather than assumed. Fifteen of the seventy-five
+ * entries in `src/data/ncc-articles.ts` end with a parenthetical naming the same
+ * article the citation's own left-hand side already names. The PDF prints the
+ * engine's `legal_basis` string, a colon, and the description on one line, so
+ * those fifteen print the article twice:
+ *
+ *   Art. 980: Children of the deceased shall always inherit from him (Art. 980 NCC)
+ *
+ * The strip happens HERE, at render time, and NOT by editing the data file.
+ * `scripts/check-citation-integrity.mjs` (G14) and
+ * `scripts/check-spec-legal-text.mjs` (G27) both read that file's contents, and
+ * rewriting sixty descriptions to fix a rendering defect would put a
+ * presentation change inside the attribution authority.
+ *
+ * The global flag is present so a description carrying two such parentheticals
+ * loses both.
+ */
+const ARTICLE_PARENTHETICAL = /\s*\((?:Art)\.\s*\d+\s*NCC\)/g;
+
+/**
+ * Joins the engine's own citation key to its description on one line, naming the
+ * article exactly once.
+ *
+ * `raw` — the engine's `legal_basis` string — survives untouched on the left of
+ * the colon. This function never reformats it, never normalises its spacing and
+ * never substitutes a different article for it: the engine is the single
+ * attribution authority and this is a text transform, not a lookup.
+ *
+ * Only the right-hand side changes, and only by removing the redundant
+ * parenthetical. Nothing is lowercased, no internal whitespace is collapsed and
+ * no full stop is added.
+ */
+export function citationLine(raw: string, text: string): string {
+  return `${raw}: ${text.replace(ARTICLE_PARENTHETICAL, '').trimEnd()}`;
+}
