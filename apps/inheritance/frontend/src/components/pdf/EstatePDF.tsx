@@ -14,6 +14,7 @@ import { PerHeirBreakdownSection } from './PerHeirBreakdownSection';
 import { NarrativesSection } from './NarrativesSection';
 import { ComputationLogSection } from './ComputationLogSection';
 import { WarningsSection } from './WarningsSection';
+import { AttributionSection } from './AttributionSection';
 import { DisclaimerSection } from './DisclaimerSection';
 
 export interface PDFExportOptions {
@@ -57,6 +58,10 @@ export function EstatePDF({ input, output, profile, options }: EstatePDFProps) {
         <NarrativesSection narratives={output.narratives} />
         <ComputationLogSection log={output.computation_log} />
         <WarningsSection warnings={output.warnings} />
+        {/* Unconditional by design: a report with no attribution must say so on
+            its own face, so an unsigned export is distinguishable from a signed
+            one. It receives the same profile the letterhead is gated on. */}
+        <AttributionSection profile={profile} />
         <DisclaimerSection />
       </Page>
     </Document>

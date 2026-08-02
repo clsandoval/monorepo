@@ -283,9 +283,26 @@ describe('pdf', () => {
       expect(container.textContent).toContain('Distribution of Shares');
       // Per-heir breakdown
       expect(container.textContent).toContain('Per-Heir Breakdown');
+      // Attribution block always present
+      expect(container.textContent).toContain('Attorney Attribution');
       // Disclaimer always present
       expect(container.textContent).toContain('Disclaimer');
       expect(container.textContent).toContain('informational purposes');
+    });
+
+    it('renders the attribution block even when no firm profile loaded', () => {
+      const { container } = render(
+        <EstatePDF
+          input={createEngineInput()}
+          output={createEngineOutput()}
+          profile={null}
+          options={defaultOptions()}
+        />
+      );
+      // Unconditional mounting, asserted at the document level: an unsigned
+      // report must be distinguishable on its face from a signed one.
+      expect(container.textContent).toContain('Attorney Attribution');
+      expect(container.textContent).toContain('ATTORNEY ATTRIBUTION UNAVAILABLE');
     });
 
     it('omits firm header when option is false', () => {
@@ -346,15 +363,14 @@ describe('pdf', () => {
       expect(container.textContent).toContain('123 Ayala Ave, Makati City');
     });
 
-    it('renders counsel credentials', () => {
-      const { container } = render(
-        <FirmHeaderSection profile={createProfile()} />
-      );
-      expect(container.textContent).toContain('Atty. Roberto Santos');
-      expect(container.textContent).toContain('IBP Roll No. 12345');
-      expect(container.textContent).toContain('PTR No. 67890');
-      expect(container.textContent).toContain('MCLE No. VII-001234');
-    });
+    // RELOCATED, NOT DELETED. The cases `renders counsel credentials` and
+    // `omits counsel line when counselName is empty` left this file because
+    // their subject moved: counsel credentials are no longer rendered by
+    // FirmHeaderSection. Strictly stronger replacements now live in
+    // `src/components/pdf/__tests__/attribution.test.tsx`, which assert each of
+    // the five credentials under its own label — and assert an explicit
+    // `NOT ON FILE` marker for an absent one, which the old concatenated grey
+    // line could not express at all.
 
     it('shows logo when logoDataUrl is provided', () => {
       render(
@@ -380,21 +396,24 @@ describe('pdf', () => {
       expect(screen.queryByTestId('pdf-image')).not.toBeInTheDocument();
     });
 
-    it('omits counsel line when counselName is empty', () => {
-      const { container } = render(
-        <FirmHeaderSection
-          profile={createProfile({ counselName: '', ibpRollNo: '', ptrNo: '', mcleComplianceNo: '' })}
-        />
-      );
+    it('carries no counsel credentials — those belong to AttributionSection', () => {
+      const { container } = render(<FirmHeaderSection profile={createProfile()} />);
+      // The letterhead states firm identity only. This is the assertion that
+      // fails if the credentials line is ever restored here, which would make
+      // the document state counsel's numbers twice.
       expect(container.textContent).not.toContain('IBP Roll No.');
+      expect(container.textContent).not.toContain('PTR No.');
+      expect(container.textContent).not.toContain('MCLE No.');
+      expect(container.textContent).not.toContain('Atty. Roberto Santos');
     });
 
     it('omits firm name when empty', () => {
       const { container } = render(
         <FirmHeaderSection profile={createProfile({ firmName: '' })} />
       );
-      // Should still render without errors
-      expect(container.textContent).toContain('Atty. Roberto Santos');
+      // Should still render without errors: the address survives.
+      expect(container.textContent).not.toContain('Santos & Associates Law');
+      expect(container.textContent).toContain('123 Ayala Ave, Makati City');
     });
   });
 
