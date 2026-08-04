@@ -12,6 +12,13 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-08-04
+- **Weight:** 96.7 kg (fasted AM, pre-poop)
+- **Cals / Protein:** —
+- **Carbs / Sodium:** —
+- **Trained:** —
+- **Notes:** +0.2 off 8/02 (96.5 → 96.7). 8/03 unlogged → charged at +500 over TDEE by convention, so a small up-tick is exactly what that buys; 8/02 also closed at ~2850. Two consecutive non-deficit days ≈ +0.15 kg of actual fat — the rest is food/water still in transit (pre-poop read included). Still 0.3 under the 7/03 baseline (96.4)... barely. Trend has stalled since 7/31 (95.2 → 96.5 → 96.7). The fix is the ceiling, not the gym: 2200 today unless the incline walk happens, then 2500. Next lift in rotation: **Day B** (OHP 3×8 · pull-ups strict-then-assisted · leg curl 3×10 · leg raises 2×12) — 8/02 was a Day B-ish session (OHP + pull-ups) with no leg curl/leg raises, so run Day A next if legs feel fine.
+
 ## 2026-08-02
 - **Weight:** 96.5 kg (fasted AM) — water read, see notes
  - **Cals / Protein:** **~2850 / ~167g** (2 street tacos ₱30 ea, toasted tortilla + bell pepper, onion, salsa, cilantro sauce, no cheese: lengua ~210/11g [~50g lengua ~140/9g, small tortilla ~80/2g, veg+sauce ~40/0g — lengua is fatty, ~285 kcal/100g] + battered fish ~250/10g [~50g battered fried fish ~140/8g, tortilla ~80/2g, veg+sauce ~40/0g]; latte ~180/9g [assumed 12 oz standard, not the sweet 280–300 kcal version of 7/29–7/31 — correct me if it was sweetened]; ~150g lechon ~470/28g [skin-on belly, ~310 kcal/100g]; slice of cake ~350/4g [~100g, 7/29's 50g slice was 175/2g]; ½ cup rice ~100/2g; ~100g salmon ~200/22g; 1 Krispy Kreme original glazed ~190/3g [label]; 300g ribeye, no butter, avocado oil spray ~900/78g [~300/26g per 100g, slightly fattier than 7/31's lean-trimmed 200g at 550/50g])
