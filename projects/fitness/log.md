@@ -14,8 +14,8 @@ Append-only. Newest at top. One line per day.
 ---
 ## 2026-08-04
 - **Weight:** 96.7 kg (fasted AM, pre-poop)
-- **Cals / Protein:** ~930 / ~71g so far (Starbucks turkey ham, egg white & fontina sandwich 350/21g [cals as given, protein per 7/28 precedent]; 200g sous vide ribeye ~580/50g [7/29 precedent; not lean-trimmed like 7/31's 550])
-- **Carbs / Sodium:** ~32g so far (sandwich bread ~32g; ribeye ~0g. Sodium: sandwich + ribeye seasoning ~1.5g — will need salt or a Liquid IV if he walks)
+- **Cals / Protein:** ~1080 / ~73g so far (Starbucks turkey ham, egg white & fontina sandwich 350/21g [cals as given, protein per 7/28 precedent]; 200g sous vide ribeye ~580/50g [7/29 precedent; not lean-trimmed like 7/31's 550]; milk tea 150/2g [cals as given])
+- **Carbs / Sodium:** ~60g so far (sandwich bread ~32g; ribeye ~0g; milk tea ~28g. Sodium: sandwich + ribeye seasoning ~1.5g — will need salt or a Liquid IV if he walks)
 - **Trained:** —
 - **Notes:** +0.2 off 8/02 (96.5 → 96.7). 8/03 unlogged → charged at +500 over TDEE by convention, so a small up-tick is exactly what that buys; 8/02 also closed at ~2850. Two consecutive non-deficit days ≈ +0.15 kg of actual fat — the rest is food/water still in transit (pre-poop read included). Still 0.3 under the 7/03 baseline (96.4)... barely. Trend has stalled since 7/31 (95.2 → 96.5 → 96.7). The fix is the ceiling, not the gym: 2200 today unless the incline walk happens, then 2500. Next lift in rotation: **Day B** (OHP 3×8 · pull-ups strict-then-assisted · leg curl 3×10 · leg raises 2×12) — 8/02 was a Day B-ish session (OHP + pull-ups) with no leg curl/leg raises, so run Day A next if legs feel fine.
 
