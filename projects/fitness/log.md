@@ -12,6 +12,13 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-08-05
+- **Weight:** — (not logged)
+- **Cals / Protein:** ~1415 / ~129g so far (150g salmon sashimi ~300/31g [~205/21 per 100g]; 150g tuna sashimi ~165/35g [lean akami assumed ~110/23 per 100g]; 150g uni ~180/18g [~120/12 per 100g — generous portion, correct if smaller]; 3 pcs chicken thigh yakitori ~420/33g [~140/11 per skewer, tare glaze]; cold soba w/ tsuyu ~350/12g)
+- **Carbs / Sodium:** ~80g / ~3g so far (soba ~65g; tare + tsuyu + uni ~15g. Sodium: soy for sashimi + tsuyu + tare ≈ 3g — floor met)
+- **Trained:** —
+- **Notes:** great protein density for a restaurant day — sashimi trio was ~645 cal for 84g (7.7 cal/g), soba the only soft buy (350 for 12g). 16g under the 145 floor with ~785 of room to the 2200 rest-day ceiling. Call: **2 scoops (~280/48g) → ~1695 / ~177g** — floor cleared, still ~500 under ceiling. Day is near-zero fiber; add 1–2 fruit (banana ~105/1g) which also keeps the day above the 1700 cal floor. Ceiling moves to 2500 if the incline walk happens. Next lift owed: **Day A** (Smith incline bench 3×8 · barbell rows 3×10 · RDL 3×8 · leg extensions 3×10) — 8/02 was Day B-ish.
+
 ## 2026-08-04
 - **Weight:** 96.7 kg (fasted AM, pre-poop)
 - **Cals / Protein:** ~1280 / ~94g so far (Starbucks turkey ham, egg white & fontina sandwich 350/21g [cals as given, protein per 7/28 precedent]; 200g sous vide ribeye ~580/50g [7/29 precedent; not lean-trimmed like 7/31's 550]; milk tea 150/2g [cals as given]; Blitz protein bar 200/21g [as given])
