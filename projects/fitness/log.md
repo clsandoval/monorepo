@@ -12,6 +12,13 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-08-06
+- **Weight:** — (not logged)
+- **Cals / Protein:** ~920 / ~64g so far (Starbucks turkey ham, egg white & fontina sandwich ~350/21g [8/04 + 7/28 precedent; read "$300" as the ₱300 price, not calories — correct me if you meant 300 cal]; double quarter pounder w/ cheese, buns + ketchup discarded ~570/43g [label 740/48g minus bun ~155/5g and ketchup ~15/0g])
+- **Carbs / Sodium:** ~36g / ~1.8g so far (sandwich bread ~32g; patties + cheese + pickles ~4g. Sodium: sandwich + patties/cheese ~1.8g — **under the 3g floor**, salt tonight's food or take a Liquid IV)
+- **Trained:** —
+- **Notes:** ditching the buns was the right call — it turned a 740/48g burger into 570/43g at **13.3 cal/g**, and the patties+cheese alone are 8.8 cal/g. Best restaurant protein density this week outside the ribeye. Day sits 81g under the floor with ~1280 of room to the 2200 rest-day ceiling, which is exactly what the 2-scoop infrastructure rule is for: **2 scoops booked now (~280/48g) → ~1200/112g**, then one lean protein dinner closes it — 200g ribeye or grilled chicken (~550–580/50g) lands **~1780 / ~162g**, floor cleared, ~420 under the ceiling. Ceiling moves to 2500 if the incline walk happens. Near-zero fiber again (2nd straight day) — 2 fruit, bananas for the potassium. Next lift owed: **Day A** (Smith incline bench 3×8 · barbell rows 3×10 · RDL 3×8 · leg extensions 3×10) — still owed from 8/05, no session logged since 8/02.
+
 ## 2026-08-05
 - **Weight:** — (not logged)
 - **Cals / Protein:** ~1415 / ~129g so far (150g salmon sashimi ~300/31g [~205/21 per 100g]; 150g tuna sashimi ~165/35g [lean akami assumed ~110/23 per 100g]; 150g uni ~180/18g [~120/12 per 100g — generous portion, correct if smaller]; 3 pcs chicken thigh yakitori ~420/33g [~140/11 per skewer, tare glaze]; cold soba w/ tsuyu ~350/12g)
