@@ -12,6 +12,13 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-08-07
+- **Weight:** 96.5 kg (fasted AM)
+- **Cals / Protein:** ~2275 / ~241g (lunch: ~300g pork chop ~700/80g [~230/27 per 100g, lean chop] + latte ~180/9g [12 oz standard, not the sweet 280–300 version — correct me if sweetened] + apple ~95/0g; ½ cup rice ~100/2g [8/02 precedent]; dinner: ~600g air-fried chicken, salt & pepper ~1200/150g [assumed mixed skin-on cuts ~200/25 per 100g — if it was breast it's closer to ~990/186g])
+- **Carbs / Sodium:** ~62g / ~3g (apple ~25g; rice ~22g; latte ~15g. Sodium: salt-and-pepper chicken + seasoned chop carry it — floor met)
+- **Trained:** —
+- **Notes:** +0.5 off 8/06 (96.0 → 96.5) — expected, 8/06 closed at ~3000. Day lands at **~2275 / ~241g**: 75 over the 2200 rest-day ceiling, well under 2500 if the incline walk happens. **Protein density was the best in weeks — ~9.4 cal per gram** vs his usual 15–18 eating out; the chicken alone was 150g of protein. But that's also where the calories went: **~96g past the 145 floor bought nothing.** Half that chicken (300g) lands the day at ~1675/166g — floor still cleared, ~525 under the ceiling. That's the whole lever right now. Weight has been flat-to-up since 7/31 (95.2 → 96.5) across three non-deficit days; the trend needs a genuine sub-2200 day, not more protein. Fiber thin again (apple only, ~3g) — third straight low-fiber day, add a second fruit tomorrow. Next lift owed: **Day A** (Smith incline bench 3×8 · barbell rows 3×10 · RDL 3×8 · leg extensions 3×10) — no session since 8/02, five days.
+
 ## 2026-08-06
 - **Weight:** 96.0 kg (fasted AM)
 - **Cals / Protein:** ~3000 / ~238g so far (Starbucks turkey ham, egg white & fontina sandwich ~350/21g [8/04 + 7/28 precedent; read "$300" as the ₱300 price, not calories — correct me if you meant 300 cal]; double quarter pounder w/ cheese, buns + ketchup discarded ~570/43g [label 740/48g minus bun ~155/5g and ketchup ~15/0g]; 300g dry-aged sous vide grilled steak, light marbling ~choice ~750/78g [~250/26 per 100g — leaner than 8/02's 300/26 ribeye, near 7/31's lean-trim 275/25]; 2nd turkey ham, egg white & fontina sandwich 330/21g [cals as given, protein per precedent]; 300g prime ribeye grilled ~1000/75g [~330/25 per 100g — prime grade runs fattier than 8/02's ~300/26 ribeye])
