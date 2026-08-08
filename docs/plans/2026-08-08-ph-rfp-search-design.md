@@ -1,10 +1,38 @@
 # PH Government RFP Finder — Search Design
 
-**Status:** design approved 2026-08-08, ingest built, tagging piloted, search layer not yet written.
+**Status:** design approved 2026-08-08. **Ingest, merge, tagging, attachments, the `rfp` CLI and the
+S7 eval oracle are all built and run** (overnight 2026-08-08). The search layer exists and has been
+measured; see the corrections below for what the measurement said.
 **Scope of this doc:** the *search* half only — plus the user journeys, because they're what the
 search layer is answerable to. UI is someone else's job. Cron, alerts, and the daily feed are out of
 scope but journey 2 depends on them; see "Deferred".
 **Predecessor:** `research/ph-rfp-spike/DECISIONS.md` (spike findings; corrected 2026-08-08 pm).
+**Night's operational record:** `apps/rfp/NIGHT-REPORT.md` — spend, decisions, what broke.
+
+> ## ⚠️ Corrections — measured overnight 2026-08-08
+>
+> Five claims in this document were settled or falsified by running the thing. Originals are left in
+> place and struck through, because what changed is as useful as what's true.
+>
+> 1. **Deferral #2 ("attached bid documents … highest-value next *spike*") is answered, and the
+>    answer is mostly no.** mPhilGEPS attachments are fully public and are now ingested — 4,285
+>    notices, 9,875 documents, 17.436 GB fetched, 554.8 M chars of text. **Legacy is behind a
+>    supplier login** (`Tender/OrderBasketUI.aspx` → 302 → `log-in.aspx`; the abstract page's
+>    document postback is HTML-commented out), so 81% of the corpus has no attachment path.
+>    **And attachment text moved search recall by exactly zero notices in all ten measured
+>    query-runs.** Attachments are an *eligibility* asset (0.12 → 2.40 special requirements per
+>    notice), not a recall asset. Deferral #2 is now closed and replaced; see "Deferred".
+> 2. **The eval was run and the shipped configuration scores 0.12 micro recall.** Not the tags, not
+>    the attachments — three bugs in `rfp` itself cost the difference between 0.12 and 1.00 on the
+>    measured slice. Fixing them is now deferral #1a, ahead of everything. See "Evaluation".
+> 3. **OCR is decided: no, permanently.** Embedded rasters are 72–150 ppi against tesseract's 300
+>    ppi floor, and the pages that *do* OCR carry only universal boilerplate. 34.8% of PDFs have no
+>    text layer; 15.3% of doc-bearing notices are unreadable. Flag them, never spend on them.
+> 4. **Award history is free, ungated, and enumerable by `awardID` alone** (~1.19M ids, ~50K
+>    awards/month). It was deferral #5 as "free but deferred"; it is now cheap enough to promote,
+>    and its first result **contradicts the targeting thesis** — see open question 2.
+> 5. **`legacy.db`'s `bid_supplements` is wrong on 2,344 rows (13.19%).** `NULL` does not mean
+>    "unknown", it means ">=1". Verified 90/90, zero counterexamples.
 
 ---
 
@@ -87,8 +115,10 @@ Quarterly cadence, months of lead time, nobody productizes it. A different surfa
 | S6 | **Tags are terse structured fields, never prose.** | Measured: output tokens cost 1.4–1.6× input on the tagging pass. Terseness is the cost control, not input stripping. |
 | S7 | **Approach A survives only as an eval oracle on a slice.** | ~300 notices (one work_type × one province) fully in-context with an expensive model = ground truth to measure B+C's recall against. Without an oracle, search gets tuned by vibes. |
 
-**Explicitly out of scope:** the UI, cron/scheduling, email alerts, the daily feed, Annual
-Procurement Plans, award history, and attached bid documents. Each is a separate piece of work; see
+**Explicitly out of scope:** the UI, cron/scheduling, email alerts, the daily feed, and Annual
+Procurement Plans. ~~award history, and attached bid documents~~ — **both were built overnight**:
+attachments are ingested for mPhilGEPS (`attachments.py`, `docs.db`) and the award ASMX layer is
+mapped and sampled (`awards.py`, `awards.db`). Each remaining item is a separate piece of work; see
 "Deferred, in priority order".
 
 ---
@@ -124,6 +154,88 @@ All measured 2026-08-08 unless noted. Numbers that contradict `DECISIONS.md` are
   Contract:</label>245,000.00`. Regex, ₱0. DECISIONS budgeted ~₱240/night to extract it with a model.
 - **Descriptions are ~2,086 chars and mostly boilerplate.** The real scope often lives in the line
   items (`COLLATERALS - CUSTOMIZED T-SHIRT, STICKER, TUMBLER`) or in attachments, not the description.
+  **Quantified overnight:** 822 mPhilGEPS notices and **5,426 legacy notices** have a
+  boilerplate-only description — what survives stripping, plus line items, is under 300 chars. The
+  legacy population is 6.6× larger and is the one with no attachment path.
+
+### Attachments — measured over the full mPhilGEPS ingest, 2026-08-08 overnight
+
+- **mPhilGEPS attachments are fully public.** 963/963 HEAD requests returned 200 with no cookie, no
+  session, no referer. **The one trap:** the document index at `/Tenders/tender_doc_view/{id}/{id}`
+  returns, without an `X-Requested-With: XMLHttpRequest` header, a constant 21,484-byte shell reading
+  *"Your session has been expired, please login in again to continue."* — byte-identical for every
+  notice id. That is CakePHP layout boilerplate, **not** an auth check. With the header, the full
+  document table appears. Files then sit on plain Apache static paths with `ETag` and
+  `Accept-Ranges: bytes`, so the fetcher is resumable and conditional.
+- **Legacy attachments are hard-gated and were not defeated.** The download funnel terminates at
+  `Tender/OrderBasketUI.aspx` → 302 → `/GEPSNONPILOT/log-in.aspx`; the abstract page's "Associated
+  Components" postback is HTML-commented out and replaced with an `alert()`. Forcing it anonymously
+  is a server-side no-op (200, byte-identical page). Across ~100 unauthenticated requests including
+  four forced download postbacks, **every body began `"<SCRIPT"` — never `%PDF`, never `PK`.**
+  Nine guessed handler names all 302 to `ErrorPage.aspx`. A registered supplier account is the only
+  route, which is a legal/product decision, not an engineering one.
+- **Ingest result:** 4,285 of 4,288 mPhilGEPS notices, 9,875 document rows (532 archive members),
+  8,337 distinct blobs, **17.436 GB fetched**, 554.8 M chars extracted over 294,173 pages. 15.2% of
+  fetches were bytes already stored. Formats: 95%+ PDF, then docx/zip/xlsx/jpg; **zero rar**.
+- **Text yield is bimodal.** Median 154,367 extractable chars per doc-bearing notice (≈38K tokens),
+  mean 134,065, p90 275,379 — **and p10 = 0**. Whole-attachment-in-prompt does not scale; section
+  extraction does. *(Corrects a 30-notice recon sample that projected a 6,123-char median. The mean
+  was right, the median was a small-sample artefact.)*
+- **OCR: no, and this is a measurement not a punt.** 34.8% of PDFs (2,760/7,935) have no text layer;
+  12.1% of pages are image-only; **655 of 4,285 notices (15.3%) have no readable file at all.**
+  Embedded rasters are 72–150 ppi against tesseract's 300 ppi floor — `pdftoppm -r 300` cannot help,
+  it upsamples the embedded JPEG. A real DPWH photocopy rendered at 300 dpi OCR'd "ITEM 804(1)b
+  EMBANKMENT" as `PEM eat} EMBANAMENT`. And the pages that *do* OCR cleanly carry only
+  `PROPOSED FLOOR PLAN` / `ITEM 900 REINFORCED CONCRETE` — words on every project in the country,
+  which BM25 scores ~0 by design. Store `scan_pages`/`text_pages` and annotate
+  `scope in attachment, not machine-readable`. If ever revisited, the escalation is a vision model
+  on the first 2 pages of the bounded `text_pages = 0` subset, not tesseract.
+- **What attachments actually bought — eligibility, not recall.** Over 424 notices holding both a
+  base and a doc tag: eligibility items/notice **0.12 → 2.40**, scope 79 → 125 chars, and 64% of
+  doc-tier keywords (3,486/5,409) appear nowhere in the notice's own text (`tetrapod`,
+  `geotextile tube`, `MSE retaining wall`). work_type agreement 88%, needs_pcab 90%. That is
+  **journey 4**, not journeys 0/2. Worked example: notice `50936`, ABC ₱1.81B, description
+  `Please see attached file for reference.` → *1,709 sales assistants for Pag-IBIG nationwide, two
+  years*, wage floor ₱1,276.70/day, eligibility `PhilGEPS Platinum · SLCC · NFCC`.
+
+### Tagging — the full pass, measured
+
+- **₱318.93 total** of a ₱1,000 cap: base tier ₱250.48 over 22,068 notices, doc tier ₱68.45 over
+  619. 2,829 batches, **0 failed calls**, 12.72 M in / 2.46 M out. Output is 26% of tokens and
+  **51% of cost** — S6 confirmed.
+- **₱681 left unspent deliberately.** Attachment availability, not budget, was the binding
+  constraint and it is exhausted: of 822 boilerplate-only mPhilGEPS notices, 619 were doc-tagged and
+  203 have no readable attachment. Legacy's 5,426 have no attachment path at all.
+- **12 notices are untagged** — ids 2208–2239, the known permanent-HTTP-500 zombies. Not a coverage
+  bug; they have no body to read.
+- **A pilot bug that shipped silently:** `keywords()` did `" ".join(kw)`, which joins *characters*
+  when the model returns a string instead of an array — `feasibility study` →
+  `f e a s i b l t y u d h g w n r v o c`. **173 of 337 pilot rows (51%) were destroyed and the
+  column looked populated.** Fixed with three asserts; post-fix count over 22,068 rows: **0**.
+- **`other` is down to 697 notices (3.2%)** from the pilot's 10%. The residue clusters into
+  apparel/textiles and power/energy — deliberately *not* added, because it costs ₱250 to re-tag
+  22,068 notices to reclassify 3%.
+
+### Award history — free, ungated, enumerable
+
+- The ASMX layer answers **plain GET with query params, but only with a JSON content-type header**;
+  without it every call returns a generic error, which is what makes it look gated.
+  `AwardAbstract_GetAwardedSupplier` **ignores `refID`** and keys off `awardID` alone, and arbitrary
+  awardIDs resolve — so the whole history (~1.19M ids, Aug 2024 → Jul 2026, ~50K awards/month) is
+  enumerable with no listing and no session. Winner name and full street address included.
+- **Win ratio, n=277: median 99.0% of ABC, 21% land at exactly 100.0%, none above.**
+- **Outsider win rate 30/88 = 34% overall — but 0/5 above ₱5M.** By band: <₱100K 28% (n=18) ·
+  ₱100K–1M 38% (n=40) · ₱1M–5M 40% (n=25) · ₱5M+ **0%** (n=5). n=5 concludes nothing, but the
+  direction says small goods procurement is open to remote suppliers while big civil works is local.
+  See open question 2.
+- **Two quotable-wrong-number traps, both paid for.** `BidderListCount` returned 1 on all 10 awards
+  sampled — it counts award *recipients*, not bidders; do not publish "100% single-bidder". And
+  repeat-winner concentration naively reads 67% because **one procurement is split across one award
+  row per line item**; collapsed to (officer, title, date) the real median top-firm share is
+  **33% — dispersed**.
+- The two list endpoints (`AwardNoticeList_GetList`, `…Auditor_GetList`) accept unauthenticated
+  calls and return `TotalCount: 0, Value: []` for everything. They are user-scoped and **fail
+  silently rather than 403ing**. ID enumeration is strictly better; don't spend time there.
 - **Lead time, measured over all 4,300 rather than a 300-notice sample:** ≤2d 23.2% · 3–6d 36.2% ·
   7–13d 16.3% · 14–29d 21.9% · 30d+ 2.2% · no date 0.3%. **≤6 days = 59.4%**, so DECISIONS' ~60%
   holds — but the 7–13 day band is *2× the sampled estimate* (702 notices, not ~340). The genuinely
@@ -143,15 +255,22 @@ All measured 2026-08-08 unless noted. Numbers that contradict `DECISIONS.md` are
 ```
 ingest.py        mPhilGEPS listing → detail       → tenders.db     [built]
 ingest_legacy.py legacy 1.5 listing → detail      → legacy.db      [built]
-rfp merge        both + source + dupe_key         → corpus.db      [to build]
-rfp tag          Luna, once per notice            → tag columns    [piloted as tag.py]
-rfp search/sql/show/facets    the model's tools                   [to build]
-SKILL.md         how the model drives rfp                          [to build]
-profile.md       the prior                                         [to build]
+merge.py         both + source + dupe_key         → corpus.db      [built, 22,080 notices]
+tag.py           Luna, once per notice            → tags.db        [built, ₱318.93 spent]
+attachments.py   discover/download/extract        → docs.db+blobs/ [built, 17.4 GB, mPhilGEPS only]
+awards.py        ASMX harvest + the two metrics   → awards.db      [built, n=277 sampled]
+rfp search/sql/show/facets    the model's tools                   [built, 38/38 selfchecks]
+eval_recall.py   the S7 oracle harness                             [built, and see "Evaluation"]
+audit_ops.py / verify_audit.py   ops + adversarial asserts         [built, 9/14 and 10/10]
+SKILL.md         how the model drives rfp                          [built]
+profile.md       the prior                                         [built]
 ```
 
-Five files total. `merge` and `tag` are subcommands rather than scripts because nothing else calls
-them.
+`merge` and `tag` stayed separate scripts rather than `rfp` subcommands: they are batch jobs with
+their own spend ledger and locking, and nothing in the query path calls them.
+
+**`rfp build --force` is required for any new tag to reach search** — `work_type`, `scope` and
+`keywords` are FTS5-indexed columns, so tags written after a build are invisible until rebuilt.
 
 **Why two DBs then a merge:** the two ingests were built by parallel agents and neither should block
 on the other. After `merge`, `corpus.db` is the single read surface and the source DBs are inputs.
@@ -286,13 +405,87 @@ catch most of the rest and save ~₱100 once — deliberately not written.
 
 The oracle is the point; without it, recall is unmeasurable and search gets tuned by feel.
 
-1. Pick a slice small enough to fit in context: one work_type × one province, ~300 notices.
-2. Put the whole slice in an expensive model's context with a real query. That output is ground truth.
-3. Run B+C on the same query, scoped to the same slice.
-4. Report **recall against the oracle**, and for each miss, which query expansion failed.
+1. ~~Pick a slice small enough to fit in context: one work_type × one province, ~300 notices.~~
+   **Corrected: slice by geography ALONE.** A `work_type × province` slice makes tag errors
+   invisible — a mistagged notice falls out of the slice instead of registering as a miss, and the
+   eval then "proves" that tags help. Slice used: **all 489 `CAVITE` notices** (412 legacy, 77
+   mPhilGEPS).
+2. Read the whole slice end to end. That is ground truth. **5 queries, 91 labels.** All 91 are
+   legacy notices — not a sampling artefact, it is what the Cavite board is.
+3. Run B+C on the same query, scoped to the same slice, in both `natural` and `expanded` phrasing.
+4. Report **recall against the oracle**, and for each miss, which mechanism failed.
 
-Ten real queries is enough to know whether this works. Run it after the first full tag pass, and
-again any time the tag vocabulary changes.
+Harness: `eval_recall.py` (`selfcheck` / no arg / `depth`), oracle `eval_gt_cavite.json`, full
+write-up `apps/rfp/NOTES-eval.md`.
+
+### The result, run 2026-08-08 overnight
+
+| config | micro | macro |
+|---|---|---|
+| **natural wording, `profile.md` as shipped (`results: 3`)** | **11/91 = 0.12** | 0.15 |
+| natural, n=40 | 48/91 = 0.53 | 0.60 |
+| expanded, n=40 | 62/91 = 0.68 | 0.73 |
+| expanded, n=40, `--province-strict` | 86/91 = 0.95 | 0.96 |
+| expanded, n=40, `--province-strict --no-profile` | **91/91 = 1.00** | 1.00 |
+
+**The shipped configuration finds 12% of what a bidder should see.** Every one of the 91 is
+reachable from title/description/line-items text alone — nothing needed attachments or tags to be
+*findable*. Retrieval is not the problem. Three mechanisms are, in order of damage:
+
+1. **FTS5 reads a bare multi-word query as an implicit AND.** `vehicle spare parts repair` matches
+   **0 of 489**; `vehicle` alone matches 40 (this corpus writes "Parts and Materials"). `relax()`
+   already rewrites to an OR of quoted barewords but is wired only to `sqlite3.OperationalError` — a
+   *syntax* error. A syntactically valid query that ANDs itself to zero rows never triggers it.
+   **Fix: fall back to `relax(q)` on zero/near-zero rows.** One condition.
+2. **`--province X` spends most of the result budget outside X.** Keeping null-location notices is
+   correct — dropping them is the omission bug — but they compete for the same 40 slots at fit 0.85
+   and BM25 doesn't know they're in the wrong province. Measured: **only 82 of 200 returned rows
+   were in Cavite; 113 of the other 118 had no stated location at all.** Cost: **~24 recall
+   points.** Fix is a cap on null-location slots, not a drop.
+3. **Multiplicative `profile_fit` collapses to the 0.20 floor and buries exact matches.** Notice
+   `13171857` (heavy-equipment parts, ₱188K, closes in 1 day) scores `below band` (6% under) ×
+   `tight: 1d vs 5d` × `off-category` = **0.20** — same fit as something in the `never` list. Three
+   mild demotions multiply into a hard exclusion, which is exactly what **S3 forbids**. Needs a
+   per-signal floor, a cap on independent demotions, or an `abc_band` tolerance of ~15%.
+
+Also measured: **orthography splits the vocabulary and nothing bridges it.** `streetlight` matches
+21 slice notices, `"street light"` matches 5, union 26, **zero overlap**. Porter stems
+`streetlights → streetlight` but cannot join two tokens into one.
+
+### Channel ablation — what the expensive work bought
+
+n=200, no profile, so the only thing varying is which text channels search may use:
+
+| channel set | natural | expanded |
+|---|---|---|
+| title/description/items only | 49/91 | 91/91 |
+| + Luna tag scope/keywords | **53/91** | 91/91 |
+| + attachment text | 49/91 | 91/91 |
+| both | 53/91 | 91/91 |
+
+**Attachment text moved recall by exactly zero, in all ten query-runs** — structurally, not by bad
+tuning: 0 of the 91 ground-truth notices have attachment text and only 74 of 489 slice notices do,
+because `documents` holds **0 rows for `source='legacy'`** and Cavite is 412/489 legacy. It is worse
+than neutral at the top of the list: on the shipped default for Q5, three of five returned rows are
+out-of-province notices promoted by an mPhilGEPS document matching "Spare Part". **Attachment
+relevance without a province gate is a precision leak that becomes a recall leak once the cut is 3
+or 40 rows wide.**
+
+**Luna tags moved recall +4 notices (+4.4pp) on natural queries and +0 on expanded ones.** The four
+rescues are all the same shape — the tag supplies a synonym the title never used (`CANAL LINING` →
+*drainage*; `SOLAR STREET LIGHTS` → *streetlight* as one word). Real, and it is the channel that
+survives on legacy where attachments do not, at ₱250 already spent. But it is a synonym patch on a
+query-formulation problem.
+
+**Verdict for the roadmap: the next recall point is not in a new data channel.** It is in the three
+`rfp` fixes above, worth roughly 0.12 → 1.00 on the queries measured. Spend there before spending on
+documents.
+
+*Caveats so the number is not over-read:* one province, five queries, 91 labels; the oracle is one
+exhaustive human read, not a second model's. Cavite is legacy- and LGU-heavy, so a Metro-Manila or
+mPhilGEPS-heavy slice would have far better attachment coverage. **The finding is "attachments
+cannot help on legacy", not "attachments never help".** Precision was not scored and is visibly poor
+at n=200 by design.
 
 The metric that matters is recall, not precision. A contractor who sees three good notices and one
 mediocre one is fine; one who never sees the ₱2M job they'd have won is not.
@@ -361,7 +554,24 @@ if ignored — they fail by omission, which is the failure mode no user reports.
   competitive bidding - others` (10) are distinct strings from the 2,992-row competitive bidding
   bucket and must stay distinct — they're different procurement rules, not typos.
 - **12 zombie notices** (ids 2208–2239) serve permanent HTTP 500s and retire at `fetch_errors = 3`.
-  They carry no closing date, so they'd sort first under a naive `order by closing_at`.
+  They carry no closing date, so they'd sort first under a naive `order by closing_at`. They are
+  also the entire `22,080 corpus vs 22,068 tagged` delta — a stated tolerance, not a coverage bug,
+  and `audit_ops.py` should whitelist them rather than have the number chased.
+- **Multi-contract ITBs — 219 legacy notices name more than one distinct contract.** Notice
+  `13130808` is titled contract `26D00050` (Carmona–Biñan Diversion Road) but its description is one
+  DPWH regional Invitation to Bid covering five contracts, and the *first* block in it is a
+  different project in Quezon Province. So FTS5 over `description` returns these notices for terms
+  belonging to a *sibling* contract — wrong province, wrong scope, individually plausible. ~1.2% of
+  the legacy corpus, ~0.4% cost in scope accuracy. The tag columns are cleaner here because the
+  model anchors on the title (4 of 5 sampled kept the right contract), which argues for ranking
+  `scope`/`keywords` above `description` — `FTS_WEIGHTS` already does.
+- **`corpus.db` is the query surface; `docs.db` is ATTACHed read-only.** Attachment text is ~555 M
+  chars and must never land in the hot DB the model hits on every search. Its FTS5 is
+  external-content with `porter unicode61` and no `tokenchars`.
+- **Attachment matches must be province-gated before they rank.** Measured in the eval: unqualified
+  attachment relevance promoted three out-of-province notices into a five-row result set. A signal
+  that only exists on 19% of the corpus will systematically outrank the 81% that has no attachments
+  at all if it is scored as if the channels were comparable.
 
 ---
 
@@ -374,36 +584,95 @@ Each script keeps one runnable `selfcheck()` with `assert`s, no framework:
   line" when a value was empty, so a missing field silently became the next field's *label*.
   `location` was corrupt on 13% of notices and the capture rate read 100%. A parser test that only
   checks populated fields would have passed.
-- `tag.py test` — boilerplate stripping, item-header removal, keyword normalization.
-- `rfp` — one test that `sql` refuses a write, and one that `search` output stays inside its token
-  budget.
+- `tag.py test` — boilerplate stripping, item-header removal, keyword normalization. The
+  keyword-normalization asserts exist because the pilot's `" ".join(kw)` shredded 51% of rows into
+  single characters while the column still looked populated.
+- `rfp test` — 38 checks, including that `sql` refuses a write and that `search` output stays inside
+  its token budget.
+
+Built overnight, same rule, no framework:
+
+- `extract_lib.py test` — builds its own fixtures including a hand-written image-only PDF, and
+  asserts the two traps that make extraction lie: `pdftotext` returns **rc=0 and 0 characters** on a
+  fully scanned PDF (so the signal is the char count, never the exit code), and it emits a
+  **trailing form feed** so an N-page document splits into N+1 chunks.
+- `attachments.py test`, `merge.py test` (102 asserts), `awards.py test`, `eval_recall.py selfcheck`,
+  `docs_census.py selfcheck`, `recon_docs.py selfcheck`, `legacy_docs_probe.py --selfcheck`
+  (24 asserts, including the landing classifier that distinguishes `ErrorPage.aspx` from
+  `log-in.aspx` — i.e. app fault from auth gate).
+- `verify_audit.py` — 10 adversarial checks that re-derive the document/corpus claims independently
+  rather than trusting the ingest's own counters (cross-contamination, lossless merge cell-by-cell,
+  FTS index integrity, "silent emptiness"). 10/10.
+- `audit_ops.py` — spend arithmetic, tag coverage, disk runway, git hygiene. **Currently 9/14, and
+  the failures are the findings**: 17.8 days of disk runway with a silent cap trip, and the
+  delta-12 zombie notices. It is meant to stay red until those are fixed.
 
 ---
 
 ## Deferred, in priority order
 
-1. **Alerts — the highest-risk deferral in this document.** Journey 2 is the product, and we are
+**Rewritten 2026-08-08 overnight.** The old #2 (attached bid documents, "highest-value next spike")
+is closed — it was run, and the measurement demoted it. The new #1 didn't exist in the old list
+because we hadn't yet measured our own search.
+
+1. **Fix `rfp`. Three bugs, worth 0.12 → 1.00 on the measured slice.** The zero-result `relax()`
+   fallback, the null-location crowding cap, and a per-signal floor on `profile_fit`. This is now
+   the cheapest recall on the board by a wide margin and it is strictly ahead of any new data
+   channel. Detail in "Evaluation".
+2. **Make the disk cap trip loudly.** `attachments.py` currently hits its cap, sets `skipped_cap`,
+   `break`s, and **exits 0**. Runway is **17.8 days at the measured +0.72 GB/day**. This is the
+   precise shape of the failure that killed `chloebellee/philgeps-scraper`: a job that stops working
+   and keeps reporting success. Cheap, and it protects everything else.
+3. **Alerts — still the highest-risk *product* deferral.** Journey 2 is the product, and we are
    shipping without alerts, betting on the user opening the tool daily by their own discipline
    against a corpus where 59.4% closes within 6 days. A user who checks weekly gets a fraction of
    the value and concludes the product doesn't work. First Circle's dead Project Finder *had* daily
    and weekly keyword email alerts — it died of organizational misalignment inside a lender, not
    because alerts were unnecessary, so its death is not evidence we can skip them.
-2. **Attached bid documents.** `Documents` / `Bid Supplements` labels appear on 69 of 69 detail pages
-   sampled and are entirely untouched. The description is boilerplate; the real scope, specs, and
-   terms of reference are in the attachments. This is where C's tags would get their best signal, and
-   no competitor surfaces it. Highest-value next *spike* (alerts above are a build, not a spike).
-3. **LGU registry.** Normalized ~1,600 LGUs — canonical names, aliases, province/region hierarchy,
+4. **Legacy metadata harvest — measured, costed, not run.**
+   `PrintableBidNoticeAbstractUI.aspx?refid={id}` (200 on 90/90) is a strict field *superset* of the
+   page `ingest_legacy.py` currently uses at ~half the bytes (median 25.4 KB vs ~52 KB), and it is
+   the only template exposing `lblDisplayAssocComp`, the attached-document count that `legacy.db`
+   lacks entirely — **~29,300 documents, mean 1.65/notice, and 0% of notices have zero.** Switching
+   also fixes the `bid_supplements` NULL bug for free. Cost: **~24,142 GETs, 661 MB, ~2.0 h at 4
+   workers, <20 MB stored.** Add `assoc_components INTEGER` and a supplements child table
+   `(refID, supp_id, title, type, published)`.
+   Two things it does *not* buy, so nobody re-discovers them: `corr_details` / the supplement list
+   is not a general document index (it populates only for the ~13% with a supplement), and
+   `SplashBidSupplementViewUI.aspx` — the only page that leaks document *filenames*, inside an HTML
+   comment — renders for just **7 of 24 supplements tried (29%)**; the other 17 302 to
+   `ErrorPage.aspx` on both the GET and the postback route. That is a PhilGEPS app fault, not an
+   auth wall (a gate 302s to `log-in.aspx` instead), so filename coverage is structurally capped no
+   matter how politely you crawl. n=24; re-measure before trusting 29%.
+5. **Award history at scale — promoted, because it turned out to be nearly free.** Win ratios,
+   repeat-winner concentration by firm, UNSPSC mix and volume-over-time are computable *now* from
+   `awardID` alone: a 3,000-award sample is ~9,000 requests, under an hour at polite concurrency.
+   Outsider win rate needs the buyer's province, hence the real `refID`, hence the rolling listing
+   at ~100/day — fine for a monthly statistic. This is journey 4's missing half **and** the only
+   evidence we have about who actually wins; its first result already contradicts our targeting
+   (open question 2).
+6. **LGU registry.** Normalized ~1,600 LGUs — canonical names, aliases, province/region hierarchy,
    PSGC codes, district engineering offices — joined to every notice. `competitors.md` argues this is
    the most defensible gap on the board, and that the moat is normalization labour, not code: the only
    product that scraped LGU websites outside PhilGEPS (First Circle) is dead with no replacement, and
    the only LGU-sliced dataset ever published (OCDex) froze in 2019. It's also the substrate for geo
-   ranking, which matters most on the 81% of the corpus that is LGU work.
-4. **Annual Procurement Plans**, browsable to 2027 — journey 6, months of lead time before an ITB
+   ranking, which matters most on the 81% of the corpus that is LGU work — **and the eval just showed
+   geography is where the recall is**, so this is better-supported than it was this morning.
+7. **Annual Procurement Plans**, browsable to 2027 — journey 6, months of lead time before an ITB
    exists.
-5. **Award history.** Legacy award notices are ungated with peso amounts (rolling 100 most recent),
-   which contradicts DECISIONS' claim that no free 2026 award data exists. Award prices are how you'd
-   learn an agency's real price behaviour versus its posted ceiling — journey 4's missing half.
-6. Cron, the daily feed, and the UI.
+8. Cron, the daily feed, and the UI.
+
+**Closed, not deferred — ~~2. Attached bid documents.~~** Run to completion on the reachable half.
+mPhilGEPS: 4,285 notices, 17.4 GB, 555 M chars, ingested. Legacy: gated behind a supplier login and
+not defeated. **Recall contribution: exactly zero.** Value contribution: eligibility, 0.12 → 2.40
+items per notice, which is journey 4. The remaining open item is not a spike, it is a decision —
+**whether to register a PhilGEPS supplier account** to reach legacy's ~29,300 documents. That is a
+ToS and attribution question (the Document Request List attributes every download to your org), not
+an engineering one, and it needs you.
+
+**Also closed: OCR.** Not deferred — declined, with the measurement in "Measured facts". Revisit
+only if the `text_pages = 0 AND scan_pages > 3` population becomes commercially material, and then
+with a vision model on 2 rasterized pages, never tesseract.
 
 ---
 
@@ -415,6 +684,15 @@ Each script keeps one runnable `selfcheck()` with `assert`s, no framework:
    corpus (3 examined vs 40 triaged) and the answer sets the default `results`, the ranking weights,
    and which journey gets built past 0. Suppliers are the larger segment (~72% of notices); contractors
    have more revenue per bid. Unresolved, and `results` in `profile.md` is the seam that defers it.
+   **New evidence, and it points at the supplier:** outsider win rate by contract size is 28% under
+   ₱100K, 38% at ₱100K–1M, 40% at ₱1M–5M, and **0% above ₱5M (n=5)**. If that direction holds, a
+   *discovery* product demonstrably wins work in small goods procurement and demonstrably does not
+   in big civil works, where the market looks local and relationship-driven. That inverts the
+   value-concentration argument (₱15M+ is 79.6% of value) which had been pulling toward the
+   contractor. **n=5 in the top band concludes nothing** — this is the cheapest high-value
+   measurement left, and deferral #5 buys it for ~an hour of requests.
+   Second, smaller nudge in the same direction: `results: 3` is what scored 0.12 in the eval. The
+   deep-cut supplier journey is also the one that scores better.
 3. **Does the software finding change the target user?** ~60–70 live dev contracts nationally is a
    thin market. Civil works is 25–50% of the board. If the pitch is aimed at software firms, the
    addressable pool may be too small to matter.
@@ -426,5 +704,18 @@ Each script keeps one runnable `selfcheck()` with `assert`s, no framework:
    batches. The two 200-notice pilots extrapolated to ₱262–279 and were good to 5%. Tag quality on
    legacy did not degrade — spot-checked 10, 9 correct. See `apps/rfp/NOTES-tag.md`.
 5. Whether Luna is strong enough for PCAB/RA 12009 eligibility reasoning, or that one call escalates
-   to Terra. Unchanged from DECISIONS; the pilot's `eligibility` output looked sane but wasn't
-   checked against the statute.
+   to Terra. **Still open and now materially bigger**, because the doc tier moved eligibility from
+   0.12 to 2.40 items per notice — there is now real output to be wrong. Spot-checks read sane
+   (`valid FDA License to Operate` on a drugs notice, `NFCC or committed line of credit` on a ₱1.81B
+   services contract) and `needs_pcab` agrees 90% between tiers, but **nothing has been checked
+   against the statute.** That check is cheap and has not been done.
+6. **Do we register a PhilGEPS supplier account?** The only route to legacy's ~29,300 bid documents,
+   i.e. to attachments on 81% of the corpus. Not an engineering question — PhilGEPS ToS, and the
+   Document Request List attributes every download to your org, so the crawl is not anonymous. Given
+   that attachments scored +0 on recall, the honest answer may be "not yet, and maybe never."
+7. ~~**Attached bid documents** — highest-value next spike.~~ **Answered overnight 2026-08-08.**
+   mPhilGEPS public and ingested (4,285 notices / 17.4 GB / 555 M chars); legacy gated. Recall
+   contribution **zero**; eligibility contribution 0.12 → 2.40 per notice. See the corrections block
+   and "Deferred".
+8. ~~**Is there free 2026 award data?**~~ **Answered: yes, and the whole history is enumerable by
+   `awardID` with no session.** See "Award history" in measured facts.
