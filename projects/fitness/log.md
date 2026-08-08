@@ -12,6 +12,13 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-08-08
+- **Weight:** 96.4 kg (fasted AM)
+- **Cals / Protein:** ~1550 / ~101g so far (kebab plate ~550/38g: 50g grilled chicken skewer ~90/16g + 50g grilled lamb skewer ~130/14g [fattier cut] + 1 cup basmati rice ~200/4g + grilled tomato & red onion ~50/1g + garlic yogurt sauce ~80/3g; Mediterranean wrap 500/40g [as given]; Blitz protein bar 200/21g [as given]; milk tea ~300/2g [as given])
+- **Carbs / Sodium:** ~160g / ~2.5g so far (rice ~45g; wrap ~40g; milk tea ~50g; bar ~15g; veg + yogurt ~10g. Sodium: kebab seasoning + wrap only — thin, salt tonight or a Liquid IV if he walks)
+- **Trained:** —
+- **Notes:** 96.4 fasted, −0.1 off 8/07 — flat, and exactly the 7/03 baseline. Eight days of no net movement (95.2 on 7/31 → 96.4) because 8/02, 8/06 and 8/07 all closed at or above TDEE. Today is the first day in that stretch with real room: **~1550 / ~101g, 650 under the 2200 ceiling but 44g under the 145 floor.** Call: **2 scoops (~280/48g) → ~1830 / ~149g** — floor cleared, ~370 under the ceiling, clear of the 1700 cal floor, and a genuine ~850 deficit at 2700 TDEE. This is the day the trend needs; don't spend the 650 on food. Protein density was mediocre — the kebab plate was 550 for 38g (14.5 cal/g) and the milk tea was 300 cal for nothing. Fiber thin for the fourth straight day (tomato/onion only, ~4g) — add a banana, it fits inside the room and costs ~105. Next lift owed: **Day A** (Smith incline bench 3×8 · barbell rows 3×10 · RDL 3×8 · leg extensions 3×10) — no session since 8/02, six days.
+
 ## 2026-08-07
 - **Weight:** 96.5 kg (fasted AM)
 - **Cals / Protein:** ~2275 / ~241g (lunch: ~300g pork chop ~700/80g [~230/27 per 100g, lean chop] + latte ~180/9g [12 oz standard, not the sweet 280–300 version — correct me if sweetened] + apple ~95/0g; ½ cup rice ~100/2g [8/02 precedent]; dinner: ~600g air-fried chicken, salt & pepper ~1200/150g [assumed mixed skin-on cuts ~200/25 per 100g — if it was breast it's closer to ~990/186g])
