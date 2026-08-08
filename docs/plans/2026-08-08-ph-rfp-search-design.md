@@ -418,8 +418,13 @@ Each script keeps one runnable `selfcheck()` with `assert`s, no framework:
 3. **Does the software finding change the target user?** ~60–70 live dev contracts nationally is a
    thin market. Civil works is 25–50% of the board. If the pitch is aimed at software firms, the
    addressable pool may be too small to matter.
-4. **Legacy detail-page text size** — unmeasured, and legacy is 81% of the corpus. Fatter pages push
-   the tagging pass toward ₱900; thinner pages make it cheaper but the tags less reliable.
+4. ~~**Legacy detail-page text size** — unmeasured, and legacy is 81% of the corpus. Fatter pages push
+   the tagging pass toward ₱900; thinner pages make it cheaper but the tags less reliable.~~
+   **Answered 2026-08-08 pm — legacy is thinner, and the full pass cost ₱250.48.** Median legacy
+   description is 1,855 chars against mPhilGEPS's 2,507, and legacy has no line-items column:
+   1,230 payload chars/notice (₱0.0117) vs 1,525 (₱0.0127). All 22,068 notices tagged, 0 failed
+   batches. The two 200-notice pilots extrapolated to ₱262–279 and were good to 5%. Tag quality on
+   legacy did not degrade — spot-checked 10, 9 correct. See `apps/rfp/NOTES-tag.md`.
 5. Whether Luna is strong enough for PCAB/RA 12009 eligibility reasoning, or that one call escalates
    to Terra. Unchanged from DECISIONS; the pilot's `eligibility` output looked sane but wasn't
    checked against the statute.
