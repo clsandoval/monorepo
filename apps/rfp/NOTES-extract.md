@@ -1,7 +1,15 @@
 # NOTES-extract — text extraction toolchain and storage design
 
-**Status:** recon complete 2026-08-08, decisions made, no production script written (deliberate —
-a later agent writes `rfp fetchdocs` / `rfp extract` from this).
+**Status:** recon complete 2026-08-08, decisions made. **The production script now exists:
+`apps/rfp/attachments.py`** (`discover` / `download` / `extract` / `run` / `stats` / `test`,
+owns `docs.db`). E1–E4 were adopted verbatim and hold up on real files. **E5's schema in §5 is
+superseded** — `attachments.py` splits it into `blobs` (one row per distinct sha256, extracted
+once) and `documents` (one notice↔document edge per row), because §5's
+`unique index doc_sha on documents(sha256)` makes the same file attached to two notices
+*unrepresentable* rather than deduped; measured 4.7% of fetches are bytes already stored. Read
+`attachments.py`'s docstring for the 200-notice pilot numbers, which correct §2 and §6:
+notice-level OCR need is **13%**, not 37% (n=200), file-level **30.8%** of PDFs, image-only
+pages **11.6%**, and mPhilGEPS projects to **18.5 GB / 1.3 h**, not 44 GB.
 **Artifact left behind:** `apps/rfp/extract_lib.py` — the measured parser primitives plus a
 self-contained assert selfcheck. `python3 extract_lib.py test` builds its own fixtures (including a
 hand-written image-only PDF) and needs no network. It passes.
