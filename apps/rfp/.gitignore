@@ -5,3 +5,8 @@
 *.db
 *.db-journal
 *.log
+
+# Recon scrape outputs — regenerate with docs_census.py list/sizes
+docs_list.jsonl
+docs_sizes.jsonl
+docs_recon.jsonl
