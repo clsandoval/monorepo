@@ -26,6 +26,7 @@ import os
 import re
 import sqlite3
 import sys
+import time
 import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
@@ -49,6 +50,46 @@ URL_LEGACY = ("https://notices.philgeps.gov.ph/GEPSNONPILOT/Tender/"
 # Enforcing a number we can actually hold beats printing one we can't.
 BUDGET_MEAN = 62
 BUDGET_HIT = 78
+
+# ---------------------------------------------------------------------------------------------
+# Attachment text: a SECOND index, joined by notice id.  Not merged into corpus_fts.
+#
+# The decision and the three measurements that force it (2026-08-08):
+#
+#  1. LENGTH ASYMMETRY, 46x.  Median notice that has attachments carries 154,571 chars of
+#     extracted document text against a 3,333-char mean notice body.  BM25 length-normalises,
+#     but one index means one term-frequency space, and the tail wags the dog: a 200-page ITB
+#     that says "generator" forty times in a boilerplate spec annex would outrank a notice
+#     TITLED "Supply and Delivery of One (1) Generator Set".  That is precisely backwards.
+#  2. STRUCTURAL SOURCE BIAS.  17,795 of 22,080 notices (80.6%) can never carry attachment
+#     text, because legacy's document listing is auth-gated (NOTES-extract.md: the doc_view
+#     endpoint answers 200 with a "session has been expired" shell).  Merged into one index,
+#     any attachment-flavoured query silently becomes an mPhilGEPS-only query -- the failure-by-
+#     omission class this corpus punishes hardest, and invisible to the reader.
+#  3. PROVENANCE IS UNRECOVERABLE ONCE MERGED.  One index cannot say whether 'backhoe' came
+#     from the title or from page 47 of an annex.  Ranking a cheap model can audit is the whole
+#     point, so the two scores must stay separable to the end.
+#
+# So: docs.db keeps its blob-level `doc_fts` (8,337 rows, external-content over blobs), corpus.db
+# keeps `corpus_fts`, and `rfp` ATTACHes both read-only and combines the two scores in Python
+# with an explicit weight.  Nothing is copied: duplicating 554.8M chars of document text into
+# corpus.db would cost ~500MB and a rebuild step to buy a strictly worse ranking.
+#
+# DOC_WEIGHT is the cap on how much an attachment-only match can be worth relative to a perfect
+# notice-text match.  At 0.45 an attachment hit can carry a notice into the results (which is the
+# feature -- the scope lives in the PDF) but cannot displace a strong title match (the failure
+# mode named in the brief).  Verified by selfcheck t_doc_weight.
+DOC_WEIGHT = 0.45
+# The distilled tag text (scope/keywords) is one curated sentence per notice -- high precision,
+# no bulk problem -- so it is trusted more per match than an attachment, but still less than the
+# notice's own title.
+TAG_WEIGHT = 0.60
+# doc_fts columns are (text, names).  The human filename is short and highly diagnostic
+# ("BILL OF QUANTITIES.pdf"), so it is weighted well above the body text per character.
+DOC_FTS_WEIGHTS = (1.0, 4.0)
+# Cap on blobs scored per query.  'the OR and OR of' matches 5,908 blobs in 0.215s, so this is a
+# guard against pathological queries, not a routine limit.
+DOC_MATCH_CAP = 12000
 
 # ---------------------------------------------------------------------------------------------
 # Geography.  93 distinct province tokens across both corpora (measured), all clean; `location`
@@ -775,19 +816,64 @@ def db_path():
     return DEFAULT_DB
 
 
+# Auxiliary read surfaces, attached under fixed schema names so `rfp sql` can join them.
+# Order matters only for the error message.
+AUX_DBS = [("docs", lambda: DOCS_DB), ("tags", lambda: SRC_TAGS)]
+
+
+def attach_aux(con):
+    """ATTACH docs.db and tags.db read-only, BEFORE the authorizer goes on.
+
+    The ordering is the whole trick and it is not cosmetic.  The authorizer denies SQLITE_ATTACH
+    outright -- that is what stops `attach 'writable.db' as w; insert into w...`, the one hole
+    mode=ro leaves open.  But a blanket denial also locks US out of the two databases the search
+    layer now needs.  Attaching first and arming the authorizer second gives both: the three
+    databases we intend are visible, and a model that tries to attach a fourth gets
+    'not authorized'.  Verified both directions in selfcheck t_attach.
+
+    Each aux file is itself opened `?mode=ro`, so the attached handles are read-only in their own
+    right; the main connection's mode=ro does NOT propagate to attachments.  Also verified.
+
+    Returns the list of schema names that actually attached.  A missing aux DB is not an error --
+    docs.db is 718MB and gitignored, so a fresh clone has corpus.db and nothing else, and every
+    read path degrades to 'not crawled' rather than to a silent empty list."""
+    got = []
+    for name, pathfn in AUX_DBS:
+        p = pathfn()
+        if not p.exists():
+            continue
+        try:
+            con.execute(f"attach database ? as {name}", (f"file:{p}?mode=ro",))
+            got.append(name)
+        except sqlite3.DatabaseError:
+            pass          # locked / corrupt / wrong build of sqlite: degrade, never die
+    return got
+
+
 def connect(strict=True):
-    """Read-only, twice over.  mode=ro is SQLite's own guarantee; the authorizer closes the
-    `attach 'writable.db' as w; insert into w...` hole that mode=ro does not.  A model that
-    writes DELETE gets an error, not an incident."""
+    """Read-only, three times over.  mode=ro is SQLite's own guarantee on each file; the
+    authorizer closes the `attach 'writable.db' as w; insert into w...` hole that mode=ro does
+    not.  A model that writes DELETE gets an error, not an incident."""
     p = db_path()
     if not p.exists():
         die(f"{p} not found. Run `rfp build` (merges tenders.db + legacy.db + tags.db), "
             f"or set RFP_DB=/path/to/corpus.db")
     con = sqlite3.connect(f"file:{p}?mode=ro", uri=True)
     con.row_factory = sqlite3.Row
+    attach_aux(con)                           # must precede set_authorizer -- see attach_aux
     if strict:
         con.set_authorizer(_authorizer)
     return con
+
+
+def aux_schemas(con):
+    """Which aux databases are actually attached, asked of SQLite rather than remembered.
+    sqlite3.Connection is a C type and rejects attribute assignment, and a cache keyed on
+    id(con) goes stale the moment an id is reused after a close."""
+    try:
+        return {r[1] for r in con.execute("pragma database_list")} - {"main", "temp"}
+    except sqlite3.DatabaseError:
+        return set()
 
 
 _SCHEMA_CACHE = {}
@@ -862,8 +948,31 @@ def schema(con):
                 f"select count(*) from {base} where work_type is not null").fetchone()[0]
         except sqlite3.DatabaseError:
             tagged = None
+    # Aux surfaces.  `tags` matters twice over: corpus.work_type is non-null on ZERO rows in the
+    # merged corpus.db (the tag pass wrote tags.db, and nothing merged it back), so --work-type,
+    # `scope` and `keywords` were dead until the attach landed.  With tags.db attached they
+    # resolve through DERIVED as correlated subqueries -- 9ms for a full-corpus work_type filter,
+    # measured -- and no FROM clause anywhere has to change.
+    aux = aux_schemas(con)
+    tags_ok, docs_ok = "tags" in aux, "docs" in aux
+    tag_src = "base" if tagged else None    # non-zero base count means the merge already ran
+    if tags_ok:
+        try:
+            n = con.execute("select count(*) from tags.tags").fetchone()[0]
+            tags_ok = n > 0
+            if tags_ok and not tagged:
+                tag_src, tagged = "tags_db", n
+        except sqlite3.DatabaseError:
+            tags_ok = False
+    if docs_ok:
+        try:
+            con.execute("select 1 from docs.doc_fts limit 1").fetchone()
+        except sqlite3.DatabaseError:
+            docs_ok = False                # no FTS index over document text -> no doc search
     s = {"tables": info, "base": base, "cols": cols, "fts": fts, "fts_cols": fts_cols,
-         "fts_key": fts_key, "prov": prov, "tagged": tagged}
+         "fts_key": fts_key, "prov": prov, "tagged": tagged,
+         "tags_db": tags_ok, "docs_db": docs_ok, "aux": aux, "tag_src": tag_src,
+         "tag_fts": "tag_fts" in info and bool(info.get("tag_fts"))}
     _SCHEMA_CACHE[key] = s
     return s
 
@@ -907,9 +1016,21 @@ PREFER = {"items": ["items_text", "items"],
           "last_updated": ["updated_at", "last_updated_at", "last_updated", "updated"]}
 
 
+# Columns the tag pass owns.  They exist as (entirely NULL) columns on the merged `corpus` table
+# AND as real values in tags.db, so expr() must prefer whichever one is actually populated.
+TAG_COLS = {"work_type", "needs_pcab", "eligibility", "scope", "keywords",
+            "deliverables", "doc_note", "doc_chars", "tag_tier"}
+_TAG_COL_SQL = {"tag_tier": "tier"}
+
+
 def expr(s, name, default="null"):
     """SQL expression for a canonical column: the real column, else a synthesised one, else NULL.
     Nothing downstream may reference a physical column directly."""
+    # Tags first: a physically-present-but-all-NULL column must lose to a populated one in
+    # tags.db, otherwise every tag-driven filter is a silent no-op returning zero rows.
+    if name in TAG_COLS and s.get("tag_src") == "tags_db":
+        return (f"(select tg.{_TAG_COL_SQL.get(name, name)} from tags.tags tg "
+                f"where tg.id = {s['base']}.id)")
     for cand in PREFER.get(name, []):
         if cand in s["cols"]:
             return f"{s['base']}.{cand}"
@@ -1059,6 +1180,183 @@ SELECT_COLS = ["id", "source", "url", "title", "agency", "mode", "mode_norm", "m
                "delivery"]
 
 
+# ---------------------------------------------------------------------------------------------
+# Three indexes, joined by notice id.  See the DOC_WEIGHT comment at the top for why attachment
+# text is NOT merged into corpus_fts.
+#
+#   corpus_fts   notice text      title / description / items_text / category / agency   (22,080)
+#   tag_fts      distilled text   scope / keywords / deliverables from the Luna pass      (22,068)
+#   docs.doc_fts attachment text  extracted document text + human filenames, per blob      (8,337)
+#
+# Every hit reports which of the three it matched, because a ranking a cheap model cannot audit
+# is indistinguishable from vibes.
+# ---------------------------------------------------------------------------------------------
+PROV_LABEL = {"title": "ttl", "description": "desc", "items_text": "items", "items": "items",
+              "agency": "agcy", "category": "cat", "location": "loc", "keywords": "kw",
+              "scope": "scope", "deliverables": "deliv", "solicitation_no": "ref",
+              "work_type": "wt", "att": "att"}
+# Print order, so provenance reads the same way every time.
+PROV_ORDER = ["ttl", "scope", "kw", "deliv", "items", "desc", "cat", "agcy", "loc", "ref", "wt",
+              "att"]
+
+_BLOB_MAP = {}
+
+
+def blob_notice_map(con):
+    """{blob_id: [notice_id, ...]} for every attached document.
+
+    Loaded whole (9,827 rows, measured 6ms) rather than joined per query.  Blobs are deduped by
+    sha256 in docs.db, so ONE blob legitimately belongs to several notices -- the same ITB
+    boilerplate posted by the same PE under six refIDs -- and a doc-text hit must light up all of
+    them, not an arbitrary one."""
+    key = id(con)
+    if key not in _BLOB_MAP:
+        m = {}
+        try:
+            for blob_id, nid in con.execute(
+                    "select distinct blob_id, notice_id from docs.documents "
+                    "where blob_id is not null"):
+                m.setdefault(blob_id, []).append(nid)
+        except sqlite3.DatabaseError:
+            m = {}
+        _BLOB_MAP[key] = m
+    return _BLOB_MAP[key]
+
+
+def doc_match(con, match_expr, cap=DOC_MATCH_CAP):
+    """Attachment-text hits, aggregated blob-level -> notice-level.
+
+    Returns {notice_id: {"rel": float, "blob": blob_id, "ndocs": int}} where rel is positive and
+    larger-is-better (bm25 returns negative).
+
+    Per notice the score is the BEST matching blob, never the sum.  Summing would rank a notice
+    by how many PDFs it happens to carry -- an artifact of how the BAC packaged the bid docs, not
+    a relevance signal -- and notices carry up to 40 documents.
+
+    Two-phase on purpose: score every matching blob here (cheap, no snippets), then fetch
+    snippets for the handful of blobs that actually survive ranking.  Computing snippets for the
+    5,908 blobs that match a query like 'the OR and OR of' would cost seconds for output nobody
+    reads."""
+    w = ", ".join(str(x) for x in DOC_FTS_WEIGHTS)
+    try:
+        rows = con.execute(
+            f"select rowid, bm25(doc_fts, {w}) as s from docs.doc_fts "
+            f"where doc_fts match ? limit ?", (match_expr, cap)).fetchall()
+    except sqlite3.DatabaseError:
+        return {}
+    m = blob_notice_map(con)
+    by = {}
+    for blob_id, sc in rows:
+        rel = -float(sc or 0.0)
+        for nid in m.get(blob_id, ()):
+            cur = by.get(nid)
+            if cur is None:
+                by[nid] = {"rel": rel, "blob": blob_id, "ndocs": 1}
+            else:
+                cur["ndocs"] += 1
+                if rel > cur["rel"]:
+                    cur["rel"], cur["blob"] = rel, blob_id
+    return by
+
+
+def tag_match(con, s, match_expr, cap=DOC_MATCH_CAP):
+    """Hits against the distilled tag text (scope / keywords / deliverables).
+
+    This is the channel that answers 'what is actually being bought', because the notice
+    description is ~2,086 chars of RA 12009 boilerplate and the title is often a purchase-order
+    number.  Absent until `rfp reindex` has run; absence degrades to no tag channel, never to an
+    error."""
+    if not s.get("tag_fts"):
+        return {}
+    try:
+        rows = con.execute(
+            "select rowid, bm25(tag_fts, 5.0, 4.0, 3.0) as s from tag_fts "
+            "where tag_fts match ? limit ?", (match_expr, cap)).fetchall()
+    except sqlite3.DatabaseError:
+        return {}
+    return {int(r[0]): -float(r[1] or 0.0) for r in rows}
+
+
+def _col_ids(con, s, table, column, match_expr, key_sql):
+    """Notice ids whose `column` matched, for provenance.  One scoped MATCH per column,
+    sub-millisecond each (measured), so provenance costs ~5 extra FTS probes per search."""
+    try:
+        return {int(r[0]) for r in con.execute(
+            f"select {key_sql} from {table} where {table} match ?",
+            (f"{{{column}}} : ({match_expr})",))}
+    except sqlite3.DatabaseError:
+        return set()          # a query FTS5 will not accept per-column: skip that channel
+
+
+def provenance(con, s, match_expr, doc_ids, tag_ids):
+    """{notice_id: [short label, ...]} -- WHERE each hit matched.
+
+    Notice-side channels are recovered by re-running the query restricted to one column at a
+    time.  FTS5 has no 'which column matched' aux function, and the alternatives (parsing
+    highlight() output, or one FTS table per column) are both worse than five cheap probes."""
+    out = {}
+    ft, base = s.get("fts"), s["base"]
+    if match_expr and ft:
+        jk = s.get("fts_key") or "rowid"
+        if ft == base:
+            key_sql = f"{base}.id"
+            frm = ft
+        else:
+            key_sql = f"{base}.id"
+            frm = f"{ft} join {base} on {base}.{jk} = {ft}.rowid"
+        for c in s.get("fts_cols", []):
+            lab = PROV_LABEL.get(c)
+            if not lab:
+                continue
+            try:
+                ids = {int(r[0]) for r in con.execute(
+                    f"select {key_sql} from {frm} where {ft} match ?",
+                    (f"{{{c}}} : ({match_expr})",))}
+            except sqlite3.DatabaseError:
+                continue
+            for i in ids:
+                out.setdefault(i, []).append(lab)
+    for i in tag_ids:
+        out.setdefault(i, []).append("scope")
+    for i in doc_ids:
+        out.setdefault(i, []).append("att")
+    rankmap = {lab: n for n, lab in enumerate(PROV_ORDER)}
+    for i, labs in out.items():
+        out[i] = sorted(set(labs), key=lambda x: rankmap.get(x, 99))
+    return out
+
+
+def doc_snippets(con, blob_ids, match_expr, width=14):
+    """Snippet from the winning blob, plus its human filename -- the evidence line for an
+    attachment match.  Fetched only for blobs that survived ranking."""
+    if not blob_ids:
+        return {}
+    out = {}
+    ph = ",".join("?" * len(blob_ids))
+    try:
+        for r in con.execute(
+                f"select rowid, snippet(doc_fts, 0, '**', '**', '…', ?), "
+                f"       snippet(doc_fts, 1, '', '', '', 6) "
+                f"from docs.doc_fts where doc_fts match ? and rowid in ({ph})",
+                [width, match_expr] + list(blob_ids)):
+            out[int(r[0])] = {"snip": r[1] or "", "name": r[2] or ""}
+    except sqlite3.DatabaseError:
+        return {}
+    return out
+
+
+def doc_names(con, blob_ids):
+    """Human filename per blob, for hits whose snippet could not be produced."""
+    if not blob_ids:
+        return {}
+    ph = ",".join("?" * len(blob_ids))
+    try:
+        return {int(r[0]): (r[1] or "") for r in con.execute(
+            f"select blob_id, names from docs.blobs where blob_id in ({ph})", list(blob_ids))}
+    except sqlite3.DatabaseError:
+        return {}
+
+
 def run_query(con, q, args, prof, pool=None):
     """Fetch a candidate pool, largest-BM25-first when there is a query, then let Python rerank
     with the profile prior.  Two stages because the prior must be able to PROMOTE something BM25
@@ -1114,7 +1412,61 @@ def run_query(con, q, args, prof, pool=None):
         if match_expr and not s["fts"]:
             notes.append("this corpus.db has no FTS index; query text ignored, filters applied")
         rows = attempt(None)
+
+    rows = [dict(r) for r in rows]
+    if match_expr:
+        eff = relax(q) if relaxed else match_expr
+        rows = _fold_aux_channels(con, s, rows, eff, args, where, params, pool, notes)
+    else:
+        for r in rows:
+            r["doc_rel"] = r["tag_rel"] = 0.0
+            r["doc_blob"] = r["doc_ndocs"] = None
+            r["matched"] = []
     return rows, notes, relaxed
+
+
+def _fold_aux_channels(con, s, rows, match_expr, args, where, params, pool, notes):
+    """Merge the tag and attachment channels into the notice-text candidate pool.
+
+    The union step is the point of the whole night: a notice whose ONLY match is on page 12 of an
+    annexed Bill of Quantities is not in `rows` at all, because corpus_fts has never seen that
+    text.  Fetching those notices separately -- under the SAME filters, so an attachment hit
+    cannot smuggle a closed or out-of-band notice past a WHERE clause -- is what makes attachment
+    text searchable rather than merely stored."""
+    want_docs = s.get("docs_db") and not getattr(args, "no_docs_text", False)
+    dm = doc_match(con, match_expr) if want_docs else {}
+    tm = tag_match(con, s, match_expr) if not getattr(args, "no_tag_text", False) else {}
+
+    have = {r["id"] for r in rows}
+    extra = [i for i in set(dm) | set(tm) if i not in have]
+    # Bound the second fetch the same way the first one is bounded.  Ranked by the better of the
+    # two aux signals so the cap keeps the best candidates, not an arbitrary id-ordered slice.
+    extra.sort(key=lambda i: max(dm.get(i, {}).get("rel", 0.0), tm.get(i, 0.0)), reverse=True)
+    extra = extra[:pool]
+    if extra:
+        sel = ", ".join(f"({expr(s,c)}) as {c}" for c in SELECT_COLS)
+        for chunk in [extra[i:i + 500] for i in range(0, len(extra), 500)]:
+            ph = ",".join("?" * len(chunk))
+            sql = (f"select {sel}, 0.0 as rel, null as snip from {s['base']} where "
+                   + " and ".join(where + [f"{expr(s,'id')} in ({ph})"]))
+            rows.extend(dict(r) for r in con.execute(sql, params + list(chunk)))
+
+    prov = provenance(con, s, match_expr, set(dm), set(tm))
+    for r in rows:
+        i = r["id"]
+        d = dm.get(i)
+        r["doc_rel"] = d["rel"] if d else 0.0
+        r["doc_blob"] = d["blob"] if d else None
+        r["doc_ndocs"] = d["ndocs"] if d else None
+        r["tag_rel"] = tm.get(i, 0.0)
+        r["matched"] = prov.get(i, [])
+    if dm:
+        notes.append(f"attachment text matched {len(dm)} notices "
+                     f"({len(extra)} of them invisible to notice-text search)")
+    elif want_docs:
+        notes.append("no attachment-text matches (only 4,285 of 22,080 notices have documents; "
+                     "legacy's document listing is auth-gated)")
+    return rows
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1222,10 +1574,24 @@ def rank(rows, prof, results):
     # ordered by closing date with the worst-fitting notice first.  When there is no relevance
     # signal, the prior IS the ranking.
     mx = max((r["rel"] for r in rows), default=0.0)
+    # The three channels are normalised independently and then summed with weights, rather than
+    # thrown into one BM25 term space.  Independent normalisation is what stops attachment bulk
+    # from eating the ranking: a 200-page annex and a 40-char title each top out at 1.0 in their
+    # own channel, so the weights -- not the character counts -- decide who wins.
+    dmx = max((r.get("doc_rel") or 0.0 for r in rows), default=0.0)
+    tmx = max((r.get("tag_rel") or 0.0 for r in rows), default=0.0)
+    div = 1.0 + (DOC_WEIGHT if dmx > 0 else 0.0) + (TAG_WEIGHT if tmx > 0 else 0.0)
+    any_signal = mx > 0 or dmx > 0 or tmx > 0
     scored = []
     for r in rows:
         fit, notes = profile_fit(r, prof, want, adj)
-        base = (r["rel"] / mx) if mx > 0 else 1.0
+        if not any_signal:
+            base = 1.0
+        else:
+            n = (r["rel"] / mx) if mx > 0 else 0.0
+            d = ((r.get("doc_rel") or 0.0) / dmx) if dmx > 0 else 0.0
+            t = ((r.get("tag_rel") or 0.0) / tmx) if tmx > 0 else 0.0
+            base = (n + DOC_WEIGHT * d + TAG_WEIGHT * t) / div
         scored.append((round(base * fit, 4), fit, notes, r))
     scored.sort(key=lambda t: (-t[0], t[3]["closing_at"] or "9999"))
     return scored[:results]
@@ -1301,6 +1667,27 @@ def hoist_common_notes(hits):
     return out, [f"all/most hits: {n}" for n in sorted(common)]
 
 
+def attach_doc_evidence(con, hits, match_expr):
+    """Fill in the attachment snippet + filename for the hits that are about to be printed.
+
+    Phase two of doc_match's two-phase design: snippets are produced for the <=40 winning blobs,
+    never for the thousands that merely matched."""
+    if not match_expr or not hits:
+        return
+    blobs = [r["doc_blob"] for _, _, _, r in hits if r.get("doc_blob")]
+    if not blobs:
+        return
+    ev = doc_snippets(con, blobs, match_expr)
+    names = doc_names(con, [b for b in blobs if b not in ev])
+    for _, _, _, r in hits:
+        b = r.get("doc_blob")
+        if not b:
+            continue
+        e = ev.get(b)
+        r["doc_snip"] = (e or {}).get("snip") or ""
+        r["doc_name"] = ((e or {}).get("name") or names.get(b, "") or "").split(",")[0].strip()
+
+
 def render_hits(hits, prof, budget=BUDGET_MEAN, show_snip=True):
     hits, footer = hoist_common_notes(hits)
     return [format_hit(*h, prof, budget=budget, show_snip=show_snip) for h in hits], footer
@@ -1316,7 +1703,12 @@ def format_hit(score, fit, notes, row, prof, budget=BUDGET_MEAN, show_snip=True)
         g = agency_province(row["agency"])
         prov = f"~{g}" if g else "loc?"     # '~' = inferred from the agency name, not stated
     mode = MODE_SHORT.get(row["mode_family"] or "", (row["mode_family"] or "?")[:4])
-    head = f"[{row['id']}] {abcs} {days_str(row['closing_at'])} {prov} {mode} fit{fit:.2f}"
+    # Provenance: WHERE this hit matched, as a '+'-joined code list.  ~3 tokens, and without it
+    # the reader cannot tell an exact title match from a word buried in an annex -- which is the
+    # difference between a lead and a coincidence.
+    m = row.get("matched") or []
+    head = (f"[{row['id']}] {abcs} {days_str(row['closing_at'])} {prov} {mode} fit{fit:.2f}"
+            + (" @" + "+".join(m) if m else ""))
     notes = [n if len(n) <= 44 else n[:43] + "…" for n in notes]
     bits = [abbrev_agency(row["agency"])]
     if row["work_type"]:
@@ -1332,6 +1724,14 @@ def format_hit(score, fit, notes, row, prof, budget=BUDGET_MEAN, show_snip=True)
         # A snippet that only repeats the title earns nothing; spend those tokens on scope.
         if plain and plain.strip("… ") in title.lower():
             snip = None
+    # An attachment match earns the evidence line ahead of the notice text: it is the only
+    # channel whose hit the reader cannot otherwise verify, and naming the file is what makes it
+    # checkable ('BOQ.pdf' vs 'Annex D').
+    if show_snip and "att" in m and row.get("doc_snip"):
+        nm = (row.get("doc_name") or "").strip()
+        if len(nm) > 26:
+            nm = nm[:25] + "…"
+        snip = (f"{nm}: " if nm else "att: ") + clean_snip(row["doc_snip"])
     if not snip and row["scope"]:
         snip = norm_ws(row["scope"])
 
@@ -1345,7 +1745,14 @@ def format_hit(score, fit, notes, row, prof, budget=BUDGET_MEAN, show_snip=True)
     # The order of sacrifice, cheapest first: snippet length, then title length, then the SECOND
     # profile annotation.  The first annotation is never dropped -- a demoted hit whose reason is
     # invisible is worse than no hit, because the reader cannot tell a stretch from a mismatch.
-    for tmax, smax, nmax in ((100, 78, 2), (92, 64, 2), (84, 56, 1), (80, 0, 1), (68, 0, 1)):
+    ladder = ((100, 78, 2), (92, 64, 2), (84, 56, 1), (80, 0, 1), (68, 0, 1))
+    # An attachment-ONLY hit is the exception.  Its title and description do not contain the
+    # query at all, so dropping the snippet leaves a row whose presence in the results looks
+    # arbitrary -- the reader sees '@att' and no evidence.  For those, sacrifice the title and
+    # the second annotation first and keep a (shorter) evidence line to the end.
+    if m == ["att"] and snip:
+        ladder = ((88, 70, 1), (76, 62, 1), (64, 54, 1), (52, 46, 1), (46, 40, 1))
+    for tmax, smax, nmax in ladder:
         t = title if len(title) <= tmax else title[:tmax - 1].rstrip() + "…"
         sn = None
         if smax and snip:
@@ -1402,13 +1809,16 @@ def cmd_search(args):
     rows, notes, relaxed = run_query(con, args.query, args, prof)
     notes = told + notes
     hits = rank(rows, prof, args.results)
+    attach_doc_evidence(con, hits, norm_ws(args.query) if args.query else None)
 
     if args.json:
         out = []
         for score, fit, fnotes, r in hits:
             d = {k: r[k] for k in r.keys() if k != "snip"}
             d.update(score=score, fit=fit, fit_notes=fnotes, days=days_to(r["closing_at"]),
-                     snippet=clean_snip(r["snip"]))
+                     snippet=clean_snip(r["snip"]), matched_in=r.get("matched") or [],
+                     doc_snippet=clean_snip(r.get("doc_snip") or "") or None,
+                     doc_name=r.get("doc_name") or None)
             out.append(d)
         print(json.dumps({"query": args.query, "candidates": len(rows), "returned": len(out),
                           "notes": notes, "hits": out}, indent=1, default=str))
@@ -1499,95 +1909,112 @@ def cmd_facets(args):
 
 
 # ---------------------------------------------------------------------------------------------
-def docs_for(ids):
-    """Attached bid documents, if docs.db has landed.
+def docs_for(ids, want_text=False):
+    """Attached bid documents for a set of notice ids.
 
-    Returns (docs_by_notice_id, crawl_status_by_notice_id, note).  The distinction between
-    'this notice has no attachments' and 'this notice has not been crawled yet' is the whole
-    point: docs.db currently covers 200 of 22,068 notices, and reporting an uncrawled notice as
-    having zero documents would be a lie the reader cannot detect.  The design doc calls
-    attachments the highest-value deferred item -- the description is boilerplate and the real
-    scope lives here -- so `show` must be precise about which it is.
+    Returns (docs_by_notice_id, crawl_status_by_notice_id, note).
 
-    A sibling job owns docs.db, so the shape is discovered: a documents table keyed by notice_id,
-    text either on that table or on a blobs table joined by blob_id/sha256.
+    'This notice has no attachments' and 'this notice was never crawled for attachments' are
+    different answers and the caller must be able to tell them apart.  docs.db covers the 4,285
+    mPhilGEPS notices only -- legacy's document listing is auth-gated (NOTES-extract.md: the
+    doc_view endpoint answers HTTP 200 with a 'session has been expired' shell, so there is
+    nothing to fetch without a supplier login, and we do not have one).  Reporting 17,795 legacy
+    notices as 'no documents' would be a lie the reader cannot detect.
+
+    `want_text` is off by default: the median attached document is 56,276 chars and a notice
+    carries up to 40 of them, so text is fetched only when someone asks to read it.
     """
     empty = ({}, {}, "docs.db not present (attached bid documents not ingested)")
     if not DOCS_DB.exists():
         return empty
+    if not ids:
+        return {}, {}, "no ids"
     try:
         con = sqlite3.connect(f"file:{DOCS_DB}?mode=ro", uri=True)
         con.row_factory = sqlite3.Row
     except sqlite3.DatabaseError as e:
         return {}, {}, f"docs.db unreadable: {e}"
     try:
-        info = {}
-        for (t,) in con.execute(
-                "select name from sqlite_master where type in ('table','view')").fetchall():
-            try:
-                info[t] = {r[1].lower(): r[1] for r in con.execute(f"pragma table_info({t})")}
-            except sqlite3.DatabaseError:
-                pass
-        ID = ("notice_id", "tender_id", "ref_id", "refid")
-        NM = ("human_name", "name", "filename", "file_name", "doc_name", "url")
-        TX = ("text", "extracted_text", "body", "content", "plain_text")
-        dt = next((t for t, c in info.items()
-                   if any(k in c for k in ID) and any(k in c for k in NM)), None)
-        if not dt:
-            return {}, {}, f"docs.db present but no (notice_id, name) table among {list(info)}"
-        c = info[dt]
-        idc = next(c[k] for k in ID if k in c)
-        nmc = next(c[k] for k in NM if k in c)
-        txc = next((c[k] for k in TX if k in c), None)
-        # text on a separate blobs table?
-        join, bt = "", None
-        if not txc:
-            for k in ("blob_id", "sha256"):
-                if k not in c:
-                    continue
-                bt = next((t for t, cc in info.items()
-                           if t != dt and k in cc and any(x in cc for x in TX)), None)
-                if bt:
-                    txc = f"b.{next(info[bt][x] for x in TX if x in info[bt])}"
-                    join = f" left join {bt} b on b.{info[bt][k]} = d.{c[k]}"
-                    break
-        opt = {k: c[k] for k in ("fmt", "bytes", "chars", "extract_status", "extract_note",
-                                 "is_supplement", "member_path", "seq", "url", "uploaded")
-               if k in c}
-        sel = [f"d.{idc} as nid", f"d.{nmc} as name",
-               (f"{txc} as text" if txc else "null as text")]
-        sel += [f"d.{v} as {k}" for k, v in opt.items()]
-        if bt and "chars" in info[bt]:
-            sel.append(f"b.{info[bt]['chars']} as blob_chars")
         ph = ",".join("?" * len(ids))
-        order = f" order by d.{opt['seq']}" if "seq" in opt else ""
+        text_sel = "b.text as text," if want_text else "null as text,"
         docs = {}
-        for r in con.execute(f"select {', '.join(sel)} from {dt} d{join} "
-                             f"where d.{idc} in ({ph}){order}", list(ids)):
+        for r in con.execute(f"""
+                select d.notice_id as nid, d.doc_id, d.source, d.url,
+                       coalesce(d.human_name, d.filename) as name,
+                       d.member_path, d.parent_doc_id, d.seq, d.uploaded, d.is_supplement,
+                       d.blob_id, d.sha256, d.bytes, d.fmt,
+                       d.extract_status, d.extract_note,
+                       coalesce(d.chars, b.chars) as chars,
+                       b.pages, b.text_pages, b.scan_pages, b.sheets,
+                       {text_sel}
+                       b.names as blob_names
+                from documents d left join blobs b on b.blob_id = d.blob_id
+                where d.notice_id in ({ph})
+                order by d.notice_id, coalesce(d.seq, 9999), d.doc_id""", list(ids)):
             docs.setdefault(r["nid"], []).append({k: r[k] for k in r.keys()})
-        # crawl coverage: a per-notice table that records whether documents were even looked for.
         status = {}
-        nt = next((t for t, cc in info.items()
-                   if t != dt and any(k in cc for k in ID) and "status" in cc), None)
-        if nt:
-            cc = info[nt]
-            nid = next(cc[k] for k in ID if k in cc)
-            extra = [f"{cc[k]} as {k}" for k in ("n_docs", "http_status", "fetch_errors")
-                     if k in cc]
-            for r in con.execute(f"select {nid} as nid, {cc['status']} as status"
-                                 + ("," + ",".join(extra) if extra else "")
-                                 + f" from {nt} where {nid} in ({ph})", list(ids)):
-                status[r["nid"]] = {k: r[k] for k in r.keys()}
-        tot = con.execute(f"select count(*) from {dt}").fetchone()[0]
-        cov = con.execute(f"select count(*) from {nt}").fetchone()[0] if nt else None
-        note = (f"docs.db: {tot} documents"
-                + (f" across {cov} crawled notices of 22,068 -- coverage is a pilot, "
-                   f"absence here is NOT absence of attachments" if cov else ""))
+        for r in con.execute(
+                f"select notice_id as nid, status, n_docs, http_status, fetch_errors "
+                f"from notices where notice_id in ({ph})", list(ids)):
+            status[r["nid"]] = {k: r[k] for k in r.keys()}
+        tot, cov = con.execute(
+            "select (select count(*) from documents), (select count(*) from notices)").fetchone()
+        note = (f"docs.db: {tot} documents across {cov} crawled notices; "
+                f"mPhilGEPS only -- legacy document listings are auth-gated, so absence here is "
+                f"NOT absence of attachments")
         return docs, status, note
     except sqlite3.DatabaseError as e:
         return {}, {}, f"docs.db query failed: {e}"
     finally:
         con.close()
+
+
+def doc_text_for(doc_ids):
+    """Extracted text for specific doc_ids.  Separate from docs_for so listing never pays for
+    text: one blob can be 2.27M chars."""
+    if not DOCS_DB.exists() or not doc_ids:
+        return {}
+    try:
+        con = sqlite3.connect(f"file:{DOCS_DB}?mode=ro", uri=True)
+    except sqlite3.DatabaseError:
+        return {}
+    try:
+        ph = ",".join("?" * len(doc_ids))
+        return {int(r[0]): (r[1] or "") for r in con.execute(
+            f"select d.doc_id, b.text from documents d left join blobs b "
+            f"on b.blob_id = d.blob_id where d.doc_id in ({ph})", list(doc_ids))}
+    except sqlite3.DatabaseError:
+        return {}
+    finally:
+        con.close()
+
+
+def grep_text(text, pattern, ctx=1, cap=40):
+    """Matching lines (+/- ctx) from a document, for --grep.  A 200-page ITB has one paragraph
+    you care about; printing the other 199 pages to find it defeats the purpose."""
+    try:
+        rx = re.compile(pattern, re.I)
+    except re.error as e:
+        return [f"(bad --grep regex: {e})"]
+    lines = [ln.rstrip() for ln in text.splitlines()]
+    keep = set()
+    for i, ln in enumerate(lines):
+        if rx.search(ln):
+            keep.update(range(max(0, i - ctx), min(len(lines), i + ctx + 1)))
+    if not keep:
+        return []
+    out, prev = [], None
+    for i in sorted(keep):
+        if prev is not None and i > prev + 1:
+            out.append("    ...")
+        s = norm_ws(lines[i])
+        if s:
+            out.append(f"    {i+1}: {s[:300]}")
+        prev = i
+        if len(out) >= cap:
+            out.append(f"    ... (truncated at {cap} lines; tighten --grep)")
+            break
+    return out
 
 
 def cmd_show(args):
@@ -1603,7 +2030,16 @@ def cmd_show(args):
     rows = con.execute(f"select {sel} from {s['base']} where {s['base']}.id in ({ph})",
                        ids).fetchall()
     found = {r["id"] for r in rows}
+    want_text = getattr(args, "doc_text", None) or (("*" if args.grep else None)
+                                                    if hasattr(args, "grep") else None)
     docs, dstat, docnote = docs_for(ids) if not args.no_docs else ({}, {}, "docs suppressed")
+    # Text is fetched in a second pass, for the requested documents only.  The median blob is
+    # 56,276 chars and the largest is 2.27M, so `show` must never pull text it will not print.
+    dtext = {}
+    if want_text and not args.no_docs:
+        ids_w = [d["doc_id"] for dl in docs.values() for d in dl
+                 if want_text == "*" or str(d["doc_id"]) == str(want_text)]
+        dtext = doc_text_for(ids_w)
 
     if args.json:
         out = []
@@ -1685,18 +2121,40 @@ def cmd_show(args):
                 print(f"  bid_supplements={r['bid_supplements']} "
                       f"doc_req_list={r['doc_req_list']}")
         for d in dl:
-            meta = " ".join(f"{k}={d[k]}" for k in ("fmt", "bytes", "extract_status")
+            meta = " ".join(f"{k}={d[k]}" for k in ("fmt", "bytes", "pages", "chars",
+                                                    "extract_status")
                             if d.get(k) not in (None, ""))
             sup = " [SUPPLEMENT: uploaded after posting]" if d.get("is_supplement") else ""
             inside = f" (inside {d['member_path']})" if d.get("member_path") else ""
-            print(f"  * {d.get('name')}{inside}  {meta}{sup}")
-            t = norm_ws(d.get("text") or "")
-            if t:
-                print("    " + (t[:args.chars] if args.chars else t)
-                      + (f"  [... {len(t)-args.chars} more chars]"
-                         if args.chars and len(t) > args.chars else ""))
-            elif d.get("extract_note"):
-                print(f"    no text: {d['extract_note']}")
+            print(f"  #{d['doc_id']} {d.get('name')}{inside}  {meta}{sup}")
+            if d.get("scan_pages"):
+                print(f"      {d['scan_pages']} image-only page(s): text is partial "
+                      f"(no OCR was run)")
+            if not d.get("chars") and d.get("extract_note"):
+                print(f"      no text: {d['extract_note']}")
+        if dl and not want_text:
+            print(f"  (text not shown; `rfp show {r['id']} --doc-text` for all, "
+                  f"`--doc-text <doc_id>` for one, `--grep PATTERN` to search inside)")
+
+        # --- extracted document text, on request only ---------------------------------------
+        for d in dl if want_text else []:
+            if want_text != "*" and str(d["doc_id"]) != str(want_text):
+                continue
+            t = dtext.get(d["doc_id"]) or ""
+            if not t.strip():
+                print(f"  --- #{d['doc_id']} {d.get('name')}: NO TEXT "
+                      f"({d.get('extract_status')}: {d.get('extract_note') or '-'})")
+                continue
+            print(f"  --- #{d['doc_id']} {d.get('name')} "
+                  f"({len(t):,} chars) " + "-" * 24)
+            if args.grep:
+                hits = grep_text(t, args.grep)
+                print("\n".join(hits) if hits else f"    (no line matches {args.grep!r})")
+            else:
+                cap = args.doc_chars
+                print("    " + norm_ws(t[:cap] if cap else t).replace("\n", "\n    ")
+                      + (f"\n    [... {len(t)-cap:,} more chars; --doc-chars 0 for all]"
+                         if cap and len(t) > cap else ""))
     for i in ids:
         if i not in found:
             print(f"[{i}] not in corpus (unenriched, retired at fetch_errors=3, or wrong id)")
@@ -1704,6 +2162,49 @@ def cmd_show(args):
 
 
 # ---------------------------------------------------------------------------------------------
+def cmd_reindex(args):
+    """Build `tag_fts` inside corpus.db from tags.db.
+
+    The one thing here that writes.  It is a separate subcommand rather than part of `build`
+    because `build` merges the two ingests and takes minutes, while this reads 22,068 short rows
+    and takes about a second -- and the tag pass reruns far more often than the ingest does.
+
+    Contents are the distilled fields only (scope, keywords, deliverables).  Deliberately NOT the
+    notice body: that is already in corpus_fts, and indexing it twice would double-count it in
+    the combined score for no recall gain."""
+    p = db_path()
+    if not p.exists():
+        die(f"{p} not found; run `rfp build` first")
+    if not SRC_TAGS.exists():
+        die(f"{SRC_TAGS} not found; nothing to index")
+    con = sqlite3.connect(str(p))
+    con.execute("attach database ? as tags", (f"file:{SRC_TAGS}?mode=ro",))
+    t0 = time.time()
+    con.executescript("""
+        drop table if exists tag_fts;
+        create virtual table tag_fts using fts5(
+          scope, keywords, deliverables,
+          tokenize="porter unicode61 remove_diacritics 2"
+        );
+    """)
+    # rowid = notice id, so every join in the search path is `tag_fts.rowid = corpus.id` and no
+    # second mapping table has to be kept in step.
+    n = con.execute("""
+        insert into tag_fts(rowid, scope, keywords, deliverables)
+        select t.id, coalesce(t.scope,''), coalesce(t.keywords,''), coalesce(t.deliverables,'')
+        from tags.tags t
+        where exists (select 1 from corpus c where c.id = t.id)
+    """).rowcount
+    con.execute("insert into tag_fts(tag_fts) values('optimize')")
+    con.commit()
+    orphan = con.execute(
+        "select count(*) from corpus c where not exists "
+        "(select 1 from tag_fts f where f.rowid = c.id)").fetchone()[0]
+    con.close()
+    print(f"tag_fts: {n} rows indexed in {time.time()-t0:.1f}s ({orphan} corpus rows untagged)")
+    return 0
+
+
 def cmd_sql(args):
     q = args.query.strip().rstrip(";").strip()
     low = q.lower()
@@ -2404,35 +2905,193 @@ def selfcheck(args):
     check("agency-name geography: precision and recovery still hold", t_agency_province)
 
     def t_docs():
-        """docs.db is owned elsewhere and its shape was discovered, not agreed.  If discovery
-        breaks, `show` must degrade to 'not crawled', never to a silent empty list that reads as
-        'this notice has no attachments'."""
+        """`show` must never conflate 'no attachments' with 'never crawled'.  Legacy is 80.6% of
+        the corpus and can NEVER have documents (auth-gated listing), so a silent empty list
+        would read as fact when it is an access limit."""
         docs, dstat, note = docs_for([-1])
         assert isinstance(docs, dict) and isinstance(dstat, dict) and note
         if not DOCS_DB.exists():
             return
         con2 = sqlite3.connect(f"file:{DOCS_DB}?mode=ro", uri=True)
         try:
-            t = next((r[0] for r in con2.execute(
-                "select name from sqlite_master where type='table'")
-                if "notice_id" in [x[1] for x in con2.execute(f"pragma table_info({r[0]})")]),
-                None)
-            if not t:
-                return
-            nid = con2.execute(f"select notice_id from {t} limit 1").fetchone()[0]
+            nid, did = con2.execute(
+                "select d.notice_id, d.doc_id from documents d join blobs b "
+                "on b.blob_id = d.blob_id where b.chars > 0 limit 1").fetchone()
         finally:
             con2.close()
         d, st, note = docs_for([nid])
         assert nid in d or nid in st, f"docs.db knows notice {nid} but docs_for found nothing"
-        if nid in d:
-            got = d[nid][0]
-            assert got.get("name"), got
-            assert "text" in got, "text column must be resolved (it lives on blobs, not documents)"
-            assert any(x.get("text") for x in d[nid]), \
-                "no document text came back; the blobs join is broken"
-        selfcheck.docs = f"{note}; probe notice {nid} -> {len(d.get(nid, []))} documents"
-    check("docs.db discovery resolves names AND text, and says when a notice is uncrawled",
-          t_docs)
+        got = d[nid][0]
+        assert got.get("name") and got.get("doc_id"), got
+        # Listing must NOT carry text: the median blob is 56K chars and notices carry up to 40.
+        assert got.get("text") is None, "docs_for() must not fetch text unless asked"
+        txt = doc_text_for([did])
+        assert txt.get(did), f"doc_text_for({did}) returned no text; the blobs join is broken"
+        selfcheck.docs = (f"{note}; probe notice {nid} -> {len(d.get(nid, []))} documents, "
+                          f"doc {did} -> {len(txt[did]):,} chars")
+    check("docs listing separates 'no attachments' from 'never crawled', text is opt-in", t_docs)
+
+    def t_attach():
+        """The attach-then-authorize ordering, both directions.  Get this backwards and either
+        the aux databases are invisible (search silently loses two of three channels) or the
+        `attach a writable db and INSERT into it` hole reopens."""
+        aux = aux_schemas(con)
+        assert "docs" in aux or not DOCS_DB.exists(), f"docs.db not attached: {aux}"
+        assert "tags" in aux or not SRC_TAGS.exists(), f"tags.db not attached: {aux}"
+        # every attached file is read-only in its own right (main's mode=ro does not propagate)
+        for sql in ("insert into docs.skips(at) values('x')",
+                    "update tags.tags set work_type='x'",
+                    "delete from docs.documents"):
+            tbl = sql.split()[1].split("(")[0].split(".")[0]
+            if tbl not in aux:
+                continue
+            try:
+                con.execute(sql)
+                raise AssertionError(f"WROTE to an attached db: {sql}")
+            except sqlite3.DatabaseError as e:
+                assert "readonly" in str(e).lower() or "not authorized" in str(e).lower(), e
+        # and no FOURTH database can be attached after the authorizer is armed
+        try:
+            con.execute("attach database ? as w", (str(HERE / "corpus.db"),))
+            raise AssertionError("ATTACH was permitted after the authorizer was armed")
+        except sqlite3.DatabaseError as e:
+            assert "not authorized" in str(e).lower(), e
+        selfcheck.attach = f"attached {sorted(aux)}; all read-only; further ATTACH denied"
+    check("aux DBs attach read-only, and further ATTACH is still denied", t_attach)
+
+    def t_tag_wiring():
+        """corpus.work_type is NULL on every row of the merged corpus.db -- the tag pass wrote
+        tags.db and nothing merged it back.  If expr() stops preferring tags.db, --work-type
+        silently becomes a no-op that returns zero rows, which is the omission failure."""
+        if not s.get("tags_db"):
+            return "SKIPPED (tags.db absent)"
+        n = con.execute(f"select count(*) from {s['base']} "
+                        f"where ({expr(s,'work_type')}) = 'civil_works'").fetchone()[0]
+        assert n > 100, f"only {n} civil_works rows; the tags.db join is broken"
+        a = _args_for_search(results=5, work_type=["civil_works"])
+        rows, _, _ = run_query(con, "road", a, {"_enabled": False})
+        assert rows, "--work-type civil_works returned nothing"
+        assert all(r["work_type"] == "civil_works" for r in rows), \
+            "a --work-type filter let a different work_type through"
+        assert any(r["scope"] for r in rows), "scope never populated from tags.db"
+        selfcheck.tagwire = f"{n} civil_works rows visible through tags.db"
+    check("tag columns resolve through the attached tags.db, not the empty base columns",
+          t_tag_wiring)
+
+    def t_doc_search():
+        """The point of the night: text that exists ONLY in an attachment must be findable, and
+        the hit must say so."""
+        if not s.get("docs_db"):
+            return "SKIPPED (docs.db absent)"
+        # A term that lives almost entirely in attachments.  'backhoe' would be a bad probe: it
+        # appears in 85 notice titles, so the attachment-only hits are CORRECTLY outranked and
+        # the test would fail on working code.  "slump test" is a concrete QC clause that
+        # appears in 158 notices' documents and exactly 1 notice's own text.
+        probe = '"slump test"'
+        dm = doc_match(con, probe)
+        assert dm, f"{probe!r} matched no attachment text at all"
+        # It must reach notices whose own text never mentions the term -- otherwise the
+        # attachment index is decorative and notice-text search would have found them anyway.
+        ph = ",".join("?" * len(dm))
+        vis = {r[0] for r in con.execute(
+            f"select {s['base']}.id from {s['fts']} "
+            f"join {s['base']} on {s['base']}.{s['fts_key']} = {s['fts']}.rowid "
+            f"where {s['fts']} match ? and {s['base']}.id in ({ph})",
+            [probe] + list(dm))}
+        only_doc = set(dm) - vis
+        assert only_doc, \
+            f"every {probe!r} attachment hit was already visible in notice text -- no recall gain"
+        # and the end-to-end search must actually return one of them, marked @att
+        a = _args_for_search(results=25)
+        rows, _, _ = run_query(con, probe, a, {"_enabled": False})
+        hits = rank(rows, {"_enabled": False}, 25)
+        att = [r for _, _, _, r in hits if "att" in (r.get("matched") or [])]
+        assert att, f"no hit for {probe!r} was marked as an attachment match"
+        assert any(r["id"] in only_doc for _, _, _, r in hits), \
+            "search returned no attachment-only notice; the union step is not working"
+        selfcheck.docsearch = (f"{probe!r}: {len(dm)} notices via attachments, "
+                               f"{len(only_doc)} of them invisible to notice text")
+    check("attachment-only text is findable end-to-end and marked @att", t_doc_search)
+
+    def t_doc_weight():
+        """The failure the brief names: a notice whose PDF repeats a word must not outrank a
+        notice whose TITLE is an exact match.  Asserted on the arithmetic, not on a vibe."""
+        def mk(rel, doc_rel):
+            return {"rel": rel, "doc_rel": doc_rel, "tag_rel": 0.0, "closing_at": "2026-09-01",
+                    "abc": 1e6, "province": None, "provinces": None, "agency": "X",
+                    "work_type": None, "abc_lot_min": None, "abc_lot_max": None,
+                    "needs_pcab": None, "id": 1, "matched": []}
+        title_hit = mk(10.0, 0.0)      # perfect notice-text match, no attachment
+        pdf_hit = mk(0.0, 10.0)        # perfect attachment match, no notice-text match
+        pdf_hit["id"] = 2
+        out = rank([title_hit, pdf_hit], {"_enabled": False}, 2)
+        assert out[0][3]["id"] == 1, \
+            "an attachment-only match outranked an exact notice-text match"
+        assert out[0][0] > out[1][0] * 1.5, \
+            f"attachment weight too high: {out[1][0]} vs {out[0][0]} (DOC_WEIGHT={DOC_WEIGHT})"
+        both = mk(10.0, 10.0); both["id"] = 3
+        out2 = rank([title_hit, both], {"_enabled": False}, 2)
+        assert out2[0][3]["id"] == 3, "matching in BOTH channels must beat matching in one"
+        selfcheck.docweight = (f"DOC_WEIGHT={DOC_WEIGHT} TAG_WEIGHT={TAG_WEIGHT}: "
+                               f"title-only {out[0][0]} > attachment-only {out[1][0]}")
+    check("an attachment match cannot outrank an exact notice-text match", t_doc_weight)
+
+    def t_provenance():
+        """Provenance is what makes a cheap model's ranking auditable.  A label that can be wrong
+        is worse than no label, so every claimed channel is re-verified against the source."""
+        a = _args_for_search(results=12)
+        rows, _, _ = run_query(con, "concrete", a, {"_enabled": False})
+        hits = rank(rows, {"_enabled": False}, 12)
+        assert hits, "no hits to check provenance on"
+        assert all(r.get("matched") for _, _, _, r in hits), \
+            "a returned hit carried no provenance at all"
+        for _, _, _, r in hits:
+            for lab in r["matched"]:
+                assert lab in PROV_ORDER, f"unknown provenance label {lab!r}"
+            if "ttl" in r["matched"]:
+                assert "concret" in (r["title"] or "").lower(), \
+                    f"claimed a title match but the title is {r['title']!r}"
+            if "att" in r["matched"]:
+                assert r.get("doc_blob"), "claimed @att with no blob behind it"
+        selfcheck.prov = "; ".join(
+            f"{r['id']}:{'+'.join(r['matched'])}" for _, _, _, r in hits[:4])
+    check("every hit reports where it matched, and the label is true", t_provenance)
+
+    def t_sql_surface():
+        """`rfp sql` must reach notices, tags and document text in ONE query -- that is the
+        integration.  Also pins the bm25 aggregate workaround documented in SKILL.md: FTS5
+        refuses an auxiliary function once the planner flattens a subquery into a GROUP BY, and
+        an inner LIMIT is what forces materialisation.  If a future SQLite changes that, this
+        fails here instead of in a user's query."""
+        if not (s.get("docs_db") and s.get("tags_db")):
+            return "SKIPPED (aux DBs absent)"
+        r = con.execute("""
+            select c.id, (select t.work_type from tags.tags t where t.id = c.id) wt,
+                   count(d.doc_id) nd
+            from corpus c join docs.documents d
+              on d.notice_id = c.id and d.source = c.source
+            group by c.id having nd > 3 limit 1""").fetchone()
+        assert r and r["wt"] and r["nd"] > 3, f"three-way join returned {tuple(r) if r else None}"
+        # the trap, verbatim: no inner LIMIT -> error
+        try:
+            con.execute("select d.notice_id, min(bm25(doc_fts)) from docs.doc_fts "
+                        "join docs.documents d on d.blob_id = doc_fts.rowid "
+                        "where doc_fts match 'slump' group by d.notice_id").fetchall()
+            trap = False
+        except sqlite3.DatabaseError:
+            trap = True
+        # the documented workaround: inner LIMIT materialises the subquery
+        got = con.execute(
+            "select notice_id, min(score) from (select d.notice_id, bm25(doc_fts) score "
+            "from docs.doc_fts join docs.documents d on d.blob_id = doc_fts.rowid "
+            "where doc_fts match 'slump' limit 100000) group by notice_id limit 3").fetchall()
+        assert got, "the documented bm25-aggregate workaround returned nothing"
+        selfcheck.sqlsurface = (
+            f"3-way join ok (notice {r['id']}, {r['wt']}, {r['nd']} docs); "
+            f"bm25-in-GROUP-BY {'still errors (workaround needed)' if trap else 'NOW WORKS'}; "
+            f"inner-LIMIT workaround ok")
+    check("rfp sql joins notices + tags + document text, and the bm25 workaround holds",
+          t_sql_surface)
 
     def t_counts():
         n = con.execute(f"select count(*) from {s['base']}").fetchone()[0]
@@ -2456,7 +3115,7 @@ def _args_for_search(**kw):
              closing_before=None, closing_after=None, include_closed=False,
              include_unenriched=False, no_profile=True,
              profile=None, json=False, verbose=False, budget=BUDGET_MEAN, no_snippet=False,
-             min_days=None, band=False)
+             min_days=None, band=False, no_docs_text=False, no_tag_text=False)
     d.update(kw)
     return argparse.Namespace(**d)
 
@@ -2546,6 +3205,10 @@ def main(argv=None):
                    help=f"per-hit est-token target; hits trim to fit (default {BUDGET_MEAN}, "
                         f"hard cap {BUDGET_HIT})")
     p.add_argument("--no-snippet", action="store_true")
+    p.add_argument("--no-doc-text", dest="no_docs_text", action="store_true",
+                   help="ignore attachment text (notice + tag channels only)")
+    p.add_argument("--no-tag-text", dest="no_tag_text", action="store_true",
+                   help="ignore the distilled scope/keywords channel")
     p.add_argument("-v", "--verbose", action="store_true", help="print the token cost")
     p.set_defaults(fn=cmd_search)
 
@@ -2558,8 +3221,16 @@ def main(argv=None):
     p.add_argument("ids", nargs="+")
     p.add_argument("--chars", type=int, default=4000, help="truncate long text; 0 = all")
     p.add_argument("--no-docs", action="store_true")
+    p.add_argument("--doc-text", nargs="?", const="*", metavar="DOC_ID|*",
+                   help="print EXTRACTED DOCUMENT TEXT: all attachments, or one doc_id")
+    p.add_argument("--doc-chars", type=int, default=6000,
+                   help="per-document text cap for --doc-text; 0 = all")
+    p.add_argument("--grep", help="with --doc-text, print only matching lines (+/-1 line context)")
     p.add_argument("--json", action="store_true")
     p.set_defaults(fn=cmd_show)
+
+    p = sub.add_parser("reindex", help="(re)build tag_fts in corpus.db from tags.db")
+    p.set_defaults(fn=cmd_reindex)
 
     p = sub.add_parser("build", help="merge tenders.db + legacy.db (+ tags.db) -> corpus.db")
     p.add_argument("--out")

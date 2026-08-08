@@ -32,9 +32,49 @@ token budget; use `sql` when you want the truth.
 
 ### `rfp sql "<select>"`
 
-Read-only SQL. The file is opened `file:corpus.db?mode=ro` and an authorizer denies `ATTACH`, so
-a write returns an error instead of causing an incident. `select` / `with` / `explain` /
+Read-only SQL over **three attached databases in one query**. `select` / `with` / `explain` /
 `pragma table_info` only, one statement per call. `--json`, `--limit N` (default 200), `--cell N`.
+
+| schema | what is in it | join key |
+|---|---|---|
+| `main` (corpus.db) | `corpus` (22,080 notices), `corpus_fts` (notice text), `tag_fts` (distilled scope/keywords), `notice_location`, `dupe_review` | `corpus.id` |
+| `docs` (docs.db) | `documents` (10,407 rows), `blobs` (8,337, holds `text`), `doc_fts` (attachment text), `notices` (crawl status), `skips` | `documents.notice_id = corpus.id` **and** `documents.source = corpus.source` |
+| `tags` (tags.db) | `tags` (22,068 Luna tags), `tag_runs` | `tags.id = corpus.id` |
+
+Every file is opened `?mode=ro` **individually**, then an authorizer denies any further `ATTACH`.
+So all three are readable, none is writable, and the `attach 'writable.db' as w; insert into w…`
+hole stays shut. Writes error rather than causing an incident.
+
+`corpus.work_type`, `scope`, `keywords` and friends are **NULL on every row** — the tag pass wrote
+`tags.db` and nothing merged it back. Read them from `tags.tags`, which is what `rfp search` does:
+
+```sql
+select c.id, c.title, (select t.work_type from tags.tags t where t.id = c.id) as work_type
+from corpus c where c.abc between 1000000 and 5000000
+```
+
+**Trap — `bm25()` inside a GROUP BY errors.** FTS5 refuses an auxiliary function once the planner
+flattens a subquery into an aggregate: `unable to use function bm25 in the requested context`.
+`MATERIALIZED` does not help. An inner `LIMIT` does, because it forces the subquery to be
+materialised:
+
+```sql
+-- WRONG: "unable to use function bm25 in the requested context"
+select d.notice_id, min(bm25(doc_fts)) from docs.doc_fts
+  join docs.documents d on d.blob_id = doc_fts.rowid
+  where doc_fts match 'slump' group by d.notice_id
+
+-- RIGHT: inner LIMIT materialises, then aggregate
+select notice_id, min(score) from (
+  select d.notice_id, bm25(doc_fts) score from docs.doc_fts
+    join docs.documents d on d.blob_id = doc_fts.rowid
+    where doc_fts match 'slump' limit 100000
+) group by notice_id
+```
+
+Un-aggregated `bm25()` over an attached FTS table is fine, and so is `distinct notice_id` with no
+score at all. `rfp selfcheck` pins both halves of this, so a SQLite upgrade that changes the
+behaviour fails there rather than in your query.
 
 ### `rfp search "<query>" [filters]`
 
@@ -42,15 +82,28 @@ FTS5 match + filters, reranked by the profile prior in `profile.md`, formatted t
 tokens per hit. Output:
 
 ```
-[13157394] P3.6M 9d Cavite PB fit0.90
-  Supply and Delivery of Labor and Materials for the Concreting of Road Network of Naval Pe…
-  PN BAC SECRETARIAT, AFP PROCUREME… | lots 6xP60K
-  …**ROAD** SUBGRADE PREPERATION AGGREGATE BASE COURSE PCC **PAVEMENT**…
+[53340] P29.7M 16d Pampanga PB fit1.00 @att
+  Basic Infrastructure Program BIP Multi Purpose Buildings Facili…
+  DPWH - PAMPANGA 3RD DEO | civil_works
+  DO 011 s2017.pdf: …**Slump Test** Set Slump Cone,Comp…
 ```
 
-`[id] ABC days-to-close province mode fit` / title / agency + work_type + per-lot range /
-matched snippet. A leading `~` on the province means **inferred from the agency name, not stated
-on the notice** (see "Geography" below).
+`[id] ABC days-to-close province mode fit @where-it-matched` / title / agency + work_type +
+per-lot range / evidence snippet. A leading `~` on the province means **inferred from the agency
+name, not stated on the notice** (see "Geography" below).
+
+**`@` is provenance — which index the hit came from.** This is what makes the ranking auditable
+instead of a vibe, so read it before trusting a hit:
+
+| code | matched in | code | matched in |
+|---|---|---|---|
+| `ttl` | notice title | `desc` | notice description (mostly RA 12009 boilerplate) |
+| `scope` | Luna's distilled scope/keywords | `items` | line items |
+| `att` | **an attached document** | `cat` `agcy` `loc` `ref` | category / agency / location / solicitation no. |
+
+`@ttl+scope+desc+att` is a notice that matched everywhere; `@att` alone means **the term appears
+nowhere in the notice — only inside its attachments**, and the evidence line names the file it
+came from. An `@att` hit always carries a blob behind it (asserted in `selfcheck`).
 
 `fit` is a multiplier in [0.20, 1.00] and hits carry their demotion reason in parentheses —
 `(lot fits: P27K-P54K lots in a P153K notice)`, `(stretch: P40M vs your P5M band)`,
@@ -59,7 +112,11 @@ on the notice** (see "Geography" below).
 Filters: `--abc-min --abc-max --strict-abc --province --province-strict --work-type --mode
 --mode-family --agency --classification --source --days-min --days-max --closing-before
 --closing-after --include-closed --include-unenriched -n/--results --min-days --band
---no-profile --no-snippet --budget -v --json`.
+--no-profile --no-snippet --no-doc-text --no-tag-text --budget -v --json`.
+
+`--no-doc-text` turns the attachment channel off, `--no-tag-text` the distilled one; both exist
+to measure what each channel contributes, not for routine use. `--json` adds `matched_in`,
+`doc_snippet` and `doc_name` per hit.
 
 With **no query text** the search is filter-only and there is no BM25 signal, so the profile prior
 *is* the ranking — `rfp search --days-max 2 -n 40` is a legitimate "what closes this week that
@@ -83,16 +140,113 @@ you only want notices that actually state a location. If the header says `pool c
 
 ### `rfp show <id> [id ...]`
 
-Full description, line items (table header stripped), contact, funding, URL, and **attached bid
-documents with their extracted text** when `docs.db` covers that notice. `--chars N` truncates
-long text (`--chars 0` for all), `--no-docs` suppresses attachments, `--json` for structure.
+Full description, line items (table header stripped), contact, funding, URL, and the **list of
+attached bid documents** — `#doc_id name fmt bytes pages chars extract_status`, plus a
+`[SUPPLEMENT: uploaded after posting]` marker and a warning when a PDF's pages are image-only
+(no OCR was run, so its text is partial).
 
-### `rfp profile` · `rfp stats` · `rfp selfcheck` · `rfp build`
+Document **text is opt-in**, because the median attached document is 56,276 chars and one notice
+carries up to 40 of them:
+
+```
+rfp show 54984                       # list the documents
+rfp show 54984 --doc-text            # print all of their text
+rfp show 54984 --doc-text 9599       # print one document, by doc_id
+rfp show 54984 --grep "bill of quantities|estimate"   # only matching lines, +/-1 line of context
+```
+
+`--doc-chars N` caps each document (default 6000, `0` for all), `--chars N` caps the notice's own
+description/items, `--no-docs` suppresses attachments entirely, `--json` for structure.
+
+**`--grep` is the one to reach for on a big ITB.** A 200-page bid document has one paragraph you
+care about; printing the other 199 pages to find it is how you burn a context window.
+
+### `rfp profile` · `rfp stats` · `rfp selfcheck` · `rfp build` · `rfp reindex`
 
 `profile` prints the resolved profile and what its regions expand to, and warns about
 `categories` values outside the work_type enum. `stats` re-measures every number in this file.
-`selfcheck` runs 32 asserts (~8s). `build` regenerates `corpus.db` from `tenders.db` +
+`selfcheck` runs 38 asserts (~10s). `build` regenerates `corpus.db` from `tenders.db` +
 `legacy.db` + `tags.db` and refuses to overwrite an existing one without `--force`.
+`reindex` rebuilds `tag_fts` inside `corpus.db` from `tags.db` (22,068 rows, 0.2s) — run it after
+any tag pass. It is the only subcommand that writes.
+
+---
+
+## Attachment text: three indexes, joined by notice id
+
+The real scope of a PH government job is not in the notice. The description is ~2,086 chars of RA
+12009 boilerplate; the specifications, the Bill of Quantities and the eligibility bars are in the
+attached documents. Those are now searchable — as a **separate index**, deliberately:
+
+| index | lives in | covers | rows |
+|---|---|---|---|
+| `corpus_fts` | corpus.db | title, description, items_text, category, agency | 22,080 |
+| `tag_fts` | corpus.db | Luna's scope / keywords / deliverables | 22,068 |
+| `doc_fts` | docs.db | extracted document text + human filenames, per blob | 8,337 |
+
+**Why not one merged index** — three measurements, each on its own sufficient:
+
+1. **Length asymmetry, 46×.** The median notice *that has attachments* carries 154,571 chars of
+   document text against a 3,333-char mean notice body. One index means one term-frequency space,
+   and the tail wags the dog: a 200-page ITB whose boilerplate annex repeats "generator" forty
+   times would outrank a notice **titled** "Supply and Delivery of One (1) Generator Set".
+2. **Structural source bias.** 17,795 of 22,080 notices (80.6%) can never carry attachment text,
+   because legacy's document listing is auth-gated. Merged, any attachment-flavoured query
+   silently becomes an mPhilGEPS-only query — failure by omission, invisible to the reader.
+3. **Provenance is unrecoverable once merged.** One index cannot say whether a term came from the
+   title or from page 47 of an annex, and `@att` is the whole point.
+
+Scoring: each channel's BM25 is normalised to [0,1] **within its own channel**, then summed as
+`notice + 0.45×attachment + 0.60×tag` and multiplied by the profile fit. Independent
+normalisation is what stops bulk from deciding the ranking — a 200-page annex and a 40-char title
+each top out at 1.0 in their own channel, so the *weights* decide, not the character counts. At
+0.45 an attachment match can carry a notice into the results but **cannot displace an exact title
+match**; `selfcheck` asserts exactly that on the arithmetic.
+
+### Coverage — read this before concluding a notice has no documents
+
+`docs.db` covers **4,285 mPhilGEPS notices** (10,407 documents, 8,337 distinct blobs, 554.8M chars
+of extracted text). It covers **zero legacy notices**, and that is an access limit, not a fact
+about the notices: `philgeps.gov.ph/Tenders/tender_doc_view/{id}/{id}` answers HTTP 200 with a
+"Your session has been expired, please login in again" shell. The files themselves are public and
+unauthenticated once you know the URL, but the *listing* that gives you the URL is gated and the
+upload-epoch prefix is unguessable, so enumeration cannot substitute for it. **No credentials were
+used and none should be.**
+
+So `rfp show` distinguishes three states and you must too: documents listed · `crawled: status=…
+— no attachments recorded` · `NOT CRAWLED for attachments`. 3,591 of 10,407 documents are
+`no_text_layer` — scanned image PDFs with no OCR — so their text is genuinely absent, not missed.
+
+### What attachment text actually bought — measured, and it depends entirely on the query
+
+Notices reachable by notice text vs. notices reachable **only** through their attachments:
+
+| query | notice text | +attachment-only | gain |
+|---|---|---|---|
+| `"slump test"` | 1 | **158** | ×159 |
+| `backhoe` | 85 | **820** | ×10.6 |
+| `"deformed steel bars"` | 24 | **105** | ×5.4 |
+| `transformer` | 92 | 162 | ×2.8 |
+| `software` | 201 | 306 | ×2.5 |
+| `concrete` | 2,846 | 986 | +35% |
+| `laptop` | 304 | 122 | +40% |
+| `"solar street light"` | 252 | 23 | +9% |
+| `"fire truck"` | 18 | 1 | +6% |
+| `"medical oxygen"` | 27 | 1 | +4% |
+
+**The pattern is the finding.** Attachment text transforms *specification-level* queries — a
+material, a test method, a machine class, an eligibility bar — because that vocabulary lives in
+the Bill of Quantities and the technical specs and is never in a title. It adds almost nothing to
+*object-level* queries: if an agency is buying a fire truck, the title says "fire truck".
+
+Ask the attachments what a job *involves*. Ask the notice what it *is*.
+
+**Two honest caveats.** (1) All of this applies to 19.4% of the corpus — legacy is gated and dark,
+and legacy is where the full-bid civil works lives, so the segment that would benefit most is the
+one we cannot reach. (2) A huge recall number can be worthless: `"single largest completed
+contract"` gains 2,303 notices, but that is 53.7% of every crawled notice — it is RA 12009
+boilerplate, not a discriminator. BM25's IDF is what keeps such terms from polluting rankings;
+the recall count alone would mislead you.
 
 ---
 
@@ -136,6 +290,7 @@ mphilgeps only:  abc_lot_min abc_lot_max items items_text control funding lot_ty
 legacy only:     solicitation_no trade_agreement delivery_period contact_email contact_phone
                  bid_supplements doc_req_list last_updated last_updated_at
 tag pass:        work_type needs_pcab eligibility scope keywords tag_model tagged_at
+                 ^^ ALL NULL on corpus -- read them from tags.tags (see `rfp sql` above)
 ```
 
 Columns the CLI synthesises that are **not in the database** — copy the expression if you want
@@ -155,6 +310,30 @@ see them). Raw SQL does not — add the clause.
 ## Worked queries
 
 ```sql
+-- what is ACTUALLY being bought, from the attachments: notices whose bid documents specify a
+-- material you supply, regardless of what the title says.  Add `and c.id not in (...)` against
+-- corpus_fts to get only the ones notice-text search cannot reach.
+select distinct c.id, c.abc, substr(c.title,1,44) t
+from docs.doc_fts
+join docs.documents d on d.blob_id = doc_fts.rowid
+join corpus c on c.id = d.notice_id and c.source = d.source
+where doc_fts match '"deformed steel bars"'
+  and c.enriched_at is not null and c.closing_at > datetime('now','+8 hours')
+limit 20;
+
+-- which notices carry a real (text-bearing) bid document vs a scanned image with no OCR
+select b.extract_status, count(distinct d.notice_id) notices, count(*) docs
+from docs.documents d join docs.blobs b on b.blob_id = d.blob_id
+group by 1 order by 2 desc;
+
+-- the biggest jobs whose documents we actually hold text for -- where scope reading pays off
+select c.id, c.abc, sum(b.chars) doc_chars, count(*) ndocs, substr(c.title,1,40) t
+from corpus c
+join docs.documents d on d.notice_id = c.id and d.source = c.source
+join docs.blobs b on b.blob_id = d.blob_id
+where c.abc > 20000000 and c.enriched_at is not null
+group by c.id order by doc_chars desc limit 10;
+
 -- multi-lot notices you could bid ONE lot of: a P523K notice made of P1.5K-P40K lots
 select id, abc, abc_lot_min, abc_lot_max, substr(title,1,40) t from corpus
 where enriched_at is not null and abc_lot_max <= 100000 and abc > 300000
@@ -286,6 +465,21 @@ that exists in **no** corpus column.
   corpus_fts`, because fts5's `xConnect` prepares statements against its own shadow tables.
   `mode=ro` already blocks all nine write forms (asserted in selfcheck); the authorizer therefore
   denies only `ATTACH`/`DETACH`, which is the one hole `mode=ro` leaves.
+- **ATTACH must happen BEFORE the authorizer is armed.** The authorizer denies `SQLITE_ATTACH` —
+  that is what closes the `attach 'writable.db' as w; insert into w…` hole. Arm it first and you
+  also lock yourself out of `docs.db` and `tags.db`, and search silently loses two of its three
+  channels. Attach the three intended files (each `?mode=ro` in its own right — main's `mode=ro`
+  does **not** propagate to attachments), *then* arm. Both directions are asserted.
+- **`bm25()` dies inside a GROUP BY.** `unable to use function bm25 in the requested context`,
+  and `MATERIALIZED` does not help. An inner `LIMIT` does. See `rfp sql` above for both forms.
+- **`bm25()` also rejects a table alias.** `from docs.doc_fts f … bm25(f)` → `no such column: f`.
+  Use the bare table name, and reference an attached FTS table as `from docs.doc_fts where
+  doc_fts match …` (qualifying the MATCH as `docs.doc_fts match` fails too).
+- **One blob belongs to several notices.** `docs.blobs` is deduplicated by sha256, so the same
+  ITB posted by one PE under six refIDs is one blob with six `documents` rows. A doc-text hit
+  must light up all of them — aggregate blob→notice, never assume 1:1.
+- **Score a notice by its BEST matching document, never the sum.** Summing ranks by how many PDFs
+  the BAC happened to upload (up to 40), which is packaging, not relevance.
 - **`dupe_key` flags, it never decides.** 69 collision groups survive in the enriched corpus, and
   the worst case is unanswerable by any field-based key: nine genuinely distinct notices from
   MUNICIPALITY OF LIBON, ALBAY, all titled "Purchase of Various Goods", all ₱199,990, all closing
@@ -310,7 +504,21 @@ that exists in **no** corpus column.
 
 ## Ranking, exactly
 
-`score = (bm25 / max_bm25_in_pool) × profile_fit`, descending, ties broken by soonest closing.
+```
+        notice_bm25/max   +   0.45 × attachment_bm25/max   +   0.60 × tag_bm25/max
+score = ───────────────────────────────────────────────────────────────────────────  × profile_fit
+                        1 + 0.45 (if any doc hit) + 0.60 (if any tag hit)
+```
+
+descending, ties broken by soonest closing. Each channel is normalised **within itself** before
+weighting — that is what keeps a 200-page PDF and a 40-char title comparable. A channel that
+produced no hits drops out of the divisor, so a pure notice-text search scores exactly as it did
+before attachments existed.
+
+The weights encode one rule: **an attachment match can surface a notice, but cannot outrank an
+exact title match.** Perfect title hit → `1/1.45 = 0.69`; perfect attachment-only hit →
+`0.45/1.45 = 0.31`; both → `1.0`. `selfcheck` asserts the ordering rather than trusting the
+arithmetic to stay right.
 
 BM25 does real work for free: every notice contains "Republic Act 12009" and "non-discretionary
 pass/fail", so those terms score ~0, while "backhoe", "geodetic", "centrifuge" discriminate. That
@@ -329,11 +537,19 @@ Every `profile_fit` multiplier and its annotation is tabulated in **`profile.md`
 
 ## Cost
 
-~2K tokens for 40 search hits (measured 45.4–53.2 estimated tokens/hit across six queries at 40
-hits, hard cap 62/hit; `-v` prints the count). ~280 tokens for `facets`. `show` is the expensive
-one — a notice with attachments can run tens of thousands of characters, so use `--chars` and call
-it on the survivors, not the pool. A whole session — facets, a dozen searches, ten `show` calls —
-lands around ₱0.02 at Luna prices, and is **invariant to corpus size**.
+~2.2K tokens for 40 search hits (measured 54.8–56.1 estimated tokens/hit across six queries at 40
+hits, hard cap 78/hit; `-v` prints the count). Provenance costs ~3 tokens/hit and is worth it.
+~356 tokens for `facets`.
+
+**`show --doc-text` is the expensive call and the only one that can blow a context window.** The
+median attached document is 56,276 chars and the largest in the corpus is 2.27M; a notice can
+carry 40 of them. List first, then `--grep`, then read one document by `doc_id`. The default
+6,000-char cap per document exists for this reason.
+
+Latency, measured: attachment search adds **~0.16s** to a search (1.38s → 1.54s on a 3-term
+query); the attachment FTS probe itself is 3–22ms and the five provenance probes are <1ms each.
+A whole session — facets, a dozen searches, ten `show` calls — lands around ₱0.02 at Luna prices,
+and is **invariant to corpus size**.
 
 Token figures are an estimate (`max(chars/3.5, words)`), not a tokenizer. tiktoken is not
 installed and this tool will not grow a dependency to print a number. The estimate is deliberately
