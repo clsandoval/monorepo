@@ -514,3 +514,109 @@ proportionally — the toolchain and schema are unaffected.
    rather than sampled from PhilGEPS. The detector's whole purpose is to produce that number honestly
    on the first production run; treat 10% as an order of magnitude, not a measurement of the corpus.
 5. **Sheet counts for XLSX** are in the schema but not exercised (no real xlsx was reachable).
+
+---
+
+## 9. The full mPhilGEPS run — measured 2026-08-08, all 4,288 notices
+
+Driver: `docs_run.py run --batch=200`, **descending ABC** (see that file's docstring for why the
+shuffle in `attachments.notice_ids()` is right for a pilot and wrong for a full run). 21 batches,
+**73.9 minutes** wall clock, concurrency 6 throughout, **zero 429s, zero 5xx, zero disk-cap trips**.
+
+| | measured |
+|---|---|
+| notices attempted / discovered | **4,288 / 4,288**, 0 failed, 3 with zero documents |
+| documents discovered / downloaded | 9,875 / **9,827** (+532 archive members = 10,407 rows) |
+| distinct blobs | 8,337, all 8,337 extracted |
+| bytes fetched | **21.15 GB** with dupes · **17.44 GB** distinct |
+| sha256 dedup rate | **15.2%** (vs 4.7% in the random pilot) |
+| text extracted | **554.8 M chars** |
+| on disk, steady state | **7.4 GB** retained scan blobs (2,808) + **686 MB** docs.db = **8.1 GB** |
+| notice readability | **3,556 / 4,285 (83.0%)** have >=1 text-extractable document; **729 (17.0%)** need OCR/vision |
+| supplements | **1,143 notices (26.7%)** carry a post-posting upload |
+
+**extract_status, per blob:** ok 5,525 · no_text_layer 2,808 · unsupported 1 · not_a_document 1 ·
+encrypted 1 · empty 1.
+**Per document row:** ok 6,325 · no_text_layer 3,497 · too_large 41 · fetch_failed 7 · everything
+else 5.
+
+**Formats:** pdf 7,936 (16,705 MB) · docx 242 · zip 70 · xlsx 45 · jpg 38 · png 2 · ole 2.
+**PDFs: 7,935, 294,133 pages. 2,760 with no text layer at all = 34.8% of PDFs; 35,455 image-only
+pages = 12.1% of pages.** §2's "10% of pages" order-of-magnitude estimate holds; §8.4's caveat is
+now discharged with a real number.
+
+**Corrections to the 200-notice pilot** (which sampled randomly, so it under-weighted big contracts):
+dedup is **15.2%, not 4.7%** — agencies reuse one PDF across many notices. Notice-level OCR need is
+**17.0%, not 13%**. Total fetch is **21.2 GB, not 18.5 GB**. bytes/notice median 1.61 MB, mean 4.93,
+p95 20.59, **max 440.7 MB** (one notice).
+
+### Caps that actually tripped
+- **41 × `per_file_bytes`** — files above the 25 MB ceiling, refused on `Content-Length` before a
+  body was read. This is the only cap that fired all night.
+- **0 × `per_notice_doc_count`**, **0 × `total_disk`**.
+- **7 documents retired at `fetch_failed`** after 3 attempts, and **1 file the server genuinely
+  serves as 0 bytes** (sha256 `e3b0c442…` = the hash of the empty string). The end-of-run
+  `docs_run.py retry` pass refetched it and got 0 bytes again, so it is permanent, not transient.
+- **1 password-protected PDF** (`PBD ITB 2026 07 039CW.pdf`, `encrypted`) and **1 `.xls` served
+  with a `.pdf` name** (`Bill of Quantities.xls`, OLE, `unsupported`).
+
+### Bug found by the full run: dedup + batching stranded 13.4% of document statuses
+`extract()` only walks blobs whose status is `pending`. When `download()` deduped a document onto a
+blob that had been extracted in an **earlier batch**, nothing ever propagated that blob's verdict to
+the new document row, so it kept `extract_status='pending'` forever despite its text already being
+in the database. **1,187 of 8,873 top-level rows = 13.4%.** Invisible in the pilot, where a single
+download→extract cycle meant every dedup target was still `pending` in the same run; it becomes real
+the moment the two alternate — which is what both `attachments.py run --batch` and `docs_run.py` do.
+Consequence was silent undercounting in `notice_docs.n_ok` and in any `where extract_status='ok'`.
+Fixed at the source in `attachments.download()`; existing rows repaired with `docs_run.py repair`;
+`docs_run.py verify` now asserts the invariant (plus dangling blob_ids, never-downloaded documents,
+and FTS/content divergence) so it cannot pass silently again.
+
+### §6's 20 GiB disk cap is a runaway detector, not a budget
+A descending-ABC run front-loads the scan-heavy big-ticket notices — measured **24.5 MB retained per
+notice in the ABC>=P200M band vs 0.70 MB in the <P1M band**, a 35x spread — so the cap's headroom
+looked thinner than the random-sample projection implied. `DISK_MAX` is now
+`RFP_DISK_MAX_GIB`-overridable (default still 20 GiB); the run used 60 and finished at **8.1 GB**,
+so the override turned out to be insurance rather than necessity. Keep the default.
+
+### 10. What is actually IN these documents
+
+**68.0% of the 554.8 M extracted characters is GPPB boilerplate, not procurement content.** Measured
+by normalising every line >=60 chars (whitespace collapsed, digits masked so dates and peso amounts
+don't defeat the match) and counting how many distinct blobs each line appears in: lines recurring in
+>=5 blobs account for **377.0 M of 554.8 M chars**. The single most-replicated lines are the
+Philippine Bidding Documents template verbatim — *"In this Contract, the following terms shall be
+interpreted as indicated"* (119 blobs), *"[Note: The duly accomplished form shall be submitted with
+the Bid]"* (124), *"contain the name of the contract to be bid in capital letters"* (112).
+
+The shape this takes on disk is stark and consistent: a notice ships one ~230,000-character
+"Bidding Documents.pdf" that is the GPPB template with the project name substituted in, plus a
+**~8,000-character `Bill of Quantities.pdf` that is the entire actual scope** — a pay-item table with
+`Description | Unit | Quantity | Unit Price (Pesos) | Amount (Pesos)` columns. Notice 26GD0049 is the
+clean example: `26GD0049 Bidding Documents.pdf` is 233,784 chars of template; `26GD0049 Bill of
+Quantities.pdf` is 8,139 chars and is the thing a contractor actually prices. The 233K-char file
+tells you nothing the notice listing didn't.
+
+Content census over the 5,525 extractable blobs: Omnibus Sworn Statement 61.6% · bid security 60.9% ·
+technical specifications 59.7% · unit-price table 58.1% · eligibility/checklist 51.9% · NFCC 50.9% ·
+SLCC 50.6% · **Bill of Quantities 44.8%** · supplemental bid bulletin 43.6% · drawings/plans 43.1% ·
+PCAB 28.4% · **Terms of Reference 21.0%**.
+
+**Two consequences.**
+
+1. **Stripping recurring lines before any model reads a notice cuts input by ~3x.** Median chars per
+   notice falls **182,744 -> 62,364** (45,686 -> 15,591 tokens). On the Luna prices in DECISIONS #4
+   that is the difference between a doc-text enrichment pass that is affordable and one that is not,
+   and it is a pure `dict`-of-line-hashes filter — no model, no embeddings. This is the single
+   highest-leverage thing to do before the Tier-2 enrichment pass.
+2. **The Bill of Quantities is the product's real payload.** It carries the per-item *unit price
+   ceiling*, which is what answers journey 4 ("can I actually win this?") — an ABC alone tells a
+   contractor the total, but the BOQ tells them whether the government's per-unit assumption is one
+   they can beat. 44.8% of extractable blobs contain one, and they are small, tabular, and already
+   text-extractable. No competitor surfaces this.
+
+**What OCR would buy, and it is not evenly distributed.** The scanned files skew hard toward
+**supplemental bid bulletins** and **plans/drawings** — those are signed and stamped, so they are
+photographed rather than exported. Bulletins are exactly the documents carrying deadline changes and
+answers to bidders' questions, i.e. the operationally urgent ones. The 729 notices with no readable
+document at all are the OCR/vision backlog; their bytes are retained on disk for precisely that pass.

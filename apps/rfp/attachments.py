@@ -136,7 +136,16 @@ NOTICE_DOC_MAX = 40         # top-level documents downloaded per notice.  NOTES 
                             # rule is "1 file per notice", but the measurement contradicts it:
                             # median 2, p90 4, max 21 over 1,200 notices (supplements/corrigenda
                             # get their own uploads).  40 is ~2x the observed max.
-DISK_MAX = 20 * 1024**3      # hard stop on docs.db + retained blobs, checked before each batch
+                             # hard stop on docs.db + retained blobs, checked before each batch.
+                             # This is a RUNAWAY DETECTOR, not a storage budget -- tripping it
+                             # marks documents `skipped_cap`, which truncates the tail of the
+                             # corpus.  20 GiB was sized against a random 200-notice sample
+                             # (8.6 GB retained projected).  A descending-ABC full run front-loads
+                             # the scan-heavy big-ticket notices (measured: 24.5 MB retained per
+                             # notice in the ABC>=P200M band vs 0.70 MB in the <P1M band), so the
+                             # projection's error bars matter.  Override to keep the cap a detector
+                             # instead of a silent truncator:  RFP_DISK_MAX_GIB=60 python3 ...
+DISK_MAX = int(os.environ.get("RFP_DISK_MAX_GIB", "20")) * 1024**3
 HTTP_TIMEOUT = 180
 
 # extract_status: extract_lib's closed vocabulary plus three states that only exist once there
@@ -607,6 +616,20 @@ def download(con, limit=None, workers=WORKERS, keep_blobs=False):
                                           (sha,)).fetchone()[0]
                 con.execute("update documents set blob_id=?, sha256=?, bytes=?, fetch_status=?,"
                             " fetched_at=? where doc_id=?", (blob_id, sha, n, st, now(), doc_id))
+                # A dedup hit against a blob that was extracted in an EARLIER batch is never
+                # revisited by extract() -- that only walks blobs still 'pending' -- so this
+                # document row would keep extract_status='pending' forever even though its text
+                # is already in the database.  Invisible in a single-pass pilot, where every
+                # dedup target was still pending in the same run; real as soon as download and
+                # extract alternate in batches (`run --batch`, docs_run.py).  Measured on the
+                # first full run before this fix: 1,187 of 8,873 top-level rows = 13.4%, which
+                # silently undercounts notice_docs.n_ok and breaks
+                # `where extract_status='ok'`.  Propagate the blob's verdict now.
+                bst, bfmt = con.execute(
+                    "select extract_status, fmt from blobs where blob_id=?", (blob_id,)).fetchone()
+                if bst != "pending":
+                    con.execute("update documents set extract_status=?, fmt=? where doc_id=?",
+                                (bst, bfmt, doc_id))
                 tally["ok"] += 1
             if k % 25 == 0:
                 con.commit()
