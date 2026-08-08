@@ -145,9 +145,26 @@ def pager_offsets(doc):
     return [int(o) for o in re.findall(r'<option[^>]*value="(\d+)"', m.group(0))] if m else []
 
 
-def listing_page(vs, offset):
-    doc = fetch(LIST, {"__EVENTTARGET": PAGER, "__EVENTARGUMENT": "", PAGER: str(offset), **vs})
-    return parse_listing(doc) if doc else []
+ROWNUM = re.compile(r'<td align="center" valign="middle" style="width:5%;">(\d+)</td>')
+
+
+def listing_page(vs, offset, tries=3):
+    """Fetch one pager offset, verifying the server actually served THAT offset.
+
+    Concurrent POSTs share one __VIEWSTATE and the server occasionally answers with
+    page 1 instead of the requested offset -- silently, with 20 valid-looking rows.
+    First run lost ~180 notices that way (640 rows -> only 460 new in chunk 1).
+    The rendered row numbers are the receipt, so check them.
+    """
+    for _ in range(tries):
+        doc = fetch(LIST, {"__EVENTTARGET": PAGER, "__EVENTARGUMENT": "", PAGER: str(offset), **vs})
+        if not doc:
+            return []
+        got = ROWNUM.search(doc)
+        if got and int(got.group(1)) == offset:
+            return parse_listing(doc)
+    print(f"  offset {offset}: server kept serving row {got.group(1) if got else '?'}", file=sys.stderr)
+    return []
 
 
 def parse_listing(doc):
