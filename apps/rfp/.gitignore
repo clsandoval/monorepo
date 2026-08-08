@@ -1,0 +1,7 @@
+# Scraped corpora — rebuilt from the live site, not source of truth.
+#   python3 ingest.py            # mPhilGEPS  -> tenders.db  (~4.3k notices, minutes)
+#   python3 ingest_legacy.py     # legacy 1.5 -> legacy.db   (~17.8k notices, longer)
+#   python3 tag.py all           # Luna tags  -> tags.db     (~P279 for the full corpus)
+*.db
+*.db-journal
+*.log
