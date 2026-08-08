@@ -4,7 +4,13 @@
 #   python3 tag.py all           # Luna tags  -> tags.db     (~P279 for the full corpus)
 *.db
 *.db-journal
+*.db-wal
+*.db-shm
 *.log
+
+# Downloaded bid documents. Transient by design: extract text, then delete the blob and
+# keep sha256 + url so it can be refetched. See NOTES-extract.md "Guardrails".
+blobs/
 
 # Recon scrape outputs — regenerate with docs_census.py list/sizes
 docs_list.jsonl
