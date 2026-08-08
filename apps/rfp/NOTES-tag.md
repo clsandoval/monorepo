@@ -9,11 +9,25 @@
 | tier | notices | ₱ | ₱/notice | what it reads |
 |---|---|---|---|---|
 | base | 22,068 (100%) | 250.48 | 0.0113 | title + listing + stripped detail description + line items |
-| doc | see `spend.json` | ~0.13–0.20 each | 0.13–0.20 | the attached bid documents, block-selected |
+| doc | 619 | 68.45 | 0.111 | the attached bid documents, block-selected |
+| **total** | | **318.93** | | **₱681.07 of the ₱1000 cap left unspent** |
 
 Cap ₱1000, enforced in code against the ledger file (not a variable) before every batch, with an
 flock so two tag.py processes cannot lose each other's spend. **The cap was never the binding
-constraint** — attachment availability was. See "What was deliberately not bought".
+constraint** — attachment availability was, and it is now exhausted:
+
+- 822 mPhilGEPS notices have a boilerplate-only description. 619 were doc-tagged.
+- The other **203 have no readable attachment** — the files exist but carry no text layer
+  (scanned). They are unreachable without OCR, not unfunded.
+- **Legacy — 5,426 boilerplate-only notices, 6.6× the mPhilGEPS population — has no attachment
+  path at all.** `bid_supplements` is 0 on all 15,436 parsed legacy rows, and per `NOTES-extract.md`
+  the abstract page's associated-components postback is commented out in the served HTML. So the
+  single largest population of blank-description notices cannot be reached by any amount of money
+  tonight. It is a scraping problem.
+
+No amount of remaining budget buys anything else worth having (see "What was deliberately NOT
+bought"), so ₱681 is reported unspent rather than converted into a re-read of text FTS5 already
+indexes.
 
 Base pass: 2,210 batches, **0 failed**, 8.46M input / 2.19M output tokens. Output is 26% of the
 tokens and **51% of the cost** — S6's "terse tags are the cost control" is confirmed, not folklore.
@@ -131,6 +145,26 @@ the right contract. The 5th (13143093) generalised across the bundle. So this ha
 defect, not a tagging defect. Two were cases where the tag is the *only* usable summary: notice
 `13162984`'s title is the bare string `5029902000-987-2026`, and notice `53986`'s description is
 pure RFQ boilerplate with the real answer (3,618 folder kits) only in the line items.
+
+Five doc-tier tags read the same way (`python3 tag.py spot 5 doc 11`): **5 correct**. The two that
+justify the tier on their own: notice `55186` ("Supply and Delivery of Drugs and Medicine",
+description `Please see attached document.`) yields *300 bottles D5 0.3% NaCl 1L, 50 vials D5050,
+600 bottles D5 LR 1L* and the eligibility **valid FDA License to Operate** — a hard gate that
+appears nowhere in the notice. Notice `54617` yields the caterer's actual menu words
+(`beef caldereta`, `longganisa`) as search keywords.
+
+## Vocabulary: the enum held, with one visible gap
+
+`other` is **697 notices, 3.2%** — down from the 10% that forced the last vocabulary extension, so
+the four enums added after the pilot did their job. The residue clusters into two candidates that
+were **not** added: apparel/textiles (uniforms, polo shirts, PPE) and power/energy (solar systems).
+Adding them means re-tagging 22,068 notices for ₱250 to reclassify ~3% — not worth it now, and
+recorded here so the next vocabulary pass starts from evidence.
+
+One misfile found by hand: notice `54538`, 482 cu.m. of limestone selected borrow for road
+embankment, landed in `other`. Bulk construction-materials supply is a real bidder type (quarry
+operators and haulers) with no home in the enum — it is neither `civil_works` (supply, not works)
+nor `mixed_supplies` (single commodity).
 
 ## Operational
 
