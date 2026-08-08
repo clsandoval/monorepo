@@ -95,12 +95,75 @@ seen: Negotiated Procurement (SVP), Public Bidding, Shopping. Two concrete winne
 - `DANILYN'S ENTERPRISES, INC.`, **Las Piñas City, NCR** → ₱3.2M of handloom weaving machines at
   100.0% of ABC. Specialised national supplier, not a local relationship.
 
-## Coverage limit
+## Coverage: the whole award history is enumerable by awardID
 
-The public listing is only the **rolling 100 most recent** awards, so a usable sample needs daily
-accumulation (~3,000/month) — or an unauthenticated date-range query. `AwardNoticeList_GetList` and
-`AwardNoticeListAuditor_GetList` exist in the catalogue and are unprobed; that is the next thing to
-try before committing to a poller.
+Probed 2026-08-09. The rolling-100 listing is **not** the coverage limit.
+
+**`refID` is ignored by `AwardAbstract_GetAwardedSupplier`.** Called with `refID=0`, `refID=1` and
+`refID=99999999` against the same `awardID`, all three return the identical correct winner. The
+method keys off `awardID` alone.
+
+**Arbitrary awardIDs resolve.** IDs never harvested from any listing all returned real data:
+
+| awardID | ContractAmount | PublishDate | title |
+|---|---|---|---|
+| 5,000,000 | ₱678,800 | 05-Aug-2024 | Supply and Delivery of Office Building S… |
+| 6,100,000 | ₱200,000 | 19-May-2026 | MTO – Procurement of IT Equipment |
+| 6,150,000 | ₱5,400 | 30-Jun-2026 | JHS Office Supplies |
+| 6,180,000 | ₱1,120 | 20-Jul-2026 | 70 bags Portland Cement Type 1 |
+| 6,193,104 | ₱140,000 | 29-Jul-2026 | Supply and Deliver of Furniture and Fixt… |
+
+So the ID space is dense and **monotonically correlated with date** — ~1.19M IDs span Aug 2024 to
+Jul 2026, roughly 50K awards/month. Binary-search the ID space to bound any date window, then walk it.
+
+### Available from awardID alone (no listing, no session, no refID)
+
+- `AwardAbstract_GetAwardNotice?awardID=N` — `ContractAmount`, `AwardDate`, `PublishDate`,
+  `ClosingDate`, `DateLastUpdated`, `ContractNo`, contract effectivity/end dates, `DocumentCount`,
+  `AwardStatusID`, `ContractTitle`, `UNSPSCCode`, `UNSPSCDescription`, `CreatedBy`, `Approver`
+- `AwardAbstract_GetAwardedSupplier?awardID=N&refID=0` — **winner name, full address, contact
+  person, designation**
+- `AwardAbstract_GetLineItem?awardID=N` — `Budget` (the line-item ABC), `Description`, `Quantity`,
+  `UOM`, UNSPSC
+
+`Budget` + `ContractAmount` means **win ratio is computable from enumeration alone.**
+
+### Still requires the real refID (i.e. the rolling listing)
+
+`AwardAbstract_GetNotice` genuinely validates `refID` — bogus values return an empty `Value`, unlike
+the supplier call. `AwardAbstract_GetProcuringEntity` with a bogus `orgID`/`refID` returns `OrgName:
+null`, `Address: null`. So these need the listing:
+
+- buyer / procuring entity name and address
+- **`AreaOfDelivery`** (delivery province)
+- `ProcurementMode`, `Classification`, `Category`, `FundingSource`
+
+### Consequence for the two metrics
+
+- **Win ratios, repeat-winner concentration by firm, UNSPSC mix, award volume over time** — all
+  computable *now* at any scale by ID enumeration. A 3,000-award random sample across the ID space
+  is ~9,000 requests, well under an hour at polite concurrency.
+- **Outsider win rate** needs the buyer's province, so it needs refID → the rolling listing →
+  accumulate ~100/day. Still fine for a statistic (3,000/month), just not instant.
+
+### The two list endpoints: probed, and they don't help
+
+`AwardNoticeList_GetList` and `AwardNoticeListAuditor_GetList` accept unauthenticated calls and the
+WSDL exposes a rich `AwardNoticeSearchBO` — `AwardDateFrom`/`AwardDateTo`, `PublishDateFrom`/
+`PublishDateTo`, `Keyword`, `StatusList`, `ProcurementModeList`, `ClassificationList`, plus
+`start`/`limit` paging. Get the exact signatures from
+`GEPSR3_AwardNotice.asmx?WSDL` rather than guessing.
+
+But every call returns `IsSuccessfull: true, TotalCount: 0, Value: []` — with no filters, with date
+windows, with `StatusList` variants, with a keyword, and with a real buyer `orgID` under both
+`isAgency` values. It is user-scoped and **fails silently rather than 403ing**. Do not spend more
+time here; ID enumeration is strictly better.
+
+The public `SplashOpportunitiesDetailedSearchUI.aspx?ClickFrom=RecentAward` page does expose date
+pickers (`datePickerDAvailableFrom$dateText`, `…To$dateText`, `txtKeyword`, `txtMustHave`,
+`txtMustNotHave`, `lstCategory`, `lstLoc`), but posting it returned the generic *"Transaction cannot
+be completed at this time"* page — the datePicker is a composite control and needs more form fields
+than the visible text inputs. Not worth reverse-engineering now that enumeration works.
 
 ## Operational note
 
