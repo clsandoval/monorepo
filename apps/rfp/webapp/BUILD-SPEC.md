@@ -138,3 +138,10 @@ user can watch it improve. I am the QA — hold it to best practices.
 ## Stop conditions (M2)
 All P1–P6 + regression green (or $30 hit → stop+report; or a gate blocked in budget → stop+report).
 On full green: final redeploy + smoke + Telegram report. Never ship around a red gate.
+
+## P0 — Real-usage gate (ship-blocking, added after the multi-turn re-greet bug)
+Green gates are NOT proof. Before ANY "it works" claim or milestone redeploy:
+- Run the eval's `multi-turn-after-greeting` regression (greeting → search MUST call tools + cite ids).
+- Record `qa/record-live.ts` end-to-end against LIVE prod and eyeball/ship the video to Telegram.
+- Manually reason through a real human session (>=3 turns, no profile) — not just isolated scenarios.
+Never claim "done" from build/tsc/gate colour alone.
