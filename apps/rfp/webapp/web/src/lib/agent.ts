@@ -75,7 +75,15 @@ const tools = [
     execute: async (_id: string, { ids }: { ids: number[] }) => text(await rfp(["show", ...ids.map(String)])) },
 ];
 
-export const STATIC_PREFIX = readFileSync(join(process.cwd(), "src", "lib", "system-prompt.txt"), "utf8");
+// Bundled next to this module so it resolves regardless of cwd. Falls back to source path in dev.
+function loadPrefix(): string {
+  for (const p of [join(process.cwd(), "src", "lib", "system-prompt.txt"),
+                   join(RFP_DIR, "webapp", "web", "src", "lib", "system-prompt.txt")]) {
+    try { return readFileSync(p, "utf8"); } catch { /* try next */ }
+  }
+  throw new Error("system-prompt.txt not found");
+}
+export const STATIC_PREFIX = loadPrefix();
 
 const MAX_ROUNDS = 6;
 

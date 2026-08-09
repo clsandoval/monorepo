@@ -17,9 +17,9 @@ export async function POST(req: Request) {
   if (!sessionId || !message) return NextResponse.json({ error: "sessionId and message required" }, { status: 400 });
   const history = getMessages(sessionId, owner) as { role: string; content: string }[] | null;
   if (history === null) return NextResponse.json({ error: "not found" }, { status: 404 });
-  if (!withinBudget(sessionId)) return NextResponse.json({ error: "session token budget reached" }, { status: 402 });
+  if (!withinBudget(sessionId, owner)) return NextResponse.json({ error: "session token budget reached" }, { status: 402 });
 
-  addMessage(sessionId, "user", message);
+  addMessage(sessionId, owner, "user", message);
 
   const encoder = new TextEncoder();
   const stream = new ReadableStream({
@@ -27,8 +27,8 @@ export async function POST(req: Request) {
       const send = (e: ChatEvent) => controller.enqueue(encoder.encode(`data: ${JSON.stringify(e)}\n\n`));
       try {
         const { reply, usage } = await runTurn(history, profile ?? null, message, sessionId, send);
-        addMessage(sessionId, "assistant", reply);
-        addTokens(sessionId, usage.input + usage.cached + usage.output);
+        addMessage(sessionId, owner, "assistant", reply);
+        addTokens(sessionId, owner, usage.input + usage.cached + usage.output);
       } catch (err) {
         send({ type: "done", reply: `error: ${(err as Error).message}`, usage: { input: 0, cached: 0, output: 0, usd: 0 } });
       } finally {

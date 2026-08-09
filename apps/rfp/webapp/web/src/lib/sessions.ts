@@ -1,63 +1,77 @@
-// Per-user chat sessions. SQLite WAL — tiny concurrent writes, one row per message.
-import Database from "better-sqlite3";
+// Per-user chat sessions as JSON files (rung 0 — no native sqlite dependency).
+// One file per session under RFP_SESSIONS_DIR/<owner>/<id>.json.
+// ponytail: file-per-session with a synchronous read-modify-write. Fine for anonymous low-traffic
+// launch; move to Postgres (pi session repo) at rung 1 when concurrency/volume warrants.
+import { mkdirSync, readFileSync, writeFileSync, existsSync, readdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { randomUUID } from "node:crypto";
 
-const SESSIONS_PATH = process.env.RFP_SESSIONS_DB ?? join(process.cwd(), "sessions.db");
+const ROOT = process.env.RFP_SESSIONS_DIR ?? join(process.cwd(), ".sessions");
+const TOKEN_BUDGET = Number(process.env.RFP_SESSION_TOKEN_BUDGET ?? 500_000);
 
-let db: Database.Database | null = null;
-function conn(): Database.Database {
-  if (db) return db;
-  db = new Database(SESSIONS_PATH);
-  db.pragma("journal_mode = WAL");
-  db.pragma("busy_timeout = 3000");
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS sessions (
-      id TEXT PRIMARY KEY, owner TEXT NOT NULL, title TEXT,
-      created_at TEXT NOT NULL, updated_at TEXT NOT NULL,
-      tokens_used INTEGER NOT NULL DEFAULT 0
-    );
-    CREATE TABLE IF NOT EXISTS messages (
-      id INTEGER PRIMARY KEY AUTOINCREMENT, session_id TEXT NOT NULL REFERENCES sessions(id),
-      role TEXT NOT NULL, content TEXT NOT NULL, created_at TEXT NOT NULL
-    );
-    CREATE INDEX IF NOT EXISTS idx_msg_session ON messages(session_id, id);
-    CREATE INDEX IF NOT EXISTS idx_sess_owner ON sessions(owner, updated_at DESC);
-  `);
-  return db;
-}
+type Msg = { role: string; content: string; created_at: string };
+type Session = { id: string; owner: string; title: string; created_at: string; updated_at: string; tokens_used: number; messages: Msg[] };
 
+const ownerDir = (owner: string) => join(ROOT, owner.replace(/[^a-zA-Z0-9_-]/g, ""));
+const file = (owner: string, id: string) => join(ownerDir(owner), `${id.replace(/[^a-zA-Z0-9_-]/g, "")}.json`);
 const now = () => new Date().toISOString();
+
+function read(owner: string, id: string): Session | null {
+  const f = file(owner, id);
+  if (!existsSync(f)) return null;
+  try { return JSON.parse(readFileSync(f, "utf8")) as Session; } catch { return null; }
+}
+function write(s: Session): void {
+  mkdirSync(ownerDir(s.owner), { recursive: true });
+  writeFileSync(file(s.owner, s.id), JSON.stringify(s));
+}
 
 export function createSession(owner: string, title = "New chat"): string {
   const id = randomUUID();
-  conn().prepare("INSERT INTO sessions (id,owner,title,created_at,updated_at) VALUES (?,?,?,?,?)")
-    .run(id, owner, title, now(), now());
+  write({ id, owner, title, created_at: now(), updated_at: now(), tokens_used: 0, messages: [] });
   return id;
 }
+
 export function listSessions(owner: string) {
-  return conn().prepare("SELECT id,title,created_at,updated_at,tokens_used FROM sessions WHERE owner=? ORDER BY updated_at DESC").all(owner);
+  const dir = ownerDir(owner);
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir).filter((f) => f.endsWith(".json"))
+    .map((f) => JSON.parse(readFileSync(join(dir, f), "utf8")) as Session)
+    .map((s) => ({ id: s.id, title: s.title, created_at: s.created_at, updated_at: s.updated_at, tokens_used: s.tokens_used }))
+    .sort((a, b) => b.updated_at.localeCompare(a.updated_at));
 }
-export function getMessages(sessionId: string, owner: string) {
-  const s = conn().prepare("SELECT id FROM sessions WHERE id=? AND owner=?").get(sessionId, owner);
-  if (!s) return null;
-  return conn().prepare("SELECT role,content,created_at FROM messages WHERE session_id=? ORDER BY id").all(sessionId);
+
+/** Returns messages, or null if the session doesn't exist / isn't owned by `owner`. */
+export function getMessages(sessionId: string, owner: string): Msg[] | null {
+  const s = read(owner, sessionId);
+  return s ? s.messages : null;
 }
-export function addMessage(sessionId: string, role: string, content: string) {
-  conn().prepare("INSERT INTO messages (session_id,role,content,created_at) VALUES (?,?,?,?)").run(sessionId, role, content, now());
-  conn().prepare("UPDATE sessions SET updated_at=? WHERE id=?").run(now(), sessionId);
+
+export function addMessage(sessionId: string, owner: string, role: string, content: string): void {
+  const s = read(owner, sessionId);
+  if (!s) return;
+  s.messages.push({ role, content, created_at: now() });
+  // first user line becomes the title
+  if (s.title === "New chat" && role === "user") s.title = content.slice(0, 48);
+  s.updated_at = now();
+  write(s);
 }
+
 export function deleteSession(sessionId: string, owner: string): boolean {
-  const r = conn().prepare("DELETE FROM sessions WHERE id=? AND owner=?").run(sessionId, owner);
-  if (r.changes) conn().prepare("DELETE FROM messages WHERE session_id=?").run(sessionId);
-  return !!r.changes;
+  const f = file(owner, sessionId);
+  if (!existsSync(f)) return false;
+  rmSync(f);
+  return true;
 }
-/** Per-session token budget: returns false when the session is over budget. */
-const TOKEN_BUDGET = Number(process.env.RFP_SESSION_TOKEN_BUDGET ?? 500_000);
-export function addTokens(sessionId: string, tokens: number): void {
-  conn().prepare("UPDATE sessions SET tokens_used = tokens_used + ? WHERE id=?").run(tokens, sessionId);
+
+export function addTokens(sessionId: string, owner: string, tokens: number): void {
+  const s = read(owner, sessionId);
+  if (!s) return;
+  s.tokens_used += tokens;
+  write(s);
 }
-export function withinBudget(sessionId: string): boolean {
-  const r = conn().prepare("SELECT tokens_used FROM sessions WHERE id=?").get(sessionId) as { tokens_used: number } | undefined;
-  return !r || r.tokens_used < TOKEN_BUDGET;
+
+export function withinBudget(sessionId: string, owner: string): boolean {
+  const s = read(owner, sessionId);
+  return !s || s.tokens_used < TOKEN_BUDGET;
 }
