@@ -186,3 +186,67 @@ Budget: same $30 cap ($0.13 spent). Deploy to https://rfp-finder-ph.fly.dev when
 - **S5 regression:** existing chat eval 8/8 · unit suite · P0 real-usage gate vs LIVE (new
   record-live flow: search → scroll → AI mode convo) → video to Telegram.
 Stop conditions unchanged: all green → deploy+report; $30 cap or blocked gate → stop+report.
+
+---
+
+# Milestone 4 — Notice detail + Enrich (2026-08-09, "invert the script")
+
+**User's directive:** he used the site as a contractor and wants the path from search → "hit
+submit on PhilGEPS with documents in order" to require near-zero decisions. Explicit asks:
+a **detail page** per notice (results click → in-app detail, not straight to PhilGEPS); an
+**Enrich button** that pulls/OCRs the supporting documents and surfaces **deliverables,
+qualifications, deliverability**; **competing firms / recently awarded similar contracts**.
+Ultracode re-invoked; same $30 cap (~$4.95 spent); polish to done like M3.
+
+## Contractor walk findings (what a bidder must know per notice)
+1. *Can I bid?* — PCAB class for the ABC band, SLCC (similar contract ≥50% ABC), statutory
+   eligibility docs (PhilGEPS Platinum, NFCC, OSS, tax clearance; RFQ-only for SVP).
+2. *What do I deliver?* — the BOQ/line items (often already in `description`!), scope.
+3. *When/what process?* — pre-bid conference, closing, bid security (2% cash / 5% surety),
+   contract duration, where documents come from.
+4. *Is it winnable?* — who wins similar contracts and at what discount (awards.db `win_ratio`).
+5. *Who do I talk to?* — contact person + email is already in corpus.
+
+## Data facts (measured)
+- `rfp show` already surfaces scope, line items, contact, solicitation no, PCAB flag — ₱0.
+- Legacy (81%): abstract page is PUBLIC (pre-bid conf, exact ABC) but attachments are
+  auth-gated → enrich uses notice text + statutory rules, labeled "from notice text".
+- mPhilGEPS (19%): attachments downloadable, `extract_lib.py` (pdftotext -layout) proven;
+  scanned PDFs need OCR fallback (pdftoppm+tesseract → Dockerfile adds poppler-utils,
+  tesseract-ocr). docs.db (686MB) stays local; prod enriches LIVE per notice, cached.
+- awards.db: 2MB, 1,580 awards (1,319 from 2026), winner/winner_province/classification/
+  area_of_delivery/win_ratio. buyer_org is a person name (scraper artifact) → match intel on
+  classification + province + ABC proximity, NOT agency. Ship in bundle.
+
+## M4 scope
+- **/notice/[id] — server-rendered** (SEO wedge per spike decision #6: ungated server HTML).
+  Immediate (₱0): ABC large, closing countdown, scope, BOQ table parsed from description,
+  agency + contact card, mode/classification chips, statutory requirements checklist keyed by
+  mode_norm+classification (static table, marked "standard — confirm in bid docs"), documents
+  list if crawled, prominent "Open on PhilGEPS →" (the submit endpoint), back-to-results.
+- **Results rows and AI-mode cards link to /notice/[id]**; PhilGEPS deep link moves to the
+  detail page (plus a small external-link affordance on rows).
+- **Enrich button** → POST /api/notice/[id]/enrich: `enrich_fetch.py` (new, in rfp-bundle;
+  reuses extract_lib) fetches the LIVE notice page (both systems, public) + downloads/extracts
+  mPhilGEPS attachments (pdftotext → tesseract OCR fallback, cap pages/bytes) → one Luna
+  structured pass → {summary, deliverables[], qualifications[] (each grounded: quote + source
+  doc), key_dates (pre-bid/opening/duration), bid_security, red_flags[], sources[]}. Persist
+  to /data/enrich/<id>.json — cached forever, later visitors see it instantly. Legacy: same
+  panel from notice text + statutory rules, honestly labeled. NEVER invent a requirement:
+  extraction prompt quotes-or-omits; statutory items come from the static rules table only.
+- **"Similar recent awards" panel**: top ~5 awards.db matches (classification + province,
+  ABC 0.3–3×, newest first): winner, amount vs ABC (win_ratio as "won at 87% of budget"),
+  date. Hidden when no match. This is the competing-firms + pricing intel.
+
+## M4 gates
+- D1 detail: SSR page renders for a legacy AND an mPhilGEPS id; BOQ table when parseable;
+  countdown correct; PhilGEPS link right per source; 404 for unknown id; tsc/eslint/build.
+- D2 enrich: real mPhilGEPS notice w/ attachments → grounded deliverables+qualifications
+  (spot-check quotes exist in extracted text); legacy notice → labeled text-only enrich;
+  cache hit instant; failure paths graceful (scanned-only, no docs, network fail); cost/enrich
+  logged and ≤ ₱5.
+- D3 awards intel: matches render correctly; empty state hidden; no cross-classification junk.
+- D4 E2E: search → row click → detail → enrich → panels → back preserved; AI card → detail;
+  390/768/1280; palette gate on detail page; existing 17 E2E stay green.
+- D5 regression + P0: chat eval 8/8, search-eval 7/7, live drive on prod incl. one real
+  enrich, video + Telegram report.
