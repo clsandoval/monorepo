@@ -145,3 +145,44 @@ Green gates are NOT proof. Before ANY "it works" claim or milestone redeploy:
 - Record `qa/record-live.ts` end-to-end against LIVE prod and eyeball/ship the video to Telegram.
 - Manually reason through a real human session (>=3 turns, no profile) — not just isolated scenarios.
 Never claim "done" from build/tsc/gate colour alone.
+
+---
+
+# Milestone 3 — Results-first UI (2026-08-09 overnight, user asleep, ~12h)
+
+**User's directive (verbatim intent):** stop being chat-only. Peg = Google: whatever the person
+types, the DEFAULT surface is a long scrolling list of search results (single agent call → search
+results, that's it). A separate **AI Mode tab** (like Google's) holds the conversational surface —
+the current chat with the card carousel. If time remains after it works, restyle to **style 11 =
+signal BLUE** (`ui/apply-11-signal-*` mockups, the blue #1550D8 swap of the red set — per the
+colour-swap rule, blue swap of the EXACT red artifacts, nothing else reinterpreted).
+Budget: same $30 cap ($0.13 spent). Deploy to https://rfp-finder-ph.fly.dev when gates green.
+
+## M3 architecture (locked)
+- **Landing (no query): the board.** Default results list = open notices sorted by closing soon
+  (pure SQL, ₱0, like mockup "Open opportunities · 22,145 results"). Search box on top.
+- **Search = ONE Luna call, no tool loop.** `/api/search` POST {q}: Luna (forced single
+  `search_plan` tool call) converts freeform words → {fts_terms[], province?, abc_min/max?,
+  days_max?, work_types[]?} → server executes plan via the proven `rfp` CLI (FTS + SQL) → long
+  ranked list. Plan echoed to client; **pagination is stateless** (client posts plan+offset back).
+  Greeting/garbage → plan degrades to default board. Cost target ≤ ₱0.06/search.
+- **Results tab UI:** dense rows per the mockup: Ref | Title | Agency | ABC (mono, prominent) |
+  closes-in chip. Infinite scroll ("keep scrolling"). Row click → PhilGEPS deep link (existing
+  noticeUrl). Result count shown.
+- **AI Mode tab:** the existing Workspace (sessions, streaming, present-tool, carousel) mounted
+  under a tab. Current query carries over when switching. Sessions/reliability behavior unchanged.
+- **No regression** of M2 reliability work (abort, errors, budget, rate limit, scroll, a11y).
+
+## M3 gates
+- **S1 search eval** (`qa/search-eval.ts`): fixture queries with mechanical assertions —
+  filters honored (band/province/days actually constrain results), every id exists, ≥N hits for
+  known-good queries, garbage → board fallback, injection in query stays data, cost/search cap.
+- **S2 backend:** tsc · eslint · build · unit tests for plan validation/execution/pagination.
+- **S3 E2E:** land → board renders → search → list updates → scroll loads more → AI Mode tab →
+  query carried → chat+cards work → tab back preserves results. 390/768/1280, no h-overflow.
+- **S4 visual:** screenshots per state. Until the style pass: grayscale holds. After style 11
+  lands: **palette gate replaces grayscale** — the ONLY hue allowed is signal blue #1550D8
+  (± shades of it); everything else neutral. Never a government-style seal; plain wordmark.
+- **S5 regression:** existing chat eval 8/8 · unit suite · P0 real-usage gate vs LIVE (new
+  record-live flow: search → scroll → AI mode convo) → video to Telegram.
+Stop conditions unchanged: all green → deploy+report; $30 cap or blocked gate → stop+report.
