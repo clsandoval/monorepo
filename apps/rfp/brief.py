@@ -158,7 +158,8 @@ LADDER = (
 def fetch(con, province, types, lo, hi, days):
     q = f"""
         select c.nid, c.source, c.id, c.ref_no, s.abc, s.title, s.agency, s.closing_at,
-               s.days_left, s.mode_norm, g.needs_pcab, g.work_type,
+               s.days_left, s.mode_norm, g.needs_pcab, g.work_type, g.scope,
+               c.delivery_period, c.delivery_days,
                coalesce(nullif(dr.eligibility,'[]'), g.eligibility) as eligibility,
                (dr.eligibility is not null and dr.eligibility != '[]') as from_docs
         from c.corpus c
@@ -212,6 +213,16 @@ def _foreign(row, province):
 # --- page -----------------------------------------------------------------------------------
 # One notice per page. The reader is a contractor who reads bid bulletins all day; this is set
 # like one, not like a deck. Copy budget: every sentence earns its place or goes.
+def build_time(r):
+    d = r["delivery_days"] or (r["delivery_period"] or "").split(" ")[0]
+    try:
+        d = int(str(d).strip())
+    except (ValueError, TypeError):
+        return ""
+    return (f'<div class="fact"><b>Build time</b>'
+            f'<span class="mono">{d} calendar days</span></div>')
+
+
 def why_line(r, tag, kind, work_type, awards):
     if tag == "match":
         if work_type == "civil_works":
@@ -267,7 +278,9 @@ a {{ color:{th['a1']}; text-decoration:none; }}
 .tag.widened {{ border:1px solid {th['ink']}; color:{th['ink']}; }}
 .ntitle {{ font-weight:800; font-size:27px; line-height:1.08; letter-spacing:-.028em;
   margin:14px 0 4px; max-width:160mm; }}
-.agency {{ font-size:12px; color:#8E8A82; margin-bottom:14mm; }}
+.agency {{ font-size:12px; color:#8E8A82; }}
+.scope {{ font-size:14px; line-height:1.55; max-width:150mm; margin:9mm 0 0; }}
+.abc {{ margin-top:12mm; }}
 .abc {{ font-size:46px; letter-spacing:-.03em; line-height:1; }}
 .abclab {{ font-size:8px; letter-spacing:.2em; text-transform:uppercase; color:#8E8A82;
   margin:6px 0 12mm; }}
@@ -331,11 +344,13 @@ a {{ color:{th['a1']}; text-decoration:none; }}
   <span><span class="tag {tag}">{tag}</span></span>
   <div class="ntitle">{html.escape(calm(r['title'] or '', 130))}</div>
   <div class="agency">{html.escape((r['agency'] or '').title())}</div>
+  {f'<p class="scope">{html.escape(r["scope"])}</p>' if r['scope'] else ''}
   <div class="abc mono">{peso(r['abc'])}</div>
   <div class="abclab">Approved budget for the contract</div>
   <div class="facts">
     <div class="fact"><b>Closes</b><span class="mono">{when} &nbsp;·&nbsp; {r['days_left']:.0f} days from today</span></div>
     <div class="fact"><b>Mode</b><span>{html.escape((r['mode_norm'] or '').capitalize())}</span></div>
+    {build_time(r)}
     <div class="fact"><b>Needs</b><span>{req_html}<span class="grey">{src}</span></span></div>
     <div class="fact"><b>Ref</b><span class="mono"><a href="{url}">{html.escape(r['ref_no'] or str(r['id']))}</a>
       &nbsp;<span class="grey">verify on PhilGEPS</span></span></div>
