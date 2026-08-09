@@ -261,8 +261,6 @@ def render(th, firm, contact, awards, picked, tags, rung, province, pool, corpus
         hero = f"""<div class="hero flat">
     <h1>{peso(total)} closes in<br>{html.escape(province)} in the<br>next {horizon:.0f} days.</h1>
     <hr class="flatrule">
-    <div class="strap">{len(picked)} NOTICES &nbsp;·&nbsp; {monday} CLOSE MON–TUE
-      &nbsp;·&nbsp; {over} BIGGER THAN YOUR LAST WIN</div>
   </div>"""
     else:
         hero = f"""<div class="hero">
@@ -270,8 +268,6 @@ def render(th, firm, contact, awards, picked, tags, rung, province, pool, corpus
     <div class="plate" style="{th['hero_b']}"></div>
     <div class="plate over" style="{th.get('hero_c', 'display:none')}"></div>
     <h1>{peso(total)} closes in<br>{html.escape(province)} in the<br>next {horizon:.0f} days.</h1>
-    <div class="strap">{len(picked)} NOTICES &nbsp;·&nbsp; {monday} CLOSE MON–TUE
-      &nbsp;·&nbsp; {over} BIGGER THAN YOUR LAST WIN</div>
   </div>"""
 
     pcab_block = f"""<b>All {pcab} of the {len(picked)} require a PCAB licence.</b> You bid
