@@ -18,8 +18,12 @@ async function ask(page: import("@playwright/test").Page, msg: string, waitCards
 
 test("end-to-end session (video)", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByTestId("empty-state")).toBeVisible();
+  // results-first IA: land on the board, then into AI Mode for the chat journey
+  await expect(page.getByTestId("result-row").first()).toBeVisible({ timeout: 15_000 });
   await page.waitForTimeout(1200);
+  await page.getByTestId("tab-ai").click();
+  await expect(page.getByTestId("empty-state")).toBeVisible();
+  await page.waitForTimeout(600);
 
   // 1) greeting → intro (no tools)
   await ask(page, "hi, what can you help me with?", false);

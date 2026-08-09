@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-09T14:13:50.774Z",
+  "updated": "2026-08-09T17:11:06.727Z",
   "pass": true,
   "failCount": 0,
   "scenarios": [
@@ -13,49 +13,58 @@
       "usd": 0
     },
     {
-      "id": "refinement-province",
+      "id": "multi-turn-after-greeting",
       "pass": true,
       "fails": [],
       "cited": 5,
-      "tools": 0,
-      "cacheRatio": 0,
-      "usd": 0
+      "tools": 3,
+      "cacheRatio": 1,
+      "usd": 0.00092
+    },
+    {
+      "id": "refinement-province",
+      "pass": true,
+      "fails": [],
+      "cited": 4,
+      "tools": 3,
+      "cacheRatio": 1,
+      "usd": 0.00113
     },
     {
       "id": "multi-lot",
       "pass": true,
       "fails": [],
-      "cited": 2,
-      "tools": 10,
-      "cacheRatio": 0.98,
-      "usd": 0.0039
+      "cited": 0,
+      "tools": 11,
+      "cacheRatio": 1,
+      "usd": 0.00362
     },
     {
       "id": "prior-not-filter",
       "pass": true,
       "fails": [],
       "cited": 10,
-      "tools": 5,
-      "cacheRatio": 0.95,
-      "usd": 0.0022
+      "tools": 4,
+      "cacheRatio": 1,
+      "usd": 0.00193
     },
     {
       "id": "tight-deadline",
       "pass": true,
       "fails": [],
-      "cited": 7,
-      "tools": 4,
-      "cacheRatio": 0.94,
-      "usd": 0.00242
+      "cited": 10,
+      "tools": 3,
+      "cacheRatio": 1,
+      "usd": 0.00167
     },
     {
       "id": "empty-result-honesty",
       "pass": true,
       "fails": [],
       "cited": 0,
-      "tools": 4,
-      "cacheRatio": 0.61,
-      "usd": 0.00078
+      "tools": 2,
+      "cacheRatio": 1,
+      "usd": 0.00039
     },
     {
       "id": "adversarial-injection",
@@ -64,9 +73,9 @@
       "cited": 0,
       "tools": 0,
       "cacheRatio": 0,
-      "usd": 0.00027
+      "usd": 0.00005
     }
   ],
-  "total_usd": 0.0096,
-  "total_peso": 0.555
+  "total_usd": 0.0097,
+  "total_peso": 0.563
 }

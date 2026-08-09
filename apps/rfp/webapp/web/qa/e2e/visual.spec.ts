@@ -1,7 +1,8 @@
 import { test, expect } from "@playwright/test";
 import { mkdirSync } from "node:fs";
 
-// G3 visual QA — capture each UI state + assert strictly grayscale. Screenshots land in qa/shots/
+// G3/S4 visual QA — capture each UI state + assert strictly grayscale (pre-style-11 phase).
+// Surfaces: results board · interpreted search · AI Mode chat. Screenshots land in qa/shots/
 // and are sent to Telegram by qa/send-shots.sh after the run.
 const SHOTS = `${process.cwd()}/qa/shots/`;
 test.beforeAll(() => mkdirSync(SHOTS, { recursive: true }));
@@ -32,30 +33,38 @@ async function assertGrayscale(page: import("@playwright/test").Page) {
   expect(offenders, `non-grayscale colors: ${offenders.join(", ")}`).toHaveLength(0);
 }
 
-test("capture states + grayscale", async ({ page }) => {
-  // 1. landing / empty
+test("capture states + grayscale on board, search and AI Mode", async ({ page }) => {
+  // 1. landing = the board
   await page.goto("/");
-  await expect(page.getByTestId("empty-state")).toBeVisible();
-  await page.screenshot({ path: `${SHOTS}01-landing.png`, fullPage: true });
+  await expect(page.getByTestId("result-row").first()).toBeVisible({ timeout: 15_000 });
+  await page.screenshot({ path: `${SHOTS}01-board.png`, fullPage: true });
   await assertGrayscale(page);
 
-  // 2. results with cards (real Luna turn)
+  // 2. interpreted search (one real Luna plan call) — rows + plan chip
+  await page.getByTestId("search-input").fill("drainage works in Cavite under 5M");
+  await page.getByTestId("search-submit").click();
+  await expect(page.getByTestId("plan-note")).toBeVisible({ timeout: 30_000 });
+  await expect(page.getByTestId("result-row").first()).toBeVisible();
+  await page.screenshot({ path: `${SHOTS}02-search-results.png`, fullPage: true });
+  await assertGrayscale(page);
+
+  // 3. AI Mode empty state (query carried over into the input)
+  await page.getByTestId("tab-ai").click();
+  await expect(page.getByTestId("empty-state")).toBeVisible();
+  await page.screenshot({ path: `${SHOTS}03-ai-empty.png`, fullPage: true });
+  await assertGrayscale(page);
+
+  // 4. chat reply with cards (real Luna turn)
   await page.getByTestId("chat-input").fill("small drainage jobs in Cavite under 5M, PCAB C");
   await page.getByTestId("send").click();
   await expect(page.getByTestId("assistant-text").first()).toHaveText(/[A-Za-z].{40,}/, { timeout: 100_000 });
   await expect(page.getByTestId("cards").first()).toBeVisible({ timeout: 10_000 });
-  await page.screenshot({ path: `${SHOTS}02-results-cards.png`, fullPage: true });
+  await page.screenshot({ path: `${SHOTS}04-ai-cards.png`, fullPage: true });
   await assertGrayscale(page);
 
-  // 3. session panel populated
+  // 5. session panel populated
   await page.getByTestId("new-session").click();
   await page.getByTestId("new-session").click();
-  await page.screenshot({ path: `${SHOTS}03-session-panel.png`, fullPage: true });
-
-  // 4. empty-result honesty state
-  await page.getByTestId("chat-input").fill("underwater basket weaving contracts in Antarctica");
-  await page.getByTestId("send").click();
-  await expect(page.getByTestId("assistant-text").last()).toHaveText(/[A-Za-z].{10,}/, { timeout: 100_000 });
-  await page.screenshot({ path: `${SHOTS}04-empty-result.png`, fullPage: true });
+  await page.screenshot({ path: `${SHOTS}05-session-panel.png`, fullPage: true });
   await assertGrayscale(page);
 });
