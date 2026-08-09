@@ -28,6 +28,7 @@ await page.goto(U, { waitUntil: "networkidle" });
 await page.waitForTimeout(1200);
 await ask("hi, what can you help me with?", false);   // greeting → intro
 await ask("find me drainage work in Bulacan");          // the previously-broken follow-up
+await page.screenshot({ path: `${DIR}/../shots/live-cards.png`, fullPage: true }); // still for eyeballing the carousel
 await page.mouse.wheel(0, 700); await page.waitForTimeout(900); await page.mouse.wheel(0, -400);
 await ask("only ones above ₱2M");                        // refine
 await page.getByTestId("new-session").click(); await page.waitForTimeout(800);

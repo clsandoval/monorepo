@@ -6,9 +6,19 @@ import { Textarea } from "@/components/ui/textarea";
 import { TenderCard, type Notice } from "@/components/tender-card";
 
 type Session = { id: string; title: string; updated_at: string };
-type Msg = { role: "user" | "assistant"; content: string; notices?: Notice[] };
+type Ref = { id: number; why: string; tag?: string };
+type Msg = { role: "user" | "assistant"; content: string; refs?: Ref[]; notices?: Notice[] };
 
-const ID_RE = /\b(\d{5,9})\b/g;
+// Parse a stored assistant message: present-JSON -> {intro/note text, refs}; else plain text.
+function parseStored(role: string, content: string): Msg {
+  if (role === "assistant" && content.startsWith('{"__present"')) {
+    try {
+      const p = JSON.parse(content) as { intro?: string; note?: string; refs?: Ref[] };
+      return { role: "assistant", content: [p.intro, p.note].filter(Boolean).join("\n\n"), refs: p.refs ?? [] };
+    } catch { /* fall through */ }
+  }
+  return { role: role as Msg["role"], content };
+}
 
 export function Workspace() {
   const [sessions, setSessions] = useState<Session[]>([]);
@@ -36,7 +46,14 @@ export function Workspace() {
   async function selectSession(id: string) {
     setActive(id); setPanelOpen(false);
     const r = await fetch(`/api/sessions/${id}`).then((x) => x.json());
-    setMsgs((r.messages ?? []).map((m: Msg) => ({ role: m.role, content: m.content })));
+    const parsed: Msg[] = (r.messages ?? []).map((m: { role: string; content: string }) => parseStored(m.role, m.content));
+    setMsgs(parsed);
+    // hydrate cards for any present turns
+    parsed.forEach((m, i) => {
+      if (m.refs?.length) hydrateRefs(m.refs).then((notices) => setMsgs((cur) => {
+        const copy = [...cur]; if (copy[i]) copy[i] = { ...copy[i], notices }; return copy;
+      }));
+    });
   }
   async function delSession(id: string) {
     await fetch(`/api/sessions/${id}`, { method: "DELETE" });
@@ -44,11 +61,14 @@ export function Workspace() {
     if (active === id) { if (s?.length) selectSession(s[0].id); else newSession(); }
   }
 
-  async function hydrate(text: string): Promise<Notice[]> {
-    const ids = [...new Set([...text.matchAll(ID_RE)].map((m) => m[1]))].slice(0, 12);
+  // Fetch full notice rows for the model's refs, preserving order + attaching its why/tag.
+  async function hydrateRefs(refs: Ref[]): Promise<Notice[]> {
+    const ids = refs.map((r) => r.id).filter(Boolean);
     if (!ids.length) return [];
     const r = await fetch(`/api/notices?ids=${ids.join(",")}`).then((x) => x.json());
-    return r.notices ?? [];
+    const byId = new Map<number, Notice>((r.notices ?? []).map((n: Notice) => [n.id, n]));
+    return refs.map((rf) => { const n = byId.get(rf.id); return n ? { ...n, why: rf.why, tag: rf.tag } : null; })
+               .filter(Boolean) as Notice[];
   }
 
   async function send() {
@@ -61,7 +81,13 @@ export function Workspace() {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ sessionId: active, message }),
       });
-      const reader = res.body!.getReader();
+      if (!res.ok || !res.body) {
+        const msg = res.status === 402 ? "This chat has reached its usage limit. Start a new chat."
+          : res.status === 429 ? "Too many requests — give it a moment and try again."
+          : "Something went wrong. Please try again.";
+        setMsgs((m) => upsertLast(m, msg)); return;
+      }
+      const reader = res.body.getReader();
       const dec = new TextDecoder();
       let buf = "", acc = "";
       for (;;) {
@@ -73,15 +99,16 @@ export function Workspace() {
           if (!p.startsWith("data: ")) continue;
           const ev = JSON.parse(p.slice(6));
           if (ev.type === "delta") { acc += ev.text; setMsgs((m) => upsertLast(m, acc)); }
-          if (ev.type === "done") {
-            acc = ev.reply || acc;
-            const notices = await hydrate(acc);
-            setMsgs((m) => upsertLast(m, acc, notices));
+          else if (ev.type === "present") {
+            const notices = await hydrateRefs(ev.present.refs);
+            setMsgs((m) => upsertLast(m, [ev.present.intro, ev.present.note].filter(Boolean).join("\n\n"), notices, ev.present.refs));
+          } else if (ev.type === "done") {
+            if (!ev.present) { acc = ev.reply || acc; setMsgs((m) => upsertLast(m, acc)); }
           }
         }
       }
       loadSessions();
-    } catch { setMsgs((m) => upsertLast(m, "Something went wrong. Try again.")); }
+    } catch { setMsgs((m) => upsertLast(m, "Connection lost. Please try again.")); }
     finally { setBusy(false); }
   }
 
@@ -144,8 +171,11 @@ export function Workspace() {
                       {m.content ? <ReactMarkdown>{m.content}</ReactMarkdown> : (busy ? "…" : "")}
                     </div>
                     {m.notices && m.notices.length > 0 && (
-                      <div className="grid gap-2" data-testid="cards">
-                        {m.notices.map((n) => <TenderCard key={n.id} n={n} />)}
+                      <div className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2
+                        [scrollbar-width:thin]" data-testid="cards">
+                        {m.notices.map((n) => (
+                          <div key={n.id} className="w-72 shrink-0 snap-start"><TenderCard n={n} /></div>
+                        ))}
                       </div>
                     )}
                   </div>
@@ -168,10 +198,13 @@ export function Workspace() {
   );
 }
 
-function upsertLast(m: Msg[], content: string, notices?: Notice[]): Msg[] {
+function upsertLast(m: Msg[], content: string, notices?: Notice[], refs?: Ref[]): Msg[] {
   const copy = [...m];
   for (let i = copy.length - 1; i >= 0; i--) {
-    if (copy[i].role === "assistant") { copy[i] = { ...copy[i], content, ...(notices ? { notices } : {}) }; break; }
+    if (copy[i].role === "assistant") {
+      copy[i] = { ...copy[i], content, ...(notices ? { notices } : {}), ...(refs ? { refs } : {}) };
+      break;
+    }
   }
   return copy;
 }

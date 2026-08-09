@@ -4,6 +4,7 @@ export type Notice = {
   abc: number | null; abc_lot_min: number | null; abc_lot_max: number | null;
   mode_norm: string | null; closing_day: string | null; closing_at: string | null;
   work_type: string | null; needs_pcab: number | null;
+  why?: string; tag?: string; // model's per-card annotation from `present`
 };
 
 function peso(n: number | null): string {
@@ -21,17 +22,18 @@ function daysLeft(closingAt: string | null): string {
 
 export function TenderCard({ n }: { n: Notice }) {
   return (
-    <div className="rounded-lg border border-border bg-card p-4 text-card-foreground">
+    <div className="flex h-full flex-col rounded-lg border border-border bg-card p-4 text-card-foreground">
       <div className="flex items-baseline justify-between gap-3">
         <span className="font-mono text-2xl font-bold tabular-nums tracking-tight">{peso(n.abc)}</span>
         <span className="font-mono text-xs text-muted-foreground tabular-nums">{daysLeft(n.closing_at)}</span>
       </div>
       <p className="mt-2 line-clamp-2 text-sm font-medium leading-snug">{n.title}</p>
-      <p className="mt-1 text-xs text-muted-foreground">{n.agency}</p>
-      <div className="mt-3 flex flex-wrap gap-1.5 text-[11px] text-muted-foreground">
+      <p className="mt-1 line-clamp-1 text-xs text-muted-foreground">{n.agency}</p>
+      {n.why && <p className="mt-2 line-clamp-3 text-xs leading-snug text-foreground/80">{n.why}</p>}
+      <div className="mt-auto flex flex-wrap gap-1.5 pt-3 text-[11px] text-muted-foreground">
+        {n.tag && <span className="rounded border border-foreground/30 px-1.5 py-0.5 font-medium text-foreground/80">{n.tag}</span>}
         {n.location && <span className="rounded border border-border px-1.5 py-0.5">{n.location}</span>}
         {n.work_type && <span className="rounded border border-border px-1.5 py-0.5">{n.work_type}</span>}
-        {n.mode_norm && <span className="rounded border border-border px-1.5 py-0.5">{n.mode_norm}</span>}
         {n.needs_pcab === 1 && <span className="rounded border border-border px-1.5 py-0.5">PCAB</span>}
         <span className="ml-auto font-mono tabular-nums">#{n.id}</span>
       </div>
