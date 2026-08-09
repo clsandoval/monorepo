@@ -41,6 +41,18 @@ def tidy(a):
     return re.sub(r",?\s*Philippines$", "", a)
 
 
+def contacts():
+    d = sqlite3.connect(f"file:{HERE/'awards.db'}?mode=ro", uri=True)
+    try:
+        rows = d.execute("select winner, phone, website, maps_uri, confidence from contacts")
+    except sqlite3.OperationalError:
+        return {}
+    return {w: dict(phone=p, website=s, maps_uri=m, confidence=c) for w, p, s, m, c in rows}
+
+
+CONTACTS = {}
+
+
 def load():
     d = sqlite3.connect(f"file:{HERE/'awards.db'}?mode=ro", uri=True)
     rows = d.execute("""select winner, winner_contact, winner_address, winner_province,
@@ -73,9 +85,9 @@ def is_shortlist(f):
             and any(k in (f["last_title"] or "").lower() for k in INFRA))
 
 
-HEAD = ["Company", "Contact person", "Contact channel (TO FIND)", "Address", "Province",
+HEAD = ["Company", "Contact person", "Phone", "Website", "Match confidence", "Address", "Province",
         "Last win", "Last win ₱", "Wins in sample", "Total ₱ in sample",
-        "Avg bid vs budget", "What they last won", "Sector", "Verify on PhilGEPS"]
+        "Avg bid vs budget", "What they last won", "Sector", "Verify on PhilGEPS", "Google Maps"]
 
 
 def sheet(wb, title, firms, note):
@@ -90,23 +102,31 @@ def sheet(wb, title, firms, note):
         cell.alignment = Alignment(vertical="center", wrap_text=True)
     for f in sorted(firms, key=lambda x: (x["last"] or datetime(1970, 1, 1)), reverse=True):
         avg = sum(f["ratios"]) / len(f["ratios"]) if f["ratios"] else None
+        ct = CONTACTS.get(f["winner"], {})
         ws.append([
-            f["winner"], f["contact"], "", f["address"], f["province"],
+            f["winner"], f["contact"], ct.get("phone"), ct.get("website"),
+            ct.get("confidence"), f["address"], f["province"],
             f["last"].strftime("%Y-%m-%d") if f["last"] else "",
             f["last_amt"], f["wins"], round(f["total"], 2),
             round(avg, 3) if avg else None,
             re.sub(r"^[0-9A-Z]+ - ", "", f["last_title"] or "")[:120],
             "; ".join(sorted(f["sectors"]))[:60],
             AWARD_URL.format(ref=f["ref"] or 0, aid=f["aid"]),
+            ct.get("maps_uri"),
         ])
-    widths = [42, 26, 24, 46, 17, 11, 14, 8, 16, 10, 56, 30, 26]
+    widths = [42, 24, 17, 34, 12, 44, 16, 11, 13, 8, 15, 10, 52, 26, 24, 24]
     for i, w in enumerate(widths, 1):
         ws.column_dimensions[get_column_letter(i)].width = w
+    GREEN, AMBER, GREY = "E6F4EA", "FFF4E8", "F2F2F2"
     for r in range(3, ws.max_row + 1):
-        ws.cell(row=r, column=7).number_format = '#,##0'
         ws.cell(row=r, column=9).number_format = '#,##0'
-        ws.cell(row=r, column=10).number_format = '0.0%'
-        ws.cell(row=r, column=3).fill = PatternFill("solid", fgColor="FFF4E8")
+        ws.cell(row=r, column=11).number_format = '#,##0'
+        ws.cell(row=r, column=12).number_format = '0.0%'
+        # colour the confidence cell: a wrong phone number is worse than a blank one, so the
+        # reader must see at a glance which rows a human still has to verify.
+        conf = ws.cell(row=r, column=5).value
+        ws.cell(row=r, column=5).fill = PatternFill(
+            "solid", fgColor={"good": GREEN, "weak": AMBER}.get(conf, GREY))
     ws.freeze_panes = "A3"
     ws.auto_filter.ref = f"A2:{get_column_letter(len(HEAD))}{ws.max_row}"
     return ws
@@ -121,10 +141,16 @@ def readme(wb, n_all, n_short, n_awards):
         (f"{n_all} companies, from {n_awards} award records sampled {datetime.now():%d %b %Y}.", False),
         (f"Shortlist sheet: {n_short} SME infrastructure contractors active in 2026.", False),
         ("", False),
-        ("WHAT IS MISSING, and it is the one thing you need", True),
-        ("PhilGEPS publishes the winning company, a named contact person and a street address.", False),
-        ("It publishes NO email and NO phone. 'Contact channel' is blank on purpose -- fill it by", False),
-        ("searching the company name + city on Facebook (where most PH SMEs actually are) or Google.", False),
+        ("CONTACT DETAILS -- read the confidence colour before you dial", True),
+        ("PhilGEPS publishes NO email and NO phone, and its Registered Merchants directory carries", False),
+        ("only membership status and certificate dates. Phone and website here come from Google", False),
+        ("Places, matched on company name AND province.", False),
+        ("  GREEN 'good' = name and province both agree. Safe to use.", False),
+        ("  AMBER 'weak' = plausible but unconfirmed. Check the Google Maps link before calling.", False),
+        ("  GREY  'none' = no credible match; the lookup found something and it was rejected.", False),
+        ("A wrong number is worse than a blank one -- you call a stranger and burn the lead -- so", False),
+        ("the matcher rejects rather than guesses. Still no emails: for those, try the website or", False),
+        ("the company's Facebook page.", False),
         ("", False),
         ("HOW THE SHORTLIST WAS FILTERED", True),
         ("Won between P500,000 and P15,000,000 -- big enough to matter, small enough to lack a bid desk.", False),
@@ -159,6 +185,8 @@ def readme(wb, n_all, n_short, n_awards):
 
 
 def main():
+    global CONTACTS
+    CONTACTS = contacts()
     firms = load()
     short = [f for f in firms if is_shortlist(f)]
     n_awards = sqlite3.connect(f"file:{HERE/'awards.db'}?mode=ro", uri=True).execute(
