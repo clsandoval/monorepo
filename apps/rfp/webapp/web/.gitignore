@@ -44,3 +44,4 @@ test-results/
 playwright-report/
 .sessions-e2e/
 qa/shots/
+rfp-bundle/

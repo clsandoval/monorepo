@@ -75,12 +75,12 @@ const tools = [
     execute: async (_id: string, { ids }: { ids: number[] }) => text(await rfp(["show", ...ids.map(String)])) },
 ];
 
-// Bundled next to this module so it resolves regardless of cwd. Falls back to source path in dev.
+// Resolve regardless of cwd/build layout: explicit env (prod), source path (dev), RFP_DIR fallback.
 function loadPrefix(): string {
-  for (const p of [join(process.cwd(), "src", "lib", "system-prompt.txt"),
-                   join(RFP_DIR, "webapp", "web", "src", "lib", "system-prompt.txt")]) {
-    try { return readFileSync(p, "utf8"); } catch { /* try next */ }
-  }
+  const paths = [process.env.RFP_PROMPT_PATH,
+                 join(process.cwd(), "src", "lib", "system-prompt.txt"),
+                 join(RFP_DIR, "webapp", "web", "src", "lib", "system-prompt.txt")].filter(Boolean) as string[];
+  for (const p of paths) { try { return readFileSync(p, "utf8"); } catch { /* try next */ } }
   throw new Error("system-prompt.txt not found");
 }
 export const STATIC_PREFIX = loadPrefix();
