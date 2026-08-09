@@ -110,6 +110,7 @@ export function sanitizePlan(p: unknown): SearchPlan {
   if (abcMin !== undefined) plan.abc_min = abcMin;
   if (abcMax !== undefined) plan.abc_max = abcMax;
   if (daysMax !== undefined) plan.days_max = Math.min(Math.floor(daysMax), 365);
+  if (o.sort === "closing" || o.sort === "abc_desc" || o.sort === "abc_asc") plan.sort = o.sort;
   return plan;
 }
 
@@ -151,12 +152,40 @@ export async function executePlan(plan: SearchPlan, offset = 0, limit = 30): Pro
       String(h.province ?? "").toLowerCase() === prov || String(h.location ?? "").toLowerCase().includes(prov);
     hits = [...hits.filter(inProv), ...hits.filter((h) => !inProv(h))];
   }
+  // Explicit sort overrides relevance/partition order — total order over the fetched set, so
+  // pagination slices stay consistent. Nulls always sink to the tail.
+  if (p.sort && p.sort !== "relevance") {
+    const key = p.sort === "closing"
+      ? (h: Record<string, unknown>) => (h.closing_at ? String(h.closing_at) : "9999")
+      : (h: Record<string, unknown>) => (typeof h.abc === "number" ? (h.abc as number) : -1);
+    const dir = p.sort === "abc_desc" ? -1 : 1;
+    hits = [...hits].sort((a, b) => {
+      const ka = key(a), kb = key(b);
+      if (p.sort !== "closing") { // numeric, nulls (-1) last regardless of direction
+        if (ka === -1 && kb === -1) return 0;
+        if (ka === -1) return 1;
+        if (kb === -1) return -1;
+      }
+      return ka < kb ? -dir : ka > kb ? dir : 0;
+    });
+  }
   const results = hits.slice(off, off + lim).map(toRow);
   const more = off + results.length < Math.min(out.candidates, FETCH_CAP);
   let total = out.candidates;
-  if (p.kind === "board") {
+  // The unfiltered board advertises the full Active count; any filter narrows to real candidates.
+  if (p.kind === "board" && !p.province && p.abc_min == null && p.abc_max == null && p.days_max == null) {
     const rows = await readSql("SELECT count(*) AS c FROM corpus WHERE status='Active'", 1);
     total = Number(rows[0]?.c ?? out.candidates);
   }
   return { plan: p, total, offset: off, results, more };
+}
+
+let provCache: string[] | null = null;
+/** Distinct normalized provinces (90 rows), title-cased, cached for the process lifetime. */
+export async function provinces(): Promise<string[]> {
+  if (provCache) return provCache;
+  const rows = await readSql(
+    "SELECT DISTINCT location_norm AS p FROM notice_location WHERE location_norm IS NOT NULL ORDER BY p", 200);
+  provCache = rows.map((r) => String(r.p).toLowerCase().replace(/\b[a-z]/g, (c) => c.toUpperCase()));
+  return provCache;
 }

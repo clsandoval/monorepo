@@ -32,9 +32,19 @@ export function Workspace({ seedQuery }: { seedQuery?: string } = {}) {
 
   function stop() { abortRef.current?.abort(); }
 
-  // Prefill (never auto-send) the chat input with the active search query when the AI tab opens.
-  // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional one-shot prefill per seed
-  useEffect(() => { if (seedQuery) setInput((cur) => (cur.trim() ? cur : seedQuery)); }, [seedQuery]);
+  // Google-style handoff: opening the AI tab with an active search query starts a NEW session and
+  // auto-runs that query. Each distinct query runs once — toggling tabs never re-runs it.
+  const seedDone = useRef<string | undefined>(undefined);
+  useEffect(() => {
+    if (!seedQuery || seedQuery === seedDone.current) return;
+    seedDone.current = seedQuery;
+    (async () => {
+      abortRef.current?.abort(); // a turn mid-stream in the old session yields to the handoff
+      const id = await newSession();
+      runSend(seedQuery, id);
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- newSession/runSend are stable per render
+  }, [seedQuery]);
 
   const loadSessions = useCallback(async () => {
     const r = await fetch("/api/sessions").then((x) => x.json());
@@ -59,9 +69,10 @@ export function Workspace({ seedQuery }: { seedQuery?: string } = {}) {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  async function newSession() {
+  async function newSession(): Promise<string> {
     const { id } = await fetch("/api/sessions", { method: "POST" }).then((x) => x.json());
     await loadSessions(); setActive(id); setMsgs([]); setPanelOpen(false);
+    return id;
   }
   async function selectSession(id: string) {
     setActive(id); setPanelOpen(false);
@@ -94,14 +105,21 @@ export function Workspace({ seedQuery }: { seedQuery?: string } = {}) {
   async function send() {
     if (!input.trim() || !active || busy) return;
     const message = input.trim();
-    setInput(""); setBusy(true);
+    setInput("");
+    await runSend(message, active);
+  }
+
+  // One chat turn against an explicit session — callable by both the Send button and the AI-tab
+  // query handoff (which targets a session id newer than the `active` state it just set).
+  async function runSend(message: string, sessionId: string) {
+    setBusy(true);
     setMsgs((m) => [...m, { role: "user", content: message }, { role: "assistant", content: "" }]);
     const controller = new AbortController();
     abortRef.current = controller;
     try {
       const res = await fetch("/api/chat", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId: active, message }), signal: controller.signal,
+        body: JSON.stringify({ sessionId, message }), signal: controller.signal,
       });
       if (!res.ok || !res.body) {
         const msg = res.status === 402 ? "This chat has reached its usage limit. Start a new chat."
@@ -131,6 +149,7 @@ export function Workspace({ seedQuery }: { seedQuery?: string } = {}) {
       }
       loadSessions();
     } catch (e) {
+      if (abortRef.current !== controller) return; // superseded by a handoff turn — don't touch its messages
       if ((e as Error).name === "AbortError") {
         setMsgs((m) => { // keep whatever streamed, append a stopped marker
           const c = [...m];
@@ -142,7 +161,10 @@ export function Workspace({ seedQuery }: { seedQuery?: string } = {}) {
       } else {
         setMsgs((m) => upsertLast(m, "Connection lost. Please try again."));
       }
-    } finally { setBusy(false); abortRef.current = null; }
+    } finally {
+      // an aborted turn may resolve after its successor started — only the live turn clears busy
+      if (abortRef.current === controller) { setBusy(false); abortRef.current = null; }
+    }
   }
 
   return (

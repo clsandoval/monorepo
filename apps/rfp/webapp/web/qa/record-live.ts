@@ -47,7 +47,7 @@ await page.waitForTimeout(1500);
 await page.screenshot({ path: `${DIR}/../shots/live-results.png`, fullPage: true });
 
 // 3) infinite scroll — the results pane scrolls in its inner div (#pane-results)
-for (const _ of [0, 1]) {
+for (let i = 0; i < 2; i++) {
   await page.evaluate(() => {
     const el = document.getElementById("pane-results");
     if (el) el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
@@ -57,10 +57,8 @@ for (const _ of [0, 1]) {
 await page.evaluate(() => document.getElementById("pane-results")?.scrollTo({ top: 0, behavior: "smooth" }));
 await page.waitForTimeout(1200);
 
-// 4) AI Mode — the query carries into the chat input; send it, then refine
+// 4) AI Mode — Google-style handoff: the query auto-runs in a fresh session
 await page.getByTestId("tab-ai").click();
-await page.waitForTimeout(1000);
-await page.getByTestId("send").click(); // prefilled with the carried-over query
 await awaitReply(true);
 await page.screenshot({ path: `${DIR}/../shots/live-cards.png`, fullPage: true });
 await ask("only ones above ₱2M, closing in the next few weeks");

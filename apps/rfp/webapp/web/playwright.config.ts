@@ -11,7 +11,9 @@ export default defineConfig({
   webServer: {
     command: `node node_modules/next/dist/bin/next start -p ${PORT}`,
     url: `http://localhost:${PORT}`,
-    reuseExistingServer: true,
+    // NEVER reuse: a server left over from before a rebuild serves stale chunk hashes → every
+    // test fails on missing client JS (bit us twice). The suite owns its server, always fresh.
+    reuseExistingServer: false,
     timeout: 60_000,
     env: {
       RFP_DIR: "/home/clsandoval/cs/monorepo/apps/rfp",

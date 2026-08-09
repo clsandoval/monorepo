@@ -52,15 +52,9 @@ test("capture states + grayscale on board, search and AI Mode", async ({ page })
   await page.screenshot({ path: `${SHOTS}02-search-results.png`, fullPage: true });
   await assertGrayscale(page);
 
-  // 3. AI Mode empty state (query carried over into the input)
+  // 3+4. AI Mode — the search query auto-runs in a fresh session (Google-style handoff);
+  // capture the streaming/finished turn with cards (one real Luna turn)
   await page.getByTestId("tab-ai").click();
-  await expect(page.getByTestId("empty-state")).toBeVisible();
-  await page.screenshot({ path: `${SHOTS}03-ai-empty.png`, fullPage: true });
-  await assertGrayscale(page);
-
-  // 4. chat reply with cards (real Luna turn)
-  await page.getByTestId("chat-input").fill("small drainage jobs in Cavite under 5M, PCAB C");
-  await page.getByTestId("send").click();
   await expect(page.getByTestId("assistant-text").first()).toHaveText(/[A-Za-z].{40,}/, { timeout: 100_000 });
   await expect(page.getByTestId("cards").first()).toBeVisible({ timeout: 10_000 });
   await page.screenshot({ path: `${SHOTS}04-ai-cards.png`, fullPage: true });

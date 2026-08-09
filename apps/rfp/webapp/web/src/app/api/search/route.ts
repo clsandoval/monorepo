@@ -1,10 +1,16 @@
 import { NextResponse } from "next/server";
 import { allow } from "@/lib/ratelimit";
-import { planQuery, executePlan, sanitizePlan } from "@/lib/search";
+import { planQuery, executePlan, sanitizePlan, provinces } from "@/lib/search";
 import type { SearchPlan, SearchRequest } from "@/lib/search-types";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
+
+// Facet for the filter UI: the 90 normalized provinces. Cached server-side, cheap.
+export async function GET() {
+  try { return NextResponse.json({ provinces: await provinces() }); }
+  catch { return NextResponse.json({ provinces: [] }); }
+}
 
 // {q} → plan (one Luna call) + execute · {plan,offset} → execute only · {}/{q:""} → board, ₱0.
 export async function POST(req: Request) {

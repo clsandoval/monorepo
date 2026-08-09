@@ -83,6 +83,37 @@ export function SearchShell() {
     run("");
   }
 
+  // Sort/filter changes re-execute the current plan with edited fields — no Luna call, ~₱0.
+  const applyPlan = useCallback(async (plan: SearchPlan) => {
+    abortRef.current?.abort();
+    const c = new AbortController();
+    abortRef.current = c;
+    setAppendFailed(false);
+    try {
+      const r = await postSearch({ plan, limit: PAGE }, c.signal);
+      if (c.signal.aborted) return;
+      setState({ phase: "ready", plan: r.plan, total: r.total, results: r.results, more: r.more });
+    } catch (e) {
+      if ((e as Error).name !== "AbortError") setState({ phase: "error", retryQ: activeQ });
+    }
+  }, [activeQ]);
+
+  // Edit fields of the live plan (from the sort/filter controls) and re-execute.
+  const patchPlan = useCallback((patch: Partial<SearchPlan>, drop: (keyof SearchPlan)[] = []) => {
+    if (state.phase !== "ready") return;
+    const next = { ...state.plan, ...patch };
+    for (const k of drop) delete next[k];
+    applyPlan(next);
+  }, [state, applyPlan]);
+
+  // Filter facet + UI state
+  const [provs, setProvs] = useState<string[]>([]);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  useEffect(() => {
+    fetch("/api/search").then((r) => r.json())
+      .then((d) => setProvs(d.provinces ?? [])).catch(() => {});
+  }, []);
+
   // Stateless pagination: post the echoed plan + offset back.
   const loadMore = useCallback(async () => {
     if (busyRef.current || state.phase !== "ready" || !state.more) return;
@@ -162,7 +193,77 @@ export function SearchShell() {
                   className="grid size-7 place-items-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">×</button>
               </span>
             )}
+            {ready && (() => {
+              const p = ready.plan;
+              const nFilters = (p.province ? 1 : 0) + (p.abc_min != null || p.abc_max != null ? 1 : 0) + (p.days_max != null ? 1 : 0);
+              const sortVal = p.sort ?? (p.kind === "search" ? "relevance" : "closing");
+              const set = patchPlan;
+              return (
+                <span className="ml-auto flex items-center gap-2">
+                  <button onClick={() => setFiltersOpen((v) => !v)} data-testid="filters-toggle"
+                    aria-expanded={filtersOpen}
+                    className={`h-9 rounded-md border px-3 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                      filtersOpen || nFilters ? "border-primary/50 text-primary" : "border-input text-muted-foreground hover:text-foreground"}`}>
+                    Filters{nFilters ? ` · ${nFilters}` : ""}
+                  </button>
+                  <label htmlFor="sort" className="sr-only">Sort by</label>
+                  <select id="sort" data-testid="sort" value={sortVal}
+                    onChange={(e) => {
+                      const v = e.target.value as NonNullable<SearchPlan["sort"]>;
+                      set(v === "relevance" ? {} : { sort: v }, v === "relevance" ? ["sort"] : []);
+                    }}
+                    className="h-9 rounded-md border border-input bg-background px-2 text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                    <option value="relevance">Sort: relevance</option>
+                    <option value="closing">Sort: closing soon</option>
+                    <option value="abc_desc">Sort: budget high → low</option>
+                    <option value="abc_asc">Sort: budget low → high</option>
+                  </select>
+                </span>
+              );
+            })()}
           </div>
+          {ready && filtersOpen && (() => {
+            const p = ready.plan;
+            const set = patchPlan;
+            const sel = "h-9 max-w-44 rounded-md border border-input bg-background px-2 text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+            const budgetVal = p.abc_min != null ? "min" : p.abc_max != null ? String(p.abc_max) : "";
+            const BUDGETS = [5e5, 1e6, 5e6, 1e7, 5e7];
+            return (
+              <div className="mt-2 flex flex-wrap items-center gap-2" data-testid="filters-row">
+                <label htmlFor="f-prov" className="sr-only">Province</label>
+                <select id="f-prov" data-testid="filter-province" value={p.province ?? ""} className={sel}
+                  onChange={(e) => set(e.target.value ? { province: e.target.value } : {}, e.target.value ? [] : ["province"])}>
+                  <option value="">All provinces</option>
+                  {p.province && !provs.includes(p.province) && <option value={p.province}>{p.province}</option>}
+                  {provs.map((pr) => <option key={pr} value={pr}>{pr}</option>)}
+                </select>
+                <label htmlFor="f-budget" className="sr-only">Budget</label>
+                <select id="f-budget" data-testid="filter-budget" value={budgetVal} className={sel}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    if (!v) set({}, ["abc_min", "abc_max"]);
+                    else if (v === "min") set({ abc_min: 5e7 }, ["abc_max"]);
+                    else set({ abc_max: Number(v) }, ["abc_min"]);
+                  }}>
+                  <option value="">Any budget</option>
+                  {p.abc_max != null && !BUDGETS.includes(p.abc_max) &&
+                    <option value={String(p.abc_max)}>≤ ₱{(p.abc_max / 1e6).toLocaleString()}M</option>}
+                  {BUDGETS.map((b) => <option key={b} value={String(b)}>≤ ₱{b >= 1e6 ? `${b / 1e6}M` : `${b / 1e3}K`}</option>)}
+                  <option value="min">₱50M and up</option>
+                </select>
+                <label htmlFor="f-close" className="sr-only">Closing within</label>
+                <select id="f-close" data-testid="filter-closing" value={p.days_max != null ? String(p.days_max) : ""} className={sel}
+                  onChange={(e) => set(e.target.value ? { days_max: Number(e.target.value) } : {}, e.target.value ? [] : ["days_max"])}>
+                  <option value="">Any deadline</option>
+                  {p.days_max != null && ![2, 7, 30].includes(p.days_max) &&
+                    <option value={String(p.days_max)}>closing ≤ {p.days_max} days</option>}
+                  <option value="2">closing ≤ 2 days</option>
+                  <option value="7">closing ≤ 7 days</option>
+                  <option value="30">closing ≤ 30 days</option>
+                </select>
+              </div>
+            );
+          })()}
 
           {state.phase === "loading" && (
             <ul aria-hidden className="mt-2 animate-pulse border-t border-border">

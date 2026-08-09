@@ -86,14 +86,44 @@ test("?q= reload restores the search", async () => {
   await expect(page.getByTestId("result-row").first()).toBeVisible();
 });
 
-test("tab-ai → chat input prefilled with the query; tab back → rows preserved", async () => {
+test("tab-ai → query auto-runs in a NEW session (real Luna); tab back → rows preserved", async () => {
   const before = await rowHrefs();
   await page.getByTestId("tab-ai").click();
-  await expect(page.getByTestId("chat-input")).toHaveValue(Q); // query carries over
+  // Google-style handoff: fresh session, the query is sent automatically as a user turn
+  await expect(page.locator("main").getByText(Q).first()).toBeVisible({ timeout: 10_000 });
+  await expect(page.getByTestId("chat-input")).toHaveValue(""); // sent, not just prefilled
   await expect(page.getByTestId("result-row").first()).toBeHidden(); // results pane hidden, not unmounted
+  // let the auto-run finish so later tests aren't mid-stream
+  await expect(page.getByTestId("assistant-text").last()).toHaveText(/.{30,}/, { timeout: 100_000 });
   await page.getByTestId("tab-results").click();
   await expect(page.getByTestId("plan-note")).toBeVisible();
   expect(await rowHrefs(), "rows changed after tab round-trip").toEqual(before);
+});
+
+test("sort by budget high→low reorders; budget filter constrains every row", async () => {
+  const abcOf = async () => page.$$eval('[data-testid="result-row"]', (rows) =>
+    rows.map((r) => {
+      const t = r.querySelector(".font-bold")?.textContent ?? "";
+      const m = t.match(/₱([\d.]+)([KMB])/);
+      return m ? Number(m[1]) * ({ K: 1e3, M: 1e6, B: 1e9 })[m[2] as "K" | "M" | "B"] : null;
+    }).filter((x): x is number => x != null));
+  await page.getByTestId("sort").selectOption("abc_desc");
+  await expect.poll(async () => { const a = await abcOf(); return a[0] >= a[a.length - 1]; },
+    { timeout: 15_000 }).toBe(true);
+  const sorted = await abcOf();
+  expect(sorted, "not sorted desc").toEqual([...sorted].sort((a, b) => b - a));
+  await page.getByTestId("filters-toggle").click();
+  // Budget semantics are per-LOT (a bidder bids a lot): a multi-lot notice with a big headline ABC
+  // legitimately passes the cap when a lot fits — and abc_desc puts exactly those first. So assert
+  // on the API rows (headline OR lot_min within cap), not the rendered headline figures.
+  const respP = page.waitForResponse((r) => r.url().includes("/api/search") && r.request().method() === "POST");
+  await page.getByTestId("filter-budget").selectOption("1000000");
+  const rows = (await (await respP).json()).results as { abc: number | null; abc_lot_min: number | null }[];
+  expect(rows.length).toBeGreaterThan(0);
+  for (const r of rows) {
+    const eff = Math.min(r.abc ?? Infinity, r.abc_lot_min ?? Infinity);
+    expect(eff, `row over budget: abc=${r.abc} lot_min=${r.abc_lot_min}`).toBeLessThanOrEqual(1e6);
+  }
 });
 
 test("chip × → back to the board", async () => {
