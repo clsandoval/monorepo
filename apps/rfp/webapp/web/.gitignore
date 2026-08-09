@@ -40,3 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .sessions/
+test-results/
+playwright-report/
+.sessions-e2e/

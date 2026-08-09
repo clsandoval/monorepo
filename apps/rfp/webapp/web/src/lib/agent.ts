@@ -85,7 +85,7 @@ function loadPrefix(): string {
 }
 export const STATIC_PREFIX = loadPrefix();
 
-const MAX_ROUNDS = 6;
+export const MAX_ROUNDS = 6;
 
 export type ChatEvent =
   | { type: "delta"; text: string }
@@ -99,7 +99,7 @@ export async function runTurn(
   userMessage: string,
   sessionId: string,
   onEvent: (e: ChatEvent) => void,
-): Promise<{ reply: string; usage: { input: number; cached: number; output: number; usd: number } }> {
+): Promise<{ reply: string; usage: { input: number; cached: number; output: number; usd: number }; rounds: number }> {
   const usage = { input: 0, cached: 0, output: 0, usd: 0 };
   let rounds = 0, lastRoundKey: number | null = null;
 
@@ -138,9 +138,12 @@ export async function runTurn(
   });
 
   await agent.prompt(userMessage);
-  const msgs = agent.state.messages as { role: string; content: { type: string; text?: string }[] }[];
-  const last = [...msgs].reverse().find((m) => m.role === "assistant" && m.content.some((c) => c.type === "text"));
-  const reply = last?.content.filter((c) => c.type === "text").map((c) => c.text).join(" ").trim() ?? "";
+  type MC = string | { type: string; text?: string }[];
+  const msgs = agent.state.messages as { role: string; content: MC }[];
+  const textOf = (c: MC): string =>
+    typeof c === "string" ? c : c.filter((p) => p.type === "text").map((p) => p.text).join(" ");
+  const last = [...msgs].reverse().find((m) => m.role === "assistant" && textOf(m.content).trim().length > 0);
+  const reply = last ? textOf(last.content).trim() : "";
   onEvent({ type: "done", reply, usage });
-  return { reply, usage };
+  return { reply, usage, rounds };
 }

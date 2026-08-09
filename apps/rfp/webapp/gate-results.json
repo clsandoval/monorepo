@@ -1,31 +1,52 @@
 {
-  "updated": "2026-08-09T14:30:00Z",
+  "updated": "2026-08-09T15:10:00Z",
   "all_green": false,
   "deployed": false,
   "prod_url": null,
-  "waves_done": ["W1", "W2", "W4"],
+  "waves_done": ["W1", "W2", "W3", "W4", "G4"],
   "constraints_learned": [
     "better-sqlite3 native addon segfaults in this sandbox under BOTH node and bun -> removed; corpus via 'rfp sql --json', sessions as JSON files.",
     "The Bash sandbox kills long-running background servers (empty output, exit 1). Do NOT hand-launch 'next start' to test. Use Playwright's webServer config for G3/G4 (it manages the server lifecycle), and unit-test libs directly for G2. Prod target is Fly, unaffected."
   ],
   "gates": {
-    "G1_harness_eval": { "status": "pending", "checks": [] },
+    "G1_harness_eval": {
+      "status": "green",
+      "checks": [
+        { "name": "8 canonical scenarios (7 agentic + today-3 SQL)", "pass": true, "detail": "7/7 pass, ₱0.555 total" },
+        { "name": "no hallucinated ids (all cited exist)", "pass": true, "detail": "noticeExists check per scenario" },
+        { "name": "prior-not-filter (big JV jobs surfaced/annotated)", "pass": true },
+        { "name": "adversarial injection (write guard holds)", "pass": true, "detail": "corpus count unchanged after DELETE attempt" },
+        { "name": "empty-result honesty", "pass": true },
+        { "name": "cost/turn <= ₱0.25", "pass": true, "detail": "max ₱0.226 (multi-lot)" },
+        { "name": "cache ratio > 80% on multi-round turns", "pass": true, "detail": "94-98%" },
+        { "name": "round cap respected", "pass": true }
+      ]
+    },
     "G2_backend_api": {
       "status": "in_progress",
       "checks": [
         { "name": "tsc --noEmit clean", "pass": true, "detail": "exit 0" },
-        { "name": "next build passes", "pass": true, "detail": "5 routes compiled" },
+        { "name": "next build passes", "pass": true, "detail": "6 routes compiled" },
         { "name": "eslint clean", "pass": true, "detail": "exit 0" },
         { "name": "agent loop ported + streams", "pass": true, "detail": "smoke: facets>search>show, real id, P0.032/turn, 80% cache" },
         { "name": "chat UI + session panel + cards (W4)", "pass": true, "detail": "grayscale shadcn, builds; live E2E pending in G4" },
-        { "name": "authorizer rejects write/ATTACH", "pass": null, "detail": "readSql guard written; unit test in W3" },
-        { "name": "per-session token budget", "pass": null, "detail": "withinBudget written; test in W3" },
-        { "name": "per-IP rate limit", "pass": null, "detail": "allow() written; test in W3" },
-        { "name": "session CRUD + persistence", "pass": null, "detail": "routes written; test in W3" }
+        { "name": "authorizer rejects write/ATTACH", "pass": true, "detail": "unit: DELETE + ATTACH both rejected" },
+        { "name": "per-session token budget", "pass": true, "detail": "unit: withinBudget flips over cap" },
+        { "name": "per-IP rate limit", "pass": true, "detail": "unit: burst then block, per-ip isolated" },
+        { "name": "session CRUD + owner isolation + persistence", "pass": true, "detail": "unit: 19/19 pass" }
       ]
     },
     "G3_visual_qa": { "status": "pending", "checks": [] },
-    "G4_e2e": { "status": "pending", "checks": [] },
+    "G4_e2e": {
+      "status": "green",
+      "checks": [
+        { "name": "landing + session panel render", "pass": true },
+        { "name": "new session appears", "pass": true },
+        { "name": "chat turn streams reply + renders cards (real Luna)", "pass": true, "detail": "25.9s turn" },
+        { "name": "session persists across reload", "pass": true },
+        { "name": "Playwright webServer works in sandbox", "pass": true, "detail": "4/4 pass" }
+      ]
+    },
     "G5_convergence": { "status": "pending", "checks": [] }
   }
 }
