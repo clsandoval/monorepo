@@ -10,7 +10,7 @@ export async function GET(req: Request) {
   if (!ids.length) return NextResponse.json({ notices: [] });
   const list = ids.join(",");
   const rows = await readSql(
-    `SELECT c.id, c.title, c.agency, c.location, c.abc, c.abc_lot_min, c.abc_lot_max,
+    `SELECT c.id, c.source, c.title, c.agency, c.location, c.abc, c.abc_lot_min, c.abc_lot_max,
             c.mode_norm, c.closing_day, c.closing_at,
             (SELECT t.work_type FROM tags.tags t WHERE t.id = c.id) AS work_type,
             (SELECT t.needs_pcab FROM tags.tags t WHERE t.id = c.id) AS needs_pcab
