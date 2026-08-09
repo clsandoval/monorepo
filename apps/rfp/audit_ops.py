@@ -32,10 +32,20 @@ CAP_PHP        = 1000.0                        # spend.json cap_php
 R_BASE         = 250.4802 / 22068              # spend.json tiers.base  -> P0.011350/notice
 R_DOC          = 68.4530 / 619                 # spend.json tiers.doc   -> P0.110586/notice
 WIRE_PER_MP    = 21.15e9 / 4288                # NOTES-extract S9 bytes fetched / mPhilGEPS notices
-RETAIN_PER_MP  = 8.1e9 / 4288                  # NOTES-extract S9 steady-state on disk
+# Retained bytes per crawled mPhilGEPS notice, MEASURED from docs.db rather than pinned to a
+# constant -- the retention rule (attachments.RETAIN_MAX_BYTES) changed this by ~4x on 2026-08-09
+# and a hardcoded figure silently kept forecasting the pre-retention world.
+def _measured_retain_per_mp():
+    d = ro("docs.db")
+    b = d.execute("select coalesce(sum(bytes),0) from blobs where blob_path is not null").fetchone()[0]
+    n = d.execute("select count(*) from notices").fetchone()[0] or 1
+    return b / n
+
+
+RETAIN_PER_MP_LEGACY = 8.1e9 / 4288            # pre-retention, kept for the forecast selfcheck
 DOCTIER_FRAC   = 619 / 4288                    # boilerplate-only AND has a readable attachment
 MP_SHARE       = 0.190                         # measured mPhilGEPS share of recent inflow
-DISK_CAP_GIB   = int(os.environ.get("RFP_DISK_MAX_GIB", "20"))   # mirrors attachments.DISK_MAX
+DISK_CAP_GIB   = int(os.environ.get("RFP_DISK_MAX_GIB", "60"))   # mirrors attachments.DISK_MAX
 MAX_BLOB_BYTES = 2_000_000                     # repo rule: never commit a file over ~2MB
 DAYS_PER_MONTH = 30.44
 
@@ -116,11 +126,11 @@ def audit_disk(r):
     r.check("disk: under attachments.py cap", used < cap,
             f"{used/1024**3:.2f} GiB of {DISK_CAP_GIB} GiB, {head/1024**3:.2f} GiB headroom")
     # the runway assertion is the one that matters: the cap trips silently, so warn early
-    per_day = 2020 * MP_SHARE * RETAIN_PER_MP
-    days = head / per_day
+    per_day = 2020 * MP_SHARE * _measured_retain_per_mp()
+    days = head / per_day if per_day else float("inf")
     r.check("disk: >30 days of runway", days > 30,
-            f"{days:.1f} days at measured +{per_day/1e9:.2f} GB/day -- cap trip is SILENT "
-            f"(skipped_cap + break, exit 0)")
+            f"{days:.0f} days at measured +{per_day/1e9:.3f} GB/day; a cap trip now alerts and "
+            f"exits 3 (was: skipped_cap + break, exit 0)")
     # the blob directory and the blob table must agree, or bytes are leaking
     on_disk = sum(len(f) for _, _, f in os.walk(os.path.join(HERE, "blobs")))
     r.check("disk: blobs/ matches blobs table", on_disk == blob_n,
@@ -165,7 +175,7 @@ def forecast(per_day, mp_share=MP_SHARE, label=""):
         "detail_fetches_day": per_day,
         "doc_downloads_day": mp * (9827 / 4288),
         "wire_gb_day": mp * WIRE_PER_MP / 1e9,
-        "disk_gb_month": mp * RETAIN_PER_MP / 1e9 * DAYS_PER_MONTH,
+        "disk_gb_month": mp * _measured_retain_per_mp() / 1e9 * DAYS_PER_MONTH,
         "luna_php_month": (per_day * R_BASE + mp * DOCTIER_FRAC * R_DOC) * DAYS_PER_MONTH,
     }
     out["wire_gb_month"] = out["wire_gb_day"] * DAYS_PER_MONTH
@@ -203,7 +213,7 @@ def selfcheck():
     assert abs(R_BASE - 0.011350) < 1e-5, R_BASE
     assert abs(R_DOC - 0.110586) < 1e-5, R_DOC
     assert abs(WIRE_PER_MP / 1e6 - 4.932) < 0.01
-    assert abs(RETAIN_PER_MP / 1e6 - 1.889) < 0.01
+    assert abs(RETAIN_PER_MP_LEGACY / 1e6 - 1.889) < 0.01
     # 6. forecast scales linearly in inflow and in mPhilGEPS share
     a, b = forecast(1000), forecast(2000)
     assert abs(b["wire_gb_day"] - 2 * a["wire_gb_day"]) < 1e-9

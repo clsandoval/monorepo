@@ -102,6 +102,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import subprocess
 import random
 import re
 import shutil
@@ -145,7 +146,17 @@ NOTICE_DOC_MAX = 40         # top-level documents downloaded per notice.  NOTES 
                              # notice in the ABC>=P200M band vs 0.70 MB in the <P1M band), so the
                              # projection's error bars matter.  Override to keep the cap a detector
                              # instead of a silent truncator:  RFP_DISK_MAX_GIB=60 python3 ...
-DISK_MAX = int(os.environ.get("RFP_DISK_MAX_GIB", "20")) * 1024**3
+DISK_MAX = int(os.environ.get("RFP_DISK_MAX_GIB", "60")) * 1024**3
+# Raised 20 -> 60 GiB 2026-08-09. The host has 329 GB free, so 20 GiB was not a storage
+# constraint, it was a sample-derived guess that would have switched the component off in ~18 days.
+# The cap stays a runaway detector; it is just set above the real projection now.
+
+# Retention. 96% of retained bytes are scanned engineering drawings -- 26 MB plan sheets at 72-150
+# ppi that carry no text layer, cannot OCR (tesseract needs ~300 ppi) and contribute nothing to
+# search. Keeping them was for "a future vision pass" that has no owner and no date. Keep the small
+# documents where the eligibility signal actually lives (Terms of Reference, Bills of Quantities)
+# and drop the big rasters after their text is out. Set 0 to retain nothing.
+RETAIN_MAX_BYTES = int(os.environ.get("RFP_RETAIN_MAX_MB", "4")) * 1024**2
 HTTP_TIMEOUT = 180
 
 # extract_status: extract_lib's closed vocabulary plus three states that only exist once there
@@ -507,6 +518,43 @@ def log_skip(con, nid, url, cap, detail):
     print(f"  SKIP {cap}: notice {nid} {basename_of(url)[:60]} -- {detail}", file=sys.stderr)
 
 
+CAP_TRIPPED = []     # a guardrail refused work: main() must exit non-zero, see alert_and_exit()
+
+
+def alert(subject, detail):
+    """Fire a Telegram message. Best-effort: a broken alerter must never mask the thing it warns
+    about, so failure here is printed and swallowed rather than raised."""
+    msg = f"rfp attachments: {subject}\n{detail}"
+    print(f"ALERT {subject}: {detail}", file=sys.stderr)
+    tg = os.path.expanduser("~/.claude/skills/telegram/scripts/tg.py")
+    if not os.path.exists(tg):
+        return
+    try:
+        subprocess.run([sys.executable, tg, "send_message", msg],
+                       capture_output=True, timeout=60)
+    except Exception as e:
+        print(f"  (alert delivery failed: {e})", file=sys.stderr)
+
+
+def alert_and_exit(con):
+    """The whole point of this module's guardrails.
+
+    A cap used to trip with `break` and then exit 0, so cron read 'success' while the component had
+    silently stopped fetching. That is not a hypothetical: competitors.md records
+    chloebellee/philgeps-scraper failing 44 consecutive scheduled runs while exiting cleanly, and
+    throwing away two months of data, because nothing was watching. A guardrail that stops work
+    MUST be louder than a guardrail that never fires.
+    """
+    if not CAP_TRIPPED:
+        return 0
+    used = disk_used(con) / 1024**3
+    detail = "; ".join(sorted(set(CAP_TRIPPED)))
+    alert("CAP TRIPPED - ingest stopped early",
+          f"{detail}\ndisk in use {used:.1f} GiB of {DISK_MAX/1024**3:.0f} GiB cap\n"
+          f"Documents are now INCOMPLETE and will stay incomplete until this is cleared.")
+    return 3
+
+
 def apply_notice_cap(con):
     """Mark documents beyond NOTICE_DOC_MAX per notice as skipped, loudly.  Discovery keeps the
     full metadata (filenames are the cheap win and cost no fetch); only the download is capped."""
@@ -534,6 +582,15 @@ def apply_notice_cap(con):
 
 def download(con, limit=None, workers=WORKERS, keep_blobs=False):
     apply_notice_cap(con)
+    # PREFLIGHT. Trip on being over cap, not merely on refusing a specific file. Otherwise a run
+    # that happens to have nothing pending exits 0 while the component is in fact switched off --
+    # the same silent success, one step earlier in the pipeline.
+    if disk_used(con) > DISK_MAX:
+        detail = (f"already over cap before starting: {disk_used(con)/1024**3:.1f} GiB > "
+                  f"{DISK_MAX/1024**3:.0f} GiB")
+        CAP_TRIPPED.append(detail)
+        print(f"  SKIP total_disk: {detail}", file=sys.stderr)
+        return {}
     todo = con.execute(
         "select doc_id, notice_id, url, human_name from documents"
         " where source='mphilgeps' and parent_doc_id is null and blob_id is null"
@@ -568,6 +625,7 @@ def download(con, limit=None, workers=WORKERS, keep_blobs=False):
                 if os.path.exists(tmp):
                     os.unlink(tmp)
                 tally["skipped_cap"] += 1
+                CAP_TRIPPED.append(f"total disk cap: {detail}")
                 con.commit()
                 break
             if verdict == "too_large":
@@ -706,7 +764,12 @@ def extract(con, limit=None, workers=EXTRACT_WORKERS, keep_blobs=False):
                     tally["members"] += 1
             tally[e.status] += 1
             chars += len(e.text)
-            keep = keep_blobs or e.status == "no_text_layer"   # a future vision pass needs these
+            # Retain only what is small enough to be worth keeping. A no-text-layer blob under
+            # the threshold is still worth holding for a future vision pass; a 26 MB plan sheet is
+            # not, and those are what fill the disk.
+            sz = os.path.getsize(path) if os.path.exists(path) else 0
+            keep = keep_blobs or (e.status == "no_text_layer"
+                                  and 0 < sz <= RETAIN_MAX_BYTES)
             if not keep and os.path.exists(path):
                 os.unlink(path)
                 con.execute("update blobs set blob_path=null where blob_id=?", (blob_id,))
@@ -1015,6 +1078,44 @@ def selfcheck():
 
 # ------------------------------------------------------------------------------------- main
 
+
+def retain(con, dry=False):
+    """Drop retained blob files above RETAIN_MAX_BYTES; keep the extracted text.
+
+    Only `no_text_layer` blobs are ever retained in the first place, and above a few MB those are
+    scanned engineering drawings: 72-150 ppi rasters against tesseract's ~300 ppi floor, so they
+    cannot be OCR'd, and the pages that do carry text carry universal boilerplate. They were held
+    for "a future vision pass" with no owner and no date, while being 96% of the bytes on disk.
+
+    Text already lives in blobs.text, so this is not data loss for search -- it forfeits only the
+    ability to re-process the original raster locally. The URL is still recorded, so any blob can
+    be re-fetched on demand.
+    """
+    rows = con.execute(
+        "select blob_id, blob_path, bytes from blobs where blob_path is not null and bytes > ?",
+        (RETAIN_MAX_BYTES,)).fetchall()
+    freed = gone = 0
+    for blob_id, path, nbytes in rows:
+        if dry:
+            freed += nbytes
+            continue
+        if path and os.path.exists(path):
+            try:
+                os.unlink(path)
+            except OSError as e:
+                print(f"  could not unlink {path}: {e}", file=sys.stderr)
+                continue
+        con.execute("update blobs set blob_path=null where blob_id=?", (blob_id,))
+        freed += nbytes
+        gone += 1
+    if not dry:
+        con.commit()
+    print(f"retain: {'would free' if dry else 'freed'} {freed/1e9:.2f} GB across "
+          f"{len(rows) if dry else gone} blobs over {RETAIN_MAX_BYTES/1024**2:.0f} MB; "
+          f"disk now {disk_used(con)/1024**3:.2f} GiB of {DISK_MAX/1024**3:.0f} GiB cap")
+    return {"freed": freed, "blobs": gone}
+
+
 def main(argv):
     args = [a for a in argv if not a.startswith("--")]
     flags = {a.split("=")[0]: (a.split("=")[1] if "=" in a else True)
@@ -1032,6 +1133,7 @@ def main(argv):
         discover(con, int(args[1]) if len(args) > 1 else 200, seed, workers=workers)
     elif cmd == "download":
         download(con, limit, workers, keep)
+        return alert_and_exit(con)
     elif cmd == "extract":
         extract(con, limit, keep_blobs=keep)
     elif cmd == "pilot":
@@ -1043,6 +1145,7 @@ def main(argv):
         print(f"\npilot wall clock {time.time()-t0:.0f}s "
               f"(download {d.get('seconds')}s, extract {x.get('seconds')}s)")
         report(con)
+        return alert_and_exit(con)
     elif cmd == "run":
         # Alternate download/extract in batches so peak disk stays bounded.  The full-corpus
         # projection is 17.8 GB of blobs against a 20 GB cap, so "download everything then
@@ -1053,7 +1156,12 @@ def main(argv):
             extract(con, keep_blobs=keep)
             if not d.get("ok") and not d.get("dedup"):
                 break
+            if CAP_TRIPPED:      # stop the loop too: it cannot make progress past a cap
+                break
         stats(con)
+        return alert_and_exit(con)
+    elif cmd == "retain":
+        retain(con, dry=bool(flags.get("--dry-run")))
     elif cmd == "report":
         report(con)
     else:
@@ -1062,4 +1170,6 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    # main() returns 3 when a guardrail stopped work. Propagate it: the entire point is that cron
+    # must NOT read a truncated run as success.
+    sys.exit(main(sys.argv[1:]) or 0)
