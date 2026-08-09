@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RFP Finder — open PhilGEPS government tenders",
+  title: "bidkita — open PhilGEPS government tenders",
   description: "Search 18,000+ open Philippine government procurement notices. Free, no login.",
 };
 

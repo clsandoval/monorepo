@@ -174,7 +174,7 @@ export function Workspace({ seedQuery }: { seedQuery?: string } = {}) {
             </div>
           ))}
         </div>
-        <div className="border-t border-border p-3 text-[11px] text-muted-foreground">RFP Finder · PhilGEPS</div>
+        <div className="border-t border-border p-3 text-[11px] text-muted-foreground">bidkita · PhilGEPS</div>
       </aside>
 
       {/* chat */}
@@ -187,7 +187,7 @@ export function Workspace({ seedQuery }: { seedQuery?: string } = {}) {
               <span className="block h-0.5 w-5 bg-current" /><span className="block h-0.5 w-5 bg-current" /><span className="block h-0.5 w-5 bg-current" />
             </span>
           </button>
-          <span className="text-sm font-medium">RFP Finder</span>
+          <span className="text-sm font-bold lowercase text-primary">bidkita</span>
         </div>
         <div ref={scrollRef} onScroll={() => setAtBottom(nearBottom())} className="relative flex-1 overflow-y-auto">
           <div className="mx-auto max-w-2xl px-4 py-6" role="log" aria-live="polite" aria-busy={busy}>

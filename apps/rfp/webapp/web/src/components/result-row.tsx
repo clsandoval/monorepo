@@ -47,7 +47,7 @@ export function ResultRowItem({ row }: { row: ResultRow }) {
       <span className="mt-2 flex items-center justify-between gap-3 md:contents">
         <span className="font-mono text-sm font-bold tabular-nums md:text-right">{peso(row.abc)}</span>
         <span className={`inline-flex justify-center whitespace-nowrap rounded px-2 py-0.5 font-mono text-xs tabular-nums md:justify-self-end ${
-          c.urgent ? "bg-foreground text-background" : "border border-border text-muted-foreground"}`}>
+          c.urgent ? "border border-primary/50 bg-primary/10 font-medium text-primary" : "border border-border text-muted-foreground"}`}>
           {c.label}
         </span>
       </span>

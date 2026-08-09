@@ -40,7 +40,7 @@ export function TenderCard({ n }: { n: Notice }) {
       <p className="mt-1 line-clamp-1 text-xs text-muted-foreground">{n.agency}</p>
       {n.why && <p className="mt-2 line-clamp-3 text-xs leading-snug text-foreground/80">{n.why}</p>}
       <div className="mt-auto flex flex-wrap items-center gap-1.5 pt-3 text-[11px] text-muted-foreground">
-        {n.tag && <span className="rounded border border-foreground/30 px-1.5 py-0.5 font-medium text-foreground/80">{n.tag}</span>}
+        {n.tag && <span className="rounded border border-primary/50 bg-primary/5 px-1.5 py-0.5 font-medium text-primary">{n.tag}</span>}
         {n.location && <span className="rounded border border-border px-1.5 py-0.5">{n.location}</span>}
         {n.work_type && <span className="rounded border border-border px-1.5 py-0.5">{n.work_type}</span>}
         {n.needs_pcab === 1 && <span className="rounded border border-border px-1.5 py-0.5">PCAB</span>}

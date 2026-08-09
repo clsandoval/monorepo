@@ -1,13 +1,14 @@
 import { test, expect } from "@playwright/test";
 import { mkdirSync } from "node:fs";
 
-// G3/S4 visual QA — capture each UI state + assert strictly grayscale (pre-style-11 phase).
+// G3/S4 visual QA — capture each UI state + assert the style-11 palette: neutrals plus EXACTLY
+// one hue, signal blue #1550D8 (any shade/alpha of it). Any red/green/yellow/etc is a failure.
 // Surfaces: results board · interpreted search · AI Mode chat. Screenshots land in qa/shots/
 // and are sent to Telegram by qa/send-shots.sh after the run.
 const SHOTS = `${process.cwd()}/qa/shots/`;
 test.beforeAll(() => mkdirSync(SHOTS, { recursive: true }));
 
-// Fail on any non-grayscale color anywhere in the computed styles (|max-min| channel spread).
+// Saturated colors (channel spread > 10) must be blue-family: b strictly the max channel.
 async function assertGrayscale(page: import("@playwright/test").Page) {
   const offenders = await page.evaluate(() => {
     // Resolve any CSS color (lab/oklch/rgb/named) to sRGB via a canvas, then check channel spread.
@@ -25,7 +26,10 @@ async function assertGrayscale(page: import("@playwright/test").Page) {
         const c = s[prop]; if (!c || seen.has(c)) continue; seen.add(c);
         const [r, g, b, a] = toRgb(c);
         if (a === 0) continue; // fully transparent — irrelevant
-        if (Math.max(r, g, b) - Math.min(r, g, b) > 10) bad.push(`${prop}=${c} -> rgb(${r},${g},${b})`);
+        const saturated = Math.max(r, g, b) - Math.min(r, g, b) > 10;
+        // blue-family: blue dominates and red trails it clearly (accepts #1550D8 and its tints)
+        const blueFamily = b > g && b - r > 10;
+        if (saturated && !blueFamily) bad.push(`${prop}=${c} -> rgb(${r},${g},${b})`);
       }
     }
     return bad.slice(0, 10);

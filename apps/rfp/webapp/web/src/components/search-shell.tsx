@@ -120,9 +120,10 @@ export function SearchShell() {
 
   return (
     <div className="flex h-dvh flex-col bg-background text-foreground">
-      <header className="shrink-0 border-b border-border">
+      {/* style 11: the blue rule under the header is the brand's one structural accent */}
+      <header className="shrink-0 border-b border-primary">
         <div className="mx-auto flex max-w-5xl flex-col gap-3 px-4 pt-4 md:flex-row md:items-center md:gap-6">
-          <span className="whitespace-nowrap text-lg font-semibold tracking-tight">RFP Finder</span>
+          <span className="whitespace-nowrap text-2xl font-bold lowercase tracking-tight text-primary">bidkita</span>
           <form onSubmit={submit} role="search" className="relative min-w-0 flex-1 md:max-w-2xl">
             <label htmlFor="shell-q" className="sr-only">Search open government tenders</label>
             <Input id="shell-q" value={input} onChange={(e) => setInput(e.target.value)}
@@ -130,8 +131,8 @@ export function SearchShell() {
               data-testid="search-input" autoComplete="off"
               className="h-11 rounded-full bg-muted/40 pl-4 pr-12 md:text-base" />
             <button type="submit" data-testid="search-submit" aria-label="Search"
-              className="absolute inset-y-0 right-0 grid w-12 place-items-center rounded-r-full text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-              <Search className="size-5" />
+              className="absolute right-1 top-1/2 grid size-9 -translate-y-1/2 place-items-center rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+              <Search className="size-4" />
             </button>
           </form>
         </div>
@@ -233,7 +234,7 @@ function TabBtn({ testid, active, controls, onClick, children }: {
   return (
     <button role="tab" aria-selected={active} aria-controls={controls} data-testid={testid} onClick={onClick}
       className={`h-11 border-b-2 px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring ${
-        active ? "border-foreground text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
+        active ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
       {children}
     </button>
   );
