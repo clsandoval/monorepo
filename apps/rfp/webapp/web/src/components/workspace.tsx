@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState, useCallback } from "react";
+import ReactMarkdown from "react-markdown";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { TenderCard, type Notice } from "@/components/tender-card";
@@ -15,6 +16,7 @@ export function Workspace() {
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
+  const [panelOpen, setPanelOpen] = useState(false); // mobile drawer
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const loadSessions = useCallback(async () => {
@@ -29,10 +31,10 @@ export function Workspace() {
 
   async function newSession() {
     const { id } = await fetch("/api/sessions", { method: "POST" }).then((x) => x.json());
-    await loadSessions(); setActive(id); setMsgs([]);
+    await loadSessions(); setActive(id); setMsgs([]); setPanelOpen(false);
   }
   async function selectSession(id: string) {
-    setActive(id);
+    setActive(id); setPanelOpen(false);
     const r = await fetch(`/api/sessions/${id}`).then((x) => x.json());
     setMsgs((r.messages ?? []).map((m: Msg) => ({ role: m.role, content: m.content })));
   }
@@ -85,10 +87,21 @@ export function Workspace() {
 
   return (
     <div className="flex h-dvh bg-background text-foreground">
-      {/* session panel */}
-      <aside className="flex w-60 shrink-0 flex-col border-r border-border">
-        <div className="p-3">
+      {/* backdrop for the mobile drawer */}
+      {panelOpen && (
+        <div className="fixed inset-0 z-20 bg-black/40 md:hidden" onClick={() => setPanelOpen(false)} aria-hidden />
+      )}
+
+      {/* session panel — hidden on mobile until opened; always a static column on md+ */}
+      <aside
+        className={`w-60 shrink-0 flex-col border-r border-border bg-background md:static md:z-auto md:flex
+          ${panelOpen ? "fixed inset-y-0 left-0 z-30 flex" : "hidden"}`}>
+        <div className="flex items-center gap-2 p-3">
           <Button onClick={newSession} className="w-full" variant="secondary" data-testid="new-session">+ New chat</Button>
+          {panelOpen && (
+            <button onClick={() => setPanelOpen(false)} aria-label="close menu"
+              className="md:hidden shrink-0 text-lg leading-none text-muted-foreground hover:text-foreground px-1">×</button>
+          )}
         </div>
         <div className="flex-1 overflow-y-auto px-2">
           {sessions.map((s) => (
@@ -105,6 +118,14 @@ export function Workspace() {
 
       {/* chat */}
       <main className="flex min-w-0 flex-1 flex-col">
+        {/* mobile header with menu toggle */}
+        <div className="flex items-center gap-2 border-b border-border p-3 md:hidden">
+          <button onClick={() => setPanelOpen(true)} aria-label="open menu"
+            className="text-foreground" data-testid="open-menu">
+            <span className="block h-0.5 w-5 bg-current" /><span className="mt-1 block h-0.5 w-5 bg-current" /><span className="mt-1 block h-0.5 w-5 bg-current" />
+          </button>
+          <span className="text-sm font-medium">RFP Finder</span>
+        </div>
         <div ref={scrollRef} className="flex-1 overflow-y-auto">
           <div className="mx-auto max-w-2xl px-4 py-6">
             {msgs.length === 0 && (
@@ -119,7 +140,9 @@ export function Workspace() {
                   <div className="ml-auto w-fit max-w-[85%] rounded-2xl bg-muted px-4 py-2 text-sm">{m.content}</div>
                 ) : (
                   <div className="space-y-3">
-                    <div className="whitespace-pre-wrap text-sm leading-relaxed" data-testid="assistant-text">{m.content || (busy ? "…" : "")}</div>
+                    <div className="prose-chat text-sm leading-relaxed" data-testid="assistant-text">
+                      {m.content ? <ReactMarkdown>{m.content}</ReactMarkdown> : (busy ? "…" : "")}
+                    </div>
                     {m.notices && m.notices.length > 0 && (
                       <div className="grid gap-2" data-testid="cards">
                         {m.notices.map((n) => <TenderCard key={n.id} n={n} />)}
