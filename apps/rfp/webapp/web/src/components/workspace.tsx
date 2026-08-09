@@ -48,6 +48,12 @@ export function Workspace() {
   // auto-stick to bottom while streaming ONLY if the user is already at the bottom
   useEffect(() => { if (atBottom) scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight }); }, [msgs, atBottom]);
   const toBottom = () => { scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" }); setAtBottom(true); };
+  // Escape closes the mobile drawer
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setPanelOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   async function newSession() {
     const { id } = await fetch("/api/sessions", { method: "POST" }).then((x) => x.json());
@@ -150,16 +156,17 @@ export function Workspace() {
           <Button onClick={newSession} className="w-full" variant="secondary" data-testid="new-session">+ New chat</Button>
           {panelOpen && (
             <button onClick={() => setPanelOpen(false)} aria-label="close menu"
-              className="md:hidden shrink-0 text-lg leading-none text-muted-foreground hover:text-foreground px-1">×</button>
+              className="grid size-9 shrink-0 place-items-center rounded-md text-lg leading-none text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:hidden">×</button>
           )}
         </div>
         <div className="flex-1 overflow-y-auto px-2">
           {sessions.map((s) => (
             <div key={s.id}
               className={`group flex items-center gap-1 rounded-md px-2 py-2 text-sm ${active === s.id ? "bg-muted" : "hover:bg-muted/50"}`}>
-              <button onClick={() => selectSession(s.id)} className="flex-1 truncate text-left" data-testid="session-item">{s.title}</button>
-              <button onClick={() => delSession(s.id)} aria-label="delete"
-                className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-foreground" data-testid="delete-session">×</button>
+              <button onClick={() => selectSession(s.id)} className="flex-1 truncate py-1 text-left focus-visible:outline-none focus-visible:underline" data-testid="session-item">{s.title}</button>
+              <button onClick={() => delSession(s.id)} aria-label={`delete chat: ${s.title}`}
+                className="grid size-8 shrink-0 place-items-center rounded-md text-base text-muted-foreground opacity-70 hover:bg-background hover:text-foreground focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:opacity-0 md:group-hover:opacity-100"
+                data-testid="delete-session">×</button>
             </div>
           ))}
         </div>
@@ -171,13 +178,15 @@ export function Workspace() {
         {/* mobile header with menu toggle */}
         <div className="flex items-center gap-2 border-b border-border p-3 md:hidden">
           <button onClick={() => setPanelOpen(true)} aria-label="open menu"
-            className="text-foreground" data-testid="open-menu">
-            <span className="block h-0.5 w-5 bg-current" /><span className="mt-1 block h-0.5 w-5 bg-current" /><span className="mt-1 block h-0.5 w-5 bg-current" />
+            className="grid size-11 -ml-2 place-items-center rounded-md text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" data-testid="open-menu">
+            <span className="flex flex-col gap-1">
+              <span className="block h-0.5 w-5 bg-current" /><span className="block h-0.5 w-5 bg-current" /><span className="block h-0.5 w-5 bg-current" />
+            </span>
           </button>
           <span className="text-sm font-medium">RFP Finder</span>
         </div>
         <div ref={scrollRef} onScroll={() => setAtBottom(nearBottom())} className="relative flex-1 overflow-y-auto">
-          <div className="mx-auto max-w-2xl px-4 py-6">
+          <div className="mx-auto max-w-2xl px-4 py-6" role="log" aria-live="polite" aria-busy={busy}>
             {msgs.length === 0 && (
               <div className="mt-24 text-center text-muted-foreground" data-testid="empty-state">
                 <p className="text-lg font-medium text-foreground">Find government contracts worth bidding on</p>
@@ -224,10 +233,11 @@ export function Workspace() {
             <Textarea value={input} onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
               placeholder="e.g. small drainage jobs in Cavite, PCAB C, under ₱5M"
+              aria-label="Message" rows={1}
               className="min-h-[44px] max-h-40 resize-none" data-testid="chat-input" />
             {busy
-              ? <Button onClick={stop} variant="secondary" data-testid="stop">Stop</Button>
-              : <Button onClick={send} disabled={!input.trim()} data-testid="send">Send</Button>}
+              ? <Button onClick={stop} variant="secondary" className="h-11 px-5" data-testid="stop">Stop</Button>
+              : <Button onClick={send} disabled={!input.trim()} className="h-11 px-5" data-testid="send">Send</Button>}
           </div>
         </div>
       </main>
