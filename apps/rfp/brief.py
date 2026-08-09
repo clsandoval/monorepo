@@ -348,7 +348,7 @@ a {{ color:{th['a1']}; text-decoration:none; }}
   <div class="abc mono">{peso(r['abc'])}</div>
   <div class="abclab">Approved budget for the contract</div>
   <div class="facts">
-    <div class="fact"><b>Closes</b><span class="mono">{when} &nbsp;·&nbsp; {r['days_left']:.0f} days from today</span></div>
+    <div class="fact"><b>Closes</b><span class="mono">{when} &nbsp;·&nbsp; {('%d day' % r['days_left'] if r['days_left'] < 1.5 else '%.0f days' % r['days_left'])} from today</span></div>
     <div class="fact"><b>Mode</b><span>{html.escape((r['mode_norm'] or '').capitalize())}</span></div>
     {build_time(r)}
     <div class="fact"><b>Needs</b><span>{req_html}<span class="grey">{src}</span></span></div>
