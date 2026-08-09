@@ -13,7 +13,7 @@ Why two ingest modes (see NOTES-awards.md):
   delivery province) is ONLY available for awards harvested from the listing. Outsider-win-rate
   therefore runs on the listing subset; win-ratio and repeat-winner run on the enumerated sample.
 """
-import json, random, re, sqlite3, sys, time, urllib.parse, urllib.request
+import json, os, random, re, sqlite3, sys, time, urllib.parse, urllib.request
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
@@ -24,8 +24,10 @@ SVC = "https://notices.philgeps.gov.ph/p4_webservices/GEPSR3_AwardNotice.asmx/"
 LIST = "https://notices.philgeps.gov.ph/GEPSNONPILOT/Tender/RecentAwardNoticeUI.aspx?menuIndex=3"
 # The JSON content-type on a GET is the whole trick; without it every call returns a generic error.
 H = {"Content-Type": "application/json; charset=utf-8", "User-Agent": "Mozilla/5.0 (rfp-finder)"}
-WORKERS = 3      # ponytail: low on purpose -- a sibling job shares this host and 403s appear fast
-PAUSE = 0.35
+# Polite defaults. Raise via env when nothing else is hitting this host -- a 403 appeared within
+# a few requests when two scrapers ran concurrently, and recovered at ~3s spacing.
+WORKERS = int(os.environ.get("RFP_AWARD_WORKERS", "3"))
+PAUSE = float(os.environ.get("RFP_AWARD_PAUSE", "0.35"))
 ID_LO, ID_HI = 5_000_000, 6_193_104   # verified live: Aug-2024 .. Jul-2026, dense and monotonic
 
 SCHEMA = """
@@ -317,6 +319,64 @@ def selfcheck():
     print("ok")
 
 
+def run_recent(db, count, span=120_000):
+    """Sample the TOP of the awardID space: recently-awarded, i.e. currently-active bidders.
+
+    Award ids are monotonic with date (~50K/month), so the last ~120K ids is roughly the trailing
+    quarter. A firm that won three months ago is a live prospect; one that won in 2024 may not
+    exist. Spread the sample rather than taking a contiguous block -- consecutive ids are line
+    items of ONE procurement by ONE office, so a block would over-sample a handful of firms.
+    """
+    rnd = random.Random(20260809)
+    lo = max(ID_LO, ID_HI - span)
+    seen = {r[0] for r in db.execute("select award_id from awards")}
+    ids = [i for i in rnd.sample(range(lo, ID_HI), min(count * 2, ID_HI - lo)) if i not in seen][:count]
+    print(f"recent: {len(ids)} ids sampled from [{lo:,}, {ID_HI:,}] (~trailing quarter)")
+    done = 0
+    with ThreadPoolExecutor(WORKERS) as pool:
+        for r in pool.map(one_award, ids):
+            done += save(db, [r])
+            if done % 50 == 0:
+                print(f"  {done}/{len(ids)}", flush=True)
+    print(f"  saved {done}/{len(ids)}")
+
+
+def prospects(db, province=None, min_awards=1, limit=60):
+    """Rank award winners as outreach targets.
+
+    Ordering is by number of DISTINCT procurements won, not award rows -- one procurement is split
+    across a row per line item, so counting rows would rank a firm that won one nine-item shopping
+    list above a firm that won three separate competitions.
+
+    NOTE, and it is the whole practical constraint: PhilGEPS publishes the winner's company name,
+    a contact person and a street address. It publishes NO email and NO phone. This is a targeting
+    list; reaching them needs a separate lookup.
+    """
+    rows = db.execute("""
+        select winner, winner_province, winner_address, winner_contact,
+               count(distinct coalesce(title,'') || '|' || coalesce(award_date,'')) procurements,
+               count(*) award_rows,
+               sum(contract_amount) total,
+               max(award_date) last_win,
+               sum(case when area_of_delivery is not null
+                         and lower(area_of_delivery) <> lower(coalesce(winner_province,'~'))
+                        then 1 else 0 end) out_of_province
+        from awards where winner is not null
+        group by winner
+    """).fetchall()
+    out = []
+    for w, prov, addr, person, procs, arows, total, last, oop in rows:
+        if province and (prov or "").lower() != province.lower():
+            continue
+        if procs < min_awards:
+            continue
+        out.append(dict(winner=w, province=prov, address=addr, contact=person,
+                        procurements=procs, award_rows=arows, total=total or 0,
+                        last_win=last, out_of_province=oop))
+    out.sort(key=lambda d: (-d["procurements"], -d["total"]))
+    return out[:limit]
+
+
 def main():
     db = sqlite3.connect(DB)
     db.executescript(SCHEMA)
@@ -325,6 +385,15 @@ def main():
         run_listing(db)
     elif cmd == "enumerate":
         run_enumerate(db, int(sys.argv[2]) if len(sys.argv) > 2 else 200)
+    elif cmd == "recent":
+        run_recent(db, int(sys.argv[2]) if len(sys.argv) > 2 else 400)
+    elif cmd == "prospects":
+        prov = sys.argv[2] if len(sys.argv) > 2 else None
+        for i, p in enumerate(prospects(db, province=prov), 1):
+            print(f"{i:>3}. {p['winner'][:44]:<44} {p['procurements']:>2} wins  "
+                  f"P{p['total']:>12,.0f}  {str(p['province'])[:16]:<16} last {p['last_win']}")
+            print(f"     {str(p['contact'])[:38]:<38} {str(p['address'])[:70]}")
+        return
     elif cmd == "blocks":
         run_blocks(db, int(sys.argv[2]) if len(sys.argv) > 2 else 15,
                    int(sys.argv[3]) if len(sys.argv) > 3 else 20)

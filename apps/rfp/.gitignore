@@ -19,3 +19,7 @@ blobs/
 docs_list.jsonl
 docs_sizes.jsonl
 docs_recon.jsonl
+*.xlsx
+recent.log
+bigrun.log
+xlsx.log
