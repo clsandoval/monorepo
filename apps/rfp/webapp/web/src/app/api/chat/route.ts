@@ -39,10 +39,11 @@ export async function POST(req: Request) {
     async start(controller) {
       const send = (e: ChatEvent) => controller.enqueue(encoder.encode(`data: ${JSON.stringify(e)}\n\n`));
       try {
-        const { reply, usage, present } = await runTurn(history, profile ?? null, message, sessionId, send);
+        const { reply, usage, present, aborted } = await runTurn(history, profile ?? null, message, sessionId, send, req.signal);
         // Persist present turns as JSON so reload re-renders cards; plain replies as text.
-        addMessage(sessionId, owner, "assistant",
-          present ? JSON.stringify({ __present: 1, intro: present.intro, note: present.note, refs: present.refs }) : reply);
+        // On abort, only persist if there's a partial reply worth keeping (no empty assistant turns).
+        if (present) addMessage(sessionId, owner, "assistant", JSON.stringify({ __present: 1, intro: present.intro, note: present.note, refs: present.refs }));
+        else if (reply.trim()) addMessage(sessionId, owner, "assistant", aborted ? `${reply}\n\n_(stopped)_` : reply);
         addTokens(sessionId, owner, usage.input + usage.cached + usage.output);
       } catch (err) {
         send({ type: "done", reply: `Something went wrong on that request. Please try again.`, usage: { input: 0, cached: 0, output: 0, usd: 0 } });

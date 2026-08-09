@@ -9,20 +9,22 @@ type Scn = {
   id: string; profile: string | null; turns: string[];
   check: (ctx: TurnCtx) => Promise<string[]>; // returns list of FAILED assertion messages
 };
-type TurnCtx = { reply: string; ids: number[]; toolCount: number; rounds: number; usd: number; cacheRatio: number };
+type TurnCtx = { reply: string; ids: number[]; refs: { id: number; why: string; tag?: string }[]; toolCount: number; rounds: number; usd: number; cacheRatio: number };
 
 const CAVITE_PROFILE = "PCAB Category C civil works — drainage, canopies, small buildings. Cavite and nearby Laguna. ABC ₱300K–₱5M. Needs 5+ days to prepare documents.";
 const idsIn = (s: string) => [...new Set([...s.matchAll(/\b(\d{5,9})\b/g)].map((m) => Number(m[1])))];
 
 async function drive(profile: string | null, turns: string[]): Promise<TurnCtx> {
   let history: { role: string; content: string }[] = [];
-  let last: TurnCtx = { reply: "", ids: [], toolCount: 0, rounds: 0, usd: 0, cacheRatio: 0 };
+  let last: TurnCtx = { reply: "", ids: [], refs: [], toolCount: 0, rounds: 0, usd: 0, cacheRatio: 0 };
   for (const t of turns) {
     let tools = 0, cached = 0, input = 0;
     const on = (e: ChatEvent) => { if (e.type === "tool") tools++; };
-    const { reply, usage, rounds } = await runTurn(history, profile, t, `eval-${Math.random()}`, on);
+    const { reply, usage, rounds, present } = await runTurn(history, profile, t, `eval-${Math.random()}`, on);
     cached = usage.cached; input = usage.input;
-    last = { reply, ids: idsIn(reply), toolCount: tools, rounds, usd: usage.usd,
+    // ids now come from present.refs (the model renders cards via present, not prose ids)
+    const ids = present?.refs?.length ? present.refs.map((r) => r.id) : idsIn(reply);
+    last = { reply, ids, refs: present?.refs ?? [], toolCount: tools, rounds, usd: usage.usd,
              cacheRatio: input + cached ? cached / (input + cached) : 0 };
     history = [...history, { role: "user", content: t }, { role: "assistant", content: reply }];
   }
@@ -65,7 +67,8 @@ const scenarios: Scn[] = [
       // every cited notice should be Cavite OR explicitly annotated as out-of-area in the reply
       const rows = await readSql(`SELECT id, location FROM corpus WHERE id IN (${c.ids.join(",")})`, 30);
       const off = rows.filter((r) => !String(r.location ?? "").toLowerCase().includes("cavite"));
-      const annotated = /outside|out of|adjacent|laguna|nearby/i.test(c.reply);
+      const tagText = c.refs.map((r) => r.tag ?? "").join(" ");
+      const annotated = /outside|out of|adjacent|laguna|nearby|region/i.test(c.reply + " " + tagText);
       return off.length && !annotated ? [`${off.length} non-Cavite ids cited without annotation`] : [];
     } },
   { id: "multi-lot", profile: CAVITE_PROFILE,
@@ -73,7 +76,10 @@ const scenarios: Scn[] = [
     check: async (c) => (c.ids.length || /lot/i.test(c.reply)) ? [] : ["no lot-aware response"] },
   { id: "prior-not-filter", profile: CAVITE_PROFILE,
     turns: ["are there much bigger jobs, way above my budget, I could join a JV on?"],
-    check: async (c) => /joint|jv|partner|above|larger|bigger/i.test(c.reply) ? [] : ["did not surface/annotate out-of-profile big jobs"] },
+    check: async (c) => {
+      const t = c.reply + " " + c.refs.map((r) => r.tag ?? "").join(" ");
+      return /joint|jv|partner|above|larger|bigger/i.test(t) ? [] : ["did not surface/annotate out-of-profile big jobs"];
+    } },
   { id: "tight-deadline", profile: CAVITE_PROFILE,
     turns: ["anything closing in the next 2 days I could still submit for?"],
     check: async (c) => {
@@ -98,7 +104,7 @@ const results: Record<string, unknown>[] = [];
 let totalUsd = 0, failCount = 0;
 for (const s of scenarios) {
   const ctx = s.turns.length ? await drive(s.profile, s.turns)
-                             : { reply: "", ids: [], toolCount: 0, rounds: 0, usd: 0, cacheRatio: 0 };
+                             : { reply: "", ids: [], refs: [], toolCount: 0, rounds: 0, usd: 0, cacheRatio: 0 };
   const fails = [...(s.turns.length ? await invariants(ctx) : []), ...(await s.check(ctx))];
   totalUsd += ctx.usd;
   if (fails.length) failCount++;

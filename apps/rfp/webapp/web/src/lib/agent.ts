@@ -114,7 +114,8 @@ export async function runTurn(
   userMessage: string,
   sessionId: string,
   onEvent: (e: ChatEvent) => void,
-): Promise<{ reply: string; usage: { input: number; cached: number; output: number; usd: number }; rounds: number; present?: Present }> {
+  signal?: AbortSignal,
+): Promise<{ reply: string; usage: { input: number; cached: number; output: number; usd: number }; rounds: number; present?: Present; aborted?: boolean }> {
   process.env.OPENAI_API_KEY ||= apiKey(); // ambient auth for the provider; resolved at request time
   const usage = { input: 0, cached: 0, output: 0, usd: 0 };
   let rounds = 0, lastRoundKey: number | null = null;
@@ -172,7 +173,16 @@ export async function runTurn(
     }
   });
 
-  await agent.prompt(userMessage);
+  // Abort wiring: client Stop / disconnect (signal) and a per-turn timeout both abort the run.
+  let aborted = false;
+  const doAbort = () => { aborted = true; try { agent.abort(); } catch { /* already done */ } };
+  if (signal) { if (signal.aborted) doAbort(); else signal.addEventListener("abort", doAbort, { once: true }); }
+  const TURN_TIMEOUT_MS = Number(process.env.RFP_TURN_TIMEOUT_MS ?? 120_000);
+  const timer = setTimeout(doAbort, TURN_TIMEOUT_MS);
+  try {
+    await agent.prompt(userMessage);
+  } catch { /* abort/stream error → return whatever partial we have */ }
+  finally { clearTimeout(timer); if (signal) signal.removeEventListener("abort", doAbort); }
   type MC = string | { type: string; text?: string }[];
   const msgs = agent.state.messages as { role: string; content: MC }[];
   const textOf = (c: MC): string =>
@@ -182,5 +192,5 @@ export async function runTurn(
   const reply = present ? [present.intro, present.note].filter(Boolean).join("\n\n").trim()
                         : (last ? textOf(last.content).trim() : "");
   onEvent({ type: "done", reply, present, usage });
-  return { reply, usage, rounds, present };
+  return { reply, usage, rounds, present, aborted };
 }

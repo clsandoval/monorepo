@@ -28,6 +28,9 @@ export function Workspace() {
   const [busy, setBusy] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false); // mobile drawer
   const scrollRef = useRef<HTMLDivElement>(null);
+  const abortRef = useRef<AbortController | null>(null);
+
+  function stop() { abortRef.current?.abort(); }
 
   const loadSessions = useCallback(async () => {
     const r = await fetch("/api/sessions").then((x) => x.json());
@@ -35,9 +38,16 @@ export function Workspace() {
     return r.sessions as Session[];
   }, []);
 
+  const [atBottom, setAtBottom] = useState(true);
+  const nearBottom = () => {
+    const el = scrollRef.current; if (!el) return true;
+    return el.scrollHeight - el.scrollTop - el.clientHeight < 80;
+  };
   // eslint-disable-next-line react-hooks/set-state-in-effect, react-hooks/exhaustive-deps -- mount-time data load
   useEffect(() => { loadSessions().then((s) => { if (s?.length) selectSession(s[0].id); else newSession(); }); }, [loadSessions]);
-  useEffect(() => { scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight }); }, [msgs]);
+  // auto-stick to bottom while streaming ONLY if the user is already at the bottom
+  useEffect(() => { if (atBottom) scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight }); }, [msgs, atBottom]);
+  const toBottom = () => { scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" }); setAtBottom(true); };
 
   async function newSession() {
     const { id } = await fetch("/api/sessions", { method: "POST" }).then((x) => x.json());
@@ -76,10 +86,12 @@ export function Workspace() {
     const message = input.trim();
     setInput(""); setBusy(true);
     setMsgs((m) => [...m, { role: "user", content: message }, { role: "assistant", content: "" }]);
+    const controller = new AbortController();
+    abortRef.current = controller;
     try {
       const res = await fetch("/api/chat", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId: active, message }),
+        body: JSON.stringify({ sessionId: active, message }), signal: controller.signal,
       });
       if (!res.ok || !res.body) {
         const msg = res.status === 402 ? "This chat has reached its usage limit. Start a new chat."
@@ -108,8 +120,19 @@ export function Workspace() {
         }
       }
       loadSessions();
-    } catch { setMsgs((m) => upsertLast(m, "Connection lost. Please try again.")); }
-    finally { setBusy(false); }
+    } catch (e) {
+      if ((e as Error).name === "AbortError") {
+        setMsgs((m) => { // keep whatever streamed, append a stopped marker
+          const c = [...m];
+          for (let i = c.length - 1; i >= 0; i--) if (c[i].role === "assistant") {
+            c[i] = { ...c[i], content: (c[i].content?.trim() ? c[i].content + "\n\n" : "") + "_(stopped)_" }; break;
+          }
+          return c;
+        });
+      } else {
+        setMsgs((m) => upsertLast(m, "Connection lost. Please try again."));
+      }
+    } finally { setBusy(false); abortRef.current = null; }
   }
 
   return (
@@ -153,7 +176,7 @@ export function Workspace() {
           </button>
           <span className="text-sm font-medium">RFP Finder</span>
         </div>
-        <div ref={scrollRef} className="flex-1 overflow-y-auto">
+        <div ref={scrollRef} onScroll={() => setAtBottom(nearBottom())} className="relative flex-1 overflow-y-auto">
           <div className="mx-auto max-w-2xl px-4 py-6">
             {msgs.length === 0 && (
               <div className="mt-24 text-center text-muted-foreground" data-testid="empty-state">
@@ -168,7 +191,13 @@ export function Workspace() {
                 ) : (
                   <div className="space-y-3">
                     <div className="prose-chat text-sm leading-relaxed" data-testid="assistant-text">
-                      {m.content ? <ReactMarkdown>{m.content}</ReactMarkdown> : (busy ? "…" : "")}
+                      {m.content
+                        ? <ReactMarkdown>{m.content}</ReactMarkdown>
+                        : (i === msgs.length - 1 && busy
+                            ? <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+                                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current" />Searching notices…
+                              </span>
+                            : "")}
                     </div>
                     {m.notices && m.notices.length > 0 && (
                       <div className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2
@@ -184,13 +213,21 @@ export function Workspace() {
             ))}
           </div>
         </div>
-        <div className="border-t border-border p-3">
+        <div className="relative border-t border-border p-3">
+          {!atBottom && (
+            <button onClick={toBottom} data-testid="jump-latest"
+              className="absolute -top-11 left-1/2 -translate-x-1/2 rounded-full border border-border bg-background px-3 py-1.5 text-xs text-muted-foreground shadow-sm hover:text-foreground">
+              ↓ Jump to latest
+            </button>
+          )}
           <div className="mx-auto flex max-w-2xl items-end gap-2">
             <Textarea value={input} onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
               placeholder="e.g. small drainage jobs in Cavite, PCAB C, under ₱5M"
               className="min-h-[44px] max-h-40 resize-none" data-testid="chat-input" />
-            <Button onClick={send} disabled={busy || !input.trim()} data-testid="send">Send</Button>
+            {busy
+              ? <Button onClick={stop} variant="secondary" data-testid="stop">Stop</Button>
+              : <Button onClick={send} disabled={!input.trim()} data-testid="send">Send</Button>}
           </div>
         </div>
       </main>

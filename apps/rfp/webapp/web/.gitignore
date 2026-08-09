@@ -45,3 +45,5 @@ playwright-report/
 .sessions-e2e/
 qa/shots/
 rfp-bundle/
+qa/video/
+qa/eval-results.json
