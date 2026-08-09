@@ -170,3 +170,35 @@ than the visible text inputs. Not worth reverse-engineering now that enumeration
 Hitting this host concurrently with another scraper earned a **403** within a few requests. It
 recovered with ~3 s spacing and a browser `User-Agent`. Rate limiting here is real but forgiving —
 budget total concurrency across *all* jobs, not per job.
+
+## How many contractors exist? The sample cannot say, and here is why
+
+Measured 2026-08-09 on 1,580 award rows = 1,382 distinct procurements, 1,214 distinct companies.
+
+| | |
+|---|---|
+| companies observed | 1,214 |
+| seen exactly once (f1) | 1,101 |
+| seen exactly twice (f2) | 79 |
+| **Chao1 lower bound** | **8,886** |
+| **Good–Turing coverage** | **20.3%** |
+
+Chao1 puts a floor of ~8,900 firms on the winner universe, but **that floor is not the answer.**
+Coverage of 20.3% means four out of five of the next awards would go to a company never yet seen —
+the sample is nowhere near saturation, and Chao1 is a lower bound that degrades badly at low
+coverage. The honest statement is "at least ~9,000, probably several times that, and this sample
+cannot narrow it."
+
+What would narrow it: sampling until coverage climbs. Coverage rises roughly with the square root
+of effort here, so ~10x the sample (about 1.3 hours at 6 workers) should reach 50-60% coverage and
+make Chao1 meaningful. Cost is time, not money — the award endpoints are free.
+
+What would answer it outright: the **Registered Merchants** directory
+(`philgeps.gov.ph/CmsHomePages/reg_merchants`, POSTs to `/CmsHomePages/regMerchants`). It is the
+population of registered suppliers rather than of winners, and it is public — but a GET returns an
+empty table and the search form's parameter names were not resolved. Unfinished, and it is the
+cheapest route to a real denominator.
+
+Note the two populations differ and both matter: *registered suppliers* is the addressable market,
+*award winners* is the qualified subset that demonstrably bids and wins. 1,214 is a sample of the
+second, not a census of either.
