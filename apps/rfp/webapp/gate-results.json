@@ -55,6 +55,16 @@
         { "name": "Playwright webServer works in sandbox", "pass": true, "detail": "4/4 pass" }
       ]
     },
-    "G5_convergence": { "status": "pending", "checks": [] }
+    "G5_convergence": {
+      "status": "pending",
+      "plan": [
+        "Dockerfile: node20 + python3 + apps/rfp CLI + corpus.db + tags.db baked read-only; next standalone build.",
+        "Set env RFP_DIR to the baked apps/rfp path; RFP_SESSIONS_DIR on a Fly volume.",
+        "fly app 'rfp-finder' (authed mmrbeast2@gmail.com) + volume; secret OPENAI_API_KEY.",
+        "Deploy, smoke live URL (create session + one chat turn returns cards), report URL to Telegram.",
+        "Only proceed BECAUSE G1-G4 are green. If deploy/smoke fails -> stop+report, leave prod down."
+      ],
+      "checks": []
+    }
   }
 }
