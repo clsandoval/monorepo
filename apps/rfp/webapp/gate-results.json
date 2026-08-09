@@ -1,9 +1,9 @@
 {
-  "updated": "2026-08-09T15:30:00Z",
-  "all_green": false,
-  "deployed": false,
-  "prod_url": null,
-  "waves_done": ["W1", "W2", "W3", "W4", "G3", "G4"],
+  "updated": "2026-08-09T16:00:00Z",
+  "all_green": true,
+  "deployed": true,
+  "prod_url": "https://rfp-finder-ph.fly.dev/",
+  "waves_done": ["W1", "W2", "W3", "W4", "G3", "G4", "G5"],
   "constraints_learned": [
     "better-sqlite3 native addon segfaults in this sandbox under BOTH node and bun -> removed; corpus via 'rfp sql --json', sessions as JSON files.",
     "The Bash sandbox kills long-running background servers (empty output, exit 1). Do NOT hand-launch 'next start' to test. Use Playwright's webServer config for G3/G4 (it manages the server lifecycle), and unit-test libs directly for G2. Prod target is Fly, unaffected."
@@ -56,15 +56,19 @@
       ]
     },
     "G5_convergence": {
-      "status": "pending",
-      "plan": [
-        "Dockerfile: node20 + python3 + apps/rfp CLI + corpus.db + tags.db baked read-only; next standalone build.",
-        "Set env RFP_DIR to the baked apps/rfp path; RFP_SESSIONS_DIR on a Fly volume.",
-        "fly app 'rfp-finder' (authed mmrbeast2@gmail.com) + volume; secret OPENAI_API_KEY.",
-        "Deploy, smoke live URL (create session + one chat turn returns cards), report URL to Telegram.",
-        "Only proceed BECAUSE G1-G4 are green. If deploy/smoke fails -> stop+report, leave prod down."
+      "status": "green",
+      "checks": [
+        { "name": "docker build (node22 + python3 + rfp CLI + 158M data)", "pass": true, "detail": "app rfp-finder-ph, region sin" },
+        { "name": "deployed to Fly prod", "pass": true, "detail": "machine update success" },
+        { "name": "live GET / 200", "pass": true },
+        { "name": "live session create", "pass": true },
+        { "name": "live chat turn streams + hydrates real cards", "pass": true, "detail": "Cavite drainage notices returned" },
+        { "name": "OPENAI_API_KEY via Fly secret (ambient auth)", "pass": true }
       ],
-      "checks": []
+      "notes": [
+        "Two build bugs fixed en route: module-load key resolution broke the keyless docker build; bun 1.3.14 SIGILLs on the depot builder -> switched to node22 + npm ci.",
+        "docs.db (686M) not baked (attach degrades gracefully) — `show` attachment scope is limited in prod until docs.db is added to the volume."
+      ]
     }
   }
 }

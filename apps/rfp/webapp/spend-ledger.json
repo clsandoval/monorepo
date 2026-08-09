@@ -1,13 +1,14 @@
 {
   "cap_usd": 30.0,
-  "spent_usd": 0.06,
+  "spent_usd": 0.07,
   "entries": [
     { "wave": "W1", "kind": "claude-subagents", "usd": 0.0, "ts": "2026-08-09T13:40:00Z", "note": "scaffold inline, no subagents" },
     { "wave": "W2", "kind": "luna-eval", "usd": 0.02, "ts": "2026-08-09T13:55:00Z", "note": "loop port smoke" },
     { "wave": "W3-G1", "kind": "luna-eval", "usd": 0.011, "ts": "2026-08-09T15:00:00Z", "note": "eval suite 7 scenarios ₱0.555" },
     { "wave": "W3-G2", "kind": "luna-eval", "usd": 0.0, "ts": "2026-08-09T15:00:00Z", "note": "unit tests: no Luna (readSql is a cheap SELECT)" },
     { "wave": "G4", "kind": "luna-eval", "usd": 0.02, "ts": "2026-08-09T15:10:00Z", "note": "E2E chat turn(s) + reruns" },
-    { "wave": "G3", "kind": "luna-eval", "usd": 0.01, "ts": "2026-08-09T15:30:00Z", "note": "visual QA: 2 Luna turns for results+empty states" }
+    { "wave": "G3", "kind": "luna-eval", "usd": 0.01, "ts": "2026-08-09T15:30:00Z", "note": "visual QA: 2 Luna turns for results+empty states" },
+    { "wave": "G5", "kind": "luna-eval", "usd": 0.01, "ts": "2026-08-09T16:00:00Z", "note": "prod smoke chat turn(s)" }
   ],
   "note": "Every loop cycle appends {wave, kind, usd, ts}. Stop at cap. Main driving-session tokens tracked separately by the harness. All build work so far done inline — zero subagent spend."
 }
