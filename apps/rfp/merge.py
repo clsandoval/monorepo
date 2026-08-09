@@ -355,11 +355,18 @@ create table build_meta (key text primary key, value text);
 
 -- Convenience only: :ref pinned to PH-now. Anything that cares passes its own reference
 -- date (see state_sql()); expiry is a query, so nothing is ever deleted for being old.
+--
+-- strftime, NOT datetime, for the string comparison: `closing_at` is normalised to
+-- 'YYYY-MM-DDTHH:MM:SS' but datetime() returns 'YYYY-MM-DD HH:MM:SS', and 'T' (0x54) sorts
+-- above ' ' (0x20). Comparing the two forms makes every notice closing *today* read as open
+-- no matter the hour, so the view leaked up to a day of expired notices while days_left --
+-- which goes through julianday() and parses both forms -- correctly reported them negative.
+-- days_left keeps julianday(); only the string comparison needs the separator to match.
 create view corpus_state as
 select nid, notice_key, source, id, title, agency, location, classification, mode_norm,
        abc, abc_lot_min, abc_lot_max, closing_at, work_type,
        case when closing_at is null then 'no_closing'
-            when closing_at < datetime('now', '+8 hours') then 'expired'
+            when closing_at < strftime('%Y-%m-%dT%H:%M:%S', 'now', '+8 hours') then 'expired'
             else 'open' end as state,
        round(julianday(closing_at) - julianday('now', '+8 hours'), 2) as days_left
 from corpus;
@@ -987,6 +994,28 @@ def selfcheck():
     assert state_of(None, "2026-08-08T00:00:00") == "no_closing"
     assert ref_instant("2026-08-08") == "2026-08-08T00:00:00"
     assert ":ref" in state_sql() and "now" not in state_sql()
+
+    # ...and the corpus_state view must agree with state_of() at the boundary that actually
+    # bites: a notice closing EARLIER TODAY. The view compares strings, so its PH-now has to
+    # carry the same 'T' separator closing_at does -- datetime() does not, and the mismatch
+    # silently kept same-day expired notices in the open set.
+    v = sqlite3.connect(":memory:")
+    v.executescript(SCHEMA)
+    now_ph = v.execute("select strftime('%Y-%m-%dT%H:%M:%S','now','+8 hours')").fetchone()[0]
+    for label, offset in (("closed an hour ago", "-1 hour"), ("closes in an hour", "+1 hour")):
+        ts = v.execute("select strftime('%Y-%m-%dT%H:%M:%S','now','+8 hours',?)",
+                       (offset,)).fetchone()[0]
+        # notice_key/closing_day are generated; source, id and dupe_key are the not-null set
+        v.execute("insert into corpus (source, id, dupe_key, closing_at) values (?,?,?,?)",
+                  ("mph", label, label, ts))
+    v.commit()
+    got = dict(v.execute("select id, state from corpus_state"))
+    assert got["closed an hour ago"] == "expired", (got, now_ph)
+    assert got["closes in an hour"] == "open", (got, now_ph)
+    # and the two fields must never disagree about the sign
+    assert not v.execute("select 1 from corpus_state"
+                         " where state='open' and days_left < 0").fetchall()
+    v.close()
 
     # column reconciliation: no overlap between the per-source column sets, and the
     # documented union is what the DDL actually declares.
