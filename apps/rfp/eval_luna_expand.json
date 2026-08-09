@@ -1,0 +1,59 @@
+{
+ "micro": 0.9230769230769231,
+ "hit": 84,
+ "gt": 91,
+ "php": 0.3281524,
+ "queries": [
+  {
+   "qid": "Q1_drainage",
+   "natural": "drainage",
+   "luna_fts": "drain OR drains OR drainage OR drainages OR \"drainage system\" OR \"drainage systems\" OR \"drainage improvement\" OR \"drainage improvements\" OR \"drainage construction\" OR \"drainage rehabilitation\" OR stormwater OR \"storm water\" OR \"stormwater drainage\" OR \"surface water\" OR canal OR canals OR \"irrigation canal\" OR \"irrigation canals\" OR waterway OR waterways OR channel OR channels OR ditch OR ditches OR culvert OR culverts OR \"drainage canal\" OR \"drainage canals\" OR \"open canal\" OR \"open canals\" OR \"concrete canal\" OR \"concrete canals\" OR lining OR linings OR \"canal lining\" OR \"canal linings\" OR \"canal lining works\" OR \"canal rehabilitation\" OR \"canal rehabilitations\" OR \"canal cover\" OR \"canal covers\" OR \"covered canal\" OR \"covered canals\" OR \"drain cover\" OR \"drain covers\" OR declogging OR \"de clogging\" OR \"de-clogging\" OR unclogging OR \"un clogging\" OR \"un-clogging\" OR desilting OR \"de silting\" OR \"de-silting\" OR dredging OR desiltation OR \"silt removal\" OR clearing OR cleaning OR excavation OR excavations OR repair OR repairs OR rehabilitation OR maintenance",
+   "hit": 10,
+   "gt_n": 14,
+   "missed": [
+    13133080,
+    13133130,
+    13175331,
+    13178596
+   ]
+  },
+  {
+   "qid": "Q2_streetlights",
+   "natural": "solar streetlights",
+   "luna_fts": "\"solar streetlights\" OR \"solar street lights\" OR \"solar streetlight\" OR \"solar street light\" OR \"solar-powered street lighting\" OR \"solar powered street lighting\" OR \"solar lighting\" OR \"solar lighting systems\" OR \"solar outdoor lighting\" OR \"solar roadway lighting\" OR \"solar road lighting\" OR \"photovoltaic street lighting\" OR \"photovoltaic streetlights\" OR \"photovoltaic street lights\" OR \"PV street lighting\" OR \"standalone solar lighting\" OR \"stand-alone solar lighting\" OR \"standalone solar streetlights\" OR \"LED streetlights\" OR \"LED street lights\" OR \"LED streetlight\" OR \"LED street light\" OR \"street lighting\" OR \"street light\" OR \"street lights\" OR \"streetlight\" OR \"streetlights\" OR \"roadway lighting\" OR \"road lighting\" OR \"public lighting\" OR \"outdoor lighting\" OR \"roadside lighting\" OR \"lamp posts\" OR \"street lamps\" OR \"street lamps\" OR \"solar\" OR \"photovoltaic\" OR \"PV\"",
+   "hit": 25,
+   "gt_n": 26,
+   "missed": [
+    13184158
+   ]
+  },
+  {
+   "qid": "Q3_schoolbldg",
+   "natural": "school building construction",
+   "luna_fts": "\"school building\" OR \"school buildings\" OR \"schoolbuilding\" OR \"schoolbuildings\" OR \"school construction\" OR \"construction of school\" OR \"construction of schools\" OR \"construction of school building\" OR \"construction of school buildings\" OR \"school building construction\" OR \"classroom\" OR \"classrooms\" OR \"class room\" OR \"class rooms\" OR \"classroom construction\" OR \"construction of classroom\" OR \"construction of classrooms\" OR \"classroom building\" OR \"classroom buildings\" OR \"classroombuilding\" OR \"classroombuildings\" OR \"classroom block\" OR \"classroom blocks\" OR \"educational building\" OR \"educational buildings\" OR \"education building\" OR \"education buildings\" OR \"academic building\" OR \"academic buildings\" OR \"instructional building\" OR \"instructional buildings\" OR \"schoolhouse\" OR \"schoolhouses\" OR \"school house\" OR \"school houses\" OR \"school facility\" OR \"school facilities\" OR \"learning facility\" OR \"learning facilities\" OR \"instructional facility\" OR \"instructional facilities\" OR \"school infrastructure\" OR \"school infrastructures\" OR \"school annex\" OR \"school annexes\" OR \"school wing\" OR \"school wings\" OR \"school building repair\" OR \"repair of school building\" OR \"repair of school buildings\" OR \"rehabilitation of school building\" OR \"rehabilitation of school buildings\" OR \"renovation of school building\" OR \"renovation of school buildings\" OR \"improvement of school building\" OR \"improvement of school buildings\" OR \"completion of school building\" OR \"completion of school buildings\" OR \"extension of school building\" OR \"extension of school buildings\" OR \"expansion of school building\" OR \"expansion of school buildings\" OR \"reconstruction of school building\" OR \"reconstruction of school buildings\" OR \"school multipurpose building\" OR \"school multi-purpose building\" OR \"multipurpose school building\" OR \"multi-purpose school building\" OR \"school covered court\" OR \"school library building\" OR \"school laboratory building\" OR \"faculty room construction\" OR \"construction of faculty room\" OR \"construction of school\" OR \"construct school\" OR \"constructing school\" OR \"build school\" OR \"building school\" OR \"school\" OR \"schools\"",
+   "hit": 15,
+   "gt_n": 16,
+   "missed": [
+    13130937
+   ]
+  },
+  {
+   "qid": "Q4_cctv",
+   "natural": "CCTV",
+   "luna_fts": "cctv OR cctvs OR \"closed circuit television\" OR \"closed-circuit television\" OR closedcircuittelevision OR \"cctv camera\" OR \"cctv cameras\" OR cctvcamera OR cctvcameras OR \"cctv system\" OR \"cctv systems\" OR cctvsystem OR cctvsystems OR \"surveillance camera\" OR \"surveillance cameras\" OR surveillancecamera OR surveillancecameras OR \"security camera\" OR \"security cameras\" OR securitycamera OR securitycameras OR \"video surveillance\" OR videosurveillance OR \"video surveillance system\" OR \"video surveillance systems\" OR videosurveillancesystem OR videosurveillancesystems OR \"ip camera\" OR \"ip cameras\" OR ipcamera OR ipcameras OR \"network camera\" OR \"network cameras\" OR networkcamera OR networkcameras OR \"video monitoring\" OR videomonitoring OR \"security system\" OR \"security systems\" OR securitysystem OR securitysystems OR \"access control\" OR accesscontrol OR \"alarm system\" OR \"alarm systems\" OR alarmsystem OR alarmsystems OR \"intrusion detection\" OR intrusiondetection OR \"electronic security\" OR electronicsecurity",
+   "hit": 10,
+   "gt_n": 10,
+   "missed": []
+  },
+  {
+   "qid": "Q5_vehparts",
+   "natural": "vehicle spare parts repair",
+   "luna_fts": "vehicle OR vehicles OR \"vehicle spare parts\" OR \"vehicle spare part\" OR vehiclespareparts OR vehiclesparepart OR \"motor vehicle parts\" OR \"motor vehicle spare parts\" OR \"motor vehicle spare part\" OR motorvehicleparts OR motorvehiclespareparts OR \"automotive parts\" OR \"automotive spare parts\" OR \"automotive spare part\" OR automotiveparts OR automotivespareparts OR \"auto parts\" OR \"auto spare parts\" OR autoparts OR autospareparts OR \"replacement parts\" OR \"replacement part\" OR replacementparts OR replacementpart OR \"spare parts\" OR \"spare part\" OR spareparts OR sparepart OR part OR parts OR \"heavy equipment parts\" OR \"heavy equipment spare parts\" OR heavyequipmentparts OR heavyequipmentspareparts OR \"equipment parts\" OR \"equipment spare parts\" OR equipmentparts OR equipmentspareparts OR machinery OR \"machinery parts\" OR \"machinery spare parts\" OR machiner yparts OR machineryspareparts OR automotive OR automobile OR automobiles OR motorvehicle OR \"motor vehicles\" OR repair OR repairs OR \"vehicle repair\" OR \"vehicle repairs\" OR vehiclerepair OR vehiclerepairs OR \"automotive repair\" OR \"automotive repairs\" OR automotiverepair OR automotiverepairs OR \"auto repair\" OR \"auto repairs\" OR autorepair OR autorepairs OR \"repair services\" OR \"repair service\" OR repairservices OR repairservice OR \"maintenance and repair\" OR \"repair and maintenance\" OR maintenance OR servicing OR service OR \"vehicle maintenance\" OR vehiclemaintenance OR \"automotive maintenance\" OR automotivemaintenance OR \"preventive maintenance\" OR preventivemaintenance OR overhaul OR overhauling OR troubleshooting OR diagnostics OR diagnostic OR \"engine repair\" OR \"engine parts\" OR engineparts OR \"mechanical repair\" OR mechanicalrepair OR \"mechanical services\" OR mechanicalservices OR \"motor pool\" OR motorpool",
+   "hit": 24,
+   "gt_n": 25,
+   "missed": [
+    13175792
+   ]
+  }
+ ]
+}
