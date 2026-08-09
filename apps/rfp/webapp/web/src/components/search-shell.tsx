@@ -150,7 +150,7 @@ export function SearchShell() {
           <div aria-live="polite" className="flex min-h-8 flex-wrap items-center gap-x-3 gap-y-2">
             {ready && (
               <p className="font-mono text-xs text-muted-foreground tabular-nums">
-                {ready.total.toLocaleString()} open notices · Source: PhilGEPS
+                {ready.total.toLocaleString()} {ready.plan.kind === "search" ? "results" : "open notices"} · Source: PhilGEPS
               </p>
             )}
             {ready && ready.plan.kind === "search" && (
