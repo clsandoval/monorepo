@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>bidkita — every government bid in one place</title>
+<script>
+  var a = localStorage.getItem('accent');
+  if (a) document.documentElement.dataset.accent = a;
+</script>
+<link rel="stylesheet" href="style.css">
+<style>
+  /* index.html-local layout only — no new colours, reuses tokens */
+  .hero-section { padding: 96px 0 72px; }
+  .hero-section .label { margin-bottom: 28px; }
+  .hero-rule { width: 72px; margin: 28px 0 0; }
+  .hero-section .lede { margin-top: 28px; }
+  .prompt-card {
+    max-width: 720px;
+    margin-top: 48px;
+    padding: 20px 22px;
+  }
+  .prompt-row { display: flex; align-items: center; gap: 14px; }
+  .prompt-placeholder {
+    flex: 1;
+    color: var(--grey);
+    font-size: 15px;
+    min-width: 0;
+  }
+  .prompt-status {
+    font-size: 11px;
+    color: var(--grey);
+    margin-top: 16px;
+  }
+  .prompt-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+  .proof-strip {
+    display: flex;
+    padding: 56px 0;
+    margin-top: 72px;
+    border-top: 1px solid var(--hairline);
+  }
+  .proof-stat { flex: 1; padding: 0 32px; }
+  .proof-stat:first-child { padding-left: 0; }
+  .proof-stat + .proof-stat { border-left: 1px solid var(--hairline); }
+  .proof-num { font-size: 26px; font-weight: 600; letter-spacing: -0.01em; }
+  .proof-cap { font-size: 12px; color: var(--grey); margin-top: 6px; }
+  .foot { padding: 48px 0 120px; font-size: 11px; color: var(--grey); }
+  @media (max-width: 720px) {
+    .hero-section { padding: 56px 0 48px; }
+    .proof-strip { flex-direction: column; gap: 28px; }
+    .proof-stat { padding: 0; }
+    .proof-stat + .proof-stat { border-left: 0; padding-top: 28px; border-top: 1px solid var(--hairline); }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="wordmark" href="index.html">bidkita</a>
+  <div class="topnav-links">
+    <a href="index.html">Product</a>
+    <a href="brief.html">Brief</a>
+    <a href="app.html">App</a>
+  </div>
+  <div class="topnav-right">
+    <div class="accent-toggle" aria-label="Accent colour">
+      <button class="swatch swatch-r" data-accent="" title="Signal red">R</button>
+      <button class="swatch swatch-b" data-accent="blue" title="Blue">B</button>
+    </div>
+    <a class="btn" href="app.html">Start free</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section class="hero-section">
+    <p class="label">Every government bid in the Philippines, in one place</p>
+    <h1 class="hero">Stop missing bids<br>you would have won</h1>
+    <hr class="rule-accent hero-rule">
+    <p class="lede">22,324 open opportunities across both PhilGEPS systems. Tell it what you build and it returns the ones that fit &mdash; published facts only, no predictions.</p>
+
+    <div class="surface prompt-card">
+      <div class="prompt-row">
+        <span class="prompt-placeholder">Ask for road concreting work in Camarines Norte under 10 million</span>
+        <a class="send" href="app.html" aria-label="Ask">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="19" x2="12" y2="5"/>
+            <polyline points="5 12 12 5 19 12"/>
+          </svg>
+        </a>
+      </div>
+      <p class="prompt-status mono">&#9679; Reading 22,324 open notices &mdash; updated 08:15 AM</p>
+    </div>
+
+    <div class="prompt-chips">
+      <a class="btn-ghost" href="app.html">Civil works in Region V</a>
+      <a class="btn-ghost" href="app.html">Under 1M, closing next week</a>
+      <a class="btn-ghost" href="app.html">PCAB Class C jobs near me</a>
+    </div>
+  </section>
+
+  <section class="proof-strip" aria-label="Coverage">
+    <div class="proof-stat">
+      <div class="proof-num mono">22,324</div>
+      <div class="proof-cap">open notices right now</div>
+    </div>
+    <div class="proof-stat">
+      <div class="proof-num mono">PHP 207B</div>
+      <div class="proof-cap">total open contract value</div>
+    </div>
+    <div class="proof-stat">
+      <div class="proof-num mono">62.1%</div>
+      <div class="proof-cap">of deadlines fall Mon&ndash;Tue</div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    Both PhilGEPS systems, read nightly. Free. No login.
+  </footer>
+
+</main>
+
+<script>
+  document.querySelectorAll('.accent-toggle .swatch').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.documentElement.dataset.accent = btn.dataset.accent;
+      localStorage.setItem('accent', btn.dataset.accent);
+    });
+  });
+</script>
+</body>
+</html>
