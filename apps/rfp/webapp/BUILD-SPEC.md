@@ -77,3 +77,64 @@ Each wave: small focused subagent set (lean), adversarial verify each "done" bef
 Loop stops when: (a) all 5 gates green AND prod deploy smoke-passes → success report; or
 (b) `spend-ledger.json` total ≥ $30 → stop + report; or (c) a gate is blocked and cannot go green
 within budget → stop + report (per user's "stop + report" choice). Never ship around a red gate.
+
+---
+
+# Milestone 2 — Full polish (2026-08-09 pm)
+
+Scope UNCHANGED: chat + sessions only. No login. No new features. Light-only, strictly grayscale.
+Goal: a genuinely polished, reliable, fast app. Budget: the SAME $30 cap (~$0.10 spent so far);
+stay lean, ask before exceeding. Redeploy to https://rfp-finder-ph.fly.dev at each milestone so the
+user can watch it improve. I am the QA — hold it to best practices.
+
+## Locked M2 decisions
+- **Rendering: `present` tool.** The model's final action is `present({intro, refs:[{id, why, tag?}], note?})`.
+  The UI renders cards from `refs`; prose is only `intro`/`note`. NO redundant markdown id-list.
+  Parse/validate `present` args; still verify every id exists (anti-hallucination).
+- **Theme: light-only grayscale.** Remove any dark blocks; one monochrome palette. Contrast AA.
+- **Sessions store: upgrade to node:sqlite** (node22 built-in, WAL) for safe concurrent writes —
+  replaces JSON files. Keep the same interface + owner isolation + token budget. (No better-sqlite3.)
+
+## M2 gate checklist (each has mechanical checks; redeploy when a milestone's gates go green)
+
+### P1 — Streaming & rendering polish
+- present-tool wired end to end; cards render from refs; no duplicate prose id-list.
+- Incremental streaming with NO flicker/layout thrash; markdown re-render stable.
+- Tool-activity indicator while searching ("searching…"); Send↔Stop swap during a turn.
+- Card hydration reserves space / smooth insert (no reflow jump).
+
+### P2 — Reliability (network/faults)
+- **Abort:** Stop button cancels in-flight turn (AbortController → server aborts Luna + tools); partial reply kept.
+- **Reconnect/drop:** stream drop mid-turn → clear retry affordance, never a silent hang.
+- **Timeouts:** server per-turn timeout → graceful message; client timeout handled.
+- **Error states:** 429 rate-limit, 402 budget, 404, 5xx all render clear inline messages; no raw crash/infinite spinner.
+- **No lost messages:** user msg persists on error; retry possible. Double-submit guarded.
+
+### P3 — Scroll & responsiveness
+- Auto-stick to bottom while streaming ONLY when user is at bottom; scrolled-up is respected + "jump to latest" affordance.
+- Long content / long titles / many cards / long sessions all scroll correctly.
+- Input responsive during streaming; no jank.
+
+### P4 — Cross-device (Playwright projects: 390 / 768 / 1280)
+- Layout, drawer, scrolling, input, cards correct at all three. Zero horizontal overflow anywhere.
+- Touch targets >=44px; Enter send / Shift+Enter newline; Escape closes drawer; focus management.
+
+### P5 — Accessibility & a11y basics
+- Semantic roles, aria-labels on icon buttons, focus-visible, AA contrast (grayscale), SR-friendly stream region.
+
+### P6 — Concurrency & server robustness
+- node:sqlite sessions (WAL); concurrent turns per owner safe; rate-limit + token budget enforced; graceful degradation.
+
+### Regression (must stay green)
+- G1 harness eval 7/7 · G2 backend/units · existing E2E · grayscale/visual · build/tsc/eslint.
+
+## QA method (best practices — I run all of it)
+- Playwright multi-viewport E2E + visual regression per state; grayscale + no-overflow asserts.
+- Fault injection: abort mid-stream, offline, slow network, server 5xx → assert graceful handling.
+- Unit: present-tool parse/validate, node:sqlite session store, abort/reconnect logic.
+- Real-Luna eval kept green; a11y assertions (roles/labels/contrast).
+- Every subagent "done" adversarially verified before acceptance.
+
+## Stop conditions (M2)
+All P1–P6 + regression green (or $30 hit → stop+report; or a gate blocked in budget → stop+report).
+On full green: final redeploy + smoke + Telegram report. Never ship around a red gate.
