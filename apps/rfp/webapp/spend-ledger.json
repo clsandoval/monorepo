@@ -1,0 +1,6 @@
+{
+  "cap_usd": 30.0,
+  "spent_usd": 0.0,
+  "entries": [],
+  "note": "Every loop cycle appends {wave, kind:'claude-subagents'|'luna-eval', usd, ts}. Stop at cap."
+}

@@ -1,0 +1,13 @@
+{
+  "updated": null,
+  "all_green": false,
+  "deployed": false,
+  "prod_url": null,
+  "gates": {
+    "G1_harness_eval": { "status": "pending", "checks": [] },
+    "G2_backend_api": { "status": "pending", "checks": [] },
+    "G3_visual_qa": { "status": "pending", "checks": [] },
+    "G4_e2e": { "status": "pending", "checks": [] },
+    "G5_convergence": { "status": "pending", "checks": [] }
+  }
+}
