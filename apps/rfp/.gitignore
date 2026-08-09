@@ -23,3 +23,7 @@ docs_recon.jsonl
 recent.log
 bigrun.log
 xlsx.log
+
+# Generated firm briefs — carry a named individual's contact details off a public award notice.
+# Regenerate with `python3 brief.py "<FIRM>"`; do not commit the rendered pages.
+briefs/
