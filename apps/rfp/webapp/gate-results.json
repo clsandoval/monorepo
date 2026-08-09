@@ -1,9 +1,13 @@
 {
-  "updated": "2026-08-09T13:55:00Z",
+  "updated": "2026-08-09T14:30:00Z",
   "all_green": false,
   "deployed": false,
   "prod_url": null,
-  "waves_done": ["W1", "W2"],
+  "waves_done": ["W1", "W2", "W4"],
+  "constraints_learned": [
+    "better-sqlite3 native addon segfaults in this sandbox under BOTH node and bun -> removed; corpus via 'rfp sql --json', sessions as JSON files.",
+    "The Bash sandbox kills long-running background servers (empty output, exit 1). Do NOT hand-launch 'next start' to test. Use Playwright's webServer config for G3/G4 (it manages the server lifecycle), and unit-test libs directly for G2. Prod target is Fly, unaffected."
+  ],
   "gates": {
     "G1_harness_eval": { "status": "pending", "checks": [] },
     "G2_backend_api": {
@@ -13,6 +17,7 @@
         { "name": "next build passes", "pass": true, "detail": "5 routes compiled" },
         { "name": "eslint clean", "pass": true, "detail": "exit 0" },
         { "name": "agent loop ported + streams", "pass": true, "detail": "smoke: facets>search>show, real id, P0.032/turn, 80% cache" },
+        { "name": "chat UI + session panel + cards (W4)", "pass": true, "detail": "grayscale shadcn, builds; live E2E pending in G4" },
         { "name": "authorizer rejects write/ATTACH", "pass": null, "detail": "readSql guard written; unit test in W3" },
         { "name": "per-session token budget", "pass": null, "detail": "withinBudget written; test in W3" },
         { "name": "per-IP rate limit", "pass": null, "detail": "allow() written; test in W3" },
