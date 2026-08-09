@@ -109,7 +109,17 @@ export async function runTurn(
       systemPrompt: STATIC_PREFIX + (profileBlock ? `\n\n--- THIS FIRM ---\n${profileBlock}` : ""),
       model: luna as never,
       tools: tools as never,
-      messages: history.map((m) => ({ role: m.role, content: m.content, timestamp: 0 })) as never,
+      // Seed prior turns in the exact shape pi/provider expects. User content may be a string;
+      // assistant content MUST be text parts + carry api/provider/model/usage/stopReason, else the
+      // openai-responses converter mangles the transcript and the model ignores it (re-greets).
+      messages: history.map((m) =>
+        m.role === "assistant"
+          ? { role: "assistant", content: [{ type: "text", text: m.content }],
+              api: luna.api, provider: luna.provider, model: luna.id,
+              usage: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0, totalTokens: 0,
+                       cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0, total: 0 } },
+              stopReason: "stop", timestamp: 0 }
+          : { role: "user", content: m.content, timestamp: 0 }) as never,
     },
     sessionId,
     streamFn: streamFn as never,
