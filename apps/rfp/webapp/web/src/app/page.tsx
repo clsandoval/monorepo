@@ -1,5 +1,5 @@
-import { Workspace } from "@/components/workspace";
+import { SearchShell } from "@/components/search-shell";
 
 export default function Home() {
-  return <Workspace />;
+  return <SearchShell />;
 }

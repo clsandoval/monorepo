@@ -20,7 +20,7 @@ function parseStored(role: string, content: string): Msg {
   return { role: role as Msg["role"], content };
 }
 
-export function Workspace() {
+export function Workspace({ seedQuery }: { seedQuery?: string } = {}) {
   const [sessions, setSessions] = useState<Session[]>([]);
   const [active, setActive] = useState<string | null>(null);
   const [msgs, setMsgs] = useState<Msg[]>([]);
@@ -31,6 +31,10 @@ export function Workspace() {
   const abortRef = useRef<AbortController | null>(null);
 
   function stop() { abortRef.current?.abort(); }
+
+  // Prefill (never auto-send) the chat input with the active search query when the AI tab opens.
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional one-shot prefill per seed
+  useEffect(() => { if (seedQuery) setInput((cur) => (cur.trim() ? cur : seedQuery)); }, [seedQuery]);
 
   const loadSessions = useCallback(async () => {
     const r = await fetch("/api/sessions").then((x) => x.json());
@@ -142,7 +146,7 @@ export function Workspace() {
   }
 
   return (
-    <div className="flex h-dvh bg-background text-foreground">
+    <div className="flex h-full bg-background text-foreground">
       {/* backdrop for the mobile drawer */}
       {panelOpen && (
         <div className="fixed inset-0 z-20 bg-black/40 md:hidden" onClick={() => setPanelOpen(false)} aria-hidden />
