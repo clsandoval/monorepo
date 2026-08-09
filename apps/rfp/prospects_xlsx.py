@@ -44,10 +44,13 @@ def tidy(a):
 def contacts():
     d = sqlite3.connect(f"file:{HERE/'awards.db'}?mode=ro", uri=True)
     try:
-        rows = d.execute("select winner, phone, website, maps_uri, confidence from contacts")
+        rows = d.execute("select winner, phone, website, maps_uri, confidence,"
+                         " email, email_source, email_confidence from contacts")
     except sqlite3.OperationalError:
         return {}
-    return {w: dict(phone=p, website=s, maps_uri=m, confidence=c) for w, p, s, m, c in rows}
+    return {w: dict(phone=p, website=s, maps_uri=m, confidence=c,
+                    email=e, email_source=es, email_confidence=ec)
+            for w, p, s, m, c, e, es, ec in rows}
 
 
 CONTACTS = {}
@@ -85,9 +88,14 @@ def is_shortlist(f):
             and any(k in (f["last_title"] or "").lower() for k in INFRA))
 
 
-HEAD = ["Company", "Contact person", "Phone", "Website", "Match confidence", "Address", "Province",
+HEAD = ["Company", "Contact person", "Phone", "Email", "Email confidence", "Website",
+        "Match confidence", "Address", "Province",
         "Last win", "Last win ₱", "Wins in sample", "Total ₱ in sample",
-        "Avg bid vs budget", "What they last won", "Sector", "Verify on PhilGEPS", "Google Maps"]
+        "Avg bid vs budget", "What they last won", "Sector", "Verify on PhilGEPS",
+        "Google Maps", "Email found on"]
+# Look columns up by name. Two contact columns were inserted mid-sheet once already and
+# every hardcoded index below had to be recounted; that is not happening twice.
+COL = {name: i for i, name in enumerate(HEAD, 1)}
 
 
 def sheet(wb, title, firms, note):
@@ -104,7 +112,8 @@ def sheet(wb, title, firms, note):
         avg = sum(f["ratios"]) / len(f["ratios"]) if f["ratios"] else None
         ct = CONTACTS.get(f["winner"], {})
         ws.append([
-            f["winner"], f["contact"], ct.get("phone"), ct.get("website"),
+            f["winner"], f["contact"], ct.get("phone"),
+            ct.get("email"), ct.get("email_confidence"), ct.get("website"),
             ct.get("confidence"), f["address"], f["province"],
             f["last"].strftime("%Y-%m-%d") if f["last"] else "",
             f["last_amt"], f["wins"], round(f["total"], 2),
@@ -112,21 +121,22 @@ def sheet(wb, title, firms, note):
             re.sub(r"^[0-9A-Z]+ - ", "", f["last_title"] or "")[:120],
             "; ".join(sorted(f["sectors"]))[:60],
             AWARD_URL.format(ref=f["ref"] or 0, aid=f["aid"]),
-            ct.get("maps_uri"),
+            ct.get("maps_uri"), ct.get("email_source"),
         ])
-    widths = [42, 24, 17, 34, 12, 44, 16, 11, 13, 8, 15, 10, 52, 26, 24, 24]
+    widths = [42, 24, 17, 30, 12, 34, 12, 44, 16, 11, 13, 8, 15, 10, 52, 26, 24, 24, 40]
     for i, w in enumerate(widths, 1):
         ws.column_dimensions[get_column_letter(i)].width = w
     GREEN, AMBER, GREY = "E6F4EA", "FFF4E8", "F2F2F2"
     for r in range(3, ws.max_row + 1):
-        ws.cell(row=r, column=9).number_format = '#,##0'
-        ws.cell(row=r, column=11).number_format = '#,##0'
-        ws.cell(row=r, column=12).number_format = '0.0%'
-        # colour the confidence cell: a wrong phone number is worse than a blank one, so the
-        # reader must see at a glance which rows a human still has to verify.
-        conf = ws.cell(row=r, column=5).value
-        ws.cell(row=r, column=5).fill = PatternFill(
-            "solid", fgColor={"good": GREEN, "weak": AMBER}.get(conf, GREY))
+        ws.cell(row=r, column=COL["Last win ₱"]).number_format = '#,##0'
+        ws.cell(row=r, column=COL["Total ₱ in sample"]).number_format = '#,##0'
+        ws.cell(row=r, column=COL["Avg bid vs budget"]).number_format = '0.0%'
+        # colour both confidence cells: a wrong number or address is worse than a blank
+        # one, so the reader sees at a glance which rows a human still has to verify.
+        for name in ("Match confidence", "Email confidence"):
+            cell = ws.cell(row=r, column=COL[name])
+            cell.fill = PatternFill(
+                "solid", fgColor={"good": GREEN, "weak": AMBER}.get(cell.value, GREY))
     ws.freeze_panes = "A3"
     ws.auto_filter.ref = f"A2:{get_column_letter(len(HEAD))}{ws.max_row}"
     return ws
