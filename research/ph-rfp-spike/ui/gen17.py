@@ -194,7 +194,13 @@ def gen(item):
            else urllib.request.urlopen(d["url"], timeout=300).read())
     p = OUT / f"{name}.png"
     p.write_bytes(raw)
-    return name, f"OK {len(raw) // 1024}KB -> {p}"
+    # the key here lacks api.usage.read, so the dashboard cannot be queried after the fact --
+    # log what the response reports and append it, or the spend stays unmeasurable
+    u = data.get("usage") or {}
+    with open(OUT / "image-spend.jsonl", "a") as fh:
+        fh.write(json.dumps({"name": name, "model": "gpt-image-2", "size": "1536x1024",
+                             "usage": u}) + "\n")
+    return name, f"OK {len(raw) // 1024}KB {u or 'no usage reported'} -> {p}"
 
 
 if __name__ == "__main__":
