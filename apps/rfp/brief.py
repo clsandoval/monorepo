@@ -210,268 +210,160 @@ def _foreign(row, province):
 
 
 # --- page -----------------------------------------------------------------------------------
+# One notice per page. The reader is a contractor who reads bid bulletins all day; this is set
+# like one, not like a deck. Copy budget: every sentence earns its place or goes.
+def why_line(r, tag, kind, work_type, awards):
+    if tag == "match":
+        if work_type == "civil_works":
+            a = awards[0]["title"] or ""
+            short = a.split(",")[0].split(":")[-1].strip().title()
+            return f"Same work as your {awards[0]['award_date'][-4:]} contract: {short[:60]}."
+        return "Same goods you supplied in " + awards[0]["award_date"][-4:] + "."
+    k = kind_of(r["title"])
+    what = {"linear": "road and drainage work", "building": "building work"}.get(k, "adjacent work")
+    return f"One step beside your record: {what}, same budget range."
+
+
 def render(th, firm, contact, awards, picked, tags, rung, province, pool, corpus_n,
            corpus_value, work_type):
     now = datetime.now(MANILA)
-    elig, pcab, doc_read = {}, 0, 0
-    for r in picked:
-        pcab += 1 if r["needs_pcab"] else 0
-        doc_read += 1 if r["from_docs"] else 0
-        for e in json.loads(r["eligibility"] or "[]"):
-            elig[e.lower()] = elig.get(e.lower(), 0) + 1
-
     total = sum(r["abc"] or 0 for r in picked)
     biggest = max((a["contract_amount"] or 0) for a in awards)
-    over = sum(1 for r in picked if (r["abc"] or 0) > biggest)
-    monday = sum(1 for r in picked
-                 if datetime.fromisoformat(r["closing_at"]).weekday() in (0, 1))
-    exact_n = sum(1 for r in picked if tags[r["nid"]] == "match")
-    widened_n = len(picked) - exact_n
     horizon = max(r["days_left"] for r in picked)
-    lo, hi = min(r["abc"] for r in picked), max(r["abc"] for r in picked)
-    civil = work_type == "civil_works"
+    kind = infer_firm(awards)[1]
+    a0 = awards[0]
+    npages = len(picked) + 2
 
-    def notice_row(r):
-        url = (MPHIL if r["source"] == "mphilgeps" else LEGACY).format(r["id"])
-        close = datetime.fromisoformat(r["closing_at"])
-        when = f"{close:%H:%M}" if (close.hour or close.minute) else "no time given"
-        reqs = ", ".join(json.loads(r["eligibility"] or "[]")) or "stated in the bid documents"
-        src = " · read from the bid documents" if r["from_docs"] else ""
-        return f"""<tr>
-          <td class="t"><span class="tag {tags[r['nid']]}">{tags[r['nid']]}</span>{html.escape(r['title'][:96])}
-            <div class="sub">{html.escape(r['agency'][:64])} · {html.escape(r['mode_norm'] or '')}</div>
-            <div class="sub req">needs · {html.escape(reqs[:150])}{html.escape(src)}</div></td>
-          <td class="n big">{peso(r['abc'])}</td>
-          <td class="n">{close:%a %-d %b}<div class="sub">{when} · {r['days_left']:.0f}d left</div></td>
-          <td class="n ref"><a href="{url}">{html.escape(r['ref_no'] or str(r['id']))}</a></td>
-        </tr>"""
-
-    award_rows = "".join(f"""<tr>
-        <td class="t">{html.escape(a['title'][:96])}
-          <div class="sub">{html.escape(a['unspsc_desc'] or '')}</div></td>
-        <td class="n big">{peso(a['contract_amount'])}</td>
-        <td class="n">{peso(a['abc'])}</td>
-        <td class="n">{a['win_ratio'] * 100:.1f}%</td>
-        <td class="n">{html.escape(a['award_date'] or '')}</td></tr>""" for a in awards)
-
-    eliglist = "".join(f"<li><b>{v}</b> of {len(picked)} — {html.escape(k[:110])}</li>"
-                       for k, v in sorted(elig.items(), key=lambda x: -x[1])[:8])
-
-    if th.get("flat"):
-        hero = f"""<div class="hero flat">
-    <h1>{peso(total)} closes in<br>{html.escape(province)} in the<br>next {horizon:.0f} days.</h1>
-    <hr class="flatrule">
-  </div>"""
-    else:
-        hero = f"""<div class="hero">
-    <div class="plate" style="{th['hero_a']}"></div>
-    <div class="plate" style="{th['hero_b']}"></div>
-    <div class="plate over" style="{th.get('hero_c', 'display:none')}"></div>
-    <h1>{peso(total)} closes in<br>{html.escape(province)} in the<br>next {horizon:.0f} days.</h1>
-  </div>"""
-
-    pcab_block = f"""<b>All {pcab} of the {len(picked)} require a PCAB licence.</b> You bid
-      {peso(biggest)} of work in {awards[0]['award_date'][-4:]} and won it, so the licence is not
-      the question — the category is, because PCAB caps the size of a single contract you may bid
-      and {'<b>' + str(over) + ' of these sit above what your record proves</b>' if over
-           else 'all of these sit at or under what your record proves'}.""" if civil else \
-        f"""<b>These are {'engagements in the services you already deliver'
-                          if work_type in ('consulting', 'outsourced_services')
-                          else 'quotation-level and small-bid notices in the goods you already supply'}.</b>
-      Your {peso(biggest)} award in {awards[0]['award_date'][-4:]} is the eligibility story:
-      a completed government contract of record."""
-
-    docs_line = (f" <b>{doc_read} of the {len(picked)} requirement lists were read out of the "
-                 f"bid documents attached to the notice</b>, not summarised from the title."
-                 if doc_read else "")
-
-    return f"""<meta charset="utf-8"><title>bidkita — {html.escape(firm)}</title>
+    css = f"""<meta charset="utf-8"><title>bidkita · {html.escape(firm)}</title>
 <style>
 @page {{ size:A4; margin:0; }}
 * {{ box-sizing:border-box; }}
 body {{ margin:0; background:{th['paper']}; color:{th['ink']};
-  font:9.2px/1.42 "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font:10.5px/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif;
   -webkit-print-color-adjust:exact; print-color-adjust:exact; }}
-.page {{ width:210mm; height:297mm; padding:11mm 12mm 9mm; position:relative; overflow:hidden;
+.page {{ width:210mm; height:297mm; padding:18mm 19mm 15mm; position:relative; overflow:hidden;
   display:flex; flex-direction:column; }}
 .page + .page {{ break-before:page; }}
-.mono, .n, .ref, .strap, td.n {{ font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+.mono {{ font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
   font-variant-numeric:tabular-nums; }}
-.mast {{ display:flex; justify-content:space-between; align-items:baseline;
-  border-bottom:1.5px solid {th['ink']}; padding-bottom:5px; margin-bottom:9px; }}
-.word {{ font-family:{DISPLAY}; font-weight:800; font-size:19px; letter-spacing:-.045em;
-  color:{th['mark']}; }}
-.kicker {{ font-size:7.6px; letter-spacing:.19em; text-transform:uppercase; }}
-.hero {{ position:relative; height:{th['hero_h']}px; margin-bottom:11px; }}
-.hero.flat {{ height:auto; padding:16px 0 6px; }}
-.hero.flat h1 {{ position:static; transform:none; color:{th['ink']}; font-size:37px; }}
-.flatrule {{ border:0; border-top:2.5px solid {th['a2']}; width:88px; margin:14px 0 10px; }}
-.hero.flat .strap {{ position:static; color:{th['ink']}; opacity:.65; }}
-.plate {{ position:absolute; mix-blend-mode:multiply; }}
-.plate.over {{ mix-blend-mode:normal; }}
-.hero h1 {{ position:absolute; {th.get('h1_box', '')} top:46%; transform:translateY(-50%);
-  margin:0; font-family:{DISPLAY}; font-weight:800; font-size:{th.get('h1_size', 34)}px;
-  line-height:.97; letter-spacing:-.035em; color:{th['hero_text']}; }}
-.strap {{ position:absolute; {th.get('strap_box', '')} bottom:14px; font-size:8.8px;
-  letter-spacing:.055em; color:{th['hero_text']}; }}
-.towho {{ display:flex; justify-content:space-between; align-items:flex-end; gap:16px;
-  border-top:1px solid {th['ink']}; border-bottom:1px solid {th['rule']};
-  padding:6px 0 7px; margin-bottom:11px; }}
-.towho .firm {{ font-family:{DISPLAY}; font-weight:800; font-size:16px;
-  letter-spacing:-.03em; line-height:1.05; }}
-.towho .meta {{ text-align:right; font-size:8.4px; line-height:1.55; white-space:nowrap; }}
-h2 {{ font-size:9px; letter-spacing:.2em; text-transform:uppercase; margin:0 0 6px;
-  color:{th['a1']}; }}
-h2 em {{ font-style:normal; color:{th['ink']}; opacity:.45; }}
-section {{ margin-bottom:15px; }}
-p {{ margin:0 0 7px; }}
-.lede {{ font-size:11px; line-height:1.58; }}
-table {{ width:100%; border-collapse:collapse; }}
-th {{ text-align:left; font-size:7.4px; letter-spacing:.13em; text-transform:uppercase;
-  padding:0 6px 4px 0; border-bottom:1.2px solid {th['ink']}; font-weight:600; opacity:.7; }}
-td {{ padding:6px 6px 6px 0; border-bottom:1px solid {th['rule']}; vertical-align:top;
-  font-size:9.4px; }}
-td.n, th.n {{ text-align:right; padding-right:0; padding-left:12px; white-space:nowrap; width:1%; }}
-td.t, th.t {{ width:99%; }}
-td.big {{ font-size:10.2px; }}
-.sub {{ font-size:8px; margin-top:2px; opacity:.62;
-  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; }}
-.req {{ opacity:1; color:{th['a1']}; }}
-.tag {{ display:inline-block; font-size:6.8px; letter-spacing:.13em; text-transform:uppercase;
-  padding:1.5px 4px; margin-right:6px; vertical-align:1.5px; }}
-.tag.match {{ background:{th['a2']}; color:{th['paper']}; }}
-.tag.widened {{ border:1px solid {th['a1']}; color:{th['a1']}; }}
+.mast {{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:24mm; }}
+.word {{ font-weight:800; font-size:17px; letter-spacing:-.045em; color:{th['mark']}; }}
+.kick {{ font-size:8px; letter-spacing:.2em; text-transform:uppercase; color:#8E8A82; }}
+h1 {{ margin:0; font-weight:800; font-size:44px; line-height:1.02; letter-spacing:-.035em; }}
+.rule {{ border:0; border-top:3px solid {th['a2']}; width:64px; margin:22px 0; }}
+.lede {{ font-size:13.5px; line-height:1.6; max-width:150mm; }}
+.grey {{ color:#8E8A82; }}
 a {{ color:{th['a1']}; text-decoration:none; }}
-.panel {{ background:{th['panel']}; padding:14px 17px; font-size:10px; line-height:1.55;
-  border-left:3px solid {th['a2']}; }}
-.panel ul {{ margin:8px 0 8px; padding-left:15px; }} li {{ margin-bottom:3px; }}
-.how {{ display:flex; gap:0; }}
-.step {{ flex:1; padding:0 12px 0 0; }}
-.step:last-child {{ padding-right:0; }}
-.step .num {{ font-family:ui-monospace,Menlo,monospace; font-size:24px; color:{th['a2']};
-  letter-spacing:-.05em; line-height:1; }}
-.step h3 {{ font-size:10px; margin:6px 0 4px; letter-spacing:.02em; }}
-.step p {{ font-size:9.2px; line-height:1.6; margin:0; opacity:.85; }}
-.cta {{ margin:auto -12mm 0; background:{th['a1']}; color:{th['paper']};
-  padding:22px 12mm 24px; display:flex; justify-content:space-between;
-  align-items:flex-end; gap:18px; }}
-.cta .big {{ font-family:{DISPLAY}; font-weight:800; font-size:24px; line-height:1.05;
-  letter-spacing:-.032em; max-width:120mm; }}
-.cta .sell {{ font-size:9.2px; line-height:1.55; margin-top:8px; opacity:.88;
-  max-width:110mm; font-family:{DISPLAY}; letter-spacing:0; font-weight:400; }}
-.cta a {{ color:{th['paper']}; }}
-.fine {{ font-size:7.2px; line-height:1.55; opacity:.72; margin-top:10px; }}
-</style>
+.toc {{ margin-top:14mm; }}
+.toc-row {{ display:flex; gap:14px; align-items:baseline; padding:8px 0;
+  border-top:1px solid {th['rule']}; font-size:11px; }}
+.toc-row .d {{ width:60px; color:#8E8A82; white-space:nowrap; }}
+.toc-row .t {{ flex:1; }}
+.toc-row .m {{ text-align:right; }}
+.toc-row .pg {{ width:26px; text-align:right; color:#8E8A82; }}
+.tag {{ display:inline-block; font-size:8px; letter-spacing:.16em; text-transform:uppercase;
+  padding:3px 7px; }}
+.tag.match {{ background:{th['a2']}; color:{th['paper']}; }}
+.tag.widened {{ border:1px solid {th['ink']}; color:{th['ink']}; }}
+.ntitle {{ font-weight:800; font-size:27px; line-height:1.08; letter-spacing:-.028em;
+  margin:14px 0 4px; max-width:160mm; }}
+.agency {{ font-size:12px; color:#8E8A82; margin-bottom:14mm; }}
+.abc {{ font-size:46px; letter-spacing:-.03em; line-height:1; }}
+.abclab {{ font-size:8px; letter-spacing:.2em; text-transform:uppercase; color:#8E8A82;
+  margin:6px 0 12mm; }}
+.facts {{ border-top:1px solid {th['ink']}; max-width:126mm; }}
+.fact {{ display:flex; gap:18px; padding:9px 0; border-bottom:1px solid {th['rule']};
+  font-size:12px; }}
+.fact b {{ width:70px; flex-shrink:0; font-weight:600; font-size:8px; letter-spacing:.16em;
+  text-transform:uppercase; color:#8E8A82; padding-top:3px; }}
+.why {{ margin-top:12mm; font-size:13px; max-width:130mm; }}
+.foot {{ margin-top:auto; display:flex; justify-content:space-between; font-size:8.5px;
+  color:#8E8A82; }}
+.big {{ font-weight:800; font-size:34px; line-height:1.05; letter-spacing:-.03em; }}
+.fine {{ font-size:8px; line-height:1.6; color:#8E8A82; margin-top:auto; }}
+</style>"""
 
-<div class="page">
-  <div class="mast">
-    <div class="word">bidkita</div>
-    <div class="kicker">Weekly bid brief · {html.escape(province)} · {now:%-d %B %Y}</div>
+    def calm(t, n):
+        letters = [c for c in t if c.isalpha()] or [" "]
+        if sum(c.isupper() for c in letters) / len(letters) > .5:
+            t = t.title()
+        if len(t) > n:
+            t = t[:n].rsplit(" ", 1)[0]
+        return t.rstrip(" ,;:/(–-")
+
+    toc = ""
+    for i, r in enumerate(picked):
+        close = datetime.fromisoformat(r["closing_at"])
+        toc += f"""<div class="toc-row mono"><span class="d">{close:%a %-d}</span>
+        <span class="t">{html.escape(calm(r['title'] or '', 62))}</span>
+        <span class="m">{peso(r['abc'])}</span><span class="pg">{i + 2}</span></div>"""
+
+    cover = f"""<div class="page">
+  <div class="mast"><span class="word">bidkita</span>
+    <span class="kick">Bid brief · {html.escape(province)} · closings in {datetime.fromisoformat(picked[0]['closing_at']):%B} · {now:%-d %B %Y}</span></div>
+  <h1>{len(picked)} contracts close in<br>{html.escape(province)}<br>within {horizon:.0f} days.</h1>
+  <div class="abc mono" style="margin-top:12mm">{peso(total)}</div>
+  <div class="abclab">Combined approved budget</div>
+  <hr class="rule" style="margin:14px 0 18px">
+  <p class="lede">PhilGEPS shows {html.escape(firm.title())} won {peso(biggest)} in
+  {a0['award_date'][-4:]}. That record qualifies you for the work in this brief.
+  One contract per page: the budget, the deadline, what it needs.</p>
+  <div class="toc">{toc}</div>
+  <div class="foot" style="margin-top:12px">
+    <span>Prepared for {html.escape((a0['winner_contact'] or firm).title())} · {html.escape(contact['phone'] or '')}</span>
+    <span>1 / {npages}</span></div>
+</div>"""
+
+    pages = ""
+    for i, r in enumerate(picked):
+        url = (MPHIL if r["source"] == "mphilgeps" else LEGACY).format(r["id"])
+        close = datetime.fromisoformat(r["closing_at"])
+        when = (f"{close:%A %-d %B}, {close:%H:%M}" if (close.hour or close.minute)
+                else f"{close:%A %-d %B}")
+        reqs = json.loads(r["eligibility"] or "[]")
+        req_html = ("<br>".join(html.escape(x.capitalize()) for x in reqs) if reqs
+                    else 'Listed in the bid documents. Link below.')
+        src = " Read from the attached bid documents." if r["from_docs"] and reqs else ""
+        tag = tags[r["nid"]]
+        pages += f"""<div class="page">
+  <div class="mast" style="margin-bottom:16mm"><span class="word">bidkita</span>
+    <span class="kick">{html.escape(province)} · {i + 2} of {npages}</span></div>
+  <span><span class="tag {tag}">{tag}</span></span>
+  <div class="ntitle">{html.escape(calm(r['title'] or '', 130))}</div>
+  <div class="agency">{html.escape((r['agency'] or '').title())}</div>
+  <div class="abc mono">{peso(r['abc'])}</div>
+  <div class="abclab">Approved budget for the contract</div>
+  <div class="facts">
+    <div class="fact"><b>Closes</b><span class="mono">{when} &nbsp;·&nbsp; {r['days_left']:.0f} days from today</span></div>
+    <div class="fact"><b>Mode</b><span>{html.escape((r['mode_norm'] or '').capitalize())}</span></div>
+    <div class="fact"><b>Needs</b><span>{req_html}<span class="grey">{src}</span></span></div>
+    <div class="fact"><b>Ref</b><span class="mono"><a href="{url}">{html.escape(r['ref_no'] or str(r['id']))}</a>
+      &nbsp;<span class="grey">verify on PhilGEPS</span></span></div>
   </div>
-  {hero}
-  <div class="towho">
-    <div><div class="kicker" style="opacity:.6;margin-bottom:3px">Prepared for</div>
-      <div class="firm">{html.escape(firm)}</div></div>
-    <div class="meta">{html.escape(awards[0]['winner_contact'] or '')}<br>
-      {html.escape(contact['phone'] or '')} &nbsp;·&nbsp; {html.escape(contact['email'] or '')}<br>
-      {html.escape((contact['address'] or awards[0]['winner_address'] or '')[:58])}</div>
-  </div>
+  <p class="why">{why_line(r, tag, kind, work_type, awards)}</p>
+  <div class="foot"><span>bidkita · bid brief · {now:%-d %b %Y}</span>
+    <span>{i + 2} / {npages}</span></div>
+</div>"""
 
-  <section>
-    <h2>01 · Your record <em>— as PhilGEPS publishes it</em></h2>
-    <table><thead><tr><th class="t">Contract</th><th class="n">Awarded</th><th class="n">ABC</th>
-      <th class="n">Bid ratio</th><th class="n">Date</th></tr></thead>
-      <tbody>{award_rows}</tbody></table>
-    <div class="sub" style="margin-top:5px">{len(awards)} award record{'s' if len(awards) != 1 else ''}
-      in our 1,580-record sample of public award notices. It is a sample — if you have won more,
-      they sit outside the window we pulled, not outside your history.</div>
-  </section>
-
-  <section>
-    <h2>02 · Open right now, matched to you</h2>
-    <table><thead><tr><th class="t">Notice</th><th class="n">ABC</th><th class="n">Closes</th>
-      <th class="n">PhilGEPS ref</th></tr></thead>
-      <tbody>{''.join(notice_row(r) for r in picked)}</tbody></table>
-  </section>
-</div>
-
-<div class="page">
-  <div class="mast">
-    <div class="word">bidkita</div>
-    <div class="kicker">{html.escape(firm)} · page 2 of 2</div>
-  </div>
-
-  <section>
-    <h2>03 · How this page was built <em>— every step, in order</em></h2>
-    <p class="lede">Nothing here was typed by hand and nothing was estimated. This is the tool
-    running once, for one firm, on the morning of {now:%-d %B}.</p>
-    <div class="how">
-      <div class="step"><div class="num">1</div>
-        <h3>The whole board, nightly</h3>
-        <p>We ingest both PhilGEPS systems — the live board and the legacy 1.5 board most
-        aggregators skip. <b>{corpus_n:,} open notices, {peso(corpus_value / 1e9, '₱')}B</b> of
-        published budget. The legacy board alone is where the LGU work lives.</p></div>
-      <div class="step"><div class="num">2</div>
-        <h3>Read, not keyword-matched</h3>
-        <p>Every notice is read by a model and given a work type, an eligibility list and a PCAB
-        flag. PhilGEPS files civil works under "Goods" often enough that its own categories cannot
-        be trusted as a filter.</p></div>
-      <div class="step"><div class="num">3</div>
-        <h3>Your record, then your size</h3>
-        <p>We pulled your award history from the public award notices, took the
-        {peso(biggest)} you actually delivered, and kept only notices from
-        {peso(lo)} to {peso(hi)} — the money you already bid in.</p></div>
-      <div class="step"><div class="num">4</div>
-        <h3>Narrow, then deliberately widen</h3>
-        <p>{province} had <b>{pool} open notices</b> today. <b>{exact_n}</b> are the exact work on
-        your record. We then added <b>{widened_n}</b> adjacent notices at the same size, marked
-        <span class="tag widened">widened</span> — a week of only your archetype is a thin
-        week.{' We also widened the size band and lead time to fill the page; the tags say which is which.' if rung > 1 else ''}</p></div>
-    </div>
-  </section>
-
-  <section>
-    <h2>04 · What you would need</h2>
-    <div class="panel">
-      {pcab_block}{docs_line}
-      <ul>{eliglist}</ul>
-      Every "similar completed contract" line is answered by the record on page 1 — the certificate
-      of completion for it is the one document to have in hand before Monday. Where a notice states
-      its terms only inside the bid documents we say so rather than guess.
-    </div>
-  </section>
-
-  <section>
-    <h2>05 · Why this lands before the weekend</h2>
-    <p class="lede">Across all {corpus_n:,} open notices, <b>62.1% of bid deadlines fall on a Monday
-    or Tuesday morning</b>. Of the {len(picked)} on page 1, {monday} do. A Monday deadline is decided
-    the Friday before, which is why a Monday check of the portal is already a late check — and why
-    PhilGEPS, which sends no alerts at all, cannot be the thing that tells you.</p>
-    <p class="lede">There is no notification anywhere for "{html.escape(work_type.replace('_', ' '))},
-    {html.escape(province)}, {peso(lo)}–{peso(hi)}". That is the entire product.</p>
-  </section>
-
-  <div class="cta">
-    <div><div class="big">This page, every Friday,<br>for {html.escape(firm)}.</div>
-      <div class="sell">Same two pages, rebuilt each week off that night's board — your record,
-      what is open at your size in {html.escape(province)}, and what each one asks for. Reply to
-      this brief or call the number on page 1 and next Friday's is set up for you.</div></div>
-    <div class="mono" style="text-align:right;font-size:9px;line-height:1.7;white-space:nowrap">
-      bidkita<br>hello@bidkita.ph<br>{now:%-d %B %Y}</div>
-  </div>
-
+    last = f"""<div class="page">
+  <div class="mast"><span class="word">bidkita</span>
+    <span class="kick">{html.escape(firm)} · {npages} of {npages}</span></div>
+  <div class="big">This brief, rebuilt for you<br>every Friday.</div>
+  <hr class="rule">
+  <p class="lede">We read all {corpus_n:,} open PhilGEPS notices nightly, both boards.
+  Your record sets the size and the work. Deadlines cluster on Monday and Tuesday,
+  so this lands before the weekend.</p>
+  <p class="lede" style="margin-top:10mm"><b>Want next Friday's?</b><br>
+  Reply to this email. Free.</p>
   <div class="fine">
-    <b>Sources.</b> Awards, contact person and address: PhilGEPS public award notices. Open notices:
-    the PhilGEPS live board and legacy board, snapshot {now:%-d %B %Y %H:%M} Manila — click any
-    reference number to verify that line on PhilGEPS itself. Amounts shown are the Approved Budget
-    for the Contract as published; they are not estimates, and nothing on this page predicts whether
-    you will win. &nbsp; <b>Contact and privacy.</b> Your firm name, address and contact person come
-    from the public award notice for the contract on page 1; phone and email were resolved from
-    public business directories. This is company-level business correspondence under the Data
-    Privacy Act. Reply STOP, or say so on the phone, and we will not contact you again — first
-    request, no questions.
+    Sources: PhilGEPS public notices, snapshot {now:%-d %B %Y %H:%M} Manila. Amounts are the
+    published approved budget. Nothing here predicts an award. Your firm and contact details
+    come from the public award notice of your {a0['award_date'][-4:]} contract.
+    Reply STOP and we will not contact you again.
   </div>
 </div>"""
+
+    return css + cover + pages + last
 
 
 # --- build ----------------------------------------------------------------------------------
@@ -513,7 +405,7 @@ def build(con, firm, keys=("11",), strict=True):
                         "file://" + out + ".html"], check=True,
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         pages = open(out + ".pdf", "rb").read().count(b"/Type /Page\n")
-        assert pages == 2, f"{firm} {th['label']} rendered {pages} pages, want exactly 2"
+        assert pages == len(picked) + 2, f"{firm}: {pages} pages, want {len(picked) + 2}"
     exact_n = sum(1 for v in tags.values() if v == "match")
     return out + ".pdf", dict(
         firm=firm, province=province, work_type=work_type, kind=kind, n=len(picked),
