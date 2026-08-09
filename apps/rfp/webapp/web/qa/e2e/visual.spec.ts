@@ -1,0 +1,61 @@
+import { test, expect } from "@playwright/test";
+import { mkdirSync } from "node:fs";
+
+// G3 visual QA — capture each UI state + assert strictly grayscale. Screenshots land in qa/shots/
+// and are sent to Telegram by qa/send-shots.sh after the run.
+const SHOTS = `${process.cwd()}/qa/shots/`;
+test.beforeAll(() => mkdirSync(SHOTS, { recursive: true }));
+
+// Fail on any non-grayscale color anywhere in the computed styles (|max-min| channel spread).
+async function assertGrayscale(page: import("@playwright/test").Page) {
+  const offenders = await page.evaluate(() => {
+    // Resolve any CSS color (lab/oklch/rgb/named) to sRGB via a canvas, then check channel spread.
+    const cv = document.createElement("canvas"); cv.width = cv.height = 1;
+    const ctx = cv.getContext("2d", { willReadFrequently: true })!;
+    const seen = new Set<string>(); const bad: string[] = [];
+    const toRgb = (c: string): [number, number, number, number] => {
+      ctx.clearRect(0, 0, 1, 1); ctx.fillStyle = "#000"; ctx.fillStyle = c;
+      ctx.fillRect(0, 0, 1, 1); const d = ctx.getImageData(0, 0, 1, 1).data;
+      return [d[0], d[1], d[2], d[3]];
+    };
+    for (const el of Array.from(document.querySelectorAll("*")).slice(0, 4000)) {
+      const s = getComputedStyle(el as Element);
+      for (const prop of ["color", "backgroundColor", "borderColor"] as const) {
+        const c = s[prop]; if (!c || seen.has(c)) continue; seen.add(c);
+        const [r, g, b, a] = toRgb(c);
+        if (a === 0) continue; // fully transparent — irrelevant
+        if (Math.max(r, g, b) - Math.min(r, g, b) > 10) bad.push(`${prop}=${c} -> rgb(${r},${g},${b})`);
+      }
+    }
+    return bad.slice(0, 10);
+  });
+  expect(offenders, `non-grayscale colors: ${offenders.join(", ")}`).toHaveLength(0);
+}
+
+test("capture states + grayscale", async ({ page }) => {
+  // 1. landing / empty
+  await page.goto("/");
+  await expect(page.getByTestId("empty-state")).toBeVisible();
+  await page.screenshot({ path: `${SHOTS}01-landing.png`, fullPage: true });
+  await assertGrayscale(page);
+
+  // 2. results with cards (real Luna turn)
+  await page.getByTestId("chat-input").fill("small drainage jobs in Cavite under 5M, PCAB C");
+  await page.getByTestId("send").click();
+  await expect(page.getByTestId("assistant-text").first()).toHaveText(/[A-Za-z].{40,}/, { timeout: 100_000 });
+  await expect(page.getByTestId("cards").first()).toBeVisible({ timeout: 10_000 });
+  await page.screenshot({ path: `${SHOTS}02-results-cards.png`, fullPage: true });
+  await assertGrayscale(page);
+
+  // 3. session panel populated
+  await page.getByTestId("new-session").click();
+  await page.getByTestId("new-session").click();
+  await page.screenshot({ path: `${SHOTS}03-session-panel.png`, fullPage: true });
+
+  // 4. empty-result honesty state
+  await page.getByTestId("chat-input").fill("underwater basket weaving contracts in Antarctica");
+  await page.getByTestId("send").click();
+  await expect(page.getByTestId("assistant-text").last()).toHaveText(/[A-Za-z].{10,}/, { timeout: 100_000 });
+  await page.screenshot({ path: `${SHOTS}04-empty-result.png`, fullPage: true });
+  await assertGrayscale(page);
+});

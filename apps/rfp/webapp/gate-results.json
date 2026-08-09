@@ -1,9 +1,9 @@
 {
-  "updated": "2026-08-09T15:10:00Z",
+  "updated": "2026-08-09T15:30:00Z",
   "all_green": false,
   "deployed": false,
   "prod_url": null,
-  "waves_done": ["W1", "W2", "W3", "W4", "G4"],
+  "waves_done": ["W1", "W2", "W3", "W4", "G3", "G4"],
   "constraints_learned": [
     "better-sqlite3 native addon segfaults in this sandbox under BOTH node and bun -> removed; corpus via 'rfp sql --json', sessions as JSON files.",
     "The Bash sandbox kills long-running background servers (empty output, exit 1). Do NOT hand-launch 'next start' to test. Use Playwright's webServer config for G3/G4 (it manages the server lifecycle), and unit-test libs directly for G2. Prod target is Fly, unaffected."
@@ -36,7 +36,15 @@
         { "name": "session CRUD + owner isolation + persistence", "pass": true, "detail": "unit: 19/19 pass" }
       ]
     },
-    "G3_visual_qa": { "status": "pending", "checks": [] },
+    "G3_visual_qa": {
+      "status": "green",
+      "checks": [
+        { "name": "states captured (landing, results-cards, session panel, empty-result)", "pass": true, "detail": "4 shots" },
+        { "name": "strictly grayscale (canvas-resolved sRGB spread <=10)", "pass": true, "detail": "lab() theme verified gray" },
+        { "name": "money anchored large & heavy on cards", "pass": true, "detail": "eyeballed 02-results-cards" },
+        { "name": "sent to Telegram with captions", "pass": true, "detail": "4x HTTP 200" }
+      ]
+    },
     "G4_e2e": {
       "status": "green",
       "checks": [
