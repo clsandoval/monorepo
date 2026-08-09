@@ -1,6 +1,6 @@
 {
   "cap_usd": 30.0,
-  "spent_usd": 3.161,
+  "spent_usd": 4.921,
   "entries": [
     {
       "wave": "W1",
@@ -78,6 +78,27 @@
       "usd": 0.03,
       "ts": "2026-08-09T17:00:00Z",
       "note": "plan-call unit tests + live searches + dogfood chat turns"
+    },
+    {
+      "wave": "M3-QA",
+      "kind": "claude-subagents",
+      "usd": 1.7,
+      "ts": "2026-08-09T17:15:00Z",
+      "note": "QA workflow, 3 agents, 170K tokens (est, high side)"
+    },
+    {
+      "wave": "M3-QA",
+      "kind": "luna-eval",
+      "usd": 0.02,
+      "ts": "2026-08-09T17:15:00Z",
+      "note": "search-eval 7/7 + chat eval 8/8 + E2E Luna turns x2 runs"
+    },
+    {
+      "wave": "M3-live",
+      "kind": "luna-eval",
+      "usd": 0.04,
+      "ts": "2026-08-09T17:30:00Z",
+      "note": "live smoke searches + record-live 2 turns + live AI-mode turn"
     }
   ],
   "note": "Every loop cycle appends {wave, kind, usd, ts}. Stop at cap. Main driving-session tokens tracked separately by the harness. All build work so far done inline \u2014 zero subagent spend."
