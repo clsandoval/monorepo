@@ -1,5 +1,17 @@
 # PH RFP finder — where things stand, 2026-08-09
 
+## Session update, 2026-08-09 pm
+
+- **#148 brief pipeline exists**: `brief.py` renders one firm's 2-page PDF end to end
+  (`python3 brief.py "AVZ CONSTRUCTION & SUPPLY"`). Matcher: province + civil_works +
+  0.2–2.2× their biggest award, ranked by size-proximity, exact-archetype capped at 6/10 so
+  the widening shows (#145). Run for 1 of 47 firms; eligibility still comes from notice tags,
+  **not docs.db** — that wiring is the next real backend task on #148.
+- **UI handed off.** Style 11 locked, red-vs-blue open behind `--accent`. Prototype +
+  contract in `proto/` (see `proto/HANDOFF.md`). Do not do UI work here.
+- **Search speed measured**: ~0.15s per CLI search cold-process (~ms for the query itself);
+  `facets` 1.19s is the only slow verb.
+
 Everything below is committed and reproducible. Start here in a fresh session.
 
 ## Run it
