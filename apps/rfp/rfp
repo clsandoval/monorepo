@@ -1366,6 +1366,7 @@ def run_query(con, q, args, prof, pool=None):
     pool = pool or max(args.pool, args.results * 12)
     sel = ", ".join(f"({expr(s,c)}) as {c}" for c in SELECT_COLS)
     relaxed = False
+    widened = False   # widened for recall, unlike `relaxed` which means FTS5 rejected the query
     match_expr = norm_ws(q) or None
 
     def attempt(e):
@@ -1408,6 +1409,33 @@ def run_query(con, q, args, prof, pool=None):
                 raise e
             relaxed = True
             notes.append(f"{q!r} is not a valid FTS5 expression ({e}); relaxed to: {r2}")
+        # A VALID query that ANDs itself down to nothing is the worse failure, because it raises
+        # no error at all. FTS5 reads a bare `vehicle spare parts repair` as an implicit AND of
+        # every term: it matches 0 of 489 Cavite notices, while `vehicle` alone matches 40, because
+        # this corpus writes "Parts and Materials". Measured cost of not doing this: recall 0.12
+        # instead of 0.53 on the eval slice. Relax on an empty result, not just on a raised error.
+        want_n = getattr(args, "results", 10) or 10
+        # Only a BARE multi-word query gets widened. A query carrying quotes, OR/NOT/NEAR, a
+        # prefix `*` or a `col:` filter is deliberate, and widening it destroys the intent --
+        # '"slump test"' is a phrase that means the phrase, not `slump OR test`.
+        bare = bool(q) and not re.search(r'["*:()]|\b(?:AND|OR|NOT|NEAR)\b', q)
+        if bare and not relaxed and not widened and len(rows) < want_n:
+            # Trigger on "could not fill the page", not just on zero. FTS5 reads a bare
+            # `vehicle spare parts repair` as an implicit AND of all four terms: 48 matches
+            # corpus-wide against 3,683 for the OR, and ~0 once a province filter applies, because
+            # this corpus writes "Parts and Materials". A too-narrow AND raises no error, so the
+            # syntax-error path never sees it -- that alone cost 24 recall points on the eval slice.
+            # Only adopt the relaxed form if it genuinely returns more.
+            r2 = relax(q)
+            if r2 and r2 != match_expr:
+                try:
+                    wider = attempt(r2)
+                except sqlite3.OperationalError:
+                    wider = []
+                if len(wider) > len(rows):
+                    notes.append(f"{q!r} as written matched only {len(rows)} notices "
+                                 f"(FTS5 ANDs bare terms); widened to OR: {r2}")
+                    rows, widened = wider, True
     else:
         if match_expr and not s["fts"]:
             notes.append("this corpus.db has no FTS index; query text ignored, filters applied")
@@ -1461,8 +1489,12 @@ def _fold_aux_channels(con, s, rows, match_expr, args, where, params, pool, note
         r["tag_rel"] = tm.get(i, 0.0)
         r["matched"] = prov.get(i, [])
     if dm:
+        # `extra` is the union of the doc AND tag channels, so attributing all of it to the
+        # attachment channel printed nonsense like "matched 1689 notices (2521 of them
+        # invisible)". Cosmetic, except the driving model reads this note as evidence.
+        doc_only = [i for i in extra if i in dm]
         notes.append(f"attachment text matched {len(dm)} notices "
-                     f"({len(extra)} of them invisible to notice-text search)")
+                     f"({len(doc_only)} of them invisible to notice-text search)")
     elif want_docs:
         notes.append("no attachment-text matches (only 4,285 of 22,080 notices have documents; "
                      "legacy's document listing is auth-gated)")
@@ -1475,22 +1507,22 @@ def _fold_aux_channels(con, s, rows, match_expr, args, where, params, pool, note
 def profile_fit(row, prof, want_prov=None, adj_prov=None):
     if not prof.get("_enabled"):
         return 1.0, []
-    fit, notes = 1.0, []
+    pen, hard, notes = [], [], []
     cats = [c.lower() for c in prof.get("categories") or []]
     never = [c.lower() for c in prof.get("never") or []]
     wt = (row["work_type"] or "").lower() or None
 
     if wt and never and wt in never:
-        fit *= 0.30
+        hard.append(0.30)
         notes.append((1, f"never: {wt}"))
     elif cats:
         if wt is None:
-            fit *= 0.90
+            pen.append(0.90)
             notes.append((5, "untagged"))
         elif wt in cats:
             pass
         else:
-            fit *= 0.70
+            pen.append(0.70)
             notes.append((5, f"off-category: {wt}"))
 
     band = prof.get("abc_band")
@@ -1498,18 +1530,18 @@ def profile_fit(row, prof, want_prov=None, adj_prov=None):
         lo, hi = float(band[0]), float(band[1])
         abc, lmin, lmax = row["abc"], row["abc_lot_min"], row["abc_lot_max"]
         if abc is None:
-            fit *= 0.80
+            pen.append(0.80)
             notes.append((0, "abc: not stated"))
         elif lo <= abc <= hi:
             pass
         elif lmin is not None and lmax is not None and lmax >= lo and lmin <= hi:
-            fit *= 0.95
+            pen.append(0.95)
             notes.append((0, f"lot fits: {peso(lmin)}-{peso(lmax)} lots in a {peso(abc)} notice"))
         elif abc > hi:
-            fit *= 0.55 if abc <= hi * 3 else 0.35
+            pen.append(0.55 if abc <= hi * 3 else 0.35)
             notes.append((0, f"stretch: {peso(abc)} vs your {peso(hi)} band"))
         else:
-            fit *= 0.60
+            pen.append(0.60)
             notes.append((0, f"below band: {peso(abc)} vs your {peso(lo)} floor"))
 
     if want_prov:
@@ -1518,10 +1550,10 @@ def profile_fit(row, prof, want_prov=None, adj_prov=None):
             if any(p in want_prov for p in provs):
                 pass
             elif adj_prov and any(p in adj_prov for p in provs):
-                fit *= 0.85
+                pen.append(0.85)
                 notes.append((3, f"adjacent: {row['province']}"))
             else:
-                fit *= 0.50
+                pen.append(0.50)
                 notes.append((3, f"out of region: {row['province']}"))
         else:
             # location blank: fall back to the agency name, which recovers 40.5% of these at
@@ -1529,45 +1561,62 @@ def profile_fit(row, prof, want_prov=None, adj_prov=None):
             g = agency_province(row["agency"])
             gl = (g or "").lower()
             if not g:
-                fit *= 0.85
+                pen.append(0.85)
                 notes.append((5, "location not stated"))
             elif gl in want_prov:
-                fit *= 0.95
+                pen.append(0.95)
                 notes.append((4, f"~{g} (from agency name)"))
             elif adj_prov and gl in adj_prov:
-                fit *= 0.80
+                pen.append(0.80)
                 notes.append((3, f"~{g}, adjacent (from agency)"))
             else:
-                fit *= 0.55
+                pen.append(0.55)
                 notes.append((3, f"~{g}, out of region (from agency)"))
 
     # PCAB.  Only needs_pcab is modelled.  The ABC-to-required-class (ARCC) thresholds are NOT
     # modelled -- inventing them would fabricate eligibility, so a class-vs-size mismatch is a
     # question for `rfp show`, not a score.
     if row["needs_pcab"] and not prof.get("pcab"):
-        fit *= 0.60
+        pen.append(0.60)
         notes.append((2, "needs PCAB; profile has none"))
 
     need = int(prof.get("min_days_to_close") or 0)
     d = days_to(row["closing_at"])
     if d is None:
-        fit *= 0.70
+        pen.append(0.70)
         notes.append((1, "no closing date"))
     elif d < 0:
-        fit *= 0.15
+        hard.append(0.15)
         notes.append((1, "CLOSED"))
     elif need and d < need:
-        fit *= max(0.35, 0.35 + 0.65 * (d / need))
+        pen.append(max(0.35, 0.35 + 0.65 * (d / need)))
         notes.append((1, f"tight: {d}d vs your {need}d"))
 
     # Sorted by how much the reader needs it, because format_hit drops the tail under budget
     # pressure: money first, then time, then licence, then geography, then the low-information
     # corpus-wide ones ("untagged" fires on 100% of rows today and must never crowd out
     # "lot fits", which is the whole point of surfacing a multi-lot notice).
+    # Soft demotions compose SUB-LINEARLY; declared exclusions do not.
+    #
+    # A plain running product turned three mild demotions into a hard exclusion: notice 13171857
+    # (heavy-equipment parts, P188K, closing in 1 day) scored below-band 0.60 x tight 0.48 x
+    # off-category 0.70 = 0.20, the floor -- the same fit as a category in the profile's `never`
+    # list, which is exactly what S3 forbids. Taking min() instead fixed that but broke something
+    # worse: it erased mild-vs-harsh distinctions inside one row, so "lot fits" and "stretch"
+    # both scored 0.456 and multi-lot notices stopped surfacing at all.
+    #
+    # So: dampen each soft penalty toward 1.0 before multiplying. Every signal still moves the
+    # score in the right direction (nothing is erased) but three mild ones can no longer sum to an
+    # exclusion. `never` and CLOSED are the user's own declaration and a fact respectively, so they
+    # multiply in at full strength and stay severe.
+    DAMP = 0.6
+    fit = 1.0
+    for f in hard:
+        fit *= f
+    for f in pen:
+        fit *= 1.0 - DAMP * (1.0 - f)
     return max(0.20, round(fit, 3)), [x for _, x in sorted(notes, key=lambda t: t[0])]
-
-
-def rank(rows, prof, results):
+def rank(rows, prof, results, loose_province=False):
     want, adj = profile_provinces(prof) if prof.get("_enabled") else (None, None)
     # No query means no BM25 signal at all: every rel is 0.0, so multiplying by it made every
     # score 0.0 and the profile prior was silently ignored -- a filter-only search came back
@@ -1594,7 +1643,41 @@ def rank(rows, prof, results):
             base = (n + DOC_WEIGHT * d + TAG_WEIGHT * t) / div
         scored.append((round(base * fit, 4), fit, notes, r))
     scored.sort(key=lambda t: (-t[0], t[3]["closing_at"] or "9999"))
+    if loose_province:
+        scored = _cap_unlocated(scored, results)
     return scored[:results]
+
+
+NULL_LOC_SHARE = 0.30    # at --results 40 that is 12 slots, leaving 28 for province-matched rows
+
+
+def _cap_unlocated(scored, results):
+    """Stop location-null notices from eating a --province search's result budget.
+
+    Keeping them is correct -- 8.7% of the corpus has no stated location and dropping them is the
+    silent-omission bug. But they then compete for the same slots at fit 0.85 while BM25 has no
+    idea they are in the wrong province. Measured on the Cavite eval slice: only 82 of 200
+    returned rows were actually in Cavite, and 113 of the other 118 had no location at all --
+    about 24 recall points paid for rows the user did not ask for.
+
+    So: quota, not exclusion. Located rows fill up to (1 - NULL_LOC_SHARE) of the slots first,
+    unlocated rows are capped, and if there are not enough located rows the leftovers are
+    backfilled so the result count never shrinks.
+    """
+    quota = max(1, int(results * NULL_LOC_SHARE))
+    located, unlocated = [], []
+    for t in scored:
+        (located if (t[3]["location"] or "").strip() else unlocated).append(t)
+    # A CAP, not a reservation. Capping the unlocated pool and then letting everything compete on
+    # score is right; pre-allocating slots to unlocated rows is wrong and cost recall at small
+    # --results (at n=3 it forced one unlocated row in even when three located rows were available).
+    keep = located + unlocated[:quota]
+    keep.sort(key=lambda t: (-t[0], t[3]["closing_at"] or "9999"))
+    if len(keep) < results:                     # backfill rather than return fewer hits
+        seen = {id(t) for t in keep}
+        keep += [t for t in scored if id(t) not in seen][:results - len(keep)]
+        keep.sort(key=lambda t: (-t[0], t[3]["closing_at"] or "9999"))
+    return keep
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1808,7 +1891,8 @@ def cmd_search(args):
     con = connect()
     rows, notes, relaxed = run_query(con, args.query, args, prof)
     notes = told + notes
-    hits = rank(rows, prof, args.results)
+    hits = rank(rows, prof, args.results,
+                loose_province=bool(args.province) and not args.province_strict)
     attach_doc_evidence(con, hits, norm_ws(args.query) if args.query else None)
 
     if args.json:

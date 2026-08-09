@@ -32,45 +32,14 @@
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 1689 notices (2521 of them invisible to notice-text search)"
+      "attachment text matched 1689 notices (1678 of them invisible to notice-text search)"
      ]
     },
     "natural/profile_n40": {
      "query": "drainage",
      "candidates_all": 240,
      "returned_all": 40,
-     "returned_in_slice": 9,
-     "hit": 7,
-     "recall": 0.5,
-     "missed": [
-      13124928,
-      13133080,
-      13133130,
-      13172291,
-      13177115,
-      13177155,
-      13177651
-     ],
-     "ranks": {
-      "13178596": 1,
-      "13175332": 2,
-      "13184024": 3,
-      "13179808": 4,
-      "13175331": 5,
-      "13164730": 6,
-      "13177737": 9
-     },
-     "notes": [
-      "ranking geography from --province ['Cavite'] (overrides profile)",
-      "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 1689 notices (2521 of them invisible to notice-text search)"
-     ]
-    },
-    "natural/profile_n200": {
-     "query": "drainage",
-     "candidates_all": 240,
-     "returned_all": 200,
-     "returned_in_slice": 76,
+     "returned_in_slice": 27,
      "hit": 10,
      "recall": 0.714,
      "missed": [
@@ -86,22 +55,53 @@
       "13179808": 4,
       "13175331": 5,
       "13164730": 6,
-      "13177737": 9,
+      "13177737": 8,
       "13133130": 10,
       "13133080": 11,
-      "13124928": 22
+      "13124928": 17
      },
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 1689 notices (2521 of them invisible to notice-text search)"
+      "attachment text matched 1689 notices (1678 of them invisible to notice-text search)"
+     ]
+    },
+    "natural/profile_n200": {
+     "query": "drainage",
+     "candidates_all": 240,
+     "returned_all": 200,
+     "returned_in_slice": 81,
+     "hit": 10,
+     "recall": 0.714,
+     "missed": [
+      13172291,
+      13177115,
+      13177155,
+      13177651
+     ],
+     "ranks": {
+      "13178596": 1,
+      "13175332": 2,
+      "13184024": 3,
+      "13179808": 4,
+      "13175331": 5,
+      "13164730": 6,
+      "13177737": 8,
+      "13133130": 10,
+      "13133080": 11,
+      "13124928": 17
+     },
+     "notes": [
+      "ranking geography from --province ['Cavite'] (overrides profile)",
+      "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
+      "attachment text matched 1689 notices (1678 of them invisible to notice-text search)"
      ]
     },
     "natural/noprofile_n200": {
      "query": "drainage",
      "candidates_all": 240,
      "returned_all": 200,
-     "returned_in_slice": 75,
+     "returned_in_slice": 81,
      "hit": 10,
      "recall": 0.714,
      "missed": [
@@ -124,7 +124,7 @@
      },
      "notes": [
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 1689 notices (2521 of them invisible to notice-text search)"
+      "attachment text matched 1689 notices (1678 of them invisible to notice-text search)"
      ]
     },
     "natural/fts_only_n200": {
@@ -189,7 +189,7 @@
      "query": "drainage",
      "candidates_all": 224,
      "returned_all": 200,
-     "returned_in_slice": 77,
+     "returned_in_slice": 80,
      "hit": 9,
      "recall": 0.643,
      "missed": [
@@ -219,9 +219,9 @@
      "query": "drainage OR drainages OR canal OR declogging OR waterway",
      "candidates_all": 255,
      "returned_all": 3,
-     "returned_in_slice": 1,
-     "hit": 1,
-     "recall": 0.071,
+     "returned_in_slice": 2,
+     "hit": 2,
+     "recall": 0.143,
      "missed": [
       13124928,
       13133080,
@@ -234,33 +234,27 @@
       13177155,
       13177651,
       13177737,
-      13178596,
       13179808
      ],
      "ranks": {
-      "13184024": 1
+      "13184024": 1,
+      "13178596": 2
      },
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 1694 notices (2621 of them invisible to notice-text search)"
+      "attachment text matched 1694 notices (1683 of them invisible to notice-text search)"
      ]
     },
     "expanded/profile_n40": {
      "query": "drainage OR drainages OR canal OR declogging OR waterway",
      "candidates_all": 255,
      "returned_all": 40,
-     "returned_in_slice": 10,
-     "hit": 7,
-     "recall": 0.5,
+     "returned_in_slice": 27,
+     "hit": 13,
+     "recall": 0.929,
      "missed": [
-      13124928,
-      13133080,
-      13133130,
-      13172291,
-      13177115,
-      13177155,
-      13177651
+      13177115
      ],
      "ranks": {
       "13184024": 1,
@@ -269,19 +263,25 @@
       "13179808": 4,
       "13175331": 5,
       "13164730": 6,
-      "13177737": 9
+      "13177737": 9,
+      "13124928": 10,
+      "13133130": 11,
+      "13133080": 12,
+      "13177651": 14,
+      "13172291": 15,
+      "13177155": 20
      },
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 1694 notices (2621 of them invisible to notice-text search)"
+      "attachment text matched 1694 notices (1683 of them invisible to notice-text search)"
      ]
     },
     "expanded/profile_n200": {
      "query": "drainage OR drainages OR canal OR declogging OR waterway",
      "candidates_all": 255,
      "returned_all": 200,
-     "returned_in_slice": 68,
+     "returned_in_slice": 85,
      "hit": 14,
      "recall": 1.0,
      "missed": [],
@@ -293,25 +293,25 @@
       "13175331": 5,
       "13164730": 6,
       "13177737": 9,
-      "13177651": 11,
-      "13124928": 12,
-      "13172291": 13,
-      "13133130": 14,
-      "13133080": 15,
-      "13177155": 22,
-      "13177115": 32
+      "13124928": 10,
+      "13133130": 11,
+      "13133080": 12,
+      "13177651": 14,
+      "13172291": 15,
+      "13177155": 20,
+      "13177115": 28
      },
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 1694 notices (2621 of them invisible to notice-text search)"
+      "attachment text matched 1694 notices (1683 of them invisible to notice-text search)"
      ]
     },
     "expanded/noprofile_n200": {
      "query": "drainage OR drainages OR canal OR declogging OR waterway",
      "candidates_all": 255,
      "returned_all": 200,
-     "returned_in_slice": 64,
+     "returned_in_slice": 85,
      "hit": 14,
      "recall": 1.0,
      "missed": [],
@@ -333,7 +333,7 @@
      },
      "notes": [
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 1694 notices (2621 of them invisible to notice-text search)"
+      "attachment text matched 1694 notices (1683 of them invisible to notice-text search)"
      ]
     },
     "expanded/fts_only_n200": {
@@ -396,7 +396,7 @@
      "query": "drainage OR drainages OR canal OR declogging OR waterway",
      "candidates_all": 244,
      "returned_all": 200,
-     "returned_in_slice": 74,
+     "returned_in_slice": 85,
      "hit": 14,
      "recall": 1.0,
      "missed": [],
@@ -466,26 +466,19 @@
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 33 notices (172 of them invisible to notice-text search)"
+      "attachment text matched 33 notices (33 of them invisible to notice-text search)"
      ]
     },
     "natural/profile_n40": {
      "query": "solar streetlights",
-     "candidates_all": 28,
-     "returned_all": 28,
-     "returned_in_slice": 17,
-     "hit": 17,
-     "recall": 0.654,
+     "candidates_all": 79,
+     "returned_all": 40,
+     "returned_in_slice": 27,
+     "hit": 24,
+     "recall": 0.923,
      "missed": [
       13153140,
-      13159697,
-      13170041,
-      13171445,
-      13171891,
-      13177767,
-      13182541,
-      13182564,
-      13184158
+      13171891
      ],
      "ranks": {
       "13162905": 1,
@@ -500,35 +493,35 @@
       "13147155": 10,
       "13169797": 11,
       "13162103": 12,
-      "13162129": 13,
-      "13172278": 14,
-      "13164341": 15,
-      "13180252": 16,
-      "13177615": 17
+      "13180252": 13,
+      "13162129": 14,
+      "13172278": 15,
+      "13164341": 16,
+      "13177615": 17,
+      "13182541": 18,
+      "13170041": 19,
+      "13177767": 20,
+      "13182564": 21,
+      "13184158": 22,
+      "13171445": 23,
+      "13159697": 24
      },
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 33 notices (172 of them invisible to notice-text search)"
+      "'solar streetlights' as written matched only 23 notices (FTS5 ANDs bare terms); widened to OR: \"solar\" OR \"streetlights\"",
+      "attachment text matched 33 notices (32 of them invisible to notice-text search)"
      ]
     },
     "natural/profile_n200": {
      "query": "solar streetlights",
-     "candidates_all": 28,
-     "returned_all": 28,
-     "returned_in_slice": 17,
-     "hit": 17,
-     "recall": 0.654,
+     "candidates_all": 79,
+     "returned_all": 79,
+     "returned_in_slice": 29,
+     "hit": 25,
+     "recall": 0.962,
      "missed": [
-      13153140,
-      13159697,
-      13170041,
-      13171445,
-      13171891,
-      13177767,
-      13182541,
-      13182564,
-      13184158
+      13153140
      ],
      "ranks": {
       "13162905": 1,
@@ -543,35 +536,36 @@
       "13147155": 10,
       "13169797": 11,
       "13162103": 12,
-      "13162129": 13,
-      "13172278": 14,
-      "13164341": 15,
-      "13180252": 16,
-      "13177615": 17
+      "13180252": 13,
+      "13162129": 14,
+      "13172278": 15,
+      "13164341": 16,
+      "13177615": 17,
+      "13182541": 18,
+      "13170041": 19,
+      "13177767": 20,
+      "13182564": 21,
+      "13184158": 22,
+      "13171445": 23,
+      "13159697": 24,
+      "13171891": 28
      },
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 33 notices (172 of them invisible to notice-text search)"
+      "'solar streetlights' as written matched only 23 notices (FTS5 ANDs bare terms); widened to OR: \"solar\" OR \"streetlights\"",
+      "attachment text matched 33 notices (32 of them invisible to notice-text search)"
      ]
     },
     "natural/noprofile_n200": {
      "query": "solar streetlights",
-     "candidates_all": 28,
-     "returned_all": 28,
-     "returned_in_slice": 17,
-     "hit": 17,
-     "recall": 0.654,
+     "candidates_all": 79,
+     "returned_all": 79,
+     "returned_in_slice": 29,
+     "hit": 25,
+     "recall": 0.962,
      "missed": [
-      13153140,
-      13159697,
-      13170041,
-      13171445,
-      13171891,
-      13177767,
-      13182541,
-      13182564,
-      13184158
+      13153140
      ],
      "ranks": {
       "13169797": 1,
@@ -590,31 +584,31 @@
       "13164341": 14,
       "13162103": 15,
       "13162129": 16,
-      "13180252": 17
+      "13180252": 17,
+      "13170041": 18,
+      "13182564": 19,
+      "13184158": 20,
+      "13182541": 21,
+      "13159697": 22,
+      "13177767": 23,
+      "13171891": 26,
+      "13171445": 28
      },
      "notes": [
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 33 notices (172 of them invisible to notice-text search)"
+      "'solar streetlights' as written matched only 23 notices (FTS5 ANDs bare terms); widened to OR: \"solar\" OR \"streetlights\"",
+      "attachment text matched 33 notices (32 of them invisible to notice-text search)"
      ]
     },
     "natural/fts_only_n200": {
      "query": "solar streetlights",
-     "candidates_all": 23,
-     "returned_all": 23,
-     "returned_in_slice": 16,
-     "hit": 16,
-     "recall": 0.615,
+     "candidates_all": 79,
+     "returned_all": 79,
+     "returned_in_slice": 29,
+     "hit": 25,
+     "recall": 0.962,
      "missed": [
-      13153140,
-      13159697,
-      13170041,
-      13171445,
-      13171891,
-      13177767,
-      13180252,
-      13182541,
-      13182564,
-      13184158
+      13153140
      ],
      "ranks": {
       "13169797": 1,
@@ -632,29 +626,31 @@
       "13162964": 13,
       "13164341": 14,
       "13162103": 15,
-      "13162129": 16
+      "13162129": 16,
+      "13170041": 17,
+      "13182564": 18,
+      "13184158": 19,
+      "13182541": 20,
+      "13159697": 21,
+      "13180252": 22,
+      "13177767": 23,
+      "13171891": 26,
+      "13171445": 28
      },
      "notes": [
-      "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)"
+      "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
+      "'solar streetlights' as written matched only 23 notices (FTS5 ANDs bare terms); widened to OR: \"solar\" OR \"streetlights\""
      ]
     },
     "natural/fts_plus_tags_n200": {
      "query": "solar streetlights",
-     "candidates_all": 27,
-     "returned_all": 27,
-     "returned_in_slice": 17,
-     "hit": 17,
-     "recall": 0.654,
+     "candidates_all": 79,
+     "returned_all": 79,
+     "returned_in_slice": 29,
+     "hit": 25,
+     "recall": 0.962,
      "missed": [
-      13153140,
-      13159697,
-      13170041,
-      13171445,
-      13171891,
-      13177767,
-      13182541,
-      13182564,
-      13184158
+      13153140
      ],
      "ranks": {
       "13169797": 1,
@@ -673,30 +669,30 @@
       "13164341": 14,
       "13162103": 15,
       "13162129": 16,
-      "13180252": 17
+      "13180252": 17,
+      "13170041": 18,
+      "13182564": 19,
+      "13184158": 20,
+      "13182541": 21,
+      "13159697": 22,
+      "13177767": 23,
+      "13171891": 26,
+      "13171445": 28
      },
      "notes": [
-      "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)"
+      "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
+      "'solar streetlights' as written matched only 23 notices (FTS5 ANDs bare terms); widened to OR: \"solar\" OR \"streetlights\""
      ]
     },
     "natural/fts_plus_docs_n200": {
      "query": "solar streetlights",
-     "candidates_all": 24,
-     "returned_all": 24,
-     "returned_in_slice": 16,
-     "hit": 16,
-     "recall": 0.615,
+     "candidates_all": 79,
+     "returned_all": 79,
+     "returned_in_slice": 29,
+     "hit": 25,
+     "recall": 0.962,
      "missed": [
-      13153140,
-      13159697,
-      13170041,
-      13171445,
-      13171891,
-      13177767,
-      13180252,
-      13182541,
-      13182564,
-      13184158
+      13153140
      ],
      "ranks": {
       "13169797": 1,
@@ -714,11 +710,21 @@
       "13162964": 13,
       "13164341": 14,
       "13162103": 15,
-      "13162129": 16
+      "13162129": 16,
+      "13170041": 17,
+      "13182564": 18,
+      "13184158": 19,
+      "13182541": 20,
+      "13159697": 21,
+      "13180252": 22,
+      "13177767": 23,
+      "13171891": 26,
+      "13171445": 28
      },
      "notes": [
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 33 notices (33 of them invisible to notice-text search)"
+      "'solar streetlights' as written matched only 23 notices (FTS5 ANDs bare terms); widened to OR: \"solar\" OR \"streetlights\"",
+      "attachment text matched 33 notices (32 of them invisible to notice-text search)"
      ]
     },
     "expanded/profile_n3": {
@@ -761,24 +767,17 @@
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 131 notices (591 of them invisible to notice-text search)"
+      "attachment text matched 131 notices (129 of them invisible to notice-text search)"
      ]
     },
     "expanded/profile_n40": {
      "query": "streetlight OR streetlights OR \"street light\" OR \"street lights\" OR \"street lighting\"",
      "candidates_all": 67,
      "returned_all": 40,
-     "returned_in_slice": 21,
-     "hit": 20,
-     "recall": 0.769,
-     "missed": [
-      13159697,
-      13164341,
-      13171891,
-      13172278,
-      13177615,
-      13184158
-     ],
+     "returned_in_slice": 26,
+     "hit": 26,
+     "recall": 1.0,
+     "missed": [],
      "ranks": {
       "13180252": 1,
       "13153140": 2,
@@ -792,19 +791,25 @@
       "13162964": 10,
       "13171862": 11,
       "13182541": 12,
-      "13170041": 13,
-      "13162129": 14,
+      "13162129": 13,
+      "13170041": 14,
       "13147176": 15,
       "13147164": 16,
       "13147155": 17,
       "13169797": 18,
       "13162103": 19,
-      "13182564": 20
+      "13182564": 20,
+      "13172278": 21,
+      "13164341": 22,
+      "13171891": 23,
+      "13159697": 24,
+      "13177615": 25,
+      "13184158": 26
      },
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 131 notices (591 of them invisible to notice-text search)"
+      "attachment text matched 131 notices (129 of them invisible to notice-text search)"
      ]
     },
     "expanded/profile_n200": {
@@ -828,25 +833,25 @@
       "13162964": 10,
       "13171862": 11,
       "13182541": 12,
-      "13170041": 13,
-      "13162129": 14,
+      "13162129": 13,
+      "13170041": 14,
       "13147176": 15,
       "13147164": 16,
       "13147155": 17,
       "13169797": 18,
       "13162103": 19,
       "13182564": 20,
-      "13172278": 22,
-      "13164341": 23,
-      "13177615": 24,
-      "13184158": 25,
-      "13159697": 26,
-      "13171891": 27
+      "13172278": 21,
+      "13164341": 22,
+      "13171891": 23,
+      "13159697": 24,
+      "13177615": 25,
+      "13184158": 26
      },
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 131 notices (591 of them invisible to notice-text search)"
+      "attachment text matched 131 notices (129 of them invisible to notice-text search)"
      ]
     },
     "expanded/noprofile_n200": {
@@ -887,7 +892,7 @@
      },
      "notes": [
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 131 notices (591 of them invisible to notice-text search)"
+      "attachment text matched 131 notices (129 of them invisible to notice-text search)"
      ]
     },
     "expanded/fts_only_n200": {
@@ -1020,7 +1025,7 @@
      "query": "school building construction",
      "candidates_all": 186,
      "returned_all": 3,
-     "returned_in_slice": 3,
+     "returned_in_slice": 2,
      "hit": 1,
      "recall": 0.062,
      "missed": [
@@ -1046,47 +1051,14 @@
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 1601 notices (1986 of them invisible to notice-text search)"
+      "attachment text matched 1601 notices (1600 of them invisible to notice-text search)"
      ]
     },
     "natural/profile_n40": {
      "query": "school building construction",
      "candidates_all": 186,
      "returned_all": 40,
-     "returned_in_slice": 19,
-     "hit": 13,
-     "recall": 0.812,
-     "missed": [
-      13130937,
-      13130954,
-      13140737
-     ],
-     "ranks": {
-      "13171873": 1,
-      "13162040": 8,
-      "13162067": 9,
-      "13161976": 10,
-      "13171883": 11,
-      "13176774": 12,
-      "13171890": 13,
-      "13176326": 14,
-      "13147059": 15,
-      "13147094": 16,
-      "13147081": 17,
-      "13147123": 18,
-      "13147147": 19
-     },
-     "notes": [
-      "ranking geography from --province ['Cavite'] (overrides profile)",
-      "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 1601 notices (1986 of them invisible to notice-text search)"
-     ]
-    },
-    "natural/profile_n200": {
-     "query": "school building construction",
-     "candidates_all": 186,
-     "returned_all": 186,
-     "returned_in_slice": 79,
+     "returned_in_slice": 28,
      "hit": 15,
      "recall": 0.938,
      "missed": [
@@ -1094,37 +1066,69 @@
      ],
      "ranks": {
       "13171873": 1,
-      "13162040": 8,
-      "13162067": 9,
-      "13161976": 10,
-      "13171883": 11,
-      "13176774": 12,
-      "13171890": 13,
-      "13176326": 14,
-      "13147059": 15,
+      "13162040": 5,
+      "13162067": 6,
+      "13161976": 7,
+      "13171883": 8,
+      "13176774": 9,
+      "13171890": 10,
+      "13176326": 11,
+      "13147059": 14,
       "13147094": 16,
       "13147081": 17,
       "13147123": 18,
       "13147147": 19,
       "13140737": 20,
-      "13130937": 34
+      "13130937": 21
      },
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 1601 notices (1986 of them invisible to notice-text search)"
+      "attachment text matched 1601 notices (1600 of them invisible to notice-text search)"
+     ]
+    },
+    "natural/profile_n200": {
+     "query": "school building construction",
+     "candidates_all": 1322,
+     "returned_all": 200,
+     "returned_in_slice": 138,
+     "hit": 15,
+     "recall": 0.938,
+     "missed": [
+      13130954
+     ],
+     "ranks": {
+      "13171873": 1,
+      "13162040": 6,
+      "13162067": 7,
+      "13161976": 8,
+      "13171883": 9,
+      "13176774": 10,
+      "13171890": 11,
+      "13176326": 12,
+      "13147059": 15,
+      "13147094": 17,
+      "13147081": 18,
+      "13147123": 19,
+      "13147147": 20,
+      "13140737": 27,
+      "13130937": 48
+     },
+     "notes": [
+      "ranking geography from --province ['Cavite'] (overrides profile)",
+      "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
+      "'school building construction' as written matched only 44 notices (FTS5 ANDs bare terms); widened to OR: \"school\" OR \"building\" OR \"construction\"",
+      "attachment text matched 1601 notices (1515 of them invisible to notice-text search)"
      ]
     },
     "natural/noprofile_n200": {
      "query": "school building construction",
-     "candidates_all": 186,
-     "returned_all": 186,
-     "returned_in_slice": 79,
-     "hit": 15,
-     "recall": 0.938,
-     "missed": [
-      13130954
-     ],
+     "candidates_all": 1322,
+     "returned_all": 200,
+     "returned_in_slice": 138,
+     "hit": 16,
+     "recall": 1.0,
+     "missed": [],
      "ranks": {
       "13147094": 1,
       "13147081": 2,
@@ -1140,24 +1144,23 @@
       "13176326": 12,
       "13147059": 13,
       "13140737": 15,
-      "13130937": 22
+      "13130937": 30,
+      "13130954": 127
      },
      "notes": [
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 1601 notices (1986 of them invisible to notice-text search)"
+      "'school building construction' as written matched only 44 notices (FTS5 ANDs bare terms); widened to OR: \"school\" OR \"building\" OR \"construction\"",
+      "attachment text matched 1601 notices (1515 of them invisible to notice-text search)"
      ]
     },
     "natural/fts_only_n200": {
      "query": "school building construction",
-     "candidates_all": 44,
-     "returned_all": 44,
-     "returned_in_slice": 20,
-     "hit": 14,
-     "recall": 0.875,
-     "missed": [
-      13130937,
-      13130954
-     ],
+     "candidates_all": 1271,
+     "returned_all": 200,
+     "returned_in_slice": 137,
+     "hit": 16,
+     "recall": 1.0,
+     "missed": [],
      "ranks": {
       "13171873": 1,
       "13147094": 2,
@@ -1172,22 +1175,23 @@
       "13176326": 11,
       "13176774": 12,
       "13147059": 15,
-      "13140737": 18
+      "13140737": 21,
+      "13130954": 80,
+      "13130937": 81
      },
      "notes": [
-      "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)"
+      "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
+      "'school building construction' as written matched only 44 notices (FTS5 ANDs bare terms); widened to OR: \"school\" OR \"building\" OR \"construction\""
      ]
     },
     "natural/fts_plus_tags_n200": {
      "query": "school building construction",
-     "candidates_all": 51,
-     "returned_all": 51,
-     "returned_in_slice": 22,
-     "hit": 15,
-     "recall": 0.938,
-     "missed": [
-      13130954
-     ],
+     "candidates_all": 1271,
+     "returned_all": 200,
+     "returned_in_slice": 137,
+     "hit": 16,
+     "recall": 1.0,
+     "missed": [],
      "ranks": {
       "13147094": 1,
       "13147081": 2,
@@ -1203,51 +1207,53 @@
       "13176326": 12,
       "13147059": 13,
       "13140737": 15,
-      "13130937": 22
+      "13130937": 30,
+      "13130954": 81
      },
      "notes": [
-      "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)"
+      "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
+      "'school building construction' as written matched only 44 notices (FTS5 ANDs bare terms); widened to OR: \"school\" OR \"building\" OR \"construction\""
      ]
     },
     "natural/fts_plus_docs_n200": {
      "query": "school building construction",
-     "candidates_all": 180,
-     "returned_all": 180,
-     "returned_in_slice": 77,
-     "hit": 14,
-     "recall": 0.875,
-     "missed": [
-      13130937,
-      13130954
-     ],
+     "candidates_all": 1322,
+     "returned_all": 200,
+     "returned_in_slice": 138,
+     "hit": 16,
+     "recall": 1.0,
+     "missed": [],
      "ranks": {
-      "13171873": 1,
-      "13147094": 2,
-      "13171883": 3,
-      "13147147": 4,
-      "13147081": 5,
-      "13147123": 6,
-      "13171890": 7,
-      "13161976": 8,
-      "13162040": 9,
-      "13162067": 10,
-      "13176326": 11,
-      "13176774": 12,
-      "13147059": 15,
-      "13140737": 18
+      "13171873": 2,
+      "13147094": 3,
+      "13171883": 4,
+      "13147147": 5,
+      "13147081": 6,
+      "13147123": 7,
+      "13171890": 8,
+      "13161976": 9,
+      "13162040": 10,
+      "13162067": 11,
+      "13176326": 12,
+      "13176774": 13,
+      "13147059": 16,
+      "13140737": 21,
+      "13130954": 126,
+      "13130937": 127
      },
      "notes": [
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 1601 notices (1600 of them invisible to notice-text search)"
+      "'school building construction' as written matched only 44 notices (FTS5 ANDs bare terms); widened to OR: \"school\" OR \"building\" OR \"construction\"",
+      "attachment text matched 1601 notices (1515 of them invisible to notice-text search)"
      ]
     },
     "expanded/profile_n3": {
      "query": "classroom OR classrooms OR \"school building\"",
      "candidates_all": 166,
      "returned_all": 3,
-     "returned_in_slice": 1,
-     "hit": 1,
-     "recall": 0.062,
+     "returned_in_slice": 2,
+     "hit": 2,
+     "recall": 0.125,
      "missed": [
       13130937,
       13130954,
@@ -1260,25 +1266,25 @@
       13161976,
       13162040,
       13162067,
-      13171883,
       13171890,
       13176326,
       13176774
      ],
      "ranks": {
-      "13171873": 1
+      "13171873": 1,
+      "13171883": 2
      },
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 1578 notices (1967 of them invisible to notice-text search)"
+      "attachment text matched 1578 notices (1575 of them invisible to notice-text search)"
      ]
     },
     "expanded/profile_n40": {
      "query": "classroom OR classrooms OR \"school building\"",
      "candidates_all": 166,
      "returned_all": 40,
-     "returned_in_slice": 22,
+     "returned_in_slice": 28,
      "hit": 16,
      "recall": 1.0,
      "missed": [],
@@ -1292,18 +1298,18 @@
       "13176326": 7,
       "13161976": 8,
       "13147059": 9,
-      "13147094": 13,
-      "13147123": 14,
-      "13147081": 15,
-      "13147147": 16,
-      "13130937": 17,
-      "13130954": 18,
-      "13140737": 20
+      "13147094": 10,
+      "13147123": 11,
+      "13147081": 12,
+      "13147147": 13,
+      "13130937": 14,
+      "13140737": 15,
+      "13130954": 18
      },
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 1578 notices (1967 of them invisible to notice-text search)"
+      "attachment text matched 1578 notices (1575 of them invisible to notice-text search)"
      ]
     },
     "expanded/profile_n200": {
@@ -1324,18 +1330,18 @@
       "13176326": 7,
       "13161976": 8,
       "13147059": 9,
-      "13147094": 13,
-      "13147123": 14,
-      "13147081": 15,
-      "13147147": 16,
-      "13130937": 17,
-      "13130954": 18,
-      "13140737": 20
+      "13147094": 10,
+      "13147123": 11,
+      "13147081": 12,
+      "13147147": 13,
+      "13130937": 14,
+      "13140737": 15,
+      "13130954": 18
      },
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 1578 notices (1967 of them invisible to notice-text search)"
+      "attachment text matched 1578 notices (1575 of them invisible to notice-text search)"
      ]
     },
     "expanded/noprofile_n200": {
@@ -1366,7 +1372,7 @@
      },
      "notes": [
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 1578 notices (1967 of them invisible to notice-text search)"
+      "attachment text matched 1578 notices (1575 of them invisible to notice-text search)"
      ]
     },
     "expanded/fts_only_n200": {
@@ -1469,9 +1475,9 @@
      "query": "CCTV",
      "candidates_all": 41,
      "returned_all": 3,
-     "returned_in_slice": 3,
-     "hit": 3,
-     "recall": 0.3,
+     "returned_in_slice": 2,
+     "hit": 2,
+     "recall": 0.2,
      "missed": [
       13164272,
       13165497,
@@ -1479,17 +1485,17 @@
       13172641,
       13177501,
       13177657,
+      13178463,
       13180080
      ],
      "ranks": {
       "13177949": 1,
-      "13178463": 2,
-      "13182568": 3
+      "13182568": 2
      },
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 109 notices (273 of them invisible to notice-text search)"
+      "attachment text matched 109 notices (108 of them invisible to notice-text search)"
      ]
     },
     "natural/profile_n40": {
@@ -1502,12 +1508,12 @@
      "missed": [],
      "ranks": {
       "13177949": 1,
-      "13178463": 2,
-      "13182568": 3,
+      "13182568": 2,
+      "13178463": 3,
       "13172641": 4,
       "13165497": 5,
       "13169476": 6,
-      "13177657": 8,
+      "13177657": 7,
       "13177501": 9,
       "13180080": 10,
       "13164272": 11
@@ -1515,7 +1521,7 @@
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 109 notices (273 of them invisible to notice-text search)"
+      "attachment text matched 109 notices (108 of them invisible to notice-text search)"
      ]
     },
     "natural/profile_n200": {
@@ -1528,12 +1534,12 @@
      "missed": [],
      "ranks": {
       "13177949": 1,
-      "13178463": 2,
-      "13182568": 3,
+      "13182568": 2,
+      "13178463": 3,
       "13172641": 4,
       "13165497": 5,
       "13169476": 6,
-      "13177657": 8,
+      "13177657": 7,
       "13177501": 9,
       "13180080": 10,
       "13164272": 11
@@ -1541,7 +1547,7 @@
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 109 notices (273 of them invisible to notice-text search)"
+      "attachment text matched 109 notices (108 of them invisible to notice-text search)"
      ]
     },
     "natural/noprofile_n200": {
@@ -1566,7 +1572,7 @@
      },
      "notes": [
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 109 notices (273 of them invisible to notice-text search)"
+      "attachment text matched 109 notices (108 of them invisible to notice-text search)"
      ]
     },
     "natural/fts_only_n200": {
@@ -1666,23 +1672,23 @@
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 132 notices (304 of them invisible to notice-text search)"
+      "attachment text matched 132 notices (131 of them invisible to notice-text search)"
      ]
     },
     "expanded/profile_n40": {
      "query": "cctv OR surveillance OR \"video camera\"",
      "candidates_all": 49,
      "returned_all": 40,
-     "returned_in_slice": 13,
+     "returned_in_slice": 16,
      "hit": 10,
      "recall": 1.0,
      "missed": [],
      "ranks": {
       "13177949": 1,
       "13178463": 2,
-      "13182568": 3,
-      "13172641": 4,
-      "13165497": 5,
+      "13165497": 3,
+      "13182568": 4,
+      "13172641": 5,
       "13177657": 6,
       "13177501": 7,
       "13169476": 8,
@@ -1692,7 +1698,7 @@
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 132 notices (304 of them invisible to notice-text search)"
+      "attachment text matched 132 notices (131 of them invisible to notice-text search)"
      ]
     },
     "expanded/profile_n200": {
@@ -1706,9 +1712,9 @@
      "ranks": {
       "13177949": 1,
       "13178463": 2,
-      "13182568": 3,
-      "13172641": 4,
-      "13165497": 5,
+      "13165497": 3,
+      "13182568": 4,
+      "13172641": 5,
       "13177657": 6,
       "13177501": 7,
       "13169476": 8,
@@ -1718,7 +1724,7 @@
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 132 notices (304 of them invisible to notice-text search)"
+      "attachment text matched 132 notices (131 of them invisible to notice-text search)"
      ]
     },
     "expanded/noprofile_n200": {
@@ -1743,7 +1749,7 @@
      },
      "notes": [
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 132 notices (304 of them invisible to notice-text search)"
+      "attachment text matched 132 notices (131 of them invisible to notice-text search)"
      ]
     },
     "expanded/fts_only_n200": {
@@ -1826,11 +1832,11 @@
    "runs": {
     "natural/profile_n3": {
      "query": "vehicle spare parts repair",
-     "candidates_all": 22,
+     "candidates_all": 373,
      "returned_all": 3,
-     "returned_in_slice": 1,
-     "hit": 1,
-     "recall": 0.04,
+     "returned_in_slice": 2,
+     "hit": 2,
+     "recall": 0.08,
      "missed": [
       13164535,
       13171843,
@@ -1849,7 +1855,6 @@
       13176176,
       13176179,
       13176197,
-      13176211,
       13176261,
       13176275,
       13176288,
@@ -1858,276 +1863,279 @@
       13179426
      ],
      "ranks": {
-      "13172582": 1
+      "13172582": 1,
+      "13176211": 2
      },
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 125 notices (152 of them invisible to notice-text search)"
+      "'vehicle spare parts repair' as written matched only 1 notices (FTS5 ANDs bare terms); widened to OR: \"vehicle\" OR \"spare\" OR \"parts\" OR \"repair\"",
+      "attachment text matched 125 notices (117 of them invisible to notice-text search)"
      ]
     },
     "natural/profile_n40": {
      "query": "vehicle spare parts repair",
-     "candidates_all": 22,
-     "returned_all": 22,
-     "returned_in_slice": 1,
-     "hit": 1,
-     "recall": 0.04,
+     "candidates_all": 373,
+     "returned_all": 40,
+     "returned_in_slice": 28,
+     "hit": 24,
+     "recall": 0.96,
      "missed": [
-      13164535,
-      13171843,
-      13171853,
-      13171857,
-      13171867,
-      13171876,
-      13171880,
-      13171886,
-      13171894,
-      13175066,
-      13175792,
-      13176144,
-      13176156,
-      13176167,
-      13176176,
-      13176179,
-      13176197,
-      13176211,
-      13176261,
-      13176275,
-      13176288,
-      13176301,
-      13177113,
-      13179426
+      13175792
      ],
      "ranks": {
-      "13172582": 1
+      "13172582": 1,
+      "13176211": 2,
+      "13176156": 3,
+      "13176288": 4,
+      "13171853": 6,
+      "13171880": 7,
+      "13171894": 8,
+      "13176275": 9,
+      "13176261": 10,
+      "13176301": 11,
+      "13176179": 12,
+      "13176176": 13,
+      "13176167": 14,
+      "13176197": 15,
+      "13176144": 16,
+      "13179426": 17,
+      "13171886": 18,
+      "13171843": 19,
+      "13171876": 20,
+      "13164535": 21,
+      "13171867": 22,
+      "13171857": 23,
+      "13175066": 24,
+      "13177113": 25
      },
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 125 notices (152 of them invisible to notice-text search)"
+      "'vehicle spare parts repair' as written matched only 1 notices (FTS5 ANDs bare terms); widened to OR: \"vehicle\" OR \"spare\" OR \"parts\" OR \"repair\"",
+      "attachment text matched 125 notices (117 of them invisible to notice-text search)"
      ]
     },
     "natural/profile_n200": {
      "query": "vehicle spare parts repair",
-     "candidates_all": 22,
-     "returned_all": 22,
-     "returned_in_slice": 1,
-     "hit": 1,
-     "recall": 0.04,
-     "missed": [
-      13164535,
-      13171843,
-      13171853,
-      13171857,
-      13171867,
-      13171876,
-      13171880,
-      13171886,
-      13171894,
-      13175066,
-      13175792,
-      13176144,
-      13176156,
-      13176167,
-      13176176,
-      13176179,
-      13176197,
-      13176211,
-      13176261,
-      13176275,
-      13176288,
-      13176301,
-      13177113,
-      13179426
-     ],
+     "candidates_all": 373,
+     "returned_all": 200,
+     "returned_in_slice": 102,
+     "hit": 25,
+     "recall": 1.0,
+     "missed": [],
      "ranks": {
-      "13172582": 1
+      "13172582": 1,
+      "13176211": 2,
+      "13176156": 3,
+      "13176288": 4,
+      "13171853": 6,
+      "13171880": 7,
+      "13171894": 8,
+      "13176275": 9,
+      "13176261": 10,
+      "13176301": 11,
+      "13176179": 12,
+      "13176176": 13,
+      "13176167": 14,
+      "13176197": 15,
+      "13176144": 16,
+      "13179426": 17,
+      "13171886": 18,
+      "13171843": 19,
+      "13171876": 20,
+      "13164535": 21,
+      "13171867": 22,
+      "13171857": 23,
+      "13175066": 24,
+      "13177113": 25,
+      "13175792": 41
      },
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 125 notices (152 of them invisible to notice-text search)"
+      "'vehicle spare parts repair' as written matched only 1 notices (FTS5 ANDs bare terms); widened to OR: \"vehicle\" OR \"spare\" OR \"parts\" OR \"repair\"",
+      "attachment text matched 125 notices (117 of them invisible to notice-text search)"
      ]
     },
     "natural/noprofile_n200": {
      "query": "vehicle spare parts repair",
-     "candidates_all": 22,
-     "returned_all": 22,
-     "returned_in_slice": 1,
-     "hit": 1,
-     "recall": 0.04,
-     "missed": [
-      13164535,
-      13171843,
-      13171853,
-      13171857,
-      13171867,
-      13171876,
-      13171880,
-      13171886,
-      13171894,
-      13175066,
-      13175792,
-      13176144,
-      13176156,
-      13176167,
-      13176176,
-      13176179,
-      13176197,
-      13176211,
-      13176261,
-      13176275,
-      13176288,
-      13176301,
-      13177113,
-      13179426
-     ],
+     "candidates_all": 373,
+     "returned_all": 200,
+     "returned_in_slice": 102,
+     "hit": 25,
+     "recall": 1.0,
+     "missed": [],
      "ranks": {
-      "13172582": 1
+      "13172582": 1,
+      "13171894": 2,
+      "13176275": 3,
+      "13176211": 4,
+      "13176261": 5,
+      "13176156": 6,
+      "13171886": 7,
+      "13171843": 8,
+      "13171876": 9,
+      "13176301": 10,
+      "13176179": 11,
+      "13176288": 12,
+      "13176176": 13,
+      "13176167": 14,
+      "13176197": 15,
+      "13176144": 16,
+      "13171853": 17,
+      "13171880": 18,
+      "13171867": 19,
+      "13171857": 20,
+      "13175066": 22,
+      "13179426": 23,
+      "13177113": 24,
+      "13164535": 25,
+      "13175792": 26
      },
      "notes": [
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 125 notices (152 of them invisible to notice-text search)"
+      "'vehicle spare parts repair' as written matched only 1 notices (FTS5 ANDs bare terms); widened to OR: \"vehicle\" OR \"spare\" OR \"parts\" OR \"repair\"",
+      "attachment text matched 125 notices (117 of them invisible to notice-text search)"
      ]
     },
     "natural/fts_only_n200": {
      "query": "vehicle spare parts repair",
-     "candidates_all": 1,
-     "returned_all": 1,
-     "returned_in_slice": 0,
-     "hit": 0,
-     "recall": 0.0,
-     "missed": [
-      13164535,
-      13171843,
-      13171853,
-      13171857,
-      13171867,
-      13171876,
-      13171880,
-      13171886,
-      13171894,
-      13172582,
-      13175066,
-      13175792,
-      13176144,
-      13176156,
-      13176167,
-      13176176,
-      13176179,
-      13176197,
-      13176211,
-      13176261,
-      13176275,
-      13176288,
-      13176301,
-      13177113,
-      13179426
-     ],
-     "ranks": {},
+     "candidates_all": 362,
+     "returned_all": 200,
+     "returned_in_slice": 102,
+     "hit": 25,
+     "recall": 1.0,
+     "missed": [],
+     "ranks": {
+      "13171894": 1,
+      "13176275": 2,
+      "13176211": 3,
+      "13176261": 4,
+      "13176156": 5,
+      "13171886": 6,
+      "13171843": 7,
+      "13171876": 8,
+      "13176301": 9,
+      "13176179": 10,
+      "13176288": 11,
+      "13176176": 12,
+      "13176167": 13,
+      "13176197": 14,
+      "13176144": 15,
+      "13171853": 16,
+      "13171880": 17,
+      "13171867": 18,
+      "13171857": 19,
+      "13172582": 20,
+      "13175066": 22,
+      "13179426": 23,
+      "13177113": 24,
+      "13164535": 25,
+      "13175792": 26
+     },
      "notes": [
-      "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)"
+      "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
+      "'vehicle spare parts repair' as written matched only 1 notices (FTS5 ANDs bare terms); widened to OR: \"vehicle\" OR \"spare\" OR \"parts\" OR \"repair\""
      ]
     },
     "natural/fts_plus_tags_n200": {
      "query": "vehicle spare parts repair",
-     "candidates_all": 3,
-     "returned_all": 3,
-     "returned_in_slice": 1,
-     "hit": 1,
-     "recall": 0.04,
-     "missed": [
-      13164535,
-      13171843,
-      13171853,
-      13171857,
-      13171867,
-      13171876,
-      13171880,
-      13171886,
-      13171894,
-      13175066,
-      13175792,
-      13176144,
-      13176156,
-      13176167,
-      13176176,
-      13176179,
-      13176197,
-      13176211,
-      13176261,
-      13176275,
-      13176288,
-      13176301,
-      13177113,
-      13179426
-     ],
+     "candidates_all": 362,
+     "returned_all": 200,
+     "returned_in_slice": 102,
+     "hit": 25,
+     "recall": 1.0,
+     "missed": [],
      "ranks": {
-      "13172582": 1
+      "13172582": 1,
+      "13171894": 2,
+      "13176275": 3,
+      "13176211": 4,
+      "13176261": 5,
+      "13176156": 6,
+      "13171886": 7,
+      "13171843": 8,
+      "13171876": 9,
+      "13176301": 10,
+      "13176179": 11,
+      "13176288": 12,
+      "13176176": 13,
+      "13176167": 14,
+      "13176197": 15,
+      "13176144": 16,
+      "13171853": 17,
+      "13171880": 18,
+      "13171867": 19,
+      "13171857": 20,
+      "13175066": 22,
+      "13179426": 23,
+      "13177113": 24,
+      "13164535": 25,
+      "13175792": 26
      },
      "notes": [
-      "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)"
+      "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
+      "'vehicle spare parts repair' as written matched only 1 notices (FTS5 ANDs bare terms); widened to OR: \"vehicle\" OR \"spare\" OR \"parts\" OR \"repair\""
      ]
     },
     "natural/fts_plus_docs_n200": {
      "query": "vehicle spare parts repair",
-     "candidates_all": 20,
-     "returned_all": 20,
-     "returned_in_slice": 0,
-     "hit": 0,
-     "recall": 0.0,
-     "missed": [
-      13164535,
-      13171843,
-      13171853,
-      13171857,
-      13171867,
-      13171876,
-      13171880,
-      13171886,
-      13171894,
-      13172582,
-      13175066,
-      13175792,
-      13176144,
-      13176156,
-      13176167,
-      13176176,
-      13176179,
-      13176197,
-      13176211,
-      13176261,
-      13176275,
-      13176288,
-      13176301,
-      13177113,
-      13179426
-     ],
-     "ranks": {},
+     "candidates_all": 373,
+     "returned_all": 200,
+     "returned_in_slice": 102,
+     "hit": 25,
+     "recall": 1.0,
+     "missed": [],
+     "ranks": {
+      "13171894": 1,
+      "13176275": 2,
+      "13176211": 3,
+      "13176261": 4,
+      "13176156": 5,
+      "13171886": 6,
+      "13171843": 7,
+      "13171876": 8,
+      "13176301": 9,
+      "13176179": 10,
+      "13176288": 11,
+      "13176176": 12,
+      "13176167": 13,
+      "13176197": 14,
+      "13176144": 15,
+      "13171853": 16,
+      "13171880": 17,
+      "13171867": 18,
+      "13171857": 19,
+      "13172582": 20,
+      "13175066": 22,
+      "13179426": 23,
+      "13177113": 24,
+      "13164535": 25,
+      "13175792": 26
+     },
      "notes": [
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 125 notices (125 of them invisible to notice-text search)"
+      "'vehicle spare parts repair' as written matched only 1 notices (FTS5 ANDs bare terms); widened to OR: \"vehicle\" OR \"spare\" OR \"parts\" OR \"repair\"",
+      "attachment text matched 125 notices (117 of them invisible to notice-text search)"
      ]
     },
     "expanded/profile_n3": {
      "query": "vehicle OR vehicles OR spareparts OR \"spare parts\" OR \"heavy equipment\" OR \"repair and maintenance\"",
      "candidates_all": 475,
      "returned_all": 3,
-     "returned_in_slice": 0,
-     "hit": 0,
-     "recall": 0.0,
+     "returned_in_slice": 2,
+     "hit": 2,
+     "recall": 0.08,
      "missed": [
       13164535,
       13171843,
-      13171853,
       13171857,
       13171867,
       13171876,
       13171880,
       13171886,
       13171894,
-      13172582,
       13175066,
       13175792,
       13176144,
@@ -2144,101 +2152,104 @@
       13177113,
       13179426
      ],
-     "ranks": {},
+     "ranks": {
+      "13172582": 1,
+      "13171853": 2
+     },
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 2536 notices (3472 of them invisible to notice-text search)"
+      "attachment text matched 2536 notices (2512 of them invisible to notice-text search)"
      ]
     },
     "expanded/profile_n40": {
      "query": "vehicle OR vehicles OR spareparts OR \"spare parts\" OR \"heavy equipment\" OR \"repair and maintenance\"",
      "candidates_all": 475,
      "returned_all": 40,
-     "returned_in_slice": 16,
-     "hit": 9,
-     "recall": 0.36,
+     "returned_in_slice": 28,
+     "hit": 19,
+     "recall": 0.76,
      "missed": [
       13171843,
-      13171857,
-      13171867,
       13171876,
-      13171880,
       13171886,
       13171894,
       13175792,
-      13176144,
-      13176167,
-      13176176,
-      13176179,
-      13176197,
-      13176261,
-      13176275,
-      13176301
+      13176197
      ],
      "ranks": {
       "13172582": 1,
-      "13176156": 2,
-      "13171853": 6,
-      "13179426": 7,
-      "13176288": 8,
-      "13176211": 12,
-      "13177113": 13,
-      "13164535": 15,
-      "13175066": 16
+      "13171853": 2,
+      "13176156": 3,
+      "13177113": 4,
+      "13176288": 5,
+      "13175066": 6,
+      "13176211": 7,
+      "13179426": 10,
+      "13164535": 11,
+      "13171867": 14,
+      "13171857": 15,
+      "13171880": 17,
+      "13176144": 20,
+      "13176275": 22,
+      "13176261": 23,
+      "13176301": 25,
+      "13176179": 26,
+      "13176167": 27,
+      "13176176": 28
      },
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 2536 notices (3472 of them invisible to notice-text search)"
+      "attachment text matched 2536 notices (2512 of them invisible to notice-text search)"
      ]
     },
     "expanded/profile_n200": {
      "query": "vehicle OR vehicles OR spareparts OR \"spare parts\" OR \"heavy equipment\" OR \"repair and maintenance\"",
      "candidates_all": 475,
      "returned_all": 200,
-     "returned_in_slice": 58,
+     "returned_in_slice": 120,
      "hit": 25,
      "recall": 1.0,
      "missed": [],
      "ranks": {
       "13172582": 1,
-      "13176156": 2,
-      "13171853": 6,
-      "13179426": 7,
-      "13176288": 8,
-      "13176211": 12,
-      "13177113": 13,
-      "13164535": 15,
-      "13175066": 16,
-      "13171880": 19,
-      "13176144": 21,
+      "13171853": 2,
+      "13176156": 3,
+      "13177113": 4,
+      "13176288": 5,
+      "13175066": 6,
+      "13176211": 7,
+      "13179426": 10,
+      "13164535": 11,
+      "13171867": 14,
+      "13171857": 15,
+      "13171880": 17,
+      "13176144": 20,
       "13176275": 22,
       "13176261": 23,
-      "13176301": 24,
-      "13176179": 25,
+      "13176301": 25,
+      "13176179": 26,
       "13176167": 27,
       "13176176": 28,
       "13176197": 29,
-      "13171867": 30,
-      "13171857": 31,
-      "13171894": 36,
-      "13171886": 37,
-      "13171876": 38,
-      "13171843": 39,
-      "13175792": 45
+      "13171886": 31,
+      "13171876": 32,
+      "13171843": 33,
+      "13171894": 35,
+      "13175792": 39
      },
      "notes": [
       "ranking geography from --province ['Cavite'] (overrides profile)",
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 2536 notices (3472 of them invisible to notice-text search)"
+      "attachment text matched 2536 notices (2512 of them invisible to notice-text search)"
      ]
     },
     "expanded/noprofile_n200": {
      "query": "vehicle OR vehicles OR spareparts OR \"spare parts\" OR \"heavy equipment\" OR \"repair and maintenance\"",
      "candidates_all": 475,
      "returned_all": 200,
-     "returned_in_slice": 48,
+     "returned_in_slice": 120,
      "hit": 25,
      "recall": 1.0,
      "missed": [],
@@ -2271,7 +2282,7 @@
      },
      "notes": [
       "province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) (--province-strict drops them)",
-      "attachment text matched 2536 notices (3472 of them invisible to notice-text search)"
+      "attachment text matched 2536 notices (2512 of them invisible to notice-text search)"
      ]
     },
     "expanded/fts_only_n200": {
@@ -2317,7 +2328,7 @@
      "query": "vehicle OR vehicles OR spareparts OR \"spare parts\" OR \"heavy equipment\" OR \"repair and maintenance\"",
      "candidates_all": 205,
      "returned_all": 200,
-     "returned_in_slice": 54,
+     "returned_in_slice": 55,
      "hit": 25,
      "recall": 1.0,
      "missed": [],
@@ -2356,7 +2367,7 @@
      "query": "vehicle OR vehicles OR spareparts OR \"spare parts\" OR \"heavy equipment\" OR \"repair and maintenance\"",
      "candidates_all": 459,
      "returned_all": 200,
-     "returned_in_slice": 49,
+     "returned_in_slice": 117,
      "hit": 25,
      "recall": 1.0,
      "missed": [],
