@@ -22,9 +22,18 @@ scope but journey 2 depends on them; see "Deferred".
 >    **And attachment text moved search recall by exactly zero notices in all ten measured
 >    query-runs.** Attachments are an *eligibility* asset (0.12 → 2.40 special requirements per
 >    notice), not a recall asset. Deferral #2 is now closed and replaced; see "Deferred".
-> 2. **The eval was run and the shipped configuration scores 0.12 micro recall.** Not the tags, not
->    the attachments — three bugs in `rfp` itself cost the difference between 0.12 and 1.00 on the
->    measured slice. Fixing them is now deferral #1a, ahead of everything. See "Evaluation".
+> 2. ~~**The eval was run and the shipped configuration scores 0.12 micro recall.**~~
+>    **FIXED 2026-08-09 (`0875d3595`).** The three `rfp` bugs are repaired and measured on the same
+>    slice: **natural-query recall 0.53 → 0.91**, expanded 0.68 → 0.92, 38/38 selfchecks. Bugs were
+>    (a) FTS5's implicit AND with the relax fallback wired only to *syntax* errors, (b) `--province`
+>    spending its slots on location-null rows, (c) `profile_fit` compounding soft demotions into a
+>    hard exclusion. Details in the commit; deferral #1a is closed.
+>
+>    **And the 0.12 headline was partly a metric/config mismatch, not only bugs.** `profile.md`
+>    ships `results: 3`, so five queries can return at most 15 of 91 ground truths — a **0.16
+>    ceiling**. 11/91 was 73% of the achievable maximum. Recall is the wrong metric for a 3-slot
+>    contractor config; these eval queries are supplier-style triage and belong at `results: 40`.
+>    Fixing the config is not a code change, and the remaining honest gap is 0.91 → 1.00.
 > 3. **OCR is decided: no, permanently.** Embedded rasters are 72–150 ppi against tesseract's 300
 >    ppi floor, and the pages that *do* OCR carry only universal boilerplate. 34.8% of PDFs have no
 >    text layer; 15.3% of doc-bearing notices are unreadable. Flag them, never spend on them.

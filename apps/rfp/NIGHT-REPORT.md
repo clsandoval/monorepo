@@ -338,3 +338,37 @@ conclusion — whole-attachment-in-prompt is not a prompt, it is a pipeline.
   its own.
 - **Tag quality:** 10 random base-tier tags read against source (9 correct, 1 half-correct — and
   that one is a multi-contract ITB data defect, not a tagging defect); 5 doc-tier (5 correct).
+
+---
+
+## Follow-up, 2026-08-09 — the three bugs are fixed
+
+Commit `0875d3595`. Same eval slice, same 91 ground truths, 38/38 selfchecks.
+
+| config | night | now |
+|---|---|---|
+| natural / profile, n=40 | 48/91 = 0.53 | **83/91 = 0.91** |
+| expanded / profile, n=40 | 62/91 = 0.68 | **84/91 = 0.92** |
+| natural / profile, n=200 | — | 85/91 = 0.93 |
+| expanded, n=200 | 91/91 = 1.00 | 1.00 |
+
+Two things this report got slightly wrong, both worth recording:
+
+**The "shipped config finds 12%" framing conflated a bug with a metric mismatch.** `profile.md`
+ships `results: 3`. Five queries × 3 slots = 15 reachable of 91, a **0.16 ceiling**, so 11/91 was
+73% of the achievable maximum rather than a retrieval failure. The bugs were real — 0.53 → 0.91 at
+n=40 proves it — but recall is the wrong metric to apply to a 3-slot contractor configuration, and
+these eval queries are supplier-style triage that belong at `results: 40`.
+
+**`min()` is not the fix for the compounding-demotion bug**, which is what the diagnosis implied.
+Tried first, and it erased mild-vs-harsh distinctions *within* a row: "lot fits" and "stretch"
+both scored 0.456, which breaks exactly the multi-lot surfacing the design doc calls out. A
+dampened product (DAMP=0.6, with `never`/`CLOSED` exempt) preserves both properties.
+
+Also fixed: widening a query must be restricted to **bare** multi-word queries. Applying it to
+`"slump test"` turned a deliberate phrase into `slump OR test` and broke the attachment-only
+selfcheck — the guard now checks for quotes, `OR`/`NOT`/`NEAR`, `*` and `col:` before widening,
+and the aux channels keep the original expression so attachment matching stays precise.
+
+Still open from this report's "what is actually broken": the **17.8-day disk runway with a silent
+cap trip** (`break`, exit 0). Untouched, and still the highest-priority operational item.
