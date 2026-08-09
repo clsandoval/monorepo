@@ -12,6 +12,13 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-08-09
+- **Weight:** — (not logged)
+- **Cals / Protein:** ~1590 / ~88g so far (ahi tuna tartare on cracker ~60g total ~130/13g [~45g tuna ~65/10g + sesame oil/soy dressing ~30/0g + cracker ~35/1g]; chicken brown rice elote bowl w/ mayo ~700/45g [~150g chicken ~250/40g + 1 cup brown rice ~220/5g + elote corn/mayo/cotija ~230/3g]; ½ uni butter bucatini, ~200g eaten ~400/12g [~140g cooked pasta ~210/7g + uni-butter sauce ~190/5g]; 2 lattes ~360/18g [12 oz standard ×2 per 8/02 precedent — correct me if sweetened])
+- **Carbs / Sodium:** ~145g / ~2.5g so far (rice + corn ~60g; pasta ~45g; lattes ~30g; cracker ~5g. Sodium: soy on the tartare + bowl seasoning + salted pasta — thin, salt tonight)
+- **Trained:** Smith flat bench 2×8 + 1×6 @ 75/side (not counting bar) · OHP 2×8 @ 45/side
+- **Notes:** Session logged → **earned-day ceiling 2500.** At ~1590 / ~88g he's 57g under the floor with ~900 of room. Call: **2 scoops (~280/48g) + 100g cottage cheese (82/12g) → ~1950 / ~148g** — floor cleared, ~550 under the ceiling, clean ~1050 deficit at active TDEE. Bench: 75/side × 2×8+1×6 vs 8/01's flat 3×10 top set at 70/side — load creeping up on schedule; the 1×6 fade says 75 is honest, don't push it. OHP 2×8 @ 45/side holds the 8/02 PR load — solid. Rotation deviation: **flat, not incline** (rotation is incline-only both press days), and it's a press-only session — it counts, but **Day A is still owed** (Smith incline bench · barbell rows · RDL · leg extensions), now 7 days since the last full session. Pasta + rice in one day — expect a bloat/water tick on tomorrow's scale, don't read it as fat. Fiber ~5g (corn only), fifth thin day — banana fits in the room.
+
 ## 2026-08-08
 - **Weight:** 96.4 kg (fasted AM)
 - **Cals / Protein:** ~1550 / ~101g so far (kebab plate ~550/38g: 50g grilled chicken skewer ~90/16g + 50g grilled lamb skewer ~130/14g [fattier cut] + 1 cup basmati rice ~200/4g + grilled tomato & red onion ~50/1g + garlic yogurt sauce ~80/3g; Mediterranean wrap 500/40g [as given]; Blitz protein bar 200/21g [as given]; milk tea ~300/2g [as given])
