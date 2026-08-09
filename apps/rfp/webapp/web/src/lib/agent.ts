@@ -27,8 +27,8 @@ function apiKey(): string {
   throw new Error("no OPENAI_API_KEY");
 }
 
-// Provider auth is ambient via OPENAI_API_KEY; ensure it's set before the provider reads it.
-process.env.OPENAI_API_KEY ||= apiKey();
+// NB: do NOT resolve the key at module load — that throws during `next build` (no env/.env in the
+// image) and breaks page-data collection. Resolve lazily at request time inside runTurn().
 const models = createModels();
 models.setProvider(openaiProvider());
 const streamFn = models.streamSimple.bind(models);
@@ -100,6 +100,7 @@ export async function runTurn(
   sessionId: string,
   onEvent: (e: ChatEvent) => void,
 ): Promise<{ reply: string; usage: { input: number; cached: number; output: number; usd: number }; rounds: number }> {
+  process.env.OPENAI_API_KEY ||= apiKey(); // ambient auth for the provider; resolved at request time
   const usage = { input: 0, cached: 0, output: 0, usd: 0 };
   let rounds = 0, lastRoundKey: number | null = null;
 
