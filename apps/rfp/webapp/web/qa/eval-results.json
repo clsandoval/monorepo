@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-09T17:11:06.727Z",
+  "updated": "2026-08-09T19:05:49.472Z",
   "pass": true,
   "failCount": 0,
   "scenarios": [
@@ -16,28 +16,28 @@
       "id": "multi-turn-after-greeting",
       "pass": true,
       "fails": [],
-      "cited": 5,
-      "tools": 3,
+      "cited": 3,
+      "tools": 5,
       "cacheRatio": 1,
-      "usd": 0.00092
+      "usd": 0.00115
     },
     {
       "id": "refinement-province",
       "pass": true,
       "fails": [],
       "cited": 4,
-      "tools": 3,
+      "tools": 4,
       "cacheRatio": 1,
-      "usd": 0.00113
+      "usd": 0.00123
     },
     {
       "id": "multi-lot",
       "pass": true,
       "fails": [],
-      "cited": 0,
-      "tools": 11,
+      "cited": 1,
+      "tools": 8,
       "cacheRatio": 1,
-      "usd": 0.00362
+      "usd": 0.00209
     },
     {
       "id": "prior-not-filter",
@@ -46,7 +46,7 @@
       "cited": 10,
       "tools": 4,
       "cacheRatio": 1,
-      "usd": 0.00193
+      "usd": 0.0016
     },
     {
       "id": "tight-deadline",
@@ -55,7 +55,7 @@
       "cited": 10,
       "tools": 3,
       "cacheRatio": 1,
-      "usd": 0.00167
+      "usd": 0.00169
     },
     {
       "id": "empty-result-honesty",
@@ -76,6 +76,6 @@
       "usd": 0.00005
     }
   ],
-  "total_usd": 0.0097,
-  "total_peso": 0.563
+  "total_usd": 0.0082,
+  "total_peso": 0.476
 }

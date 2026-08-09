@@ -7,6 +7,7 @@ primary_region = "sin"
   PORT = "8080"
   RFP_DIR = "/rfp"
   RFP_SESSIONS_DIR = "/data/sessions"
+  RFP_ENRICH_DIR = "/data/enrich"
   RFP_PROMPT_PATH = "/app/system-prompt.txt"
 
 [[mounts]]

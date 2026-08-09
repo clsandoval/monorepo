@@ -42,5 +42,6 @@ export type SimilarAward = {
 
 /** awards_similar.py CLI contract (lives in RFP_DIR):
  *  python3 awards_similar.py --classification "Civil Works" --province "Cavite" --abc 3900000
- *  → JSON array of SimilarAward, best-first (same classification; province match then ABC
- *  proximity 0.3–3x; newest first within tier; max 5). Empty array when nothing matches. */
+ *  → JSON array of SimilarAward, best-first (same classification; ABC 0.3–3x is a HARD filter
+ *  when --abc is given; province match ranks first; newest first within tier; max 5).
+ *  Empty array when nothing matches. */

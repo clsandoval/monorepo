@@ -61,13 +61,44 @@ export function SearchShell() {
     }
   }, []);
 
-  // On load: honor ?q= in the URL, else the default board.
+  // On load: a saved snapshot (coming back from a detail page) wins over refetching — bfcache
+  // is CDP-hostile and evictable, so restoration must not depend on it. Else honor ?q=/board.
   useEffect(() => {
     const q = new URLSearchParams(window.location.search).get("q") ?? "";
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- ?q= is external (URL) state, read once on mount
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- ?q=/sessionStorage are external state, read once on mount
     if (q) setInput(q);
+    try {
+      const saved = JSON.parse(sessionStorage.getItem("bidkita-results") ?? "null") as
+        { q: string; state: ListState; scrollTop: number } | null;
+      if (saved && saved.q === q && saved.state.phase === "ready") {
+        setState(saved.state); setActiveQ(q);
+        requestAnimationFrame(() => {
+          const el = document.getElementById("pane-results");
+          if (el) el.scrollTop = saved.scrollTop;
+        });
+        return;
+      }
+    } catch { /* corrupt snapshot → normal load */ }
     run(q);
   }, [run]);
+
+  // Snapshot results + scroll on every navigation away (row click → detail page).
+  const stateRef = useRef(state);
+  const activeQRef = useRef(activeQ);
+  useEffect(() => { stateRef.current = state; activeQRef.current = activeQ; });
+  useEffect(() => {
+    const save = () => {
+      if (stateRef.current.phase !== "ready") return;
+      try {
+        sessionStorage.setItem("bidkita-results", JSON.stringify({
+          q: activeQRef.current, state: stateRef.current,
+          scrollTop: document.getElementById("pane-results")?.scrollTop ?? 0,
+        }));
+      } catch { /* quota — nonfatal */ }
+    };
+    window.addEventListener("pagehide", save);
+    return () => window.removeEventListener("pagehide", save);
+  }, []);
 
   function submit(e?: React.FormEvent) {
     e?.preventDefault();

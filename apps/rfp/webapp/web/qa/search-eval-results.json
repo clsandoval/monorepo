@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-09T17:09:41.037Z",
+  "updated": "2026-08-09T19:03:24.247Z",
   "pass": true,
   "failCount": 0,
   "scenarios": [
@@ -7,14 +7,14 @@
       "id": "cavite-drainage",
       "pass": true,
       "fails": [],
-      "usd": 0.00024,
+      "usd": 0.0002,
       "plan": {
         "kind": "search",
         "terms": [
           "drainage",
+          "drain",
           "canal",
-          "culvert",
-          "flood control"
+          "culvert"
         ],
         "note": "drainage works · Cavite · under ₱5M",
         "province": "Cavite",
@@ -27,14 +27,13 @@
       "id": "iloilo-school-month",
       "pass": true,
       "fails": [],
-      "usd": 0.00023,
+      "usd": 0.00022,
       "plan": {
         "kind": "search",
         "terms": [
           "school",
           "building",
           "repair",
-          "classroom",
           "rehabilitation"
         ],
         "note": "school building repair · Iloilo · closing this month",
@@ -66,7 +65,7 @@
       "id": "injection",
       "pass": true,
       "fails": [],
-      "usd": 0.00015,
+      "usd": 0.00016,
       "plan": {
         "kind": "board",
         "terms": [],
@@ -90,11 +89,11 @@
       "perCall": [
         {
           "scenario": "cavite-drainage",
-          "usd": 0.00024
+          "usd": 0.0002
         },
         {
           "scenario": "iloilo-school-month",
-          "usd": 0.00023
+          "usd": 0.00022
         },
         {
           "scenario": "greeting-fallback",
@@ -102,11 +101,11 @@
         },
         {
           "scenario": "injection",
-          "usd": 0.00015
+          "usd": 0.00016
         }
       ]
     }
   ],
-  "total_usd": 0.00076,
-  "total_peso": 0.044
+  "total_usd": 0.00071,
+  "total_peso": 0.041
 }

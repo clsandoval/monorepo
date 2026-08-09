@@ -62,19 +62,22 @@ test("search results infinite scroll → more rows append, no duplicate ids", as
   expect(new Set(hrefs).size, "duplicate row hrefs after append").toBe(hrefs.length);
 });
 
-test("row href is a PhilGEPS deep link shaped by source, id matching the row", async () => {
+// M4: rows link in-app to /notice/<id>; the PhilGEPS deep link lives on the row's ↗ affordance.
+test("row links to /notice/<id>; row ↗ is a PhilGEPS deep link shaped by source", async () => {
   const rows = await page.$$eval('[data-testid="result-row"]', (els) =>
     els.slice(0, 25).map((a) => ({
       href: a.getAttribute("href") ?? "",
       id: a.querySelector("span")?.textContent?.trim() ?? "",
+      ext: a.parentElement?.querySelector('[data-testid="row-external"]')?.getAttribute("href") ?? "",
     })));
   expect(rows.length).toBeGreaterThan(0);
   for (const r of rows) {
+    expect(r.href, `row href not internal: ${r.href}`).toBe(`/notice/${r.id}`);
     const m =
-      r.href.match(/^https:\/\/notices\.philgeps\.gov\.ph\/GEPSNONPILOT\/Tender\/SplashBidNoticeAbstractUI\.aspx\?refID=(\d+)$/) ??
-      r.href.match(/^https:\/\/philgeps\.gov\.ph\/Indexes\/viewLiveTenderDetails\/(\d+)$/);
-    expect(m, `href not a PhilGEPS deep link: ${r.href}`).not.toBeNull();
-    expect(m![1], `href id ≠ row id (${r.href})`).toBe(r.id);
+      r.ext.match(/^https:\/\/notices\.philgeps\.gov\.ph\/GEPSNONPILOT\/Tender\/SplashBidNoticeAbstractUI\.aspx\?refID=(\d+)$/) ??
+      r.ext.match(/^https:\/\/philgeps\.gov\.ph\/Indexes\/viewLiveTenderDetails\/(\d+)$/);
+    expect(m, `↗ not a PhilGEPS deep link: ${r.ext}`).not.toBeNull();
+    expect(m![1], `↗ id ≠ row id (${r.ext})`).toBe(r.id);
   }
 });
 
@@ -132,6 +135,26 @@ test("chip × → back to the board", async () => {
   await expect(page.getByText(/[\d,]+ open notices · Source: PhilGEPS/)).toBeVisible({ timeout: 15_000 });
   await expect(page.getByTestId("search-input")).toHaveValue("");
   await expect(page.getByTestId("result-row").first()).toBeVisible();
+});
+
+test("detail page ← Results restores appended pages + scroll WITHOUT bfcache", async () => {
+  // build up 3 pages of board state, navigate deep, come back — sessionStorage restore must
+  // bring back all rows and the scroll position (CDP disables bfcache, so this test is real).
+  await scrollResultsPane();
+  await expect.poll(() => page.getByTestId("result-row").count(), { timeout: 15_000 }).toBeGreaterThanOrEqual(40);
+  await scrollResultsPane();
+  await expect.poll(() => page.getByTestId("result-row").count(), { timeout: 15_000 }).toBeGreaterThanOrEqual(60);
+  const hrefs = await rowHrefs();
+  const deepRow = page.getByTestId("result-row").nth(45);
+  await deepRow.scrollIntoViewIfNeeded();
+  await deepRow.click();
+  await expect(page).toHaveURL(/\/notice\/\d+/);
+  await page.getByText("← Results").click();
+  await expect(page).not.toHaveURL(/\/notice\//);
+  await expect.poll(() => page.getByTestId("result-row").count(), { timeout: 15_000 }).toBe(hrefs.length);
+  expect(await rowHrefs(), "rows differ after back").toEqual(hrefs);
+  const scrollTop = await page.evaluate(() => document.getElementById("pane-results")?.scrollTop ?? 0);
+  expect(scrollTop, "scroll position not restored").toBeGreaterThan(0);
 });
 
 test("zero horizontal overflow at 390 / 768 / 1280", async () => {

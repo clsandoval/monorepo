@@ -47,3 +47,6 @@ qa/shots/
 rfp-bundle/
 qa/video/
 qa/eval-results.json
+
+# M4 enrich cache (runtime, RFP_ENRICH_DIR)
+/.enrich

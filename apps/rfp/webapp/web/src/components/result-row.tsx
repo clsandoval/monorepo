@@ -1,4 +1,7 @@
 // One result row — dense grid on md+, stacked card on mobile. Grayscale only.
+// M4: the row itself links to the in-app detail page; a separate small ↗ keeps the
+// PhilGEPS deep link (siblings, not nested — <a> inside <a> is invalid).
+import { ExternalLink } from "lucide-react";
 import type { ResultRow } from "@/lib/search-types";
 
 // Deep-link to the real PhilGEPS notice (the two systems have different detail pages).
@@ -35,22 +38,29 @@ function closesIn(r: ResultRow): { label: string; urgent: boolean } {
 export function ResultRowItem({ row }: { row: ResultRow }) {
   const c = closesIn(row);
   return (
-    <a href={noticeUrl(row)} target="_blank" rel="noopener noreferrer" data-testid="result-row"
-      aria-label={`Open notice ${row.id} on PhilGEPS: ${row.title}`}
-      className="group block border-b border-border px-3 py-3 transition-colors hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring md:grid md:grid-cols-[5.5rem_minmax(0,1fr)_7rem_5.5rem] md:items-center md:gap-4 md:px-4">
-      <span className="font-mono text-xs text-muted-foreground tabular-nums">{row.id}</span>
-      <span className="mt-1 block min-w-0 md:mt-0">
-        <span className="line-clamp-2 text-sm font-medium leading-snug group-hover:underline">{row.title}</span>
-        <span className="mt-0.5 line-clamp-1 block text-xs text-muted-foreground">{row.agency}</span>
-      </span>
-      {/* md:contents lifts ABC + chip into their own grid cells on desktop */}
-      <span className="mt-2 flex items-center justify-between gap-3 md:contents">
-        <span className="font-mono text-sm font-bold tabular-nums md:text-right">{peso(row.abc)}</span>
-        <span className={`inline-flex justify-center whitespace-nowrap rounded px-2 py-0.5 font-mono text-xs tabular-nums md:justify-self-end ${
-          c.urgent ? "border border-primary/50 bg-primary/10 font-medium text-primary" : "border border-border text-muted-foreground"}`}>
-          {c.label}
+    <div className="relative border-b border-border transition-colors hover:bg-muted/50">
+      <a href={`/notice/${row.id}`} data-testid="result-row"
+        aria-label={`View notice ${row.id}: ${row.title}`}
+        className="group block px-3 py-3 pr-12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring md:grid md:grid-cols-[5.5rem_minmax(0,1fr)_7rem_5.5rem] md:items-center md:gap-4 md:px-4 md:pr-14">
+        <span className="font-mono text-xs text-muted-foreground tabular-nums">{row.id}</span>
+        <span className="mt-1 block min-w-0 md:mt-0">
+          <span className="line-clamp-2 text-sm font-medium leading-snug group-hover:underline">{row.title}</span>
+          <span className="mt-0.5 line-clamp-1 block text-xs text-muted-foreground">{row.agency}</span>
         </span>
-      </span>
-    </a>
+        {/* md:contents lifts ABC + chip into their own grid cells on desktop */}
+        <span className="mt-2 flex items-center justify-between gap-3 md:contents">
+          <span className="font-mono text-sm font-bold tabular-nums md:text-right">{peso(row.abc)}</span>
+          <span className={`inline-flex justify-center whitespace-nowrap rounded px-2 py-0.5 font-mono text-xs tabular-nums md:justify-self-end ${
+            c.urgent ? "border border-primary/50 bg-primary/10 font-medium text-primary" : "border border-border text-muted-foreground"}`}>
+            {c.label}
+          </span>
+        </span>
+      </a>
+      <a href={noticeUrl(row)} target="_blank" rel="noopener noreferrer" data-testid="row-external"
+        aria-label={`Open notice ${row.id} on PhilGEPS`}
+        className="absolute right-0 top-0 grid size-11 place-items-center text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring md:top-1/2 md:-translate-y-1/2">
+        <ExternalLink className="size-4" />
+      </a>
+    </div>
   );
 }

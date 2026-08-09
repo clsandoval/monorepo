@@ -8,7 +8,7 @@ RUN npm run build
 
 # ---- runner: node22 + python3 (for the rfp CLI) ----
 FROM node:22-slim AS runner
-RUN apt-get update && apt-get install -y --no-install-recommends python3 python3-yaml ca-certificates \
+RUN apt-get update && apt-get install -y --no-install-recommends python3 python3-yaml ca-certificates poppler-utils tesseract-ocr \
     && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 ENV NODE_ENV=production \
