@@ -50,6 +50,14 @@ const scenarios: Scn[] = [
          ORDER BY c.closing_at ASC`, 3);
       return rows.length >= 1 && rows.length <= 3 ? [] : [`today-3 returned ${rows.length} rows (want 1..3)`];
     } },
+  { id: "multi-turn-after-greeting", profile: null,
+    // regression: a conversational greeting then a search request MUST trigger tools, not re-greet.
+    turns: ["hi, what can you do?", "find me drainage work in bulacan"],
+    check: async (c) => {
+      if (c.toolCount === 0) return ["follow-up search called 0 tools (re-greet bug)"];
+      if (!c.ids.length) return ["follow-up search cited no ids"];
+      return [];
+    } },
   { id: "refinement-province", profile: CAVITE_PROFILE,
     turns: ["what drainage jobs fit me?", "only Cavite ones please"],
     check: async (c) => {
