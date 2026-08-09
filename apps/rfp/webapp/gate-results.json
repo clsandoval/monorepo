@@ -227,7 +227,49 @@
         }
       ],
       "notes": [
-        "P2-P6 pending: reliability(abort/reconnect/timeout/errors), scroll-anchor, cross-device, a11y, node:sqlite sessions"
+        "P4-P6 pending: cross-device, a11y, node:sqlite sessions"
+      ]
+    },
+    "P2_reliability": {
+      "status": "green",
+      "checks": [
+        {
+          "name": "Stop aborts in-flight turn (AbortController->agent.abort via req.signal)",
+          "pass": true
+        },
+        {
+          "name": "per-turn timeout (120s) aborts gracefully",
+          "pass": true
+        },
+        {
+          "name": "clean inline errors 402/429/stream-drop",
+          "pass": true
+        },
+        {
+          "name": "partial reply kept + marked (stopped); no empty persisted turns",
+          "pass": true
+        },
+        {
+          "name": "double-submit guarded (busy)",
+          "pass": true
+        }
+      ]
+    },
+    "P3_scroll_responsiveness": {
+      "status": "green",
+      "checks": [
+        {
+          "name": "auto-stick only when at bottom",
+          "pass": true
+        },
+        {
+          "name": "jump-to-latest affordance when scrolled up",
+          "pass": true
+        },
+        {
+          "name": "tool-activity 'Searching notices\u2026' indicator",
+          "pass": true
+        }
       ]
     }
   }

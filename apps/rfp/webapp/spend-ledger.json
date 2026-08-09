@@ -1,6 +1,6 @@
 {
   "cap_usd": 30.0,
-  "spent_usd": 0.1,
+  "spent_usd": 0.13,
   "entries": [
     {
       "wave": "W1",
@@ -57,6 +57,13 @@
       "usd": 0.03,
       "ts": "2026-08-09T16:30:00Z",
       "note": "present-tool repros + live video record (multi-turn)"
+    },
+    {
+      "wave": "M2-P2/P3",
+      "kind": "luna-eval",
+      "usd": 0.03,
+      "ts": "2026-08-09T17:00:00Z",
+      "note": "eval 8/8 regression + live video record"
     }
   ],
   "note": "Every loop cycle appends {wave, kind, usd, ts}. Stop at cap. Main driving-session tokens tracked separately by the harness. All build work so far done inline \u2014 zero subagent spend."
