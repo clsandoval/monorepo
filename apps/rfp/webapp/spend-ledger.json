@@ -1,6 +1,9 @@
 {
   "cap_usd": 30.0,
-  "spent_usd": 0.0,
-  "entries": [],
-  "note": "Every loop cycle appends {wave, kind:'claude-subagents'|'luna-eval', usd, ts}. Stop at cap."
+  "spent_usd": 0.02,
+  "entries": [
+    { "wave": "W1", "kind": "claude-subagents", "usd": 0.0, "ts": "2026-08-09T13:40:00Z", "note": "scaffold done inline, no subagents" },
+    { "wave": "W2", "kind": "luna-eval", "usd": 0.02, "ts": "2026-08-09T13:55:00Z", "note": "loop port smoke: 1 real turn ₱0.032 + a couple retries" }
+  ],
+  "note": "Every loop cycle appends {wave, kind:'claude-subagents'|'luna-eval', usd, ts}. Stop at cap. Main driving-session tokens are tracked separately by the harness, not counted here."
 }

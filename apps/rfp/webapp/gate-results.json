@@ -1,17 +1,18 @@
 {
-  "updated": "2026-08-09T13:40:00Z",
+  "updated": "2026-08-09T13:55:00Z",
   "all_green": false,
   "deployed": false,
   "prod_url": null,
-  "waves_done": ["W1"],
+  "waves_done": ["W1", "W2"],
   "gates": {
     "G1_harness_eval": { "status": "pending", "checks": [] },
     "G2_backend_api": {
       "status": "in_progress",
       "checks": [
         { "name": "tsc --noEmit clean", "pass": true, "detail": "exit 0" },
-        { "name": "next build passes", "pass": true, "detail": "6 routes compiled" },
-        { "name": "eslint clean", "pass": null, "detail": "W2" },
+        { "name": "next build passes", "pass": true, "detail": "5 routes compiled" },
+        { "name": "eslint clean", "pass": true, "detail": "exit 0" },
+        { "name": "agent loop ported + streams", "pass": true, "detail": "smoke: facets>search>show, real id, P0.032/turn, 80% cache" },
         { "name": "authorizer rejects write/ATTACH", "pass": null, "detail": "readSql guard written; unit test in W3" },
         { "name": "per-session token budget", "pass": null, "detail": "withinBudget written; test in W3" },
         { "name": "per-IP rate limit", "pass": null, "detail": "allow() written; test in W3" },

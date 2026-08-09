@@ -1,24 +1,43 @@
 import { NextResponse } from "next/server";
 import { getOwner } from "@/lib/owner";
 import { allow } from "@/lib/ratelimit";
-import { getMessages, addMessage, withinBudget } from "@/lib/sessions";
+import { getMessages, addMessage, addTokens, withinBudget } from "@/lib/sessions";
+import { runTurn, type ChatEvent } from "@/lib/agent";
 
 export const runtime = "nodejs";
+export const maxDuration = 120;
 
-// W1 stub: validates session/owner/rate-limit/budget and echoes. W2 replaces the body with the
-// real pi + Luna Agent loop streamed as SSE.
+// Streams the pi + Luna Agent loop as SSE: {type:"delta"|"tool"|"done"} lines.
 export async function POST(req: Request) {
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "local";
   if (!allow(ip)) return NextResponse.json({ error: "rate limited" }, { status: 429 });
 
   const owner = await getOwner();
-  const { sessionId, message } = (await req.json()) as { sessionId?: string; message?: string };
+  const { sessionId, message, profile } = (await req.json()) as { sessionId?: string; message?: string; profile?: string };
   if (!sessionId || !message) return NextResponse.json({ error: "sessionId and message required" }, { status: 400 });
-  if (getMessages(sessionId, owner) === null) return NextResponse.json({ error: "not found" }, { status: 404 });
+  const history = getMessages(sessionId, owner) as { role: string; content: string }[] | null;
+  if (history === null) return NextResponse.json({ error: "not found" }, { status: 404 });
   if (!withinBudget(sessionId)) return NextResponse.json({ error: "session token budget reached" }, { status: 402 });
 
   addMessage(sessionId, "user", message);
-  const reply = "[stub] loop wired in W2";
-  addMessage(sessionId, "assistant", reply);
-  return NextResponse.json({ reply });
+
+  const encoder = new TextEncoder();
+  const stream = new ReadableStream({
+    async start(controller) {
+      const send = (e: ChatEvent) => controller.enqueue(encoder.encode(`data: ${JSON.stringify(e)}\n\n`));
+      try {
+        const { reply, usage } = await runTurn(history, profile ?? null, message, sessionId, send);
+        addMessage(sessionId, "assistant", reply);
+        addTokens(sessionId, usage.input + usage.cached + usage.output);
+      } catch (err) {
+        send({ type: "done", reply: `error: ${(err as Error).message}`, usage: { input: 0, cached: 0, output: 0, usd: 0 } });
+      } finally {
+        controller.close();
+      }
+    },
+  });
+
+  return new Response(stream, {
+    headers: { "Content-Type": "text/event-stream", "Cache-Control": "no-cache, no-transform", Connection: "keep-alive" },
+  });
 }
