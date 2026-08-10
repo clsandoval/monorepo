@@ -106,13 +106,18 @@ export async function getEntity(agency: string): Promise<EntityDossier | null> {
   return d?.agency ? d : null;
 }
 
-/** Ego network around a supplier (norm) or entity (agency); null when empty or unavailable. */
-export async function getEgo(opts: { norm?: string; agency?: string }): Promise<EgoData | null> {
+/** Ego network around a supplier (norm) or entity (agency).
+ *  "empty" = the data legitimately has no network (hide the section);
+ *  "error" = the query failed/timed out (show the section WITH a retry note —
+ *  a silently vanishing graph reads as a broken product, never do that). */
+export type EgoResult = EgoData | "empty" | "error";
+export async function getEgo(opts: { norm?: string; agency?: string }): Promise<EgoResult> {
   const args = opts.norm != null ? ["ego", "--norm", opts.norm]
     : opts.agency != null ? ["ego", "--agency", opts.agency] : null;
-  if (!args) return null;
+  if (!args) return "empty";
   const d = await runMap<EgoData>(args);
-  return d?.center && d.nodes?.length ? d : null; // {} / missing → null, callers hide the section
+  if (d == null) return "error";
+  return d.center && d.nodes?.length ? d : "empty";
 }
 
 /** Suppliers with ≥minAwards awards, by total value — internal linking/QA index. */

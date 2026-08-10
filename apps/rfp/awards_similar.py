@@ -34,7 +34,11 @@ def similar(classification, province=None, abc=None, db=DB):
     con = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
     rows = con.execute(
         "select winner, winner_province, title, contract_amount, abc, win_ratio, award_date,"
-        " area_of_delivery from awards where lower(trim(classification)) = ?"
+        # the explicit not-null term is REQUIRED: awards_class is a partial index and
+        # SQLite won't infer the predicate from the expression comparison alone --
+        # without it this is a 5M-row scan per notice-page view (~15s warm on prod)
+        " area_of_delivery from awards where classification is not null"
+        " and lower(trim(classification)) = ?"
         " and winner is not null and trim(winner) != '' and contract_amount is not null",
         (classification.strip().lower(),)).fetchall()
     con.close()

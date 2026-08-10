@@ -132,18 +132,24 @@ export default async function EntityPage({ params }: PageProps<"/entity/[slug]">
             </section>
           )}
 
-          {ego != null && (ego.nodes?.length ?? 0) >= 3 && (
+                    {(typeof ego === "object" && (ego.nodes?.length ?? 0) >= 3) || ego === "error" ? (
             <section aria-label="Network" id="network">
               <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Network</h2>
               <p className="mt-1 text-xs text-muted-foreground">award relationships recorded around this entity</p>
-              <div className="mt-2 overflow-hidden rounded-md border border-border bg-muted/20">
-                <EgoGraph data={ego} height={380} />
-                <p className="border-t border-border px-4 py-2 font-mono text-xs text-muted-foreground">
-                  suppliers ○ · procuring entities □ · line weight = awarded value — <span className="sm:hidden">tap a node to open</span><span className="hidden sm:inline">hover to trace, click to open</span>
+              {typeof ego === "object" ? (
+                <div className="mt-2 overflow-hidden rounded-md border border-border bg-muted/20">
+                  <EgoGraph data={ego} height={380} />
+                  <p className="border-t border-border px-4 py-2 font-mono text-xs text-muted-foreground">
+                    suppliers ○ · procuring entities □ · line weight = awarded value — <span className="sm:hidden">tap a node to open</span><span className="hidden sm:inline">hover to trace, click to open</span>
+                  </p>
+                </div>
+              ) : (
+                <p className="mt-2 rounded-md border border-border bg-muted/20 px-4 py-6 text-sm text-muted-foreground" data-testid="ego-unavailable">
+                  the network map took too long to load — refresh the page to retry
                 </p>
-              </div>
+              )}
             </section>
-          )}
+          ) : null}
 
           {ent.contestability.signals.length > 0 && (
             <section aria-label="Market statistics">
