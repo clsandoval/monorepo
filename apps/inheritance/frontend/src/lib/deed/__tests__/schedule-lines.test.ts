@@ -319,4 +319,28 @@ describe('buildDeedSchedule — estate value and pass-through', () => {
     const schedule = buildDeedSchedule(makeInput(), makeOutput({ per_heir_shares: [share] }));
     expect(schedule.lines[0]!.heirName).toBe('Ana & Ben <Jr>');
   });
+
+  // Escheat: the engine buckets STATE into LegitimateChildGroup for the share
+  // math but labels it "beneficiary" in the narrative. The deed must not call
+  // the State a "Legitimate Child" (dogfound 2026-08-10, 12-escheat).
+  it('labels the escheat State beneficiary, not Legitimate Child', () => {
+    const state = makeShare({ heir_id: 'state', heir_name: 'STATE', legal_basis: ['Art. 1011'] });
+    const output = makeOutput({
+      per_heir_shares: [state],
+      narratives: [
+        { heir_id: 'state', heir_name: 'STATE', heir_category_label: 'beneficiary', text: '', legal_basis: ['Art. 1011'] },
+      ] as unknown as EngineOutput['narratives'],
+      scenario_code: 'I15',
+    });
+    expect(buildDeedSchedule(makeInput(), output).lines[0]!.categoryLabel).toBe('Beneficiary');
+  });
+
+  it('leaves an ordinary legitimate child labelled from the category map', () => {
+    const output = makeOutput({
+      narratives: [
+        { heir_id: 'h1', heir_name: 'Heir One', heir_category_label: 'legitimate child', text: '', legal_basis: ['Art. 979'] },
+      ] as unknown as EngineOutput['narratives'],
+    });
+    expect(buildDeedSchedule(makeInput(), output).lines[0]!.categoryLabel).toBe('Legitimate Child');
+  });
 });
