@@ -21,6 +21,12 @@ reddest thing, report to Telegram. State as of 2026-08-10T14:10+08:00:
   a router-level defaultErrorComponent (TanStack's per-route boundary was showing its bare default
   instead of the app ErrorBoundary). Both verified; unit test in results/__tests__/normalize.test.ts.
   GATE GAP worth closing later: journey should render a degraded/legacy output, not just the golden one.
+- **DOGFOOD FIXES** (commit dc1ac04, deployed prod bundle index-vRsOOkbr.js): drove all 20 engine
+  scenario fixtures through the UI. Fixed (a) family-tree node showed gross total not net_from_estate
+  (collation cases contradicted the table); (b) escheat deed clause labeled the State "Legitimate
+  Child" instead of "Beneficiary". Also de-flaked a ReviewStep scenario-badge test that raced WASM
+  compute under full-suite load. Deferred (presentation, in BUILD-SPEC): tree omits spouse/ascendant
+  nodes, clips wide families, duplicate parent pie color — for the identity pass.
 - **OPEN — needs a credential I don't have:** migration 017 is applied LOCALLY but NOT on prod.
   The prod anonymous `get_shared_case` RPC is still live (verified HTTP 200 to anon on 2026-08-10).
   Applying it needs a Supabase access token / prod DB connection string (run
