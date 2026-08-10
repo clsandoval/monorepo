@@ -133,13 +133,17 @@ describe('wizard-step4 > HeirReferenceForm', () => {
     it('selecting a person populates name as read-only', async () => {
       const user = userEvent.setup();
       render(<HeirReferenceFormWrapper />);
-      // Select Juan Cruz from person picker
-      const select = screen.getByRole('combobox');
-      await user.selectOptions(select, 'lc1');
+      // The picker is a Radix Select (trigger with role="combobox"), not a
+      // native <select>, so open it and click the option instead of
+      // selectOptions(). Pick Maria Santos (the default heir is already Juan
+      // Cruz) so the assertion proves selection actually repopulates the name.
+      await user.click(screen.getByRole('combobox'));
+      await user.click(await screen.findByRole('option', { name: /Maria Santos/ }));
       await waitFor(() => {
         const nameInput = screen.getByLabelText(/Heir Name/i);
-        expect(nameInput).toHaveValue('Juan Cruz');
+        expect(nameInput).toHaveValue('Maria Santos');
       });
+      expect(screen.getByLabelText(/Heir Name/i)).toHaveAttribute('readonly');
     });
 
     it('name input is editable when person_id is null (stranger)', () => {

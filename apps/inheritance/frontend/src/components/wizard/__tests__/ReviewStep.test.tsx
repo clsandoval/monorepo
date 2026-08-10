@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useForm, FormProvider } from 'react-hook-form';
 import { describe, it, expect, vi } from 'vitest';
@@ -163,8 +163,9 @@ describe('wizard-step6 > ReviewStep', () => {
           }}
         />
       );
-      // Should show estate amount (₱5,000,000)
-      expect(screen.getByText(/Estate/i)).toBeInTheDocument();
+      // Should show estate amount (₱5,000,000) in the "Gross Estate" KPI card
+      const estateCard = screen.getByText(/Gross Estate/i).parentElement as HTMLElement;
+      expect(within(estateCard).getByText('₱5,000,000')).toBeInTheDocument();
     });
 
     it('renders succession type as Intestate when hasWill=false', () => {
@@ -218,7 +219,9 @@ describe('wizard-step6 > ReviewStep', () => {
           }}
         />
       );
-      expect(screen.getByText(/3 persons/i)).toBeInTheDocument();
+      // Person count renders in the "Heirs" KPI card
+      const heirsCard = screen.getByText('Heirs').parentElement as HTMLElement;
+      expect(within(heirsCard).getByText('3')).toBeInTheDocument();
     });
 
     it('renders will disposition counts when hasWill=true', () => {
@@ -243,7 +246,10 @@ describe('wizard-step6 > ReviewStep', () => {
           }}
         />
       );
-      expect(screen.getByText(/1 institution/i)).toBeInTheDocument();
+      // Disposition count (institutions + legacies + devises = 1) renders in
+      // the "Will Dispositions" KPI card
+      const willCard = screen.getByText(/Will Dispositions/i).parentElement as HTMLElement;
+      expect(within(willCard).getByText('1')).toBeInTheDocument();
     });
 
     it('hides will summary section when hasWill=false', () => {
@@ -263,7 +269,9 @@ describe('wizard-step6 > ReviewStep', () => {
           }}
         />
       );
-      expect(screen.getByText(/2 donation/i)).toBeInTheDocument();
+      // Donation count renders in the "Donations" KPI card
+      const donationsCard = screen.getByText('Donations').parentElement as HTMLElement;
+      expect(within(donationsCard).getByText('2')).toBeInTheDocument();
     });
   });
 
