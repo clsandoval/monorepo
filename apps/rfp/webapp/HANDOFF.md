@@ -9,12 +9,13 @@ through `dd6fa2d26`. Live app: https://rfp-finder-ph.fly.dev (M4.2 build — M5 
 
 | Wave | State |
 |---|---|
-| W-A awards backfill | **DONE + committed.** `awards.py backfill` (resumable, newest-first, ~36 rows/min, polite). Wired into daily.sh (900s/night). |
-| W-B/C supplier + entity pages | **Built, verifier reds FIXED, committed. NOT yet: full e2e re-run post-fix, deploy, live P0.** |
-| W-S spikes (abstracts access, PCAB AMO join) | not started |
+| W-A awards backfill | **DONE.** Detached overnight run self-stops ~09:24 UTC; nightly 900s step in daily.sh. |
+| W-B/C supplier + entity pages | **SHIPPED LIVE + P0 passed** (2 real bugs caught on prod: pre-migration bundle db, ISO dates). |
+| BetterGov import | **SHIPPED LIVE.** 5.08M awards (2013-2025) in awards.db; share bars/12-mo spend/buyer names real. See RESUME.md. |
+| W-S spikes (abstracts access, PCAB AMO join) | not started — NEXT |
 | W-D Telegram alerts | not started |
-| W-E nightly cron (daily.sh + bundle + deploy) | not started |
-| W-F knowledge-graph UI | specced (BUILD-SPEC), after B/C green |
+| W-E nightly cron | **DONE.** daily.sh step 7 bundle_deploy + crontab 0 19 UTC + TG ping. First full run tonight — check nightly.log. |
+| W-F knowledge-graph UI | specced (BUILD-SPEC), unblocked |
 
 ## RUNNING PROCESS (do not orphan-kill — see e2e-loop skill hard rules)
 Detached award backfill: `python3 awards.py backfill --budget-seconds 21600`, started
