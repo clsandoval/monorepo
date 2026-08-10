@@ -71,7 +71,7 @@ export function ActionsBar({ input, output, onEditInput, }: ActionsBarProps) {
   return (
     <div data-testid="actions-bar">
       <Separator className="mb-4" />
-      <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-3">
         <Button
           type="button"
           variant="outline"

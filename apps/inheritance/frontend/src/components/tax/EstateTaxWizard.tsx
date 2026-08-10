@@ -106,20 +106,20 @@ export function EstateTaxWizard({
   return (
     <div data-testid="estate-tax-wizard" className="space-y-0">
       {/* Header */}
-      <div className="flex items-center justify-between px-6 py-4 border-b bg-white">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between px-6 py-4 border-b bg-white">
         <Button
           variant="ghost"
           size="sm"
           onClick={onBack}
           data-testid="back-to-inheritance"
-          className="gap-2 text-muted-foreground hover:text-foreground"
+          className="gap-2 text-muted-foreground hover:text-foreground self-start sm:self-auto"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Inheritance Results
         </Button>
 
-        <div className="text-center">
-          <h1 className="text-base font-semibold text-[#1e3a5f]">
+        <div className="text-center min-w-0">
+          <h1 className="text-base font-semibold text-[#1e3a5f] truncate">
             Estate Tax — Estate of {decedentName}
           </h1>
           <p className="text-xs text-muted-foreground">BIR Form 1801</p>
@@ -139,8 +139,17 @@ export function EstateTaxWizard({
         </div>
       </div>
 
+      {/* Compact step indicator below lg — the same pattern the succession
+          wizard uses at narrow widths: the full 8-tab strip cannot fit beside
+          the sidebar and clipped tabs read as nonexistent steps. */}
+      <div className="lg:hidden border-b bg-white px-6 py-3 flex items-center justify-between text-sm">
+        <span className="font-medium text-[#1e3a5f]">
+          Step {activeTab + 1} of {TAB_COUNT}: {TAB_FULL_NAMES[activeTab]}
+        </span>
+      </div>
+
       {/* Tab strip */}
-      <div className="border-b bg-white px-4 overflow-x-auto">
+      <div className="hidden lg:block border-b bg-white px-4 overflow-x-auto">
         <div className="flex gap-0.5 py-3 min-w-max" role="tablist">
           {TAB_NAMES.map((name, i) => {
             const valid = isTabValid(i as TabIndex, state);
@@ -175,9 +184,6 @@ export function EstateTaxWizard({
               </button>
             );
           })}
-          <span className="ml-auto flex items-center text-xs text-muted-foreground px-2 shrink-0">
-            Step {activeTab + 1} of {TAB_COUNT}
-          </span>
         </div>
       </div>
 

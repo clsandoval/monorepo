@@ -229,7 +229,7 @@ export function WizardContainer({ onSubmit, onChange, defaultValues }: WizardCon
     <FormProvider {...methods}>
       <div data-testid="wizard-container" className="max-w-2xl mx-auto">
         {/* Mobile progress bar */}
-        <div className="sm:hidden mb-6">
+        <div className="lg:hidden mb-6">
           <div className="flex justify-between text-xs text-muted-foreground mb-1">
             <span>Step {currentStepIndex + 1} of {visibleSteps.length}</span>
             <span>{currentStep?.label}</span>
@@ -243,7 +243,7 @@ export function WizardContainer({ onSubmit, onChange, defaultValues }: WizardCon
         </div>
 
         {/* Step indicators */}
-        <nav className="hidden sm:flex items-center gap-1 mb-8 overflow-x-auto pb-2">
+        <nav className="hidden lg:flex items-center gap-1 mb-8 overflow-x-auto pb-2">
           {visibleSteps.map((step, idx) => {
             const isCompleted = idx < currentStepIndex;
             const isCurrent = idx === currentStepIndex;
