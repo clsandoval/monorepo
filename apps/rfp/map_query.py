@@ -275,6 +275,74 @@ def entity(agency):
         contact=contact)
 
 
+# ---------------------------------------------------------------- ego graph
+# W-F contract (frozen): nodes are suppliers (circles) and entities (squares) on a
+# bipartite award graph. id = "s:<winner_norm>" | "e:<buyer_org>"; value on a node =
+# total ₱ across its VISIBLE edges, so sizes and edge weights always reconcile on
+# screen. Caps keep the ego readable: 12 first-degree neighbours, 6 second-degree
+# each, ≤160 nodes. Only buyer_org-recorded awards participate (evidence-only).
+EGO_FIRST, EGO_SECOND, EGO_MAX = 12, 6, 160
+
+
+def _pairs(aw, where, args, limit):
+    """Top (winner_norm, buyer_org, value, n, display) pairs for a filter."""
+    return aw.execute(
+        "select winner_norm, buyer_org, sum(coalesce(contract_amount,0)) v,"
+        " count(*) n, max(winner) w from awards"
+        f" where winner_norm is not null and buyer_org is not null and {where}"
+        " group by winner_norm, buyer_org order by v desc limit ?",
+        (*args, limit)).fetchall()
+
+
+def ego(norm=None, agency=None):
+    aw = ro(AWARDS_DB)
+    if not aw or not (norm or agency):
+        return {}
+    center = f"s:{norm}" if norm else f"e:{agency}"
+    nodes, links, seen = {}, [], set()
+
+    def add(kind, key, label, value, n):
+        nid = f"{'s' if kind == 'supplier' else 'e'}:{key}"
+        d = nodes.setdefault(nid, dict(id=nid, kind=kind, label=label, slug=key,
+                                       value=0.0, n=0))
+        d["value"] += value
+        d["n"] += n
+        if value > 0 and label and len(label) > len(d["label"] or ""):
+            d["label"] = label
+
+    def link(sn, bo, v, n, w):
+        key = (sn, bo)
+        if key in seen:
+            return
+        seen.add(key)
+        add("supplier", sn, w, v, n)
+        add("entity", bo, bo, v, n)
+        links.append(dict(a=f"s:{sn}", b=f"e:{bo}", value=round(v, 2), n=n))
+
+    first = (_pairs(aw, "winner_norm = ?", (norm,), EGO_FIRST) if norm
+             else _pairs(aw, "buyer_org = ?", (agency,), EGO_FIRST))
+    for r in first:
+        link(r["winner_norm"], r["buyer_org"], r["v"], r["n"], r["w"])
+    for r in list(first):
+        if len(nodes) >= EGO_MAX:
+            break
+        # hop out from the OTHER side of each first-degree edge
+        second = (_pairs(aw, "buyer_org = ? and winner_norm != ?",
+                         (r["buyer_org"], norm), EGO_SECOND) if norm
+                  else _pairs(aw, "winner_norm = ? and buyer_org != ?",
+                              (r["winner_norm"], agency), EGO_SECOND))
+        for s in second:
+            if len(nodes) >= EGO_MAX:
+                break
+            link(s["winner_norm"], s["buyer_org"], s["v"], s["n"], s["w"])
+
+    for d in nodes.values():
+        d["value"] = round(d["value"], 2)
+    if center not in nodes:
+        return {}
+    return dict(center=center, nodes=list(nodes.values()), links=links)
+
+
 # ---------------------------------------------------------------- suppliers index
 def suppliers(min_awards, limit=500):
     aw = ro(AWARDS_DB)
@@ -300,9 +368,14 @@ def main():
     sp = sub.add_parser("suppliers")
     sp.add_argument("--min-awards", type=int, default=2)
     sp.add_argument("--limit", type=int, default=500)
+    eg = sub.add_parser("ego")
+    g = eg.add_mutually_exclusive_group(required=True)
+    g.add_argument("--norm")
+    g.add_argument("--agency")
     a = p.parse_args()
     out = (supplier(a.norm) if a.cmd == "supplier"
            else entity(a.agency) if a.cmd == "entity"
+           else ego(a.norm, a.agency) if a.cmd == "ego"
            else suppliers(a.min_awards, a.limit))
     json.dump(out, sys.stdout)
     print()
