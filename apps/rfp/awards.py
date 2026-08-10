@@ -4,6 +4,8 @@
     python3 awards.py listing            # rolling-100 listing: refID+orgID (needed for AreaOfDelivery)
     python3 awards.py enumerate N        # random sample of N awardIDs across the id space
     python3 awards.py blocks K M         # K contiguous blocks of M ids (for repeat-winner)
+    python3 awards.py backfill [--budget-seconds N] [--batch B]   # resumable newest-first sweep
+    python3 awards.py coverage           # W-A gate artifact -> awards-coverage.json
     python3 awards.py metrics
     python3 awards.py test
 
@@ -13,7 +15,7 @@ Why two ingest modes (see NOTES-awards.md):
   delivery province) is ONLY available for awards harvested from the listing. Outsider-win-rate
   therefore runs on the listing subset; win-ratio and repeat-winner run on the enumerated sample.
 """
-import json, os, random, re, sqlite3, sys, time, urllib.parse, urllib.request
+import json, os, random, re, sqlite3, sys, time, urllib.error, urllib.parse, urllib.request
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
@@ -49,6 +51,7 @@ create table if not exists awards (
 );
 create index if not exists awards_winner on awards(winner);
 create index if not exists awards_created_by on awards(created_by);
+create table if not exists meta (k text primary key, v text);
 """
 
 # 82 provinces + the NCR label PhilGEPS actually uses. Needed because winner_address is free text
@@ -83,15 +86,55 @@ def province(text):
     return max(hits)[2] if hits else None
 
 
+HTTP_ERRS = Counter()   # status code -> count; backfill reads this to back off on 403/5xx
+
+
 def call(method, **params):
     url = SVC + method + "?" + urllib.parse.urlencode(params)
     for n in range(3):
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=H), timeout=45) as r:
                 return json.load(r)["d"].get("Value") or []
+        except urllib.error.HTTPError as e:
+            HTTP_ERRS[e.code] += 1
+            time.sleep(2 + 3 * n)
         except Exception:
             time.sleep(2 + 3 * n)
     return None
+
+
+# ---------------------------------------------------------------- winner normalization
+# One canonical key per supplier. "DANILYN'S ENTERPRISES, INC.", "Danilyns Enterprises Inc" and
+# "DANILYN'S ENTERPRISES INCORPORATED" are the same firm; profile pages and concentration metrics
+# are wrong if they count as three. Apostrophes/periods are deleted (DANILYN'S -> DANILYNS), other
+# punctuation becomes a space, whitespace collapses, and corporate-suffix tokens are stripped from
+# the END only -- "CO" inside a name survives, a trailing "CO., LTD." does not.
+_SUFFIX = {"INC", "INCORPORATED", "CORP", "CORPORATION", "CO", "COMPANY", "LTD", "LIMITED", "OPC"}
+
+
+def norm_winner(name):
+    if not name:
+        return None
+    s = re.sub(r"[^A-Z0-9 ]+", " ", re.sub(r"['’.]", "", name.upper()))
+    toks = s.split()
+    while len(toks) > 1 and toks[-1] in _SUFFIX:
+        toks.pop()
+    return " ".join(toks) or None
+
+
+def migrate(db):
+    """Idempotent: adds winner_norm + its index, backfills it for rows that lack it."""
+    cols = {r[1] for r in db.execute("pragma table_info(awards)")}
+    if "winner_norm" not in cols:
+        db.execute("alter table awards add column winner_norm text")
+    db.execute("create index if not exists awards_winner_norm on awards(winner_norm)")
+    rows = db.execute("select award_id, winner from awards"
+                      " where winner is not null and winner_norm is null").fetchall()
+    if rows:
+        db.executemany("update awards set winner_norm=? where award_id=?",
+                       [(norm_winner(w), i) for i, w in rows])
+        print(f"winner_norm: backfilled {len(rows)} rows")
+    db.commit()
 
 
 def one_award(award_id, ref_id=None, org_id=None):
@@ -126,7 +169,8 @@ def one_award(award_id, ref_id=None, org_id=None):
         title=a.get("ContractTitle") or n.get("Title"),
         description=(li[0].get("Description") if li else None),
         created_by=a.get("CreatedBy"), approver=a.get("Approver"),
-        winner=s.get("OrgName"), winner_address=addr, winner_contact=s.get("ContactPerson"),
+        winner=s.get("OrgName"), winner_norm=norm_winner(s.get("OrgName")),
+        winner_address=addr, winner_contact=s.get("ContactPerson"),
         winner_province=province(addr),
         area_of_delivery=n.get("AreaOfDelivery"),
         procurement_mode=n.get("ProcurementMode"), classification=n.get("Classification"),
@@ -136,16 +180,17 @@ def one_award(award_id, ref_id=None, org_id=None):
     )
 
 
-def save(db, rows):
+def save(db, rows, ignore=False):
     rows = [r for r in rows if r]
     if not rows:
         return 0
     cols = list(rows[0])
-    db.executemany(
-        f"insert or replace into awards({','.join(cols)}) values ({','.join('?' * len(cols))})",
+    verb = "insert or ignore" if ignore else "insert or replace"
+    cur = db.executemany(
+        f"{verb} into awards({','.join(cols)}) values ({','.join('?' * len(cols))})",
         [[r[c] for c in cols] for r in rows])
     db.commit()
-    return len(rows)
+    return cur.rowcount if ignore else len(rows)
 
 
 # ---------------------------------------------------------------- listing (gives ref_id)
@@ -238,6 +283,181 @@ def run_enumerate(db, count):
     print(f"  saved {done}/{len(ids)}")
 
 
+# ---------------------------------------------------------------- backfill (M5 W-A)
+def meta_get(db, k, default=None):
+    r = db.execute("select v from meta where k=?", (k,)).fetchone()
+    return r[0] if r else default
+
+
+def meta_set(db, k, v):
+    db.execute("insert or replace into meta(k, v) values (?, ?)", (k, str(v)))
+    db.commit()
+
+
+def _bad_http():
+    return sum(n for c, n in HTTP_ERRS.items() if c == 403 or c >= 500)
+
+
+def probe_hi(db):
+    """Refresh the top of the awardID space -- awards keep growing (~50K/month).
+
+    Expand upward from the best known max until a probe level misses, then binary-search the
+    boundary. The frontier has stray gaps, so a 'miss' is three consecutive dead ids, not one.
+    Misses are cheap (HTTP 200 with an empty Value, no retry loop). Precision to ~48 ids is
+    plenty: the descending sweep pays one call per dead id and stores nothing.
+    """
+    base = db.execute("select max(award_id) from awards").fetchone()[0] or ID_HI
+    base = max(base, int(meta_get(db, "id_hi", 0)), ID_HI)
+
+    def alive(i):
+        for j in (i, i + 1, i + 2):
+            time.sleep(PAUSE)
+            if call("AwardAbstract_GetAwardNotice", awardID=j):
+                return True
+        return False
+
+    lo, step = base, 1024
+    while step <= 262_144 and alive(lo + step):
+        lo += step
+        step *= 2
+    hi = lo + step
+    while hi - lo > 48:
+        mid = (lo + hi) // 2
+        if alive(mid):
+            lo = mid
+        else:
+            hi = mid
+    meta_set(db, "id_hi", hi)
+    print(f"id_hi probe: frontier ~{hi:,} (base was {base:,})")
+    return hi
+
+
+def run_backfill(db, budget=3600, batch=500):
+    """Sweep awardIDs DESCENDING from the frontier (newest first), resumable across runs.
+
+    Two meta keys carry the state: backfill_cursor is the next id of the main descending sweep;
+    backfill_top is the frontier that sweep has already covered up to, so ids minted since the
+    last run (above backfill_top) are fetched FIRST, then the sweep continues downward. No
+    GetNotice calls here -- ref_id is unknown during enumeration and GetNotice validates it, so
+    every award costs exactly 3 calls (notice, supplier, line item), 1 if the id is dead.
+    Misses are not stored; a run that dies mid-gap re-probes a few dead ids next time, one call
+    each. Backs off on 403/5xx: sleep 60, halve workers. --budget-seconds stops cleanly.
+    """
+    deadline = time.time() + budget
+    hi = probe_hi(db)
+    seen = {r[0] for r in db.execute("select award_id from awards")}
+    top = int(meta_get(db, "backfill_top", 0))
+    cursor = int(meta_get(db, "backfill_cursor", 0))
+    if not cursor:                                   # first ever run
+        cursor = top = hi
+        meta_set(db, "backfill_top", top)
+        meta_set(db, "backfill_cursor", cursor)
+    gap = [i for i in range(hi, top, -1) if i not in seen]
+    print(f"backfill: frontier {hi:,}  cursor {cursor:,}  gap {len(gap)} new ids  budget {budget}s")
+
+    workers = WORKERS
+    done = miss = 0
+    t0 = time.time()
+
+    def grab(i):
+        r = one_award(i)
+        if r:
+            r["source"] = "backfill"
+        return r
+
+    def process(ids, on_chunk=None):
+        """Fetch ids in small chunks; False the moment the deadline fires."""
+        nonlocal workers, done, miss
+        k = 0
+        while k < len(ids):
+            if time.time() >= deadline:
+                return False
+            chunk = ids[k:k + max(1, min(batch, workers * 10))]
+            bad0 = _bad_http()
+            with ThreadPoolExecutor(workers) as pool:
+                rows = list(pool.map(grab, chunk))
+            got = save(db, rows, ignore=True)
+            done += got
+            miss += sum(1 for r in rows if not r)
+            k += len(chunk)
+            if on_chunk:
+                on_chunk(chunk)
+            rate = done / max(time.time() - t0, 1e-9) * 60
+            print(f"  {time.strftime('%H:%M:%S')}  +{got}/{len(chunk)}  saved {done}  miss {miss}"
+                  f"  {rate:.0f} rows/min  workers {workers}", flush=True)
+            if _bad_http() > bad0:
+                workers = max(1, workers // 2)
+                print(f"  host sent 403/5xx -> sleep 60, workers now {workers}", flush=True)
+                time.sleep(min(60, max(0, deadline - time.time())))
+        return True
+
+    ok = process(gap) if gap else True
+    if ok:
+        meta_set(db, "backfill_top", hi)             # gap fully swept (or empty)
+        while cursor >= ID_LO and time.time() < deadline:
+            window_lo = max(ID_LO - 1, cursor - 3000)
+            ids = [i for i in range(cursor, window_lo, -1) if i not in seen]
+
+            def bump(chunk):
+                nonlocal cursor
+                cursor = chunk[-1] - 1               # ids are descending; seen gaps are stored
+                meta_set(db, "backfill_cursor", cursor)
+
+            if ids and not process(ids, bump):
+                break
+            cursor = window_lo
+            meta_set(db, "backfill_cursor", cursor)
+    el = time.time() - t0
+    print(f"backfill stop: saved {done}  miss {miss}  in {el:.0f}s"
+          f"  ({done / max(el, 1) * 60:.0f} rows/min)  cursor {cursor:,}"
+          f"  http_errs {dict(HTTP_ERRS) or '{}'}")
+
+
+# ---------------------------------------------------------------- coverage (W-A gate artifact)
+def coverage(db):
+    q = lambda s, *a: db.execute(s, a).fetchall()
+    per = [n for (n,) in q("select count(*) from awards where winner_norm is not null"
+                           " group by winner_norm")]
+    dist = Counter()
+    for n in per:
+        dist["1"] += n == 1
+        dist["2"] += n == 2
+        dist["3-5"] += 3 <= n <= 5
+        dist["6-10"] += 6 <= n <= 10
+        dist["11+"] += n >= 11
+    joinable = 0
+    cdb = Path(__file__).parent / "corpus.db"
+    if cdb.exists():
+        c = sqlite3.connect(f"file:{cdb}?mode=ro", uri=True)
+        legacy = {r[0] for r in c.execute("select id from corpus where source='legacy'")}
+        c.close()
+        joinable = sum(1 for (r,) in q("select cast(ref_id as integer) from awards"
+                                       " where ref_id is not null") if r in legacy)
+    out = dict(
+        generated_at=datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        total_awards=q("select count(*) from awards")[0][0],
+        by_year=dict(q("select substr(award_date, -4), count(*) from awards"
+                       " where award_date is not null group by 1 order by 1")),
+        by_source=dict(q("select source, count(*) from awards group by 1")),
+        distinct_winner_norm=q("select count(distinct winner_norm) from awards"
+                               " where winner_norm is not null")[0][0],
+        top10_winners_by_value=[dict(winner_norm=w, awards=n, total_value=v)
+                                for w, n, v in q("""
+            select winner_norm, count(*), round(sum(contract_amount)) from awards
+            where winner_norm is not null and contract_amount is not null
+            group by 1 order by 3 desc limit 10""")],
+        joinable_to_corpus_via_ref_id=joinable,
+        awards_per_winner=dict(dist),
+        with_abc=q("select count(*) from awards where abc is not null")[0][0],
+        with_win_ratio=q("select count(*) from awards where win_ratio is not null")[0][0],
+        id_hi=int(meta_get(db, "id_hi", ID_HI)),
+        backfill_cursor=int(meta_get(db, "backfill_cursor", 0)),
+    )
+    text = json.dumps(out, indent=2)
+    (Path(__file__).parent / "awards-coverage.json").write_text(text + "\n")
+    print(text)
+
+
 # ---------------------------------------------------------------- metrics
 def metrics(db):
     q = lambda s, *a: db.execute(s, a).fetchall()
@@ -316,6 +536,15 @@ def selfcheck():
     assert province("Brgy 1, Catarman, Northern Samar, Philippines") == "Northern Samar"
     assert province("Tagum City, Davao del Norte") == "Davao del Norte"
     assert province(None) is None and province("no province here") is None
+    # winner_norm: one canonical key per supplier
+    assert norm_winner("DANILYN'S ENTERPRISES, INC.") == "DANILYNS ENTERPRISES"
+    assert norm_winner("Danilyns  Enterprises Incorporated") == "DANILYNS ENTERPRISES"
+    assert norm_winner("F & Q ENTERPRISES") == "F Q ENTERPRISES"
+    assert norm_winner("Acme Trading Co., Ltd.") == "ACME TRADING"
+    assert norm_winner("ACME CORP") == norm_winner("Acme Corporation") == "ACME"
+    # suffix stripped from the END only; never strip a name down to nothing
+    assert norm_winner("CO CO") == "CO" and norm_winner("INC") == "INC"
+    assert norm_winner(None) is None and norm_winner(" .,' ") is None
     print("ok")
 
 
@@ -380,8 +609,21 @@ def prospects(db, province=None, min_awards=1, limit=60):
 def main():
     db = sqlite3.connect(DB)
     db.executescript(SCHEMA)
+    migrate(db)
     cmd = sys.argv[1] if len(sys.argv) > 1 else "metrics"
-    if cmd == "listing":
+    if cmd == "backfill":
+        budget, batch, args = 3600, 500, sys.argv[2:]
+        for i, a in enumerate(args):
+            if a == "--budget-seconds":
+                budget = int(args[i + 1])
+            elif a == "--batch":
+                batch = int(args[i + 1])
+        run_backfill(db, budget, batch)
+        return
+    elif cmd == "coverage":
+        coverage(db)
+        return
+    elif cmd == "listing":
         run_listing(db)
     elif cmd == "enumerate":
         run_enumerate(db, int(sys.argv[2]) if len(sys.argv) > 2 else 200)

@@ -54,6 +54,12 @@ step "tag index (tag_fts)"        python3 rfp reindex
 # 5. Health. This is the part that makes a silent failure loud -- read it, don't skip it.
 step "ops audit" python3 audit_ops.py
 
+# 6. Award backfill (M5 W-A): sweep the legacy awardID space newest-first, 15 min/night,
+#    resuming from its own cursor in awards.db. Best-effort BY DESIGN: the host 403s under
+#    pressure and the sweep loses nothing by stopping early, so the `|| true` swallows any
+#    failure -- an award-side hiccup must never mark the whole nightly ingest red.
+step "awards backfill" sh -c 'python3 awards.py backfill --budget-seconds 900 || true'
+
 echo; echo "=== summary  $(date -u +%H:%M:%SZ)"
 python3 - <<'PY'
 import sqlite3
