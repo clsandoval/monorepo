@@ -134,12 +134,25 @@ if (writerFiles.length > 0) {
 // ── Check 2 — FACT SET NOT SHARED ───────────────────────────────────────────
 
 report.push('## Check 2 — FACT SET NOT SHARED');
-const ROUTE_PATH = path.join(SRC_DIR, 'routes', 'cases', '$caseId.tax.tsx');
+// The tax surface is a PAIR since the 2026-08-10 route-level code split
+// (commit 67b4476e9): $caseId.tax.tsx is the thin lazy route definition and
+// $caseId.tax.page.tsx holds the page component the checks below are about.
+// Both are read; every positive check may be satisfied by either file and
+// every negative check condemns either file — the assertion set is unchanged.
+const ROUTE_PATHS = [
+  path.join(SRC_DIR, 'routes', 'cases', '$caseId.tax.tsx'),
+  path.join(SRC_DIR, 'routes', 'cases', '$caseId.tax.page.tsx'),
+];
 let routeText = '';
 try {
-  routeText = fs.readFileSync(ROUTE_PATH, 'utf8');
+  routeText = ROUTE_PATHS.filter((p) => fs.existsSync(p))
+    .map((p) => fs.readFileSync(p, 'utf8'))
+    .join('\n');
+  if (routeText.length === 0) {
+    cannotRun(`none of ${ROUTE_PATHS.join(', ')} exists`);
+  }
 } catch (err) {
-  cannotRun(`could not read ${ROUTE_PATH}: ${err instanceof Error ? err.message : String(err)}`);
+  cannotRun(`could not read ${ROUTE_PATHS.join(', ')}: ${err instanceof Error ? err.message : String(err)}`);
 }
 if (!routeText.includes('assertOneFactSet(')) {
   violations.push('FACT SET NOT SHARED no assertOneFactSet(');
