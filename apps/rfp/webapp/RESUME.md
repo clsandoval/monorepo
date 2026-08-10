@@ -15,8 +15,37 @@
   Fixed with `sqlite3 .backup` snapshot of the migrated db + redeploy. **Deploy rule: refresh
   bundle awards.db from apps/rfp/awards.db at every deploy** (it's live-backfilled).
 - W-A backfill running detached through ~09:24 UTC (resumable; `pgrep -af "awards.py backfill"`
-  before touching awards.db). Next per HANDOFF.md: BetterGov 5.5M-row import, W-S spikes, W-D
-  alerts, W-E cron, W-F graph.
+  before touching awards.db).
+
+## M5 BetterGov import (2026-08-10 ~04:30 UTC) — 5.08M historical awards, shipped LIVE
+
+- `bettergov_import.py`: streams `bettergov/philgeps.parquet` (CC0,
+  huggingface.co/datasets/bettergovph/philgeps-data, 2013–2025) into awards.db as
+  `source='bettergov'` — full-row DISTINCT (the dump explodes an award into identical
+  per-line-item rows; summing them fabricates supplier totals), future-dated typo rows
+  dropped, winner_norm at insert. Re-runnable (wipes + re-imports its source).
+- Entity dossiers join `buyer_org = agency` (bettergov records procuring entities verbatim,
+  exact-match vs corpus agency strings) → real share bars, exact `award_count` denominators,
+  real top_share/price signals. Supplier buyer chips show real entity names. Historic
+  ref_ids never render as in-app /notice links (would 404).
+- awards.db now 2.1GB / 5.08M rows; bundle ships it whole. `suppliers` index is SQL,
+  capped 500. Entity worst case (CITY OF QUEZON, 23.7K awards) = 1.4s warm on prod;
+  map.ts exec timeout 30s because a cold cache after machine swap can exceed 15s.
+- **Deploy rule** (also above): refresh `rfp-bundle/awards.db` via `sqlite3 .backup` from
+  apps/rfp/awards.db at every deploy — and re-run `bunx playwright test` after any db swap.
+- Suite: 31/31 green — share-bars test un-skipped itself with the real data.
+## M5 W-E nightly ops (2026-08-10) — daily ingest hooked up for everything
+
+- `daily.sh` step 7 `bundle_deploy`: snapshots corpus/tags/awards dbs via `sqlite3 .backup`
+  into `webapp/web/rfp-bundle/`, copies the python/CLI helpers (bundle is fully derived
+  nightly — code changes in apps/rfp reach prod without a manual bundle step), then
+  `fly deploy --remote-only --strategy immediate`. A deploy failure marks the run red.
+- End-of-run Telegram one-liner (rc + open notices + award count) via `webapp/qa-tg.sh` —
+  a silent cron death is visible by absence, a red run by content.
+- Crontab: `0 19 * * *` (03:00 Manila) → `daily.sh >> nightly.log`. fly CLI on PATH inside
+  the script; auth from ~/.fly. NOTE: nightly swaps data without re-running playwright —
+  known ceiling; the suite runs on this machine whenever code changes ship.
+- Next per HANDOFF.md: W-S spikes (abstracts, PCAB), W-D Telegram alerts, W-F graph UI.
 
 ## M4 (2026-08-09 evening) — notice detail + enrich, shipped
 

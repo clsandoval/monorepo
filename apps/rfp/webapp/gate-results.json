@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-10T04:15:00Z",
+  "updated": "2026-08-10T04:45:00Z",
   "all_green": true,
   "deployed": true,
   "prod_url": "https://rfp-finder-ph.fly.dev/",
@@ -14,7 +14,9 @@
     "M3",
     "M4",
     "M5-WA",
-    "M5-WBC"
+    "M5-WBC",
+    "M5-bettergov",
+    "M5-WE"
   ],
   "constraints_learned": [
     "better-sqlite3 native addon segfaults in this sandbox under BOTH node and bun -> removed; corpus via 'rfp sql --json', sessions as JSON files.",
@@ -332,6 +334,41 @@
           "name": "bundle awards.db has winner_norm",
           "pass": true,
           "detail": "RED on first deploy (pre-migration snapshot, supplier pages 500d) -> refreshed via sqlite .backup + redeploy 04:06Z"
+        }
+      ]
+    },
+    "M5_M3_bettergov": {
+      "status": "green",
+      "checks": [
+        {
+          "name": "5,077,228 rows imported, full-row DISTINCT, self-check 0 dup groups",
+          "pass": true,
+          "detail": "bettergov_import.py asserts"
+        },
+        {
+          "name": "date formats parse (spend_12mo real)",
+          "pass": true,
+          "detail": "iso() accepts YYYY-MM-DD; QC 2.3B/123 last-12mo"
+        },
+        {
+          "name": "e2e 31/31 incl share-bars un-skipped",
+          "pass": true,
+          "detail": "2026-08-10 04:30Z run"
+        }
+      ]
+    },
+    "M5_M4_nightly_ops": {
+      "status": "green",
+      "checks": [
+        {
+          "name": "daily.sh bundle_deploy step + cron 0 19 * * *",
+          "pass": true,
+          "detail": "snapshot path dry-run OK; deploy path proven 3x today; full chain fires tonight 19:00Z"
+        },
+        {
+          "name": "TG completion ping",
+          "pass": true,
+          "detail": "in daily.sh, absence = cron death"
         }
       ]
     }

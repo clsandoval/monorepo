@@ -40,11 +40,13 @@ def ro(path):
 
 
 def iso(d):
-    """'04-Sep-2024' (awards.db award_date format) -> '2024-09-04', else None."""
-    try:
-        return datetime.strptime(d, "%d-%b-%Y").date().isoformat()
-    except (TypeError, ValueError):
-        return None
+    """'04-Sep-2024' (API rows) or '2023-11-20' (bettergov rows) -> '2023-11-20'."""
+    for fmt in ("%d-%b-%Y", "%Y-%m-%d"):
+        try:
+            return datetime.strptime(d, fmt).date().isoformat()
+        except (TypeError, ValueError):
+            pass
+    return None
 
 
 def manila_now():

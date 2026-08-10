@@ -1,6 +1,6 @@
 {
   "cap_usd": 30.0,
-  "spent_usd": 16.51,
+  "spent_usd": 18.01,
   "entries": [
     {
       "wave": "W1",
@@ -148,6 +148,13 @@
       "usd": 0.01,
       "ts": "2026-08-10T04:10:00Z",
       "note": "e2e rerun real Luna turns + prod P0 drive"
+    },
+    {
+      "wave": "M5-bettergov",
+      "kind": "claude-inline",
+      "usd": 1.5,
+      "ts": "2026-08-10T04:45:00Z",
+      "note": "BetterGov 5.08M-row import + map upgrades + 3 deploys, all inline (est high side)"
     }
   ],
   "note": "Every loop cycle appends {wave, kind, usd, ts}. Stop at cap. Main driving-session tokens tracked separately by the harness. All build work so far done inline \u2014 zero subagent spend."
