@@ -307,11 +307,17 @@ export function SearchShell() {
           })()}
 
           {state.phase === "loading" && (
+            // skeleton mirrors the loaded row anatomy (title+agency left, ABC+chip right)
+            // so content doesn't jump when data lands
             <ul aria-hidden className="mt-2 animate-pulse border-t border-border">
               {Array.from({ length: 8 }, (_, i) => (
-                <li key={i} className="border-b border-border px-3 py-4 md:px-4">
-                  <div className="h-4 w-2/3 rounded bg-muted" />
-                  <div className="mt-2 h-3 w-1/3 rounded bg-muted" />
+                <li key={i} className="flex items-center justify-between gap-4 border-b border-border px-3 py-4 md:px-4">
+                  <div className="min-w-0 flex-1">
+                    <div className={`h-4 rounded bg-muted ${i % 3 === 0 ? "w-3/4" : i % 3 === 1 ? "w-1/2" : "w-2/3"}`} />
+                    <div className="mt-2 h-3 w-1/3 rounded bg-muted" />
+                  </div>
+                  <div className="h-4 w-24 shrink-0 rounded bg-muted" />
+                  <div className="h-5 w-14 shrink-0 rounded bg-muted" />
                 </li>
               ))}
             </ul>

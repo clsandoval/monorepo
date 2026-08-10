@@ -202,10 +202,11 @@ test("entity share bars sum sanely and read '% · n of total'", async ({ page })
   expect(labels.length).toBeGreaterThanOrEqual(1);
   let pctSum = 0;
   for (const l of labels) {
-    const m = l.match(/^(\d+)% · (\d+) of (\d+)$/);
+    const m = l.match(/^(\d+)% · ([\d,]+) of ([\d,]+)$/);   // counts are locale-formatted
     expect(m, `share label malformed: ${l}`).not.toBeNull();
     pctSum += Number(m![1]);
-    expect(Number(m![2])).toBeLessThanOrEqual(Number(m![3]));
+    const strip = (s: string) => Number(s.replace(/,/g, ""));
+    expect(strip(m![2])).toBeLessThanOrEqual(strip(m![3]));
   }
   expect(pctSum, `share percentages sum to ${pctSum}`).toBeLessThanOrEqual(105);
   for (const w of await page.getByTestId("share-bar").evaluateAll(

@@ -3,6 +3,7 @@
 // PhilGEPS deep link (siblings, not nested — <a> inside <a> is invalid).
 import { ExternalLink } from "lucide-react";
 import type { ResultRow } from "@/lib/search-types";
+import { titleCaseIfShouty } from "@/lib/text";
 
 // Deep-link to the real PhilGEPS notice (the two systems have different detail pages).
 function noticeUrl(r: ResultRow): string {
@@ -26,7 +27,10 @@ function closesIn(r: ResultRow): { label: string; urgent: boolean } {
     if (ms < 0) return { label: "closed", urgent: false };
     const d = Math.floor(ms / 86_400_000);
     const h = Math.floor((ms % 86_400_000) / 3_600_000);
-    return { label: d > 0 ? `${d}d ${h}h` : `${h}h`, urgent: d <= 4 };
+    // final hour reads in minutes — "0h" looks broken at peak urgency
+    const label = d > 0 ? `${d}d ${h}h` : h > 0 ? `${h}h`
+      : `${Math.max(1, Math.floor((ms % 3_600_000) / 60_000))}m`;
+    return { label, urgent: d <= 4 };
   }
   if (r.days != null) {
     if (r.days < 0) return { label: "closed", urgent: false };
@@ -35,7 +39,7 @@ function closesIn(r: ResultRow): { label: string; urgent: boolean } {
   return { label: "—", urgent: false };
 }
 
-export function ResultRowItem({ row }: { row: ResultRow }) {
+export function ResultRowItem({ row, hideAgency = false }: { row: ResultRow; hideAgency?: boolean }) {
   const c = closesIn(row);
   return (
     <div className="relative border-b border-border transition-colors hover:bg-muted/50">
@@ -52,9 +56,10 @@ export function ResultRowItem({ row }: { row: ResultRow }) {
                 {row.round === "rebid" ? "RE-BID" : "NEGOTIATED"}
               </span>
             )}
-            {row.title}
+            {titleCaseIfShouty(row.title)}
           </span>
-          <span className="mt-0.5 line-clamp-1 block text-xs text-muted-foreground">{row.agency}</span>
+          {/* on an entity's own dossier every row repeats the entity — hide it there */}
+          {!hideAgency && <span className="mt-0.5 line-clamp-1 block text-xs text-muted-foreground">{row.agency}</span>}
         </span>
         {/* md:contents lifts ABC + chip into their own grid cells on desktop */}
         <span className="mt-2 flex items-center justify-between gap-3 md:contents">

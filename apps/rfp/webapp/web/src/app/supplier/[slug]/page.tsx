@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 import { winPct } from "@/lib/notice";
 import { getEgo, getSupplier } from "@/lib/map";
+import { titleCaseIfShouty } from "@/lib/text";
 import EgoGraph from "@/components/ego-graph";
 
 export const dynamic = "force-dynamic";
@@ -27,9 +28,10 @@ export async function generateMetadata({ params }: PageProps<"/supplier/[slug]">
   };
 }
 
-// Full-precision peso for award amounts (identical to the notice detail page).
+// Full-precision peso for award amounts — always centavos, like the source ledgers
+// (mixed "₱4,494,407" / "₱4,705,966.03" precision in one table reads as sloppiness).
 const peso = (v: number) =>
-  `₱${v.toLocaleString("en-PH", { minimumFractionDigits: v % 1 ? 2 : 0, maximumFractionDigits: 2 })}`;
+  `₱${v.toLocaleString("en-PH", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 // Compact peso for the hero stat (sums get long).
 function pesoCompact(n: number): string {
   if (n >= 1e9) return `₱${(n / 1e9).toFixed(2)}B`;
@@ -56,6 +58,45 @@ function Stat({ label, value, testid }: { label: string; value: string; testid?:
   );
 }
 
+function WinRow({ w, peso }: { w: import("@/lib/map").SupplierWin; peso: (v: number) => string }) {
+  const noticeId = w.buyer_kind === "agency" && w.ref_id != null ? Number(w.ref_id) : null;
+  const title = w.title ? titleCaseIfShouty(w.title) : null;
+  return (
+    <li className="py-2.5 text-sm">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
+        <p className={`min-w-0 flex-1 leading-snug ${title ? "font-medium" : "text-muted-foreground/70"}`}>
+          {noticeId != null && Number.isSafeInteger(noticeId) ? (
+            <Link href={`/notice/${noticeId}`} data-testid="win-notice-link"
+              className="underline-offset-2 hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+              {title ?? "Untitled award"}
+            </Link>
+          ) : (title ?? "Untitled award")}
+        </p>
+        {w.contract_amount != null && (
+          <p className="shrink-0 font-mono text-sm font-bold tabular-nums">{peso(w.contract_amount)}</p>
+        )}
+      </div>
+      <p className="mt-0.5 font-mono text-xs tabular-nums text-foreground/80">
+        {fmtDay(w.award_date_iso) ?? "date —"}
+        {w.win_ratio != null && w.abc != null && ` · won at ${winPct(w.win_ratio)} of the ${peso(w.abc)} budget`}
+      </p>
+      {w.buyer && (
+        <p className="mt-0.5 line-clamp-1 text-xs text-muted-foreground">
+          {w.buyer_kind === "agency" ? (
+            <Link href={`/entity/${encodeURIComponent(w.buyer)}`}
+              className="underline-offset-2 hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+              {w.buyer}
+            </Link>
+          ) : (
+            // created_by is the buyer-side recording officer, not the office itself
+            <>recorded by {w.buyer}</>
+          )}
+        </p>
+      )}
+    </li>
+  );
+}
+
 export default async function SupplierPage({ params }: PageProps<"/supplier/[slug]">) {
   const { slug } = await params;
   const [sp, ego] = await Promise.all([load(slug), loadEgo(slug)]);
@@ -74,11 +115,11 @@ export default async function SupplierPage({ params }: PageProps<"/supplier/[slu
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-4 py-6" data-testid="supplier-profile">
+      <main className="mx-auto max-w-5xl px-4 pt-10 pb-6" data-testid="supplier-profile">
         {/* hero */}
-        <p className="font-mono text-xs text-muted-foreground">Supplier · award record from PhilGEPS</p>
+        <p className="font-mono text-xs text-muted-foreground">Supplier · PhilGEPS record</p>
         <h1 className="mt-2 text-xl font-bold leading-snug md:text-2xl">{sp.winner}</h1>
-        {sp.province && <p className="mt-1 text-sm text-muted-foreground">{sp.province}</p>}
+        {sp.province && <p className="mt-1 text-sm uppercase tracking-wider text-muted-foreground">{sp.province}</p>}
 
         <div className="mt-5 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
           <Stat label="total won" value={pesoCompact(sp.totals.won_value)} testid="stat-total-won" />
@@ -92,44 +133,19 @@ export default async function SupplierPage({ params }: PageProps<"/supplier/[slu
             <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Recent wins</h2>
             <p className="mt-1 text-xs text-muted-foreground">contract awards recorded on PhilGEPS, newest first</p>
             <ul className="mt-2 divide-y divide-border" data-testid="supplier-wins">
-              {sp.wins.map((w, i) => {
-                const noticeId = w.buyer_kind === "agency" && w.ref_id != null ? Number(w.ref_id) : null;
-                return (
-                  <li key={i} className="py-2.5 text-sm">
-                    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
-                      <p className="min-w-0 flex-1 font-medium leading-snug">
-                        {noticeId != null && Number.isSafeInteger(noticeId) ? (
-                          <Link href={`/notice/${noticeId}`} data-testid="win-notice-link"
-                            className="underline-offset-2 hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                            {w.title ?? "Untitled award"}
-                          </Link>
-                        ) : (w.title ?? "Untitled award")}
-                      </p>
-                      {w.contract_amount != null && (
-                        <p className="shrink-0 font-mono text-sm font-bold tabular-nums">{peso(w.contract_amount)}</p>
-                      )}
-                    </div>
-                    <p className="mt-0.5 font-mono text-xs tabular-nums text-foreground/80">
-                      {fmtDay(w.award_date_iso) ?? "date —"}
-                      {w.win_ratio != null && w.abc != null && ` · won at ${pct(w.win_ratio)} of the ${peso(w.abc)} budget`}
-                    </p>
-                    {w.buyer && (
-                      <p className="mt-0.5 line-clamp-1 text-xs text-muted-foreground">
-                        {w.buyer_kind === "agency" ? (
-                          <Link href={`/entity/${encodeURIComponent(w.buyer)}`}
-                            className="underline-offset-2 hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                            {w.buyer}
-                          </Link>
-                        ) : (
-                          // created_by is the buyer-side recording officer, not the office itself
-                          <>recorded by {w.buyer}</>
-                        )}
-                      </p>
-                    )}
-                  </li>
-                );
-              })}
+              {sp.wins.slice(0, 12).map((w, i) => <WinRow key={i} w={w} peso={peso} />)}
             </ul>
+            {sp.wins.length > 12 && (
+              // <details>: full disclosure with zero client JS
+              <details className="group border-t border-border">
+                <summary className="cursor-pointer list-none py-2.5 text-sm text-primary underline-offset-2 hover:underline group-open:hidden">
+                  show all {sp.totals.contracts >= sp.wins.length ? sp.wins.length : sp.totals.contracts} recorded wins
+                </summary>
+                <ul className="divide-y divide-border" data-testid="supplier-wins-rest">
+                  {sp.wins.slice(12).map((w, i) => <WinRow key={i} w={w} peso={peso} />)}
+                </ul>
+              </details>
+            )}
           </section>
 
           {ego != null && (ego.nodes?.length ?? 0) >= 3 && (

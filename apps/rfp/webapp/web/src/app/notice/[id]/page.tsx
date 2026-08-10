@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { BackLink } from "@/components/notice-back";
 import { NoticeEnrich } from "@/components/notice-enrich";
 import { roundOf } from "@/lib/search-types";
+import { stripExtracted, titleCaseIfShouty } from "@/lib/text";
 import {
   getNotice, getSimilarAwards, parseBoq, philgepsUrl, requirementsFor, winPct, type NoticeDetail,
 } from "@/lib/notice";
@@ -61,8 +62,16 @@ function closesIn(closingAt: string | null): { label: string; urgent: boolean } 
   if (ms < 0) return { label: "closed", urgent: false };
   const d = Math.floor(ms / 86_400_000);
   const h = Math.floor((ms % 86_400_000) / 3_600_000);
-  return { label: d > 0 ? `closes in ${d}d ${h}h` : `closes in ${h}h`, urgent: d <= 4 };
+  // final hour reads in minutes — "closes in 0h" looks like a bug at peak urgency
+  const label = d > 0 ? `closes in ${d}d ${h}h`
+    : h > 0 ? `closes in ${h}h`
+    : `closes in ${Math.max(1, Math.floor((ms % 3_600_000) / 60_000))}m`;
+  return { label, urgent: d <= 4 };
 }
+
+// "17 Day/s" and friends are PhilGEPS source debris — humanize the unit at render.
+const fmtDelivery = (s: string) =>
+  s.replace(/\bDay\/s\b/gi, "days").replace(/\bMonth\/s\b/gi, "months").replace(/\b1 days\b/, "1 day");
 
 function BidCta({ nt, testid }: { nt: NoticeDetail; testid: string }) {
   return (
@@ -97,12 +106,12 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-4 py-6" data-testid="notice-detail">
+      <main className="mx-auto max-w-5xl px-4 pt-10 pb-6" data-testid="notice-detail">
         {/* hero */}
         <p className="font-mono text-xs text-muted-foreground tabular-nums">
-          #{nt.id}{nt.solicitation_no ? ` · ${nt.solicitation_no}` : ""} · Source: PhilGEPS{nt.source === "legacy" ? " (legacy)" : ""}
+          Notice #{nt.id}{nt.solicitation_no ? ` · ${nt.solicitation_no}` : ""} · PhilGEPS record{nt.source === "legacy" ? " (legacy)" : ""}
         </p>
-        <h1 className="mt-2 text-xl font-bold leading-snug md:text-2xl">{nt.title}</h1>
+        <h1 className="mt-2 text-xl font-bold leading-snug md:text-2xl">{titleCaseIfShouty(nt.title)}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           {nt.agency ? (
             <Link href={`/entity/${encodeURIComponent(nt.agency)}`} data-testid="agency-link"
@@ -114,7 +123,11 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
 
         <div className="mt-4 flex flex-wrap items-baseline gap-x-4 gap-y-1">
           <span className="font-mono text-4xl font-bold tabular-nums tracking-tight md:text-5xl" data-testid="notice-abc">
-            {nt.abc != null ? peso(nt.abc) : "ABC —"}
+            {/* ₱ (U+20B1) is a fallback glyph in Geist Mono — give it its own advance
+                or it collides with the first numeral at hero sizes */}
+            {nt.abc != null
+              ? <><span className="mr-[0.09em]">₱</span>{peso(nt.abc).slice(1)}</>
+              : "ABC —"}
           </span>
           {lotRange && <span className="font-mono text-sm tabular-nums text-muted-foreground">{lotRange}</span>}
         </div>
@@ -126,9 +139,9 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
               {cd.label}
             </span>
           )}
-          {nt.closing_at && <span>closing {fmtDateTime(nt.closing_at)}</span>}
-          {nt.publish_day && <span>published {fmtDay(nt.publish_day)}</span>}
-          {nt.delivery && !/^0\b/.test(nt.delivery) && <span>delivery {nt.delivery}</span>}
+          {nt.closing_at && <span className="text-muted-foreground/70">closing <span className="text-foreground/75">{fmtDateTime(nt.closing_at)}</span></span>}
+          {nt.publish_day && <span className="text-muted-foreground/70">published <span className="text-foreground/75">{fmtDay(nt.publish_day)}</span></span>}
+          {nt.delivery && !/^0\b/.test(nt.delivery) && <span className="text-muted-foreground/70">delivery <span className="text-foreground/75">{fmtDelivery(nt.delivery)}</span></span>}
         </div>
 
         <div className="mt-3 flex flex-wrap gap-1.5">
@@ -139,7 +152,9 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
           )}
           {nt.mode && <Chip>{nt.mode}</Chip>}
           {nt.classification && <Chip>{nt.classification}</Chip>}
-          {nt.work_type && <Chip>{nt.work_type.replace(/_/g, " ")}</Chip>}
+          {/* work_type often case-duplicates classification ("Civil Works"/"civil works") */}
+          {nt.work_type && nt.work_type.replace(/_/g, " ").toLowerCase() !== (nt.classification ?? "").toLowerCase()
+            && <Chip>{nt.work_type.replace(/_/g, " ")}</Chip>}
           {nt.province && <Chip>{nt.province}</Chip>}
           {nt.needs_pcab === 1 && <Chip>PCAB required</Chip>}
         </div>
@@ -178,9 +193,22 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
                 </table>
               </div>
             ) : nt.description ? (
-              <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-foreground/80" data-testid="notice-description">
-                {nt.description}
-              </p>
+              // presentation only: long single-paragraph notices with inline numbered
+              // clauses ("1. … 10. …") re-wrap at the clause boundaries; text unchanged
+              (() => {
+                // clause starts need a capital after "N. " — "ITB Clause 16." is a
+                // reference, not a clause boundary
+                const clauses = nt.description.split(/(?=(?:^|\s)\d{1,2}\.\s+[A-Z])/);
+                return clauses.length >= 4 && !nt.description.includes("\n") ? (
+                  <div className="mt-2 max-w-prose space-y-3 text-sm leading-relaxed text-foreground/80" data-testid="notice-description">
+                    {clauses.map((c, i) => <p key={i}>{c.trim()}</p>)}
+                  </div>
+                ) : (
+                  <p className="mt-2 max-w-prose whitespace-pre-wrap text-sm leading-relaxed text-foreground/80" data-testid="notice-description">
+                    {nt.description}
+                  </p>
+                );
+              })()
             ) : (
               <p className="mt-2 text-sm text-muted-foreground">No line items in the notice — open the bid documents on PhilGEPS.</p>
             )}
@@ -231,7 +259,7 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
                         ` — ${winPct(a.win_ratio)} of the ${peso(a.abc)} budget`}
                       {a.award_date && ` · ${fmtDay(a.award_date) ?? a.award_date}`}
                     </p>
-                    <p className="mt-0.5 line-clamp-1 text-xs text-muted-foreground">{a.title}</p>
+                    <p className="mt-0.5 line-clamp-1 text-xs text-muted-foreground">{titleCaseIfShouty(a.title)}</p>
                   </li>
                   );
                 })}
@@ -243,7 +271,7 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
             <section aria-label="Contact">
               <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Contact</h2>
               <div className="mt-2 space-y-1 text-sm" data-testid="notice-contact">
-                {nt.contact && <p className="leading-relaxed text-foreground/80">{nt.contact}</p>}
+                {nt.contact && <p className="max-w-prose leading-relaxed text-foreground/80">{stripExtracted(nt.contact, nt.contact_phone, nt.contact_email)}</p>}
                 {nt.contact_phone && <p className="font-mono text-xs tabular-nums">{nt.contact_phone}</p>}
                 {nt.contact_email && (
                   <a href={`mailto:${nt.contact_email}`}
