@@ -128,6 +128,11 @@ def migrate(db):
     if "winner_norm" not in cols:
         db.execute("alter table awards add column winner_norm text")
     db.execute("create index if not exists awards_winner_norm on awards(winner_norm)")
+    db.execute("create index if not exists awards_buyer_org on awards(buyer_org)")
+    # expression index: entity dossiers join on cast(ref_id as integer), which
+    # became a 5.5M-row scan after the bettergov bulk import
+    db.execute("create index if not exists awards_ref_int"
+               " on awards(cast(ref_id as integer)) where ref_id is not null")
     rows = db.execute("select award_id, winner from awards"
                       " where winner is not null and winner_norm is null").fetchall()
     if rows:

@@ -85,7 +85,13 @@ test.beforeAll(async () => {
   const rich = index.find((r) => r.n >= 2) ?? index[0];
   supplierSlug = rich.winner_norm;
   supplier = await mapQuery<Supplier>(["supplier", "--norm", supplierSlug]);
-  thinSlug = index.find((r) => r.n === 1)?.winner_norm ?? null;
+  // the index is top-by-value (capped) — a 1-award supplier may not rank; ask the db
+  thinSlug = (await py(["-c",
+    "import sqlite3, json; db = sqlite3.connect('file:awards.db?mode=ro', uri=True);" +
+    "r = db.execute(\"select winner_norm from awards where winner_norm is not null\"" +
+    "\" group by winner_norm having count(*)=1 limit 1\").fetchone();" +
+    "print(json.dumps(r[0] if r else None))"])
+    .then((s) => JSON.parse(s) as string | null)) ?? null;
 
   // entity: the Active-notice-heavy agency whose dossier has signals + open notices;
   // prefer one with winners (ref_id-joined awards) when the live data has any.

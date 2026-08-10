@@ -68,6 +68,7 @@ export interface EntityDossier {
   agency: string;
   province: string | null;
   spend_12mo: { value: number; contracts: number };
+  award_count: number;            // ALL joined awards — the exact share-bar denominator
   winners: EntityWinner[];        // top 10 by joined-award value
   contestability: { signals: ContestabilitySignal[]; descriptor: MarketDescriptor };
   open_notices: EntityOpenNotice[]; // Active, not yet closed, ≤20, soonest first

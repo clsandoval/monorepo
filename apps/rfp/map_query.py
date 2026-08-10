@@ -64,10 +64,14 @@ def med(ratios):
 
 
 def buyer_of(row, agency_by_ref):
-    """(name, kind): corpus agency when ref_id joins, else the recording officer.
-    created_by is buyer-side staff -- a real person at the procuring office -- so it
-    is labelled 'recorded_by', never presented as the office itself."""
-    if row["ref_id"]:
+    """(name, kind): the recorded procuring entity (buyer_org, e.g. bettergov rows),
+    else the corpus agency when ref_id joins, else the recording officer. created_by
+    is buyer-side staff -- a real person at the procuring office -- so it is labelled
+    'recorded_by', never presented as the office itself."""
+    if row["buyer_org"]:
+        return row["buyer_org"], "agency"
+    # bettergov ref_ids can be non-numeric ("2016-03--010") and never join corpus
+    if row["ref_id"] and str(row["ref_id"]).isdigit():
         ag = agency_by_ref.get(int(row["ref_id"]))
         if ag:
             return ag, "agency"
@@ -86,7 +90,8 @@ def supplier(norm):
         return {}
 
     agency_by_ref = {}
-    refs = sorted({int(r["ref_id"]) for r in rows if r["ref_id"]})
+    refs = sorted({int(r["ref_id"]) for r in rows
+                   if r["ref_id"] and str(r["ref_id"]).isdigit()})
     co = ro(CORPUS_DB)
     if co and refs:
         qm = ",".join("?" * len(refs))
@@ -97,11 +102,15 @@ def supplier(norm):
     ent = {}   # buyer name -> [n, value]
     for r in rows:
         name, kind = buyer_of(r, agency_by_ref)
+        # ref_id is emitted only when it joins a corpus notice — it drives in-app
+        # /notice/<id> links, and bettergov's historic refs would 404 there.
+        joins = (r["ref_id"] and str(r["ref_id"]).isdigit()
+                 and int(r["ref_id"]) in agency_by_ref)
         wins.append(dict(
             award_date_iso=iso(r["award_date"]), title=r["title"],
             contract_amount=r["contract_amount"], abc=r["abc"], win_ratio=r["win_ratio"],
             buyer=name, buyer_kind=kind, classification=r["classification"],
-            ref_id=r["ref_id"]))
+            ref_id=r["ref_id"] if joins else None))
         if name:
             e = ent.setdefault(name, [0, 0.0])
             e[0] += 1
@@ -207,8 +216,10 @@ def entity(agency):
     province = mode_of(r["location_norm"] for r in co.execute(
         f"select location_norm from notice_location where nid in ({qm})", nids))
 
-    # awards joined via ref_id -> corpus.id (agency's notices only). Thin today by
-    # design: only listing-harvested awards carry ref_id; grows with daily runs.
+    # awards joined two ways: buyer_org = agency (bettergov bulk rows record the
+    # procuring entity verbatim -- corpus agency strings match exactly), plus
+    # ref_id -> corpus.id for listing-harvested API rows. One query, so a row
+    # matching both paths counts once.
     joined = []
     aw = ro(AWARDS_DB)
     if aw:
@@ -216,8 +227,8 @@ def entity(agency):
         qm = ",".join("?" * len(ids))
         joined = aw.execute(
             f"select winner, winner_norm, contract_amount, win_ratio, award_date"
-            f" from awards where ref_id is not null"
-            f" and cast(ref_id as integer) in ({qm})", ids).fetchall()
+            f" from awards where buyer_org = ? or (ref_id is not null"
+            f" and cast(ref_id as integer) in ({qm}))", [agency, *ids]).fetchall()
 
     cutoff = (datetime.now(timezone.utc) + timedelta(hours=8) - timedelta(days=365)).date().isoformat()
     recent = [a for a in joined if (iso(a["award_date"]) or "") >= cutoff]
@@ -255,6 +266,7 @@ def entity(agency):
         agency=agency, province=province,
         spend_12mo=dict(value=round(sum(a["contract_amount"] or 0.0 for a in recent), 2),
                         contracts=len(recent)),
+        award_count=len(joined),
         winners=winners,
         contestability=dict(signals=signals, descriptor=desc),
         open_notices=open_notices,
@@ -262,20 +274,20 @@ def entity(agency):
 
 
 # ---------------------------------------------------------------- suppliers index
-def suppliers(min_awards):
+def suppliers(min_awards, limit=500):
     aw = ro(AWARDS_DB)
     if not aw:
         return []
-    by = {}   # winner_norm -> [display Counter, n, value]
-    for r in aw.execute("select winner_norm, winner, contract_amount from awards"
-                        " where winner_norm is not null"):
-        e = by.setdefault(r["winner_norm"], [Counter(), 0, 0.0])
-        e[0][r["winner"] or r["winner_norm"]] += 1
-        e[1] += 1
-        e[2] += r["contract_amount"] or 0.0
-    return [dict(winner_norm=k, winner=c.most_common(1)[0][0], n=n, value=round(v, 2))
-            for k, (c, n, v) in sorted(by.items(), key=lambda kv: -kv[1][2])
-            if n >= min_awards]
+    # SQL aggregate: the python Counter loop was fine at 4K rows, not at 5.5M —
+    # and capped, since ~1M-supplier JSON dumps blow exec buffers downstream.
+    # max(winner) as display casing is arbitrary-but-stable; this index feeds
+    # internal linking/QA only, profile pages pick the modal casing themselves.
+    return [dict(winner_norm=k, winner=w, n=n, value=round(v, 2))
+            for k, w, n, v in aw.execute(
+                "select winner_norm, max(winner), count(*),"
+                " sum(coalesce(contract_amount, 0)) from awards"
+                " where winner_norm is not null group by winner_norm"
+                " having count(*) >= ? order by 4 desc limit ?", (min_awards, limit))]
 
 
 def main():
@@ -283,11 +295,13 @@ def main():
     sub = p.add_subparsers(dest="cmd", required=True)
     sub.add_parser("supplier").add_argument("--norm", required=True)
     sub.add_parser("entity").add_argument("--agency", required=True)
-    sub.add_parser("suppliers").add_argument("--min-awards", type=int, default=2)
+    sp = sub.add_parser("suppliers")
+    sp.add_argument("--min-awards", type=int, default=2)
+    sp.add_argument("--limit", type=int, default=500)
     a = p.parse_args()
     out = (supplier(a.norm) if a.cmd == "supplier"
            else entity(a.agency) if a.cmd == "entity"
-           else suppliers(a.min_awards))
+           else suppliers(a.min_awards, a.limit))
     json.dump(out, sys.stdout)
     print()
 

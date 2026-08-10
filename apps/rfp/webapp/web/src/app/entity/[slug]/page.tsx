@@ -49,7 +49,7 @@ export default async function EntityPage({ params }: PageProps<"/entity/[slug]">
   if (!ent) notFound();
 
   // denominator for "14 of 23": total recorded awards behind the share bars
-  const awardCount = ent.winners.reduce((s, w) => s + w.n, 0);
+  const awardCount = ent.award_count ?? ent.winners.reduce((s, w) => s + w.n, 0);
 
   return (
     <div className="min-h-dvh bg-background text-foreground">

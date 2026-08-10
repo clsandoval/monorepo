@@ -27,3 +27,6 @@ xlsx.log
 # Generated firm briefs — carry a named individual's contact details off a public award notice.
 # Regenerate with `python3 brief.py "<FIRM>"`; do not commit the rendered pages.
 briefs/
+
+# BetterGov bulk dump (CC0, huggingface.co/datasets/bettergovph/philgeps-data) — re-download, don't commit
+bettergov/
