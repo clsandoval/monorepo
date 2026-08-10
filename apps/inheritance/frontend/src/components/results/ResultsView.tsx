@@ -6,6 +6,7 @@ import { lazy, Suspense } from 'react';
 import type { EngineInput, EngineOutput } from '../../types';
 import { ResultsHeader } from './ResultsHeader';
 import { DistributionSection } from './DistributionSection';
+import { withOutputDefaults } from './normalize';
 import { ShareBreakdownSection } from './ShareBreakdownSection';
 import { ComparisonPanel } from './ComparisonPanel';
 import { DonationsSummaryPanel } from './DonationsSummaryPanel';
@@ -27,7 +28,11 @@ export interface ResultsViewProps {
   onEditInput: () => void;
 }
 
-export function ResultsView({ input, output, onEditInput }: ResultsViewProps) {
+export function ResultsView({ input, output: rawOutput, onEditInput }: ResultsViewProps) {
+  // A stored output_json may predate fields this view reads (narratives,
+  // warnings, per-share legal_basis). Default them so a legacy case renders
+  // instead of crashing the whole page. See ./normalize.
+  const output = withOutputDefaults(rawOutput);
   const totalCentavos = typeof input.net_distributable_estate.centavos === 'string'
     ? parseInt(input.net_distributable_estate.centavos, 10)
     : input.net_distributable_estate.centavos;
