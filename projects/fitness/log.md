@@ -17,7 +17,7 @@ Append-only. Newest at top. One line per day.
 - **Cals / Protein:** ~1060 / ~47g so far (3 small street tacos, his estimate ~150g meat + ~150g tortilla total, rest onion/bell pepper/salsa: meat ~375/29g [assumed mixed fatty street-taco meat ~250/19 per 100g — 8/02 lengua ran 285/18, say if it was leaner]; tortillas ~320/8g [~215/100g corn]; veg + sauce ~75/1g; sweetened latte ~290/9g [7/29–7/31 sweet-version precedent 280–300])
 - **Carbs / Sodium:** ~97g / ~1g so far (tortillas ~62g; latte ~30g; veg/salsa ~5g. Sodium: salsa + seasoning only — thin, salt the next meal)
 - **Trained:** —
-- **Notes:** ~1060 / ~47g so far — 98g under the 145 floor with ~1140 of room to the 2200 rest-day ceiling. Book the 2 scoops now (~280/48g → ~1340/~95g), leaving ~50g from food on ~860 of room — one protein-anchored meal closes it. Fiber: taco veg only (~3g), sixth thin day running — banana. Next lift owed: **Day A** (Smith incline bench · barbell rows · RDL · leg extensions), 8 days since the last full session; walk moves the ceiling to 2500.
+- **Notes:** ~1060 / ~47g so far — 98g under the 145 floor with ~1140 of room to the 2200 rest-day ceiling. **Plan: 400g choice ribeye grilled tonight ~1200/104g** [~300/26 per 100g, 8/02 precedent] → day lands **~2260 / ~151g**: floor cleared from food alone, so **skip the shake** (adding it blows even the earned ceiling). 2260 is 60 over the 2200 rest ceiling → the walk decides the day: walk = earned 2500, genuine ~750 deficit; no walk = small overshoot, acceptable but the trend needs better. Fiber: taco veg only (~3g), sixth thin day running — banana. Next lift owed: **Day A** (Smith incline bench · barbell rows · RDL · leg extensions), 8 days since the last full session.
 
 ## 2026-08-09
 - **Weight:** 96.0 kg (fasted AM)
