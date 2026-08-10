@@ -174,7 +174,12 @@ function DistributionChart({ chartData }: { chartData: { name: string; value: nu
     <div data-testid="distribution-chart" className="mb-6">
       <ResponsiveContainer width="100%" height={220}>
         <PieChart>
-          <Pie data={chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={85}>
+          {/* isAnimationActive=false: recharts' mount animation draws the pie via
+              requestAnimationFrame, which never fires in the headless journey
+              capture — the gate's reference then holds an EMPTY chart and can
+              never catch the chart vanishing for real. Synchronous render makes
+              the pixels the gate protects the pixels a lawyer actually sees. */}
+          <Pie data={chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={85} isAnimationActive={false}>
             {chartData.map((entry, i) => (
               <Cell key={i} fill={CHART_COLORS[entry.category] ?? '#6b7280'} />
             ))}
