@@ -120,6 +120,15 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
               {titleCaseIfShouty(nt.agency)}
             </Link>
           ) : nt.agency}
+          {nt.agency && (
+            <>
+              {" · "}
+              <Link href={`/entity/${encodeURIComponent(nt.agency)}#network`} data-testid="market-map-link"
+                className="whitespace-nowrap text-primary underline decoration-primary/40 underline-offset-2 hover:decoration-primary">
+                market map
+              </Link>
+            </>
+          )}
         </p>
 
         <div className="mt-4 flex flex-wrap items-baseline gap-x-4 gap-y-1">

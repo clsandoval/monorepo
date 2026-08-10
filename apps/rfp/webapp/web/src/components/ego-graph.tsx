@@ -94,7 +94,7 @@ export default function EgoGraph({ data, height = 420 }: { data: EgoData; height
         const i = idx.get(l.a)!, j = idx.get(l.b)!;
         return {
           l, i, j,
-          w: clamp((l.value / maxL) * 6, 1, 6), // stroke-width ∝ value, clamped [1, 6]
+          w: clamp((l.value / maxL) * 3, 0.75, 3), // hairline weights — stroke ∝ value, [0.75, 3]
           rest: r[i] + r[j] + 18 + 80 * (1 - Math.sqrt(l.value / maxL)), // heavier link = shorter spring
         };
       });
@@ -166,6 +166,14 @@ export default function EgoGraph({ data, height = 420 }: { data: EgoData; height
       adj.get(l.b)!.add(l.a);
     }
 
+    // draw order: dim second-degree first, first-degree next, focal LAST (topmost —
+    // its ring must never be clipped by a neighbour)
+    const firstDeg = new Set<string>();
+    for (const l of links) {
+      if (l.a === center) firstDeg.add(l.b);
+      if (l.b === center) firstDeg.add(l.a);
+    }
+
     // labels at rest: center + top 5 by value. A label survives only if its box clears
     // (a) every already-placed label, (b) EVERY node mark, and (c) no surviving label
     // reads identically after truncation (two "DEPARTMENT OF PUB…" = one dropped).
@@ -177,42 +185,43 @@ export default function EgoGraph({ data, height = 420 }: { data: EgoData; height
     const top = new Set<string>();
     const boxes: { x: number; y: number; w: number; h: number }[] = [];
     const texts = new Set<string>();
-    // node marks are obstacles too (half-diagonal for squares)
+    // prominent marks are obstacles; faint second-ring outlines may sit under a
+    // label's white halo (legible), else dense hubs render almost no labels at all
     const nodeBoxes = nodes.map((d, i) => {
       const e = d.kind === "entity" ? r[i] * 1.26 : r[i];
-      return { x: px[i] - e, y: py[i] - e, w: e * 2, h: e * 2 };
+      const prominent = d.id === center || firstDeg.has(d.id) || r[i] >= 10;
+      return prominent ? { x: px[i] - e, y: py[i] - e, w: e * 2, h: e * 2 } : null;
     });
-    const labelDy = new Map<string, number>();   // y-offset of the surviving label
+    const labelPos = new Map<string, { x: number; y: number; anchor: "start" | "middle" }>();
     for (const id of wanted) {
       const i = idx.get(id)!;
       const txt = trunc(nodes[i].label);
       if (texts.has(txt)) continue;
       const w = txt.length * 6.2 + 8;
-      // try below the node, then above — dense hubs often have one side clear
-      for (const dy of [r[i] + 4, -(r[i] + 18)]) {
-        const box = { x: px[i] - w / 2, y: py[i] + dy, w, h: 14 };
+      // try below, above, then right of the node — dense hubs usually have one clear side
+      const cands: [number, number][] = [
+        [px[i] - w / 2, py[i] + r[i] + 4],
+        [px[i] - w / 2, py[i] - r[i] - 18],
+        [px[i] + r[i] + 6, py[i] - 7],
+      ];
+      for (const [bx, by] of cands) {
+        const box = { x: bx, y: by, w, h: 14 };
         const overlaps = (b: { x: number; y: number; w: number; h: number }) =>
           box.x < b.x + b.w && b.x < box.x + box.w && box.y < b.y + b.h && b.y < box.y + box.h;
-        if (boxes.some(overlaps) || nodeBoxes.some((b, k) => k !== i && overlaps(b))) continue;
-        top.add(id); boxes.push(box); texts.add(txt); labelDy.set(id, dy + 11);
+        if (boxes.some(overlaps) || nodeBoxes.some((b, k) => b != null && k !== i && overlaps(b))) continue;
+        top.add(id); boxes.push(box); texts.add(txt);
+        labelPos.set(id, { x: bx + (bx > px[i] ? 0 : w / 2), y: by + 11, anchor: bx > px[i] ? ("start" as const) : ("middle" as const) });
         break;
       }
     }
 
-    // draw order: dim second-degree first, first-degree next, focal LAST (topmost —
-    // its ring must never be clipped by a neighbour)
-    const firstDeg = new Set<string>();
-    for (const l of links) {
-      if (l.a === center) firstDeg.add(l.b);
-      if (l.b === center) firstDeg.add(l.a);
-    }
     const order = [...nodes.keys()].sort((a, b) => {
       const rank = (i: number) => (nodes[i].id === center ? 2 : firstDeg.has(nodes[i].id) ? 1 : 0);
       return rank(a) - rank(b);
     });
 
     const byId = new Map(nodes.map((d) => [d.id, d]));
-    return { nodes, center, px, py, r, edges, vb, adj, top, byId, firstDeg, order, labelDy };
+    return { nodes, center, px, py, r, edges, vb, adj, top, byId, firstDeg, order, labelPos };
   }, [data]);
 
   const [hovered, setHovered] = useState<string | null>(null);
@@ -317,11 +326,17 @@ export default function EgoGraph({ data, height = 420 }: { data: EgoData; height
           const r = lay.r[i];
           const x = lay.px[i], y = lay.py[i];
           const isCenter = d.id === lay.center;
-          const fill = lit || isCenter ? "var(--color-primary)" : "var(--color-muted-foreground)";
+          // blueprint marks (style 11): white-filled outlines, one hue by relevance —
+          // solid gray blobs read as game tokens, not a procurement schematic
+          const first = lay.firstDeg.has(d.id);
+          const fill = lit || isCenter ? "var(--color-primary)" : "var(--color-background)";
+          const stroke = lit || isCenter ? "var(--color-primary)"
+            : first ? "var(--color-primary)" : "var(--color-muted-foreground)";
+          const strokeOpacity = lit || isCenter ? 1 : first ? 0.55 : 0.5;
           return (
             <g key={d.id} data-testid="ego-node" data-id={d.id}
               className="cursor-pointer transition-opacity"
-              opacity={dim ? 0.15 : isCenter || lit || lay.firstDeg.has(d.id) ? 1 : 0.5}
+              opacity={dim ? 0.15 : isCenter || lit || first ? 1 : 0.65}
               onPointerEnter={() => nodeEnter(d.id)}
               onPointerLeave={nodeLeave}
               onClick={() =>
@@ -329,9 +344,10 @@ export default function EgoGraph({ data, height = 420 }: { data: EgoData; height
               }>
               <title>{`${d.label} — ${d.kind === "supplier" ? "supplier" : "procuring entity"} · ${pesoCompact(d.value)} · ${d.n} award${d.n === 1 ? "" : "s"}`}</title>
               {d.kind === "supplier" ? (
-                <circle cx={x} cy={y} r={r} fill={fill} />
+                <circle cx={x} cy={y} r={r} fill={fill} stroke={stroke} strokeOpacity={strokeOpacity} strokeWidth={1.5} />
               ) : (
-                <rect x={x - r * 0.89} y={y - r * 0.89} width={r * 1.78} height={r * 1.78} fill={fill} />
+                <rect x={x - r * 0.89} y={y - r * 0.89} width={r * 1.78} height={r * 1.78} rx={2}
+                  fill={fill} stroke={stroke} strokeOpacity={strokeOpacity} strokeWidth={1.5} />
               )}
               {isCenter && (d.kind === "supplier" ? (
                 // white under-ring = ring-offset: the focus ring reads even over edges
@@ -350,7 +366,8 @@ export default function EgoGraph({ data, height = 420 }: { data: EgoData; height
               {(lay.top.has(d.id) || hovered === d.id) && (
                 // white halo (paint-order) keeps labels legible over edges — below the
                 // node, never over its neighbours (rest-state set is collision-free)
-                <text x={x} y={y + (lay.labelDy.get(d.id) ?? r + 13)} textAnchor="middle" fontSize={10}
+                <text x={lay.labelPos.get(d.id)?.x ?? x} y={lay.labelPos.get(d.id)?.y ?? y + r + 13}
+                  textAnchor={lay.labelPos.get(d.id)?.anchor ?? "middle"} fontSize={10}
                   className="pointer-events-none select-none font-mono"
                   paintOrder="stroke" stroke="var(--color-background)" strokeWidth={3}
                   fill={lit || isCenter ? "var(--color-primary)" : "var(--color-muted-foreground)"}>

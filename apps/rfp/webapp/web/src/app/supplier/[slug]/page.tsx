@@ -153,7 +153,7 @@ export default async function SupplierPage({ params }: PageProps<"/supplier/[slu
           </section>
 
           {ego != null && (ego.nodes?.length ?? 0) >= 3 && (
-            <section aria-label="Network">
+            <section aria-label="Network" id="network">
               <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Network</h2>
               <p className="mt-1 text-xs text-muted-foreground">award relationships recorded around this supplier</p>
               <div className="mt-2 overflow-hidden rounded-md border border-border bg-muted/20">
