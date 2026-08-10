@@ -237,13 +237,15 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
                 </li>
               ))}
             </ul>
-            {nt.eligibility.length > 0 && (
-              <div className="mt-3 rounded-lg border border-border p-3">
-                <p className="text-xs font-medium text-muted-foreground">Named in this notice</p>
-                <ul className="mt-1 space-y-1 text-sm">
-                  {nt.eligibility.map((e, i) => <li key={i}>{e}</li>)}
-                </ul>
-              </div>
+            {/* footnote, not a card — and a lone generic fragment ("similar contract")
+                is extraction residue, not information: suppress it */}
+            {nt.eligibility.length > 0 && nt.eligibility.join(" ").length > 20 && (
+              <p className="mt-3 text-xs text-muted-foreground">
+                named in this notice:{" "}
+                {nt.eligibility.map((e, i) => (
+                  <span key={i} className="mr-1.5 inline-block rounded border border-border px-1.5 py-0.5 text-muted-foreground">{e}</span>
+                ))}
+              </p>
             )}
           </section>
 

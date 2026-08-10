@@ -5,6 +5,7 @@
 // Palette: signal blue #1550D8 via --color-primary only; everything else neutral.
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { titleCaseIfShouty } from "@/lib/text";
 
 export interface EgoNode {
   id: string; // "s:<winner_norm>" | "e:<agency>"
@@ -127,12 +128,14 @@ export default function EgoGraph({ data, height = 420 }: { data: EgoData; height
         px[i] += vx[i];
         py[i] += vy[i];
       }
-      // hard collision pass — marks must never intersect (radius + 4 breathing room)
+      // hard collision pass — marks must never intersect (radius + 4 breathing room).
+      // squares extend past their nominal radius at the corners: use the half-diagonal.
       for (let i = 0; i < n; i++) {
         for (let j = i + 1; j < n; j++) {
           const dx = px[j] - px[i], dy = py[j] - py[i];
           const d = Math.sqrt(dx * dx + dy * dy) || 1;
-          const min = r[i] + r[j] + 4;
+          const eff = (k: number) => (nodes[k].kind === "entity" ? r[k] * 1.26 : r[k]);
+          const min = eff(i) + eff(j) + 4;
           if (d < min) {
             const push = (min - d) / 2;
             const ux = dx / d, uy = dy / d;
@@ -163,21 +166,37 @@ export default function EgoGraph({ data, height = 420 }: { data: EgoData; height
       adj.get(l.b)!.add(l.a);
     }
 
-    // labels at rest: center + top 5 by value, then drop any whose box would overlap
-    // a higher-value label (rest are hover-only) — no overprinting, ever
+    // labels at rest: center + top 5 by value. A label survives only if its box clears
+    // (a) every already-placed label, (b) EVERY node mark, and (c) no surviving label
+    // reads identically after truncation (two "DEPARTMENT OF PUB…" = one dropped).
+    // Everything else is hover-only. No overprinting, ever.
     const wanted = [
       ...(idx.has(center) ? [center] : []),
       ...[...nodes].filter((d) => d.id !== center).sort((a, b) => b.value - a.value).slice(0, 5).map((d) => d.id),
     ];
     const top = new Set<string>();
     const boxes: { x: number; y: number; w: number; h: number }[] = [];
+    const texts = new Set<string>();
+    // node marks are obstacles too (half-diagonal for squares)
+    const nodeBoxes = nodes.map((d, i) => {
+      const e = d.kind === "entity" ? r[i] * 1.26 : r[i];
+      return { x: px[i] - e, y: py[i] - e, w: e * 2, h: e * 2 };
+    });
+    const labelDy = new Map<string, number>();   // y-offset of the surviving label
     for (const id of wanted) {
       const i = idx.get(id)!;
-      const w = Math.min(nodes[i].label.length, 18) * 6.2 + 8;
-      const box = { x: px[i] - w / 2, y: py[i] + r[i] + 4, w, h: 14 };
-      const hits = boxes.some((b) =>
-        box.x < b.x + b.w && b.x < box.x + box.w && box.y < b.y + b.h && b.y < box.y + box.h);
-      if (!hits) { top.add(id); boxes.push(box); }
+      const txt = trunc(nodes[i].label);
+      if (texts.has(txt)) continue;
+      const w = txt.length * 6.2 + 8;
+      // try below the node, then above — dense hubs often have one side clear
+      for (const dy of [r[i] + 4, -(r[i] + 18)]) {
+        const box = { x: px[i] - w / 2, y: py[i] + dy, w, h: 14 };
+        const overlaps = (b: { x: number; y: number; w: number; h: number }) =>
+          box.x < b.x + b.w && b.x < box.x + box.w && box.y < b.y + b.h && b.y < box.y + box.h;
+        if (boxes.some(overlaps) || nodeBoxes.some((b, k) => k !== i && overlaps(b))) continue;
+        top.add(id); boxes.push(box); texts.add(txt); labelDy.set(id, dy + 11);
+        break;
+      }
     }
 
     // draw order: dim second-degree first, first-degree next, focal LAST (topmost —
@@ -193,7 +212,7 @@ export default function EgoGraph({ data, height = 420 }: { data: EgoData; height
     });
 
     const byId = new Map(nodes.map((d) => [d.id, d]));
-    return { nodes, center, px, py, r, edges, vb, adj, top, byId, firstDeg, order };
+    return { nodes, center, px, py, r, edges, vb, adj, top, byId, firstDeg, order, labelDy };
   }, [data]);
 
   const [hovered, setHovered] = useState<string | null>(null);
@@ -331,11 +350,11 @@ export default function EgoGraph({ data, height = 420 }: { data: EgoData; height
               {(lay.top.has(d.id) || hovered === d.id) && (
                 // white halo (paint-order) keeps labels legible over edges — below the
                 // node, never over its neighbours (rest-state set is collision-free)
-                <text x={x} y={y + r + 13} textAnchor="middle" fontSize={10}
+                <text x={x} y={y + (lay.labelDy.get(d.id) ?? r + 13)} textAnchor="middle" fontSize={10}
                   className="pointer-events-none select-none font-mono"
                   paintOrder="stroke" stroke="var(--color-background)" strokeWidth={3}
                   fill={lit || isCenter ? "var(--color-primary)" : "var(--color-muted-foreground)"}>
-                  {trunc(d.label)}
+                  {trunc(titleCaseIfShouty(d.label))}
                 </text>
               )}
             </g>

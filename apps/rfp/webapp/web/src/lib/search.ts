@@ -153,8 +153,12 @@ export async function executePlan(plan: SearchPlan, offset = 0, limit = 30): Pro
   if (p.days_max != null) args.push("--days-max", String(p.days_max));
   const { stdout } = await pexec("python3", args, { cwd: RFP_DIR, timeout: 15_000, maxBuffer: 8 << 20 });
   const out = JSON.parse(stdout) as { candidates: number; hits: Record<string, unknown>[] };
-  let hits = out.hits;
-  let candidates = out.candidates;
+  // The CLI's open filter doesn't bind under --no-profile, so expired-by-snapshot rows
+  // leak through and the "open notices" board leads with closed tenders. Enforce the
+  // Manila-now cutoff here — the same guard the SQL board path applies.
+  const cutoff = manilaNow();
+  let hits = out.hits.filter((h) => h.closing_at == null || String(h.closing_at) >= cutoff);
+  let candidates = Math.min(out.candidates, hits.length < out.hits.length ? hits.length : out.candidates);
   // Bidding-round filter (no CLI flag): derive from mode+title per row. candidates shrinks to match.
   if (p.round) {
     hits = hits.filter((h) => roundOf(typeof h.title === "string" ? h.title : null,

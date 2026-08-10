@@ -1389,9 +1389,14 @@ def run_query(con, q, args, prof, pool=None):
                    f"where " + " and ".join(cond + where) + " order by rel desc limit ?")
             return con.execute(sql, [e] + params + [pool]).fetchall()
         ca = expr(s, "closing_at")
+        # soonest-closing pool must skip already-closed rows at the SQL level — on a
+        # stale snapshot thousands of expired rows otherwise fill the pool cap before
+        # a single open notice enters (closing_at is naive Manila wall-clock)
+        now8 = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime("%Y-%m-%dT%H:%M:%S")
+        cond = where + [f"({ca} is null or {ca} >= '{now8}')"]
         order = f"case when {ca} is null then 1 else 0 end, {ca} asc"
         sql = (f"select {sel}, 0.0 as rel, null as snip from {s['base']}"
-               + (" where " + " and ".join(where) if where else "")
+               + " where " + " and ".join(cond)
                + f" order by {order} limit ?")
         return con.execute(sql, params + [pool]).fetchall()
 
@@ -1901,6 +1906,13 @@ def cmd_search(args):
     con = connect()
     rows, notes, relaxed = run_query(con, args.query, args, prof)
     notes = told + notes
+    # A closed notice is never a search result -- the corpus is a snapshot and rows
+    # expire between ingests. Without this, a stale snapshot's soonest-closing pool is
+    # ALL closed rows and the webapp board leads with dead tenders.
+    open_rows = [r for r in rows if (days_to(r["closing_at"]) or 0) >= 0]
+    if len(open_rows) < len(rows):
+        notes.append(f"{len(rows) - len(open_rows)} closed-by-snapshot notices excluded")
+    rows = open_rows
     hits = rank(rows, prof, args.results,
                 loose_province=bool(args.province) and not args.province_strict)
     attach_doc_evidence(con, hits, norm_ws(args.query) if args.query else None)

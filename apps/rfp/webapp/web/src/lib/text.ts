@@ -7,6 +7,7 @@ const ACRONYMS = new Set([
   "DPWH", "LGU", "DEO", "BIP", "CSSP", "SIPAG", "PHP", "BRGY", "STA", "STO", "JCT",
   "NIA", "DOH", "PNP", "AFP", "GAA", "RA", "IT", "ICT", "CCTV", "LPG", "VRF", "HVAC",
   "PCAB", "ABC", "BAC", "MOOE", "SDO", "OCM", "QCU", "CAO", "NGO", "PWD", "COA",
+  "SBFP", "LDRRMF", "TFS", "GAD", "DRRM", "PPE", "ICU", "ER", "OPD", "BHS", "RHU",
 ]);
 
 // Contact blobs repeat the separately-extracted phone/email inline — remove the
@@ -24,15 +25,25 @@ export function stripExtracted(raw: string, ...parts: (string | null | undefined
 export function titleCaseIfShouty(s: string): string {
   const letters = s.replace(/[^A-Za-z]/g, "");
   if (!letters || letters.replace(/[^A-Z]/g, "").length / letters.length < 0.85) return s;
-  // hyphens stay inside the token so ref codes ("SDO-SEF-26-FIXTURES-0995") are
-  // detected as digit-bearing and kept ALL-CAPS as one unit
-  return s.toLowerCase().replace(/[a-z0-9][\w'’-]*/gi, (w, i) => {
-    const up = w.toUpperCase();
-    const ord = up.match(/^(\d+)(ST|ND|RD|TH)$/);           // 1ST → 1st
+  // whitespace chunks, not \w runs: "OCM-LDRRMF(HEALTH)-26-MSLI-0954" and "FAÇADE"
+  // must never be partially re-cased ("Ocm-ldrrmf(Health)…", "FaçAde")
+  return s.split(/(\s+)/).map((chunk, i) => {
+    if (/\s/.test(chunk) || chunk === "") return chunk;
+    const ord = chunk.match(/^(\d+)(ST|ND|RD|TH)$/);        // 1ST → 1st
     if (ord) return ord[1] + ord[2].toLowerCase();
-    if (/\d/.test(w)) return up;                            // ref codes: 26DB0021, K0582
-    if (ACRONYMS.has(up) || /^[IVXL]{2,4}$/.test(up)) return up;
-    if (i > 0 && STOP.has(w)) return w;
-    return w[0].toUpperCase() + w.slice(1);
-  });
+    // ref codes, mixed-symbol tokens, non-ASCII: verbatim — re-casing only mangles them
+    if (/[\d()\/]|[^\x00-\x7F]/.test(chunk)) return chunk;
+    const core = chunk.replace(/[^A-Za-z]/g, "").toUpperCase();
+    if (ACRONYMS.has(core) || /^[IVXL]{2,4}$/.test(core)) return chunk;
+    const lower = chunk.toLowerCase();
+    if (i > 0 && STOP.has(lower.replace(/[^a-z]/g, ""))) return lower;
+    return lower.replace(/[a-z]/, (c) => c.toUpperCase());
+  }).join("");
+}
+
+/** Person names from buyer-side records arrive in mixed shouting ("NIDA Dollesin
+ *  RELLAMA") — capitalize only the ALL-CAPS words, leave already-mixed ones alone. */
+export function personCase(s: string): string {
+  return s.split(/(\s+)/).map((w) =>
+    /^[A-ZÑ'’.-]{2,}$/.test(w) ? w[0] + w.slice(1).toLowerCase() : w).join("");
 }

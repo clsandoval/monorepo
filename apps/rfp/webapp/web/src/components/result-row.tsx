@@ -60,8 +60,11 @@ export function ResultRowItem({ row, hideAgency = false }: { row: ResultRow; hid
             )}
             {titleCaseIfShouty(row.title)}
           </span>
-          {/* on an entity's own dossier every row repeats the entity — hide it there */}
-          {!hideAgency && <span className="mt-0.5 line-clamp-1 block text-xs text-muted-foreground">{row.agency}</span>}
+          {/* on an entity's own dossier every row repeats the entity — hide it there;
+              leading numeric IDs ("162508 MARANGAL…") are source debris */}
+          {!hideAgency && <span className="mt-0.5 line-clamp-1 block text-xs text-muted-foreground">
+            {titleCaseIfShouty(row.agency.replace(/^\d+\s+/, ""))}
+          </span>}
         </span>
         {/* md:contents lifts ABC + chip into their own grid cells on desktop */}
         <span className="mt-2 flex items-center justify-between gap-3 md:contents">

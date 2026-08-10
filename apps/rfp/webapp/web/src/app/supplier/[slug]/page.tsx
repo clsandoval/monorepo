@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 import { winPct } from "@/lib/notice";
 import { getEgo, getSupplier } from "@/lib/map";
-import { titleCaseIfShouty } from "@/lib/text";
+import { personCase, titleCaseIfShouty } from "@/lib/text";
 import EgoGraph from "@/components/ego-graph";
 
 export const dynamic = "force-dynamic";
@@ -98,7 +98,7 @@ function WinRow({ w, peso }: { w: import("@/lib/map").SupplierWin; peso: (v: num
             </Link>
           ) : (
             // created_by is the buyer-side recording officer, not the office itself
-            <>recorded by {w.buyer}</>
+            <>recorded by {personCase(w.buyer)}</>
           )}
         </p>
       )}
