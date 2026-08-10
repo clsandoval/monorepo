@@ -1,0 +1,193 @@
+import { getRouteApi, Link } from '@tanstack/react-router';
+import { useState, useEffect } from 'react';
+import { Loader2, AlertCircle } from 'lucide-react';
+import type { EngineInput, EngineOutput, CaseRow } from '@/types';
+import { loadCase, updateCaseInput, updateCaseOutput } from '@/lib/cases';
+import { ResultsView } from '@/components/results/ResultsView';
+import { WizardContainer } from '@/components/wizard';
+import { SaveStatusBadge } from '@/components/case/SaveStatusBadge';
+import { compute } from '@/wasm/bridge';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { useAutoSave } from '@/hooks/useAutoSave';
+import { useAuth } from '@/hooks/useAuth';
+
+const routeApi = getRouteApi('/cases/$caseId');
+
+type PageState =
+  | { phase: 'loading' }
+  | { phase: 'wizard'; input: EngineInput | null }
+  | { phase: 'computing'; input: EngineInput }
+  | { phase: 'results'; input: EngineInput; output: EngineOutput }
+  | { phase: 'error'; message: string };
+
+export function CaseEditorPage() {
+  const { caseId } = routeApi.useParams();
+  const { user: _user } = useAuth();
+  const [state, setState] = useState<PageState>({ phase: 'loading' });
+  const [caseRow, setCaseRow] = useState<CaseRow | null>(null);
+  const [autoSaveInput, setAutoSaveInput] = useState<EngineInput | null>(null);
+
+  const { status: autoSaveStatus } = useAutoSave(
+    autoSaveInput ? caseId : null,
+    autoSaveInput as EngineInput,
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function fetchCase() {
+      try {
+        const row = await loadCase(caseId);
+        if (cancelled) return;
+        setCaseRow(row);
+
+        if (row.output_json) {
+          const input = row.input_json as EngineInput;
+          setAutoSaveInput(input);
+          setState({
+            phase: 'results',
+            input,
+            output: row.output_json as EngineOutput,
+          });
+        } else if (row.input_json) {
+          const input = row.input_json as EngineInput;
+          setAutoSaveInput(input);
+          setState({ phase: 'wizard', input });
+        } else {
+          setState({ phase: 'wizard', input: null });
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setState({
+            phase: 'error',
+            message: err instanceof Error ? err.message : 'Failed to load case',
+          });
+        }
+      }
+    }
+
+    fetchCase();
+    return () => { cancelled = true; };
+  }, [caseId]);
+
+  useEffect(() => {
+  }, [caseId]);
+
+  useEffect(() => {
+    if (state.phase === 'results') {
+    }
+  }, [caseId, state.phase]);
+
+
+
+  const handleSubmit = async (data: EngineInput) => {
+    setState({ phase: 'computing', input: data });
+    try {
+      await updateCaseInput(caseId, data);
+      const output = await Promise.race([
+        compute(data),
+        new Promise<never>((_, rej) =>
+          setTimeout(() => rej(new Error('Computation timed out after 30 seconds')), 30000)
+        ),
+      ]);
+      await updateCaseOutput(caseId, output);
+      setState({ phase: 'results', input: data, output });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Computation failed';
+      setState({ phase: 'error', message });
+    }
+  };
+
+  const handleEditInput = () => {
+    const input = state.phase === 'results' ? state.input : null;
+    setState({ phase: 'wizard', input });
+  };
+
+
+  return (
+    <div className="max-w-3xl mx-auto py-6 sm:py-8 px-4 sm:px-6">
+      {state.phase === 'loading' && (
+        <div className="flex items-center justify-center py-20">
+          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+        </div>
+      )}
+
+      {state.phase === 'wizard' && (
+        <>
+          {caseRow?.output_json && (
+            <div className="mb-4">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() =>
+                  setState({
+                    phase: 'results',
+                    input: caseRow.input_json as EngineInput,
+                    output: caseRow.output_json as EngineOutput,
+                  })
+                }
+              >
+                ← Back to Results
+              </Button>
+            </div>
+          )}
+          {autoSaveStatus !== 'idle' && (
+            <div className="mb-4 flex justify-end">
+              <SaveStatusBadge status={autoSaveStatus} />
+            </div>
+          )}
+          {/* Third call site of the autosave setter, and the FIRST one outside the case-load effect.
+              Before this line the hook only ever observed the value the route had just read back out
+              of the database, so nothing a lawyer typed reached it. The setter comes from useState and
+              is therefore referentially stable, which keeps WizardContainer's watch() subscription
+              from tearing down and rebuilding on every render. */}
+          <WizardContainer
+            onSubmit={handleSubmit}
+            onChange={setAutoSaveInput}
+            defaultValues={state.input ?? undefined}
+          />
+        </>
+      )}
+
+      {state.phase === 'computing' && (
+        <div className="flex items-center justify-center py-20">
+          <div className="text-center">
+            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground mx-auto mb-4" />
+            <p className="text-muted-foreground">Computing distribution...</p>
+          </div>
+        </div>
+      )}
+
+      {state.phase === 'results' && (
+        <>
+          <div className="mb-4">
+            <Link to="/cases/$caseId/tax" params={{ caseId }}>
+              <Button variant="outline">
+                Estate Tax →
+              </Button>
+            </Link>
+          </div>
+          <ResultsView
+            input={state.input}
+            output={state.output}
+            onEditInput={handleEditInput}
+          />
+        </>
+      )}
+
+      {state.phase === 'error' && (
+        <Alert variant="destructive" className="text-center">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription className="mb-4">
+            {state.message}
+          </AlertDescription>
+          <Button variant="destructive" onClick={handleEditInput}>
+            Back to Editor
+          </Button>
+        </Alert>
+      )}
+    </div>
+  );
+}
