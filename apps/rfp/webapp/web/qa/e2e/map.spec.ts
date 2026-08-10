@@ -1,13 +1,16 @@
 import { test, expect, type Page } from "@playwright/test";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
+import { join } from "node:path";
 
 // M5 E2E — The Map: /supplier/[slug] + /entity/[slug]. The awards db is being backfilled
 // LIVE (~36 rows/min), so every slug is picked AT RUNTIME from map_query.py / the corpus —
 // never hardcoded. Assertions that need ref_id-joined awards (win → notice links, share
 // bars) are conditional: the join is thin by design until listing harvests catch up.
 const pexec = promisify(execFile);
-const RFP_DIR = "/home/clsandoval/cs/monorepo/apps/rfp";
+// portable: playwright cwd is web/ — ../../ is the rfp root in both the
+// monorepo (apps/rfp) and the standalone bidkita repo layout
+const RFP_DIR = process.env.RFP_DIR ?? join(process.cwd(), "..", "..");
 
 async function py(args: string[]): Promise<string> {
   const { stdout } = await pexec("python3", args, { cwd: RFP_DIR, timeout: 30_000, maxBuffer: 16 << 20 });

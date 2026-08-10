@@ -14,7 +14,7 @@
 set -uo pipefail
 cd "$(dirname "$0")"
 export PATH="$HOME/.local/bin:$HOME/.fly/bin:$PATH"
-[ -f ../../.env ] && set -a && . ../../.env && set +a
+C="$PWD"; while [ "$C" != "/" ]; do [ -f "$C/.env" ] && set -a && . "$C/.env" && set +a && break; C="$(dirname "$C")"; done
 
 DOCS=1; TAG=1
 for a in "$@"; do case "$a" in --no-docs) DOCS=0;; --no-tag) TAG=0;; esac; done

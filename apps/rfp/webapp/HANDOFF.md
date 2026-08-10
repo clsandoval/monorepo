@@ -13,6 +13,8 @@ through `dd6fa2d26`. Live app: https://rfp-finder-ph.fly.dev (M4.2 build — M5 
 | W-B/C supplier + entity pages | **SHIPPED LIVE + P0 passed** (2 real bugs caught on prod: pre-migration bundle db, ISO dates). |
 | BetterGov import | **SHIPPED LIVE.** 5.08M awards (2013-2025) in awards.db; share bars/12-mo spend/buyer names real. See RESUME.md. |
 | W-S spikes (abstracts access, PCAB AMO join) | not started — NEXT |
+| PERF pass (Carlos 2026-08-10) | not started. Pages are slow: python spawn per SSR request over the 2.1GB db + scale-to-zero cold starts. Plan: precompute supplier/entity stats tables at bundle time, cache/ISR on dossier pages, resident query worker, min_machines_running=1. Also a responsiveness pass. |
+| AI-mode attach bar | #id references + autocomplete SHIPPED; the fuller attach/reference bar beside messages is specced-by-voice-note only. |
 | W-D Telegram alerts | not started |
 | W-E nightly cron | **DONE.** daily.sh step 7 bundle_deploy + crontab 0 19 UTC + TG ping. First full run tonight — check nightly.log. |
 | W-F knowledge-graph UI | specced (BUILD-SPEC), unblocked |
