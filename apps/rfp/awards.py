@@ -133,6 +133,10 @@ def migrate(db):
     # became a 5.5M-row scan after the bettergov bulk import
     db.execute("create index if not exists awards_ref_int"
                " on awards(cast(ref_id as integer)) where ref_id is not null")
+    # similar-awards matches lower(trim(classification)) — a full 5M-row scan per
+    # NOTICE PAGE VIEW on prod (~15s cold on shared CPU); only API rows carry it
+    db.execute("create index if not exists awards_class"
+               " on awards(lower(trim(classification))) where classification is not null")
     rows = db.execute("select award_id, winner from awards"
                       " where winner is not null and winner_norm is null").fetchall()
     if rows:
