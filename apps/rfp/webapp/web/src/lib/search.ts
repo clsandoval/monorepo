@@ -110,9 +110,12 @@ export function sanitizePlan(p: unknown): SearchPlan {
   if (abcMin !== undefined) plan.abc_min = abcMin;
   if (abcMax !== undefined) plan.abc_max = abcMax;
   if (daysMax !== undefined) plan.days_max = Math.min(Math.floor(daysMax), 365);
-  if (o.sort === "closing" || o.sort === "abc_desc" || o.sort === "abc_asc") plan.sort = o.sort;
+  if (o.sort === "closing" || o.sort === "abc_desc" || o.sort === "abc_asc" || o.sort === "newest") plan.sort = o.sort;
   return plan;
 }
+
+/** corpus timestamps are naive Manila local — compare against Manila "now", not UTC. */
+const manilaNow = () => new Date(Date.now() + 8 * 3600e3).toISOString().slice(0, 19);
 
 function toRow(h: Record<string, unknown>): ResultRow {
   const s = (k: string) => (typeof h[k] === "string" ? (h[k] as string) : null);
@@ -127,11 +130,16 @@ function toRow(h: Record<string, unknown>): ResultRow {
   };
 }
 
-/** Execute a (sanitized) plan via the rfp CLI. Stateless pagination: over-fetch offset+limit, slice. */
+/** Execute a (sanitized) plan. Term searches ride the rfp CLI (relevance lives there); a SORTED
+ *  BOARD is pure SQL over the ENTIRE corpus — sorting only the CLI's top-200-by-closing pool
+ *  made "budget high→low" show the biggest of the soonest-closing, which reads as broken. */
 export async function executePlan(plan: SearchPlan, offset = 0, limit = 30): Promise<SearchResponse> {
   const p = sanitizePlan(plan);
+  const lim0 = Math.min(Math.max(Math.floor(Number(limit) || 30), 1), 50);
+  if (p.kind === "board" && p.sort && p.sort !== "relevance")
+    return boardSql(p, Math.min(Math.max(Math.floor(Number(offset) || 0), 0), 2000), lim0);
   const off = Math.min(Math.max(Math.floor(Number(offset) || 0), 0), FETCH_CAP);
-  const lim = Math.min(Math.max(Math.floor(Number(limit) || 30), 1), 50);
+  const lim = lim0;
   const args = ["rfp", "search"];
   if (p.kind === "search" && p.terms.length) args.push(p.terms.join(" OR "));
   args.push("--json", "--no-profile", "--results", String(FETCH_CAP));
@@ -153,15 +161,20 @@ export async function executePlan(plan: SearchPlan, offset = 0, limit = 30): Pro
     hits = [...hits.filter(inProv), ...hits.filter((h) => !inProv(h))];
   }
   // Explicit sort overrides relevance/partition order — total order over the fetched set, so
-  // pagination slices stay consistent. Nulls always sink to the tail.
+  // pagination slices stay consistent. Nulls AND already-expired deadlines sink to the tail
+  // ("closing soon" must never lead with a closed notice — the corpus is a snapshot).
   if (p.sort && p.sort !== "relevance") {
-    const key = p.sort === "closing"
-      ? (h: Record<string, unknown>) => (h.closing_at ? String(h.closing_at) : "9999")
-      : (h: Record<string, unknown>) => (typeof h.abc === "number" ? (h.abc as number) : -1);
-    const dir = p.sort === "abc_desc" ? -1 : 1;
+    const now = manilaNow();
+    const key: (h: Record<string, unknown>) => string | number =
+      p.sort === "closing"
+        ? (h) => (h.closing_at && String(h.closing_at) >= now ? String(h.closing_at) : `~${h.closing_at ?? "9999"}`)
+        : p.sort === "newest"
+          ? (h) => (h.publish_at ? String(h.publish_at) : "0000")
+          : (h) => (typeof h.abc === "number" ? (h.abc as number) : -1);
+    const dir = p.sort === "abc_desc" || p.sort === "newest" ? -1 : 1;
     hits = [...hits].sort((a, b) => {
       const ka = key(a), kb = key(b);
-      if (p.sort !== "closing") { // numeric, nulls (-1) last regardless of direction
+      if (p.sort === "abc_desc" || p.sort === "abc_asc") { // numeric, nulls (-1) last regardless of direction
         if (ka === -1 && kb === -1) return 0;
         if (ka === -1) return 1;
         if (kb === -1) return -1;
@@ -172,12 +185,53 @@ export async function executePlan(plan: SearchPlan, offset = 0, limit = 30): Pro
   const results = hits.slice(off, off + lim).map(toRow);
   const more = off + results.length < Math.min(out.candidates, FETCH_CAP);
   let total = out.candidates;
-  // The unfiltered board advertises the full Active count; any filter narrows to real candidates.
+  // The unfiltered board advertises the still-open count (expired-by-snapshot excluded, matching
+  // what the sorted-board SQL path counts — the two numbers must agree).
   if (p.kind === "board" && !p.province && p.abc_min == null && p.abc_max == null && p.days_max == null) {
-    const rows = await readSql("SELECT count(*) AS c FROM corpus WHERE status='Active'", 1);
+    const rows = await readSql(
+      `SELECT count(*) AS c FROM corpus WHERE status='Active' AND (closing_at IS NULL OR closing_at >= '${manilaNow()}')`, 1);
     total = Number(rows[0]?.c ?? out.candidates);
   }
   return { plan: p, total, offset: off, results, more };
+}
+
+/** Sorted board = the whole Active corpus ordered by the user's key. Expired deadlines are
+ *  excluded outright (snapshot staleness), null sort keys sink, pagination is REAL (SQL
+ *  OFFSET — not capped at the CLI's 200-row pool). Filters mirror the CLI's semantics:
+ *  lot-aware ABC band, province via normalized location table OR free-text location. */
+async function boardSql(p: SearchPlan, off: number, lim: number): Promise<SearchResponse> {
+  const now = manilaNow();
+  const where: string[] = ["c.status='Active'", `(c.closing_at IS NULL OR c.closing_at >= '${now}')`];
+  if (p.sort === "closing") where.push("c.closing_at IS NOT NULL");
+  if (p.province) {
+    const prov = p.province.replace(/'/g, "''");
+    where.push(`(EXISTS (SELECT 1 FROM notice_location l WHERE l.id=c.id AND l.source=c.source AND l.location_norm=upper('${prov}'))
+      OR lower(c.location) LIKE lower('%${prov}%'))`);
+  }
+  if (p.abc_max != null) where.push(`(c.abc <= ${p.abc_max} OR c.abc_lot_min <= ${p.abc_max})`);
+  if (p.abc_min != null) where.push(`(c.abc >= ${p.abc_min} OR c.abc_lot_max >= ${p.abc_min})`);
+  if (p.days_max != null)
+    where.push(`c.closing_at <= '${new Date(Date.now() + (8 + p.days_max * 24) * 3600e3).toISOString().slice(0, 19)}'`);
+  const order = p.sort === "closing" ? "c.closing_at ASC"
+    : p.sort === "newest" ? "(c.publish_at IS NULL), c.publish_at DESC"
+    : p.sort === "abc_asc" ? "(c.abc IS NULL), c.abc ASC"
+    : "(c.abc IS NULL), c.abc DESC";
+  const W = where.join(" AND ");
+  const [rows, cnt] = await Promise.all([
+    readSql(`SELECT c.id, c.source, c.title, c.agency, c.location, c.abc, c.abc_lot_min, c.abc_lot_max,
+       c.mode_norm, c.closing_at, c.publish_at, t.work_type, t.needs_pcab,
+       (SELECT l.location_norm FROM notice_location l WHERE l.id=c.id AND l.source=c.source AND l.location_norm IS NOT NULL LIMIT 1) AS province
+     FROM corpus c LEFT JOIN tags.tags t ON t.id=c.id
+     WHERE ${W} ORDER BY ${order} LIMIT ${lim} OFFSET ${off}`, lim),
+    readSql(`SELECT count(*) AS c FROM corpus c WHERE ${W}`, 1),
+  ]);
+  const nowMs = Date.now() + 8 * 3600e3;
+  const results = rows.map((h) => toRow({
+    ...h,
+    days: h.closing_at ? Math.floor((new Date(String(h.closing_at)).getTime() - nowMs) / 86_400e3) : null,
+  }));
+  const total = Number(cnt[0]?.c ?? results.length);
+  return { plan: p, total, offset: off, results, more: off + results.length < total };
 }
 
 let provCache: string[] | null = null;

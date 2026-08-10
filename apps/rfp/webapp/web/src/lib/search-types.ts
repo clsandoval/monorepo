@@ -13,7 +13,7 @@ export type SearchPlan = {
   /** only show notices closing within N days */
   days_max?: number;
   /** result ordering; default: relevance for searches, closing-soonest for the board */
-  sort?: "relevance" | "closing" | "abc_desc" | "abc_asc";
+  sort?: "relevance" | "closing" | "abc_desc" | "abc_asc" | "newest";
   /** short human summary of the interpretation, e.g. "drainage · Cavite · under ₱5M" */
   note: string;
 };

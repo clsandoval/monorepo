@@ -52,6 +52,21 @@ ok("filtered search returns rows", filt.results.length > 0);
 ok("abc_max honored (nulls/per-lot allowed by CLI)", filt.results.every((h) => h.abc === null ? true : h.abc <= 5e6 || (h.abc_lot_min !== null && h.abc_lot_min <= 5e6)), JSON.stringify(filt.results.map((h) => h.abc)));
 ok("days_max honored", filt.results.every((h) => h.days === null || h.days <= 10), JSON.stringify(filt.results.map((h) => h.days)));
 
+// --- sorted board = SQL over the WHOLE corpus (not the CLI's 200-row pool) ---
+const manilaNow = new Date(Date.now() + 8 * 3600e3).toISOString().slice(0, 19);
+const bDesc = await S.executePlan({ kind: "board", terms: [], note: "", sort: "abc_desc" }, 0, 10);
+ok("board abc_desc reaches corpus-scale contracts (>₱100M)", (bDesc.results[0]?.abc ?? 0) > 100e6, String(bDesc.results[0]?.abc));
+ok("board abc_desc strictly descending", bDesc.results.every((x, i, a) => i === 0 || (a[i - 1].abc ?? 0) >= (x.abc ?? 0)));
+ok("board abc_desc excludes expired", bDesc.results.every((x) => !x.closing_at || x.closing_at >= manilaNow));
+const bClose = await S.executePlan({ kind: "board", terms: [], note: "", sort: "closing" }, 0, 10);
+ok("board closing leads with a live deadline", !!bClose.results[0]?.closing_at && bClose.results[0].closing_at >= manilaNow, String(bClose.results[0]?.closing_at));
+const bDeep = await S.executePlan({ kind: "board", terms: [], note: "", sort: "closing" }, 500, 10);
+ok("board sort paginates past the 200 cap", bDeep.results.length === 10 && bDeep.more === true, `n=${bDeep.results.length}`);
+const bNew = await S.executePlan({ kind: "board", terms: [], note: "", sort: "newest" }, 0, 5);
+ok("board newest first returns rows publish-desc", bNew.results.length === 5);
+const sClose = await S.executePlan({ kind: "search", terms: ["drainage", "canal"], note: "", sort: "closing" }, 0, 5);
+ok("search closing sort never leads with expired", !!sClose.results[0]?.closing_at && sClose.results[0].closing_at >= manilaNow, String(sClose.results[0]?.closing_at));
+
 // --- one REAL planQuery call ---
 const { plan: real, usd } = await S.planQuery("drainage in cavite under 5M");
 console.log(`planQuery usd=$${usd.toFixed(5)} plan=${JSON.stringify(real)}`);

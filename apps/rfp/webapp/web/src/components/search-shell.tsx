@@ -246,6 +246,7 @@ export function SearchShell() {
                     className="h-9 rounded-md border border-input bg-background px-2 text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                     <option value="relevance">Sort: relevance</option>
                     <option value="closing">Sort: closing soon</option>
+                    <option value="newest">Sort: newest first</option>
                     <option value="abc_desc">Sort: budget high → low</option>
                     <option value="abc_asc">Sort: budget low → high</option>
                   </select>

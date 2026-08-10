@@ -137,6 +137,30 @@ test("chip × → back to the board", async () => {
   await expect(page.getByTestId("result-row").first()).toBeVisible();
 });
 
+test("BOARD sort: budget high→low sorts the WHOLE corpus; closing-soon never leads closed", async () => {
+  // regression: board sort used to reorder only the 200-row soonest-closing pool, so "budget
+  // high→low" topped out at a few ₱M instead of the corpus-wide ₱B contracts.
+  await page.getByTestId("sort").selectOption("abc_desc");
+  await expect.poll(async () => {
+    const t = await page.locator('[data-testid="result-row"] .font-bold').first().textContent();
+    const m = t?.match(/₱([\d.]+)([KMB])/);
+    return m ? Number(m[1]) * ({ K: 1e3, M: 1e6, B: 1e9 })[m[2] as "K" | "M" | "B"] : 0;
+  }, { timeout: 15_000 }).toBeGreaterThan(100e6);
+  await page.getByTestId("sort").selectOption("closing");
+  await expect.poll(async () =>
+    (await page.locator('[data-testid="result-row"]').evaluateAll((rows) =>
+      rows.slice(0, 10).map((r) => r.textContent ?? ""))).filter((t) => t.includes("closed")).length,
+    { timeout: 15_000 }).toBe(0);
+  await page.getByTestId("sort").selectOption("newest");
+  await expect(page.getByTestId("result-row").first()).toBeVisible({ timeout: 15_000 });
+  // restore board default for later tests — and WAIT for the refetch to land, else the next
+  // test scrolls mid-replace and its append never happens
+  const settled = page.waitForResponse((r) => r.url().includes("/api/search") && r.request().method() === "POST");
+  await page.getByTestId("sort").selectOption("closing");
+  await settled;
+  await expect(page.getByTestId("result-row").first()).toBeVisible({ timeout: 15_000 });
+});
+
 test("detail page ← Results restores appended pages + scroll WITHOUT bfcache", async () => {
   // build up 3 pages of board state, navigate deep, come back — sessionStorage restore must
   // bring back all rows and the scroll position (CDP disables bfcache, so this test is real).
