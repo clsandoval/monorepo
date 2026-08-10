@@ -116,7 +116,7 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
         <p className="mt-1 text-sm text-muted-foreground">
           {nt.agency ? (
             <Link href={`/entity/${encodeURIComponent(nt.agency)}`} data-testid="agency-link"
-              className="underline-offset-2 hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+              className="text-primary underline decoration-primary/40 underline-offset-2 hover:decoration-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
               {titleCaseIfShouty(nt.agency)}
             </Link>
           ) : nt.agency}
@@ -195,30 +195,29 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
               </div>
             ) : nt.description ? (
               // presentation only: long single-paragraph notices with inline numbered
-              // clauses ("1. … 10. …") re-wrap at the clause boundaries; text unchanged
+              // the raw notice text is a wall — Carlos's call: whole block behind a
+              // closed-by-default disclosure. Scope (above) and BOQ tables stay visible.
               (() => {
                 // clause starts need a capital after "N. " — "ITB Clause 16." is a
                 // reference, not a clause boundary
                 const clauses = nt.description.split(/(?=(?:^|\s)\d{1,2}\.\s+[A-Z])/);
-                return clauses.length >= 4 && !nt.description.includes("\n") ? (
-                  // first clauses carry the substance; the ITB boilerplate tail folds away
-                  <div className="mt-2 max-w-prose space-y-3 text-sm leading-relaxed text-foreground/80" data-testid="notice-description">
-                    {clauses.slice(0, 3).map((c, i) => <p key={i}>{c.trim()}</p>)}
-                    {clauses.length > 3 && (
-                      <details className="group">
-                        <summary className="cursor-pointer list-none text-primary underline-offset-2 hover:underline group-open:hidden">
-                          show the full invitation to bid
-                        </summary>
-                        <div className="space-y-3">
-                          {clauses.slice(3).map((c, i) => <p key={i}>{c.trim()}</p>)}
-                        </div>
-                      </details>
+                const split = clauses.length >= 4 && !nt.description.includes("\n");
+                return (
+                  <details className="group mt-2">
+                    <summary className="cursor-pointer list-none text-sm text-primary underline-offset-2 hover:underline">
+                      <span className="group-open:hidden">show the full notice text</span>
+                      <span className="hidden group-open:inline">hide the notice text</span>
+                    </summary>
+                    {split ? (
+                      <div className="mt-2 max-w-prose space-y-3 text-sm leading-relaxed text-foreground/80" data-testid="notice-description">
+                        {clauses.map((c, i) => <p key={i}>{c.trim()}</p>)}
+                      </div>
+                    ) : (
+                      <p className="mt-2 max-w-prose whitespace-pre-wrap text-sm leading-relaxed text-foreground/80" data-testid="notice-description">
+                        {nt.description}
+                      </p>
                     )}
-                  </div>
-                ) : (
-                  <p className="mt-2 max-w-prose whitespace-pre-wrap text-sm leading-relaxed text-foreground/80" data-testid="notice-description">
-                    {nt.description}
-                  </p>
+                  </details>
                 );
               })()
             ) : (
@@ -261,7 +260,7 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
                     <p className="font-medium">
                       {slug ? (
                         <Link href={`/supplier/${encodeURIComponent(slug)}`} data-testid="winner-link"
-                          className="underline-offset-2 hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                          className="text-primary underline decoration-primary/40 underline-offset-2 hover:decoration-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                           {a.winner}
                         </Link>
                       ) : a.winner}

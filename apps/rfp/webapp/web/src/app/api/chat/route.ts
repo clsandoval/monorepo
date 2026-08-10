@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getOwner } from "@/lib/owner";
 import { allow } from "@/lib/ratelimit";
 import { getMessages, addMessage, addTokens, withinBudget } from "@/lib/sessions";
+import { getNotice } from "@/lib/notice";
 import { runTurn, type ChatEvent } from "@/lib/agent";
 
 export const runtime = "nodejs";
@@ -34,12 +35,29 @@ export async function POST(req: Request) {
 
   addMessage(sessionId, owner, "user", message);
 
+  // "#13141421" mentions attach those notices to the turn (Claude-Code-@-files style):
+  // the records ride along VERBATIM so the model answers grounded on them, while the
+  // session stores only what the user typed. Cap 3 — enough to compare, bounded tokens.
+  const refIds = [...new Set([...message.matchAll(/#(\d{5,12})\b/g)].map((m) => Number(m[1])))].slice(0, 3);
+  let turnMessage = message;
+  if (refIds.length) {
+    const found = (await Promise.all(refIds.map((id) => getNotice(id).catch(() => null))))
+      .filter((n): n is NonNullable<typeof n> => n != null);
+    if (found.length) {
+      const block = found.map((n) => [
+        `#${n.id} — ${n.title ?? "Untitled"} · ${n.agency ?? "?"} · ABC ${n.abc != null ? `₱${n.abc.toLocaleString("en-PH")}` : "—"} · closes ${n.closing_at ?? "?"}${n.mode ? ` · ${n.mode}` : ""}`,
+        (n.scope || n.description || "").slice(0, 1200),
+      ].filter(Boolean).join("\n")).join("\n\n");
+      turnMessage = `${message}\n\n[REFERENCED NOTICES — verbatim PhilGEPS records the user attached with #id. Ground your answer on these; quote or omit, never invent figures.]\n${block}`;
+    }
+  }
+
   const encoder = new TextEncoder();
   const stream = new ReadableStream({
     async start(controller) {
       const send = (e: ChatEvent) => controller.enqueue(encoder.encode(`data: ${JSON.stringify(e)}\n\n`));
       try {
-        const { reply, usage, present, aborted } = await runTurn(history, profile ?? null, message, sessionId, send, req.signal);
+        const { reply, usage, present, aborted } = await runTurn(history, profile ?? null, turnMessage, sessionId, send, req.signal);
         // Persist present turns as JSON so reload re-renders cards; plain replies as text.
         // On abort, only persist if there's a partial reply worth keeping (no empty assistant turns).
         if (present) addMessage(sessionId, owner, "assistant", JSON.stringify({ __present: 1, intro: present.intro, note: present.note, refs: present.refs }));

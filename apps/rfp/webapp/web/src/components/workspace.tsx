@@ -30,6 +30,39 @@ export function Workspace({ seedQuery }: { seedQuery?: string } = {}) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef<AbortController | null>(null);
 
+  // "#" notice references autocomplete as you type (Claude-Code-@-files style).
+  type Sug = { id: number; title: string; agency: string; abc: number | null };
+  const [sug, setSug] = useState<Sug[] | null>(null);
+  const [sugIdx, setSugIdx] = useState(0);
+  const sugToken = useRef<{ start: number; end: number } | null>(null);
+  const sugTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const taRef = useRef<HTMLTextAreaElement | null>(null);
+
+  function refreshSuggest(value: string, caret: number) {
+    const m = value.slice(0, caret).match(/#([^\s#]*)$/);
+    if (!m) { setSug(null); sugToken.current = null; return; }
+    sugToken.current = { start: caret - m[1].length - 1, end: caret };
+    if (sugTimer.current) clearTimeout(sugTimer.current);
+    sugTimer.current = setTimeout(async () => {
+      try {
+        const r = await fetch(`/api/notices/suggest?q=${encodeURIComponent(m[1])}`);
+        const d = (await r.json()) as { suggestions: Sug[] };
+        setSug(d.suggestions.length ? d.suggestions : null);
+        setSugIdx(0);
+      } catch { setSug(null); }
+    }, 180);
+  }
+
+  function pickSug(s: Sug) {
+    const t = sugToken.current;
+    if (!t) return;
+    const next = `${input.slice(0, t.start)}#${s.id} ${input.slice(t.end)}`;
+    setInput(next);
+    setSug(null);
+    sugToken.current = null;
+    requestAnimationFrame(() => taRef.current?.focus());
+  }
+
   function stop() { abortRef.current?.abort(); }
 
   // Google-style handoff: opening the AI tab with an active search query starts a NEW session and
@@ -255,10 +288,36 @@ export function Workspace({ seedQuery }: { seedQuery?: string } = {}) {
               ↓ Jump to latest
             </button>
           )}
-          <div className="mx-auto flex max-w-2xl items-end gap-2">
-            <Textarea value={input} onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
-              placeholder="e.g. small drainage jobs in Cavite, PCAB C, under ₱5M"
+          <div className="relative mx-auto flex max-w-2xl items-end gap-2">
+            {sug && (
+              <ul data-testid="notice-suggest"
+                className="absolute bottom-full left-0 z-20 mb-1 w-full overflow-hidden rounded-md border border-border bg-background shadow-md">
+                {sug.map((s, i) => (
+                  <li key={s.id}>
+                    <button type="button" onMouseDown={(e) => { e.preventDefault(); pickSug(s); }}
+                      className={`flex w-full items-baseline gap-2 px-3 py-1.5 text-left text-sm ${i === sugIdx ? "bg-muted" : ""}`}>
+                      <span className="shrink-0 font-mono text-xs text-primary tabular-nums">#{s.id}</span>
+                      <span className="min-w-0 flex-1 truncate">{s.title}</span>
+                      {s.abc != null && <span className="shrink-0 font-mono text-xs text-muted-foreground tabular-nums">
+                        {s.abc >= 1e6 ? `₱${(s.abc / 1e6).toFixed(1)}M` : `₱${Math.round(s.abc / 1e3)}K`}</span>}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <Textarea value={input} ref={taRef}
+              onChange={(e) => { setInput(e.target.value); refreshSuggest(e.target.value, e.target.selectionStart ?? e.target.value.length); }}
+              onBlur={() => setSug(null)}
+              onKeyDown={(e) => {
+                if (sug) {
+                  if (e.key === "ArrowDown") { e.preventDefault(); setSugIdx((i) => (i + 1) % sug.length); return; }
+                  if (e.key === "ArrowUp") { e.preventDefault(); setSugIdx((i) => (i - 1 + sug.length) % sug.length); return; }
+                  if (e.key === "Enter" || e.key === "Tab") { e.preventDefault(); pickSug(sug[sugIdx]); return; }
+                  if (e.key === "Escape") { setSug(null); return; }
+                }
+                if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
+              }}
+              placeholder="e.g. small drainage jobs in Cavite — or ask about a notice with #id (#13141421)"
               aria-label="Message" rows={1}
               className="min-h-[44px] max-h-40 resize-none" data-testid="chat-input" />
             {busy
