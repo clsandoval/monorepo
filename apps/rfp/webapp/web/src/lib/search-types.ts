@@ -14,6 +14,9 @@ export type SearchPlan = {
   days_max?: number;
   /** result ordering; default: relevance for searches, closing-soonest for the board */
   sort?: "relevance" | "closing" | "abc_desc" | "abc_asc" | "newest";
+  /** bidding round: fresh 1st posting · re-bid after a failed bidding · negotiated after two
+   *  failures (Sec. 53.1 — the least competitive, highest win-rate segment) */
+  round?: "fresh" | "rebid" | "negotiated";
   /** short human summary of the interpretation, e.g. "drainage · Cavite · under ₱5M" */
   note: string;
 };
@@ -38,7 +41,17 @@ export type ResultRow = {
   days: number | null;
   /** match snippet when the row came from a term search */
   snippet?: string | null;
+  /** bidding round (see SearchPlan.round) */
+  round: "fresh" | "rebid" | "negotiated";
 };
+
+/** Derive the bidding round from raw mode + title. Two-failed-biddings mode wins over a
+ *  re-bid title (it IS the later round). Title patterns measured against the live corpus. */
+export function roundOf(title: string | null, mode: string | null): "fresh" | "rebid" | "negotiated" {
+  if (/two failed/i.test(mode ?? "")) return "negotiated";
+  if (/re-?bid|re bid|2nd posting|second posting|3rd posting|third posting|2nd bidding/i.test(title ?? "")) return "rebid";
+  return "fresh";
+}
 
 /** POST /api/search
  *  body {q}                     → interpret (Luna, once) + execute, returns first page + plan

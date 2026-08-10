@@ -44,7 +44,16 @@ export function ResultRowItem({ row }: { row: ResultRow }) {
         className="group block px-3 py-3 pr-12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring md:grid md:grid-cols-[5.5rem_minmax(0,1fr)_7rem_5.5rem] md:items-center md:gap-4 md:px-4 md:pr-14">
         <span className="font-mono text-xs text-muted-foreground tabular-nums">{row.id}</span>
         <span className="mt-1 block min-w-0 md:mt-0">
-          <span className="line-clamp-2 text-sm font-medium leading-snug group-hover:underline">{row.title}</span>
+          <span className="line-clamp-2 text-sm font-medium leading-snug group-hover:underline">
+            {row.round !== "fresh" && (
+              // failed-bidding rounds are the easiest wins — surface them without filtering
+              <span data-testid="round-chip"
+                className="mr-1.5 inline-block rounded border border-primary/50 bg-primary/5 px-1 py-px align-[2px] font-mono text-[10px] font-medium text-primary">
+                {row.round === "rebid" ? "RE-BID" : "NEGOTIATED"}
+              </span>
+            )}
+            {row.title}
+          </span>
           <span className="mt-0.5 line-clamp-1 block text-xs text-muted-foreground">{row.agency}</span>
         </span>
         {/* md:contents lifts ABC + chip into their own grid cells on desktop */}

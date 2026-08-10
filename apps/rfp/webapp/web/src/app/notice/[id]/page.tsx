@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BackLink } from "@/components/notice-back";
 import { NoticeEnrich } from "@/components/notice-enrich";
+import { roundOf } from "@/lib/search-types";
 import {
   getNotice, getSimilarAwards, parseBoq, philgepsUrl, requirementsFor, type NoticeDetail,
 } from "@/lib/notice";
@@ -112,6 +113,11 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
         </div>
 
         <div className="mt-3 flex flex-wrap gap-1.5">
+          {roundOf(nt.title, nt.mode) !== "fresh" && (
+            <span className="inline-flex items-center rounded border border-primary/50 bg-primary/5 px-2 py-0.5 font-mono text-xs font-medium text-primary">
+              {roundOf(nt.title, nt.mode) === "rebid" ? "RE-BID — failed bidding, easier round" : "NEGOTIATED — two failed biddings (Sec. 53.1)"}
+            </span>
+          )}
           {nt.mode && <Chip>{nt.mode}</Chip>}
           {nt.classification && <Chip>{nt.classification}</Chip>}
           {nt.work_type && <Chip>{nt.work_type.replace(/_/g, " ")}</Chip>}

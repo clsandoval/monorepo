@@ -67,6 +67,16 @@ ok("board newest first returns rows publish-desc", bNew.results.length === 5);
 const sClose = await S.executePlan({ kind: "search", terms: ["drainage", "canal"], note: "", sort: "closing" }, 0, 5);
 ok("search closing sort never leads with expired", !!sClose.results[0]?.closing_at && sClose.results[0].closing_at >= manilaNow, String(sClose.results[0]?.closing_at));
 
+// --- bidding-round filter (fresh / rebid / negotiated) ---
+const rNeg = await S.executePlan({ kind: "board", terms: [], note: "", round: "negotiated" }, 0, 10);
+ok("board negotiated: rows exist and all two-failed", rNeg.results.length > 0 && rNeg.results.every((x) => x.round === "negotiated"), `n=${rNeg.results.length}`);
+const rReb = await S.executePlan({ kind: "board", terms: [], note: "", round: "rebid" }, 0, 10);
+ok("board rebid: rows exist, all rebid-titled", rReb.results.length > 0 && rReb.results.every((x) => x.round === "rebid"), JSON.stringify(rReb.results.slice(0, 2).map((x) => x.title.slice(0, 40))));
+const rFresh = await S.executePlan({ kind: "board", terms: [], note: "", round: "fresh" }, 0, 10);
+ok("board fresh: no rebid/negotiated leak", rFresh.results.every((x) => x.round === "fresh"));
+const rSearch = await S.executePlan({ kind: "search", terms: ["supply", "delivery"], note: "", round: "rebid" }, 0, 10);
+ok("search-path round filter applies + total shrinks", rSearch.results.every((x) => x.round === "rebid") && rSearch.total === Math.min(rSearch.total, 200), `n=${rSearch.results.length} total=${rSearch.total}`);
+
 // --- one REAL planQuery call ---
 const { plan: real, usd } = await S.planQuery("drainage in cavite under 5M");
 console.log(`planQuery usd=$${usd.toFixed(5)} plan=${JSON.stringify(real)}`);

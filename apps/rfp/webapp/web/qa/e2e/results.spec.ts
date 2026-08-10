@@ -110,11 +110,14 @@ test("sort by budget high→low reorders; budget filter constrains every row", a
       const m = t.match(/₱([\d.]+)([KMB])/);
       return m ? Number(m[1]) * ({ K: 1e3, M: 1e6, B: 1e9 })[m[2] as "K" | "M" | "B"] : null;
     }).filter((x): x is number => x != null));
+  const sortSettled = page.waitForResponse((r) => r.url().includes("/api/search") && r.request().method() === "POST");
   await page.getByTestId("sort").selectOption("abc_desc");
-  await expect.poll(async () => { const a = await abcOf(); return a[0] >= a[a.length - 1]; },
-    { timeout: 15_000 }).toBe(true);
-  const sorted = await abcOf();
-  expect(sorted, "not sorted desc").toEqual([...sorted].sort((a, b) => b - a));
+  await sortSettled;
+  // DOM paints after the response lands — poll until the strict ordering holds
+  await expect.poll(async () => {
+    const a = await abcOf();
+    return a.length > 0 && a.every((v, i) => i === 0 || a[i - 1] >= v);
+  }, { timeout: 15_000 }).toBe(true);
   await page.getByTestId("filters-toggle").click();
   // Budget semantics are per-LOT (a bidder bids a lot): a multi-lot notice with a big headline ABC
   // legitimately passes the cap when a lot fits — and abc_desc puts exactly those first. So assert
@@ -159,6 +162,23 @@ test("BOARD sort: budget high→low sorts the WHOLE corpus; closing-soon never l
   await page.getByTestId("sort").selectOption("closing");
   await settled;
   await expect(page.getByTestId("result-row").first()).toBeVisible({ timeout: 15_000 });
+});
+
+test("bidding-round filter: negotiated shows only NEGOTIATED-chipped rows", async () => {
+  // the filters row may already be open from the previous test — toggle only if closed
+  if (!(await page.getByTestId("filter-round").isVisible())) await page.getByTestId("filters-toggle").click();
+  const settled = page.waitForResponse((r) => r.url().includes("/api/search") && r.request().method() === "POST");
+  await page.getByTestId("filter-round").selectOption("negotiated");
+  await settled;
+  await expect(page.getByTestId("result-row").first()).toBeVisible({ timeout: 15_000 });
+  const rows = await page.getByTestId("result-row").count();
+  const chips = await page.getByTestId("round-chip").filter({ hasText: "NEGOTIATED" }).count();
+  expect(chips, `${chips}/${rows} rows carry the NEGOTIATED chip`).toBe(rows);
+  // clear back to any-round for the tests that follow
+  const settled2 = page.waitForResponse((r) => r.url().includes("/api/search") && r.request().method() === "POST");
+  await page.getByTestId("filter-round").selectOption("");
+  await settled2;
+  await page.getByTestId("filters-toggle").click();
 });
 
 test("detail page ← Results restores appended pages + scroll WITHOUT bfcache", async () => {

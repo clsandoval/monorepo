@@ -226,7 +226,7 @@ export function SearchShell() {
             )}
             {ready && (() => {
               const p = ready.plan;
-              const nFilters = (p.province ? 1 : 0) + (p.abc_min != null || p.abc_max != null ? 1 : 0) + (p.days_max != null ? 1 : 0);
+              const nFilters = (p.province ? 1 : 0) + (p.abc_min != null || p.abc_max != null ? 1 : 0) + (p.days_max != null ? 1 : 0) + (p.round ? 1 : 0);
               const sortVal = p.sort ?? (p.kind === "search" ? "relevance" : "closing");
               const set = patchPlan;
               return (
@@ -292,6 +292,15 @@ export function SearchShell() {
                   <option value="2">closing ≤ 2 days</option>
                   <option value="7">closing ≤ 7 days</option>
                   <option value="30">closing ≤ 30 days</option>
+                </select>
+                <label htmlFor="f-round" className="sr-only">Bidding round</label>
+                {/* re-bids + two-failed-negotiated = the least competitive, highest win-rate notices */}
+                <select id="f-round" data-testid="filter-round" value={p.round ?? ""} className={sel}
+                  onChange={(e) => set(e.target.value ? { round: e.target.value as "fresh" | "rebid" | "negotiated" } : {}, e.target.value ? [] : ["round"])}>
+                  <option value="">Any round</option>
+                  <option value="fresh">1st posting</option>
+                  <option value="rebid">re-bid (failed once)</option>
+                  <option value="negotiated">negotiated (failed twice)</option>
                 </select>
               </div>
             );
