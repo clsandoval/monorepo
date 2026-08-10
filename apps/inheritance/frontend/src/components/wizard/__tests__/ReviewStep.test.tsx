@@ -301,7 +301,12 @@ describe('wizard-step6 > ReviewStep', () => {
       //   ./target/release/inheritance-engine < 12-01-intestate.json \
       //     | python3 -c "import json,sys; print(json.load(sys.stdin)['scenario_code'])"
       //   -> I2
-      expect(await screen.findByTestId('predicted-scenario')).toHaveTextContent('I2');
+      // Wait on the CONTENT, not just the element: the badge mounts with a "—"
+      // placeholder and the WASM engine fills the scenario in asynchronously, so
+      // findByTestId alone races the compute under full-suite load.
+      await waitFor(() =>
+        expect(screen.getByTestId('predicted-scenario')).toHaveTextContent('I2'),
+      );
     });
 
     it('shows the engine scenario code for testate', async () => {
@@ -329,7 +334,10 @@ describe('wizard-step6 > ReviewStep', () => {
       //   ./target/release/inheritance-engine < 12-01-testate.json \
       //     | python3 -c "import json,sys; print(json.load(sys.stdin)['scenario_code'])"
       //   -> T2
-      expect(await screen.findByTestId('predicted-scenario')).toHaveTextContent('T2');
+      // Wait on the content, not just the element (see the intestate case above).
+      await waitFor(() =>
+        expect(screen.getByTestId('predicted-scenario')).toHaveTextContent('T2'),
+      );
     });
   });
 
