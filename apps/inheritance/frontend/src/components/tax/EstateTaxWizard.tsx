@@ -142,15 +142,15 @@ export function EstateTaxWizard({
       {/* Compact step indicator below lg — the same pattern the succession
           wizard uses at narrow widths: the full 8-tab strip cannot fit beside
           the sidebar and clipped tabs read as nonexistent steps. */}
-      <div className="lg:hidden border-b bg-white px-6 py-3 flex items-center justify-between text-sm">
+      <div className="xl:hidden border-b bg-white px-6 py-3 flex items-center justify-between text-sm">
         <span className="font-medium text-[#1e3a5f]">
           Step {activeTab + 1} of {TAB_COUNT}: {TAB_FULL_NAMES[activeTab]}
         </span>
       </div>
 
       {/* Tab strip */}
-      <div className="hidden lg:block border-b bg-white px-4 overflow-x-auto">
-        <div className="flex gap-0.5 py-3 min-w-max" role="tablist">
+      <div className="hidden xl:block border-b bg-white px-2 overflow-x-auto">
+        <div className="flex gap-0 py-3 min-w-max" role="tablist">
           {TAB_NAMES.map((name, i) => {
             const valid = isTabValid(i as TabIndex, state);
             const isActive = activeTab === i;
@@ -164,7 +164,7 @@ export function EstateTaxWizard({
                 data-testid={`tab-${i}`}
                 onClick={() => handleTabChange(i as TabIndex)}
                 className={cn(
-                  'flex items-center gap-2 px-3 py-1.5 rounded-md text-sm whitespace-nowrap transition-colors',
+                  'flex items-center gap-1.5 px-2 py-1.5 rounded-md text-sm whitespace-nowrap transition-colors',
                   isActive && 'bg-[#c5a44e]/10 text-[#1e3a5f] font-medium',
                   isCompleted && 'text-[#1e3a5f] font-medium',
                   !isActive && !isCompleted && 'text-muted-foreground hover:text-foreground hover:bg-muted',

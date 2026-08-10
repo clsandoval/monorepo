@@ -74,6 +74,20 @@ Telegram with the screenshot, owner veto reopens it.
 - Push to the working branch allowed; no PRs, no merges to main unattended.
 - If the session dies, resume = read this file + RESUME.md; both are kept current every cycle.
 
+## Findings deferred to the identity style pass (do not fix twice)
+
+From the 2026-08-10 cohesion review — these are consolidation work the owner's chosen identity
+will restyle anyway; fixing them now under the current identity would be churn:
+
+- Four different progress-indicator designs (GuidedIntakeForm, WizardContainer, EstateTaxWizard,
+  onboarding dots) with conflicting active/completed colors (navy / solid gold / gold-tint / green).
+- Page-title typography drift: canonical `text-xl font-bold tracking-tight font-serif` vs sans
+  variants in intake, estate-tax and results headers; hardcoded hexes (`#1e3a5f`, `#c5a44e`) in
+  EstateTaxWizard instead of theme tokens.
+- Heir table at 390 scrolls inside its container with no visible affordance (fade/scrollbar hint).
+- Family tree does not fit-to-screen on mount at narrow widths (pan/zoom exists; default framing).
+- Estate-tax header title truncates over-eagerly at 768 (`truncate` fires with free space nearby).
+
 ## Spend
 
 `spend-ledger.json` in this directory. Cap: **$40 USD external provider spend** (OpenAI images
