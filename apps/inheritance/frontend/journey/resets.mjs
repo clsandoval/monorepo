@@ -126,6 +126,13 @@ export const RESETS = Object.freeze({
       .update({
         input_json: canonicalAlphaInput(),
         output_json: null,
+        // tax columns restored to their seeded NULL for the same rule: the
+        // case-alpha-tax-input reset (used directly by the parity gates) writes
+        // them, and a leak was observed 2026-08-10 when a concurrent PDF-gate
+        // run left tax_input_json populated and the tax-tab empty-state
+        // references diffed against a filled form.
+        tax_input_json: null,
+        tax_output_json: null,
         decedent_name: null,
         date_of_death: null,
         status: 'draft',
