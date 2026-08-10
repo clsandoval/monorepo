@@ -67,9 +67,11 @@ export default function EgoGraph({ data, height = 420 }: { data: EgoData; height
     nodes.forEach((d, i) => idx.set(d.id, i));
     const ci = idx.get(center) ?? 0;
 
-    // node radius ∝ sqrt(value), clamped [6, 28]
+    // node radius ∝ sqrt(value), clamped [5, 18] — BELOW the focal's fixed 24, so the
+    // page's subject is always the largest mark on the canvas (judge-panel rule)
     const maxV = Math.max(1, ...nodes.map((d) => d.value));
-    const r = nodes.map((d) => clamp(Math.sqrt(Math.max(0, d.value) / maxV) * 28, 6, 28));
+    const r = nodes.map((d) => clamp(Math.sqrt(Math.max(0, d.value) / maxV) * 18, 5, 18));
+    r[ci] = 24;
     const maxL = Math.max(1, ...links.map((l) => l.value));
 
     // deterministic seed ring around the center
@@ -78,7 +80,7 @@ export default function EgoGraph({ data, height = 420 }: { data: EgoData; height
     for (let i = 0; i < n; i++) {
       const h = fnv(nodes[i].id);
       const a = ((h % 3600) / 3600) * Math.PI * 2;
-      const rad = 80 + (((h >>> 12) % 1000) / 1000) * 220;
+      const rad = 60 + (((h >>> 12) % 1000) / 1000) * 160;
       px[i] = Math.cos(a) * rad;
       py[i] = Math.sin(a) * rad;
     }
@@ -119,11 +121,25 @@ export default function EgoGraph({ data, height = 420 }: { data: EgoData; height
         vx[e.j] -= fx; vy[e.j] -= fy;
       }
       for (let i = 0; i < n; i++) {
-        const k = i === ci ? 0.06 : 0.005; // mild centering, stronger on the center node
+        const k = i === ci ? 0.06 : 0.012; // centering — tighter cloud, less dead field
         vx[i] = clamp((vx[i] - px[i] * k) * 0.82, -14, 14);
         vy[i] = clamp((vy[i] - py[i] * k) * 0.82, -14, 14);
         px[i] += vx[i];
         py[i] += vy[i];
+      }
+      // hard collision pass — marks must never intersect (radius + 4 breathing room)
+      for (let i = 0; i < n; i++) {
+        for (let j = i + 1; j < n; j++) {
+          const dx = px[j] - px[i], dy = py[j] - py[i];
+          const d = Math.sqrt(dx * dx + dy * dy) || 1;
+          const min = r[i] + r[j] + 4;
+          if (d < min) {
+            const push = (min - d) / 2;
+            const ux = dx / d, uy = dy / d;
+            px[i] -= ux * push; py[i] -= uy * push;
+            px[j] += ux * push; py[j] += uy * push;
+          }
+        }
       }
     }
 
@@ -135,7 +151,7 @@ export default function EgoGraph({ data, height = 420 }: { data: EgoData; height
       maxX = Math.max(maxX, px[i] + r[i]);
       maxY = Math.max(maxY, py[i] + r[i]);
     }
-    const pad = 48;
+    const pad = 24;
     const vb: VB = { x: minX - pad, y: minY - pad, w: maxX - minX + pad * 2, h: maxY - minY + pad * 2 };
 
     // adjacency for O(1) hover highlighting
@@ -147,13 +163,37 @@ export default function EgoGraph({ data, height = 420 }: { data: EgoData; height
       adj.get(l.b)!.add(l.a);
     }
 
-    // labels at rest: center + ~8 largest
-    const top = new Set<string>(idx.has(center) ? [center] : []);
-    [...nodes].filter((d) => d.id !== center).sort((a, b) => b.value - a.value).slice(0, 8)
-      .forEach((d) => top.add(d.id));
+    // labels at rest: center + top 5 by value, then drop any whose box would overlap
+    // a higher-value label (rest are hover-only) — no overprinting, ever
+    const wanted = [
+      ...(idx.has(center) ? [center] : []),
+      ...[...nodes].filter((d) => d.id !== center).sort((a, b) => b.value - a.value).slice(0, 5).map((d) => d.id),
+    ];
+    const top = new Set<string>();
+    const boxes: { x: number; y: number; w: number; h: number }[] = [];
+    for (const id of wanted) {
+      const i = idx.get(id)!;
+      const w = Math.min(nodes[i].label.length, 18) * 6.2 + 8;
+      const box = { x: px[i] - w / 2, y: py[i] + r[i] + 4, w, h: 14 };
+      const hits = boxes.some((b) =>
+        box.x < b.x + b.w && b.x < box.x + box.w && box.y < b.y + b.h && b.y < box.y + box.h);
+      if (!hits) { top.add(id); boxes.push(box); }
+    }
+
+    // draw order: dim second-degree first, first-degree next, focal LAST (topmost —
+    // its ring must never be clipped by a neighbour)
+    const firstDeg = new Set<string>();
+    for (const l of links) {
+      if (l.a === center) firstDeg.add(l.b);
+      if (l.b === center) firstDeg.add(l.a);
+    }
+    const order = [...nodes.keys()].sort((a, b) => {
+      const rank = (i: number) => (nodes[i].id === center ? 2 : firstDeg.has(nodes[i].id) ? 1 : 0);
+      return rank(a) - rank(b);
+    });
 
     const byId = new Map(nodes.map((d) => [d.id, d]));
-    return { nodes, center, px, py, r, edges, vb, adj, top, byId };
+    return { nodes, center, px, py, r, edges, vb, adj, top, byId, firstDeg, order };
   }, [data]);
 
   const [hovered, setHovered] = useState<string | null>(null);
@@ -238,27 +278,31 @@ export default function EgoGraph({ data, height = 420 }: { data: EgoData; height
         <g>
           {lay.edges.map((e, k) => {
             const lit = hovered != null && (e.l.a === hovered || e.l.b === hovered);
+            // one hue, weighted by relevance: focal edges carry a quiet primary tint
+            // at rest; second-degree edges stay neutral hairlines
+            const focalEdge = e.l.a === lay.center || e.l.b === lay.center;
             return (
               <line key={k} data-testid="ego-edge"
                 x1={lay.px[e.i]} y1={lay.py[e.i]} x2={lay.px[e.j]} y2={lay.py[e.j]}
                 strokeWidth={e.w} strokeLinecap="round"
-                stroke={lit ? "var(--color-primary)" : "var(--color-border)"}
-                opacity={hovered != null && !lit ? 0.15 : 1}
+                stroke={lit || focalEdge ? "var(--color-primary)" : "var(--color-border)"}
+                opacity={hovered != null && !lit ? 0.12 : lit ? 1 : focalEdge ? 0.3 : 0.8}
                 className="transition-opacity" />
             );
           })}
         </g>
-        {lay.nodes.map((d, i) => {
+        {lay.order.map((i) => {
+          const d = lay.nodes[i];
           const lit = hi?.has(d.id) ?? false;
           const dim = hi != null && !lit;
           const r = lay.r[i];
           const x = lay.px[i], y = lay.py[i];
-          const fill = lit ? "var(--color-primary)" : "var(--color-muted-foreground)";
           const isCenter = d.id === lay.center;
+          const fill = lit || isCenter ? "var(--color-primary)" : "var(--color-muted-foreground)";
           return (
             <g key={d.id} data-testid="ego-node" data-id={d.id}
               className="cursor-pointer transition-opacity"
-              opacity={dim ? 0.15 : 1}
+              opacity={dim ? 0.15 : isCenter || lit || lay.firstDeg.has(d.id) ? 1 : 0.5}
               onPointerEnter={() => nodeEnter(d.id)}
               onPointerLeave={nodeLeave}
               onClick={() =>
@@ -271,15 +315,26 @@ export default function EgoGraph({ data, height = 420 }: { data: EgoData; height
                 <rect x={x - r * 0.89} y={y - r * 0.89} width={r * 1.78} height={r * 1.78} fill={fill} />
               )}
               {isCenter && (d.kind === "supplier" ? (
-                <circle cx={x} cy={y} r={r + 3} fill="none" stroke="var(--color-primary)" strokeWidth={2} />
+                // white under-ring = ring-offset: the focus ring reads even over edges
+                <>
+                  <circle cx={x} cy={y} r={r + 2} fill="none" stroke="var(--color-background)" strokeWidth={4} />
+                  <circle cx={x} cy={y} r={r + 3.5} fill="none" stroke="var(--color-primary)" strokeWidth={2} />
+                </>
               ) : (
-                <rect x={x - r * 0.89 - 3} y={y - r * 0.89 - 3} width={r * 1.78 + 6} height={r * 1.78 + 6}
-                  fill="none" stroke="var(--color-primary)" strokeWidth={2} />
+                <>
+                  <rect x={x - r * 0.89 - 2} y={y - r * 0.89 - 2} width={r * 1.78 + 4} height={r * 1.78 + 4}
+                    fill="none" stroke="var(--color-background)" strokeWidth={4} />
+                  <rect x={x - r * 0.89 - 3.5} y={y - r * 0.89 - 3.5} width={r * 1.78 + 7} height={r * 1.78 + 7}
+                    fill="none" stroke="var(--color-primary)" strokeWidth={2} />
+                </>
               ))}
               {(lay.top.has(d.id) || hovered === d.id) && (
-                <text x={x} y={y - r - 5} textAnchor="middle" fontSize={10}
+                // white halo (paint-order) keeps labels legible over edges — below the
+                // node, never over its neighbours (rest-state set is collision-free)
+                <text x={x} y={y + r + 13} textAnchor="middle" fontSize={10}
                   className="pointer-events-none select-none font-mono"
-                  fill={lit ? "var(--color-primary)" : "var(--color-muted-foreground)"}>
+                  paintOrder="stroke" stroke="var(--color-background)" strokeWidth={3}
+                  fill={lit || isCenter ? "var(--color-primary)" : "var(--color-muted-foreground)"}>
                   {trunc(d.label)}
                 </text>
               )}

@@ -2,6 +2,7 @@
 // every minute — force-dynamic, never cache counts). EVIDENCE ONLY: verifiable award facts with
 // figures; no characterization of the supplier. slug = winner_norm (awards.py normalization).
 import Link from "next/link";
+import { SiteHeader } from "@/components/site-header";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
@@ -60,7 +61,11 @@ function Stat({ label, value, testid }: { label: string; value: string; testid?:
 
 function WinRow({ w, peso }: { w: import("@/lib/map").SupplierWin; peso: (v: number) => string }) {
   const noticeId = w.buyer_kind === "agency" && w.ref_id != null ? Number(w.ref_id) : null;
-  const title = w.title ? titleCaseIfShouty(w.title) : null;
+  // a bare contract ref ("25FK0060") in the title slot reads as a rendering bug —
+  // demote it to the meta line and keep one row anatomy
+  const raw = w.title?.trim() ?? "";
+  const isRefCode = raw !== "" && !/\s/.test(raw) && /\d/.test(raw);
+  const title = raw && !isRefCode ? titleCaseIfShouty(raw) : null;
   return (
     <li className="py-2.5 text-sm">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
@@ -73,19 +78,23 @@ function WinRow({ w, peso }: { w: import("@/lib/map").SupplierWin; peso: (v: num
           ) : (title ?? "Untitled award")}
         </p>
         {w.contract_amount != null && (
-          <p className="shrink-0 font-mono text-sm font-bold tabular-nums">{peso(w.contract_amount)}</p>
+          <p className="shrink-0 font-mono text-sm font-bold tabular-nums" title={peso(w.contract_amount)}>
+            {pesoCompact(w.contract_amount)}
+          </p>
         )}
       </div>
       <p className="mt-0.5 font-mono text-xs tabular-nums text-foreground/80">
         {fmtDay(w.award_date_iso) ?? "date —"}
-        {w.win_ratio != null && w.abc != null && ` · won at ${winPct(w.win_ratio)} of the ${peso(w.abc)} budget`}
+        {isRefCode && ` · ${raw}`}
+        {w.contract_amount != null && ` · won ${peso(w.contract_amount)}`}
+        {w.win_ratio != null && w.abc != null && ` at ${winPct(w.win_ratio)} of budget`}
       </p>
       {w.buyer && (
         <p className="mt-0.5 line-clamp-1 text-xs text-muted-foreground">
           {w.buyer_kind === "agency" ? (
             <Link href={`/entity/${encodeURIComponent(w.buyer)}`}
               className="underline-offset-2 hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-              {w.buyer}
+              {titleCaseIfShouty(w.buyer)}
             </Link>
           ) : (
             // created_by is the buyer-side recording officer, not the office itself
@@ -108,17 +117,12 @@ export default async function SupplierPage({ params }: PageProps<"/supplier/[slu
 
   return (
     <div className="min-h-dvh bg-background text-foreground">
-      <header className="border-b border-primary">
-        <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-4">
-          <Link href="/" className="whitespace-nowrap text-2xl font-bold lowercase tracking-tight text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">bidkita</Link>
-          <Link href="/" className="text-sm text-muted-foreground hover:text-foreground">← Results</Link>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="mx-auto max-w-5xl px-4 pt-10 pb-6" data-testid="supplier-profile">
         {/* hero */}
         <p className="font-mono text-xs text-muted-foreground">Supplier · PhilGEPS record</p>
-        <h1 className="mt-2 text-xl font-bold leading-snug md:text-2xl">{sp.winner}</h1>
+        <h1 className="mt-2 text-xl font-bold leading-snug md:text-2xl">{titleCaseIfShouty(sp.winner)}</h1>
         {sp.province && <p className="mt-1 text-sm uppercase tracking-wider text-muted-foreground">{sp.province}</p>}
 
         <div className="mt-5 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
@@ -152,10 +156,12 @@ export default async function SupplierPage({ params }: PageProps<"/supplier/[slu
             <section aria-label="Network">
               <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Network</h2>
               <p className="mt-1 text-xs text-muted-foreground">award relationships recorded around this supplier</p>
-              <EgoGraph data={ego} />
-              <p className="mt-1 font-mono text-xs text-muted-foreground">
-                suppliers ○ · procuring entities □ · line weight = awarded value — hover to trace, click to open
-              </p>
+              <div className="mt-2 overflow-hidden rounded-md border border-border bg-muted/20">
+                <EgoGraph data={ego} height={380} />
+                <p className="border-t border-border px-4 py-2 font-mono text-xs text-muted-foreground">
+                  suppliers ○ · procuring entities □ · line weight = awarded value — hover to trace, click to open
+                </p>
+              </div>
             </section>
           )}
 
@@ -181,12 +187,12 @@ export default async function SupplierPage({ params }: PageProps<"/supplier/[slu
                   agencyBuyers.has(e.name) ? (
                     <Link key={e.name} href={`/entity/${encodeURIComponent(e.name)}`}
                       className="rounded border border-border px-2 py-0.5 text-xs text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                      {e.name} <span className="font-mono tabular-nums">×{e.n}</span>
+                      {titleCaseIfShouty(e.name)} <span className="font-mono tabular-nums">×{e.n}</span>
                     </Link>
                   ) : (
                     <span key={e.name} title="buyer-side recording officer"
                       className="rounded border border-border px-2 py-0.5 text-xs text-muted-foreground">
-                      {e.name} <span className="font-mono tabular-nums">×{e.n}</span>
+                      {titleCaseIfShouty(e.name)} <span className="font-mono tabular-nums">×{e.n}</span>
                     </span>
                   ))}
               </div>

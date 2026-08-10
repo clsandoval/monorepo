@@ -28,7 +28,7 @@ import sqlite3
 import sys
 import time
 import unicodedata
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -418,7 +418,10 @@ def days_to(closing_at, ref=None):
         dt = datetime.fromisoformat(closing_at)
     except ValueError:
         return None
-    ref = ref or datetime.now()
+    # closing_at is naive MANILA wall-clock; ref must be Manila too. datetime.now()
+    # (server-local) made every notice look open ~8h past its real deadline on a UTC
+    # host -- the webapp board served already-closed notices as "1h left".
+    ref = ref or (datetime.now(timezone.utc) + timedelta(hours=8)).replace(tzinfo=None)
     return int((dt - ref.replace(tzinfo=None)).total_seconds() // 86400)
 
 

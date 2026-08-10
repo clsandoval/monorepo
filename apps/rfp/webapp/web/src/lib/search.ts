@@ -245,10 +245,10 @@ async function boardSql(p: SearchPlan, off: number, lim: number): Promise<Search
      WHERE ${W} ORDER BY ${order} LIMIT ${lim} OFFSET ${off}`, lim),
     readSql(`SELECT count(*) AS c FROM corpus c WHERE ${W}`, 1),
   ]);
-  const nowMs = Date.now() + 8 * 3600e3;
+  // closing_at is naive Manila — pin the offset so this is server-TZ-independent
   const results = rows.map((h) => toRow({
     ...h,
-    days: h.closing_at ? Math.floor((new Date(String(h.closing_at)).getTime() - nowMs) / 86_400e3) : null,
+    days: h.closing_at ? Math.floor((new Date(String(h.closing_at) + "+08:00").getTime() - Date.now()) / 86_400e3) : null,
   }));
   const total = Number(cnt[0]?.c ?? results.length);
   return { plan: p, total, offset: off, results, more: off + results.length < total };

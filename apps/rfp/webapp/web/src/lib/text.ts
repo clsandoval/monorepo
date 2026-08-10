@@ -28,6 +28,8 @@ export function titleCaseIfShouty(s: string): string {
   // detected as digit-bearing and kept ALL-CAPS as one unit
   return s.toLowerCase().replace(/[a-z0-9][\w'’-]*/gi, (w, i) => {
     const up = w.toUpperCase();
+    const ord = up.match(/^(\d+)(ST|ND|RD|TH)$/);           // 1ST → 1st
+    if (ord) return ord[1] + ord[2].toLowerCase();
     if (/\d/.test(w)) return up;                            // ref codes: 26DB0021, K0582
     if (ACRONYMS.has(up) || /^[IVXL]{2,4}$/.test(up)) return up;
     if (i > 0 && STOP.has(w)) return w;

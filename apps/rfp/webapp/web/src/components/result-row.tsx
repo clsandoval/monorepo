@@ -23,7 +23,9 @@ function peso(n: number | null): string {
 // "3d 12h" style; urgent = closing within 4 days (filled neutral chip).
 function closesIn(r: ResultRow): { label: string; urgent: boolean } {
   if (r.closing_at) {
-    const ms = new Date(r.closing_at).getTime() - Date.now();
+    // closing_at is naive MANILA wall-clock — pin the offset, or the chip is wrong
+    // by the viewer's TZ distance from +08:00
+    const ms = new Date(r.closing_at + "+08:00").getTime() - Date.now();
     if (ms < 0) return { label: "closed", urgent: false };
     const d = Math.floor(ms / 86_400_000);
     const h = Math.floor((ms % 86_400_000) / 3_600_000);

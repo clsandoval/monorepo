@@ -3,13 +3,14 @@
 // computable market statistic shown WITH its evidence line; descriptors describe the MARKET
 // (concentrated / mixed / open), never any named party. slug = corpus agency string.
 import Link from "next/link";
+import { SiteHeader } from "@/components/site-header";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import { ResultRowItem } from "@/components/result-row";
 import { roundOf, type ResultRow } from "@/lib/search-types";
 import { getEgo, getEntity, type EntityOpenNotice } from "@/lib/map";
-import { stripExtracted } from "@/lib/text";
+import { stripExtracted, titleCaseIfShouty } from "@/lib/text";
 import EgoGraph from "@/components/ego-graph";
 
 export const dynamic = "force-dynamic";
@@ -57,17 +58,12 @@ export default async function EntityPage({ params }: PageProps<"/entity/[slug]">
 
   return (
     <div className="min-h-dvh bg-background text-foreground">
-      <header className="border-b border-primary">
-        <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-4">
-          <Link href="/" className="whitespace-nowrap text-2xl font-bold lowercase tracking-tight text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">bidkita</Link>
-          <Link href="/" className="text-sm text-muted-foreground hover:text-foreground">← Results</Link>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="mx-auto max-w-5xl px-4 pt-10 pb-6" data-testid="entity-dossier">
         {/* hero — same stat anatomy as the supplier page: number, label below */}
         <p className="font-mono text-xs text-muted-foreground">Procuring entity · PhilGEPS record</p>
-        <h1 className="mt-2 text-xl font-bold leading-snug md:text-2xl">{ent.agency}</h1>
+        <h1 className="mt-2 text-xl font-bold leading-snug md:text-2xl">{titleCaseIfShouty(ent.agency)}</h1>
         {ent.province && <p className="mt-1 text-sm uppercase tracking-wider text-muted-foreground">{ent.province}</p>}
 
         <div className="mt-5 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
@@ -116,7 +112,7 @@ export default async function EntityPage({ params }: PageProps<"/entity/[slug]">
                       <p className="min-w-0 flex-1 font-medium leading-snug">
                         <Link href={`/supplier/${encodeURIComponent(s.winner_norm)}`} data-testid="top-supplier-link"
                           className="underline-offset-2 hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                          {s.winner}
+                          {titleCaseIfShouty(s.winner)}
                         </Link>
                       </p>
                       <p className="shrink-0 font-mono text-xs font-bold tabular-nums">{pesoCompact(s.value)}</p>
@@ -140,10 +136,12 @@ export default async function EntityPage({ params }: PageProps<"/entity/[slug]">
             <section aria-label="Network">
               <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Network</h2>
               <p className="mt-1 text-xs text-muted-foreground">award relationships recorded around this entity</p>
-              <EgoGraph data={ego} />
-              <p className="mt-1 font-mono text-xs text-muted-foreground">
-                suppliers ○ · procuring entities □ · line weight = awarded value — hover to trace, click to open
-              </p>
+              <div className="mt-2 overflow-hidden rounded-md border border-border bg-muted/20">
+                <EgoGraph data={ego} height={380} />
+                <p className="border-t border-border px-4 py-2 font-mono text-xs text-muted-foreground">
+                  suppliers ○ · procuring entities □ · line weight = awarded value — hover to trace, click to open
+                </p>
+              </div>
             </section>
           )}
 

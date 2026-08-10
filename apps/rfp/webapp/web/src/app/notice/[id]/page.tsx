@@ -1,6 +1,7 @@
 // /notice/[id] — server-rendered detail page (SEO wedge: full HTML, real title/description).
 import { cache } from "react";
 import Link from "next/link";
+import { SiteHeader } from "@/components/site-header";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BackLink } from "@/components/notice-back";
@@ -57,7 +58,8 @@ function fmtDateTime(d: string | null): string | null {
 }
 function closesIn(closingAt: string | null): { label: string; urgent: boolean } | null {
   if (!closingAt) return null;
-  const ms = new Date(closingAt).getTime() - Date.now();
+  // naive Manila wall-clock — pin +08:00 so the countdown is viewer-TZ-independent
+  const ms = new Date(closingAt + "+08:00").getTime() - Date.now();
   if (Number.isNaN(ms)) return null;
   if (ms < 0) return { label: "closed", urgent: false };
   const d = Math.floor(ms / 86_400_000);
@@ -73,11 +75,14 @@ function closesIn(closingAt: string | null): { label: string; urgent: boolean } 
 const fmtDelivery = (s: string) =>
   s.replace(/\bDay\/s\b/gi, "days").replace(/\bMonth\/s\b/gi, "months").replace(/\b1 days\b/, "1 day");
 
-function BidCta({ nt, testid }: { nt: NoticeDetail; testid: string }) {
+function BidCta({ nt, closed, testid }: { nt: NoticeDetail; closed?: boolean; testid: string }) {
+  // a closed notice can't be bid on — the filled CTA demotes to a quiet reference link
   return (
     <a href={philgepsUrl(nt.source, nt.id)} target="_blank" rel="noopener noreferrer" data-testid={testid}
-      className="inline-flex h-11 w-full items-center justify-center gap-1.5 rounded-md bg-primary px-6 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:w-auto">
-      Open on PhilGEPS to bid ↗
+      className={`inline-flex h-11 w-full items-center justify-center gap-1.5 rounded-md px-6 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:w-auto ${
+        closed ? "border border-border text-foreground/70 hover:border-primary/50 hover:text-primary"
+               : "bg-primary text-primary-foreground hover:bg-primary/90"}`}>
+      {closed ? "View on PhilGEPS ↗" : "Open on PhilGEPS to bid ↗"}
     </a>
   );
 }
@@ -94,17 +99,13 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
   const boq = parseBoq(nt.description);
   const reqs = requirementsFor(nt.mode_norm, nt.classification, nt.needs_pcab);
   const cd = closesIn(nt.closing_at);
+  const closed = cd?.label === "closed";
   const lotRange = nt.abc_lot_min != null && nt.abc_lot_max != null && nt.abc_lot_min !== nt.abc_lot_max
     ? `${peso(nt.abc_lot_min)} – ${peso(nt.abc_lot_max)} per lot` : null;
 
   return (
     <div className="min-h-dvh bg-background text-foreground">
-      <header className="border-b border-primary">
-        <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-4">
-          <Link href="/" className="whitespace-nowrap text-2xl font-bold lowercase tracking-tight text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">bidkita</Link>
-          <BackLink />
-        </div>
-      </header>
+      <SiteHeader right={<BackLink />} />
 
       <main className="mx-auto max-w-5xl px-4 pt-10 pb-6" data-testid="notice-detail">
         {/* hero */}
@@ -116,7 +117,7 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
           {nt.agency ? (
             <Link href={`/entity/${encodeURIComponent(nt.agency)}`} data-testid="agency-link"
               className="underline-offset-2 hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-              {nt.agency}
+              {titleCaseIfShouty(nt.agency)}
             </Link>
           ) : nt.agency}
         </p>
@@ -159,9 +160,9 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
           {nt.needs_pcab === 1 && <Chip>PCAB required</Chip>}
         </div>
 
-        <div className="mt-5"><BidCta nt={nt} testid="cta-top" /></div>
+        <div className="mt-5"><BidCta nt={nt} closed={closed} testid="cta-top" /></div>
 
-        <div className="mt-8 space-y-8">
+        <div className="mt-8 max-w-3xl space-y-8">
           {nt.scope && (
             <section aria-label="Scope">
               <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Scope</h2>
@@ -200,8 +201,19 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
                 // reference, not a clause boundary
                 const clauses = nt.description.split(/(?=(?:^|\s)\d{1,2}\.\s+[A-Z])/);
                 return clauses.length >= 4 && !nt.description.includes("\n") ? (
+                  // first clauses carry the substance; the ITB boilerplate tail folds away
                   <div className="mt-2 max-w-prose space-y-3 text-sm leading-relaxed text-foreground/80" data-testid="notice-description">
-                    {clauses.map((c, i) => <p key={i}>{c.trim()}</p>)}
+                    {clauses.slice(0, 3).map((c, i) => <p key={i}>{c.trim()}</p>)}
+                    {clauses.length > 3 && (
+                      <details className="group">
+                        <summary className="cursor-pointer list-none text-primary underline-offset-2 hover:underline group-open:hidden">
+                          show the full invitation to bid
+                        </summary>
+                        <div className="space-y-3">
+                          {clauses.slice(3).map((c, i) => <p key={i}>{c.trim()}</p>)}
+                        </div>
+                      </details>
+                    )}
                   </div>
                 ) : (
                   <p className="mt-2 max-w-prose whitespace-pre-wrap text-sm leading-relaxed text-foreground/80" data-testid="notice-description">
@@ -286,7 +298,7 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
           <NoticeEnrich id={nt.id} />
 
           <div className="border-t border-border pt-6">
-            <BidCta nt={nt} testid="cta-bottom" />
+            <BidCta nt={nt} closed={closed} testid="cta-bottom" />
           </div>
         </div>
       </main>

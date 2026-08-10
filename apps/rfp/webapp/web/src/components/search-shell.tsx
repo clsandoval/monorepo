@@ -189,7 +189,7 @@ export function SearchShell() {
           <form onSubmit={submit} role="search" className="relative min-w-0 flex-1 md:max-w-2xl">
             <label htmlFor="shell-q" className="sr-only">Search open government tenders</label>
             <Input id="shell-q" value={input} onChange={(e) => setInput(e.target.value)}
-              placeholder="Search 18,000+ open government tenders — e.g. drainage works in Cavite under ₱5M"
+              placeholder="Search open tenders — try “drainage works in Cavite”"
               data-testid="search-input" autoComplete="off"
               className="h-11 rounded-full bg-muted/40 pl-4 pr-12 md:text-base" />
             <button type="submit" data-testid="search-submit" aria-label="Search"
