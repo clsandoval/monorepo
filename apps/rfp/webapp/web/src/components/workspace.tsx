@@ -6,6 +6,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { TenderCard, type Notice } from "@/components/tender-card";
 
 type Session = { id: string; title: string; updated_at: string };
+// "#13141421" in any bubble becomes a link to the notice page.
+const linkRefs = (s: string) => s.replace(/#(\d{5,12})\b/g, "[#$1](/notice/$1)");
 type Ref = { id: number; why: string; tag?: string };
 type Msg = { role: "user" | "assistant"; content: string; refs?: Ref[]; notices?: Notice[] };
 
@@ -39,7 +41,9 @@ export function Workspace({ seedQuery }: { seedQuery?: string } = {}) {
   const taRef = useRef<HTMLTextAreaElement | null>(null);
 
   function refreshSuggest(value: string, caret: number) {
-    const m = value.slice(0, caret).match(/#([^\s#]*)$/);
+    // spaces allowed while the palette is open ("#school feeding"); a newline,
+    // a second '#', or Escape ends the token
+    const m = value.slice(0, caret).match(sug ? /#([^\n#]{0,40})$/ : /#([^\s#]*)$/);
     if (!m) { setSug(null); sugToken.current = null; return; }
     sugToken.current = { start: caret - m[1].length - 1, end: caret };
     if (sugTimer.current) clearTimeout(sugTimer.current);
@@ -52,6 +56,27 @@ export function Workspace({ seedQuery }: { seedQuery?: string } = {}) {
       } catch { setSug(null); }
     }, 180);
   }
+
+  // resolved chips for every #id currently in the input — verify + remove
+  const [attached, setAttached] = useState<{ id: number; title: string }[]>([]);
+  const attTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    const ids = [...new Set([...input.matchAll(/#(\d{5,12})\b/g)].map((m) => Number(m[1])))].slice(0, 3);
+    if (!ids.length) { setAttached([]); return; }
+    if (attTimer.current) clearTimeout(attTimer.current);
+    attTimer.current = setTimeout(async () => {
+      try {
+        const r = await fetch(`/api/notices?ids=${ids.join(",")}`).then((x) => x.json());
+        const byId = new Map((r.notices ?? []).map((n: { id: number; title: string }) => [Number(n.id), n]));
+        setAttached(ids.map((id) => {
+          const n = byId.get(id) as { title?: string } | undefined;
+          return { id, title: n?.title ?? "unknown notice" };
+        }));
+      } catch { /* keep previous chips */ }
+    }, 250);
+  }, [input]);
+  const removeRef = (id: number) =>
+    setInput((v) => v.replace(new RegExp(`#${id}\\b\\s?`, "g"), "").replace(/\s{2,}/g, " "));
 
   function pickSug(s: Sug) {
     const t = sugToken.current;
@@ -255,12 +280,14 @@ export function Workspace({ seedQuery }: { seedQuery?: string } = {}) {
             {msgs.map((m, i) => (
               <div key={i} className="mb-5">
                 {m.role === "user" ? (
-                  <div className="ml-auto w-fit max-w-[85%] rounded-2xl bg-muted px-4 py-2 text-sm">{m.content}</div>
+                  <div className="prose-chat ml-auto w-fit max-w-[85%] rounded-2xl bg-muted px-4 py-2 text-sm">
+                    <ReactMarkdown>{linkRefs(m.content)}</ReactMarkdown>
+                  </div>
                 ) : (
                   <div className="space-y-3">
                     <div className="prose-chat text-sm leading-relaxed" data-testid="assistant-text">
                       {m.content
-                        ? <ReactMarkdown>{m.content}</ReactMarkdown>
+                        ? <ReactMarkdown>{linkRefs(m.content)}</ReactMarkdown>
                         : (i === msgs.length - 1 && busy
                             ? <span className="inline-flex items-center gap-1.5 text-muted-foreground">
                                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current" />Searching notices…
@@ -288,7 +315,20 @@ export function Workspace({ seedQuery }: { seedQuery?: string } = {}) {
               ↓ Jump to latest
             </button>
           )}
-          <div className="relative mx-auto flex max-w-2xl items-end gap-2">
+          <div className="relative mx-auto max-w-2xl">
+            {attached.length > 0 && (
+              <div className="mb-1.5 flex flex-wrap gap-1.5" data-testid="attached-refs">
+                {attached.map((a) => (
+                  <span key={a.id} className="inline-flex max-w-full items-center gap-1.5 rounded border border-primary/40 bg-primary/5 px-2 py-0.5 text-xs">
+                    <span className="font-mono text-primary tabular-nums">#{a.id}</span>
+                    <span className="min-w-0 truncate text-muted-foreground" style={{ maxWidth: "16rem" }}>{a.title}</span>
+                    <button type="button" aria-label={`remove #${a.id}`} onClick={() => removeRef(a.id)}
+                      className="text-muted-foreground hover:text-foreground">×</button>
+                  </span>
+                ))}
+              </div>
+            )}
+          <div className="relative flex items-end gap-2">
             {sug && (
               <ul data-testid="notice-suggest"
                 className="absolute bottom-full left-0 z-20 mb-1 w-full overflow-hidden rounded-md border border-border bg-background shadow-md">
@@ -323,6 +363,7 @@ export function Workspace({ seedQuery }: { seedQuery?: string } = {}) {
             {busy
               ? <Button onClick={stop} variant="secondary" className="h-11 px-5" data-testid="stop">Stop</Button>
               : <Button onClick={send} disabled={!input.trim()} className="h-11 px-5" data-testid="send">Send</Button>}
+          </div>
           </div>
         </div>
       </main>
