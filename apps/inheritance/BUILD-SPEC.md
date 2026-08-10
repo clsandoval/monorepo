@@ -87,6 +87,11 @@ will restyle anyway; fixing them now under the current identity would be churn:
 - Heir table at 390 scrolls inside its container with no visible affordance (fade/scrollbar hint).
 - Family tree does not fit-to-screen on mount at narrow widths (pan/zoom exists; default framing).
 - Estate-tax header title truncates over-eagerly at 768 (`truncate` fires with free space nearby).
+- **Family-tree visualizer completeness** (dogfound 2026-08-10, presentation not data — table/narrative/deed
+  are all correct): the tree omits surviving-spouse and ascendant heir nodes entirely (a spouse-only or
+  parents-only estate renders the decedent with zero heir nodes despite full distribution); the rightmost
+  child clips off-canvas in wide families on the default (non-fit) view; the pie legend paints both parents
+  the same orange. All live in `components/results/visualizer/` — restyle candidates for the identity pass.
 
 ## Spend
 
