@@ -229,6 +229,17 @@ function guardBoq(rows: BoqRow[], toks: string[], description: string): BoqRow[]
 
 // ---------------------------------------------------------------- statutory requirements
 
+/** Display a win-ratio as a percentage that NEVER shows a sub-100% win as "100%" — the naive
+ *  round has two holes verified live: r=0.995 exactly (strict > excluded it → "100%") and
+ *  r∈[0.9995,1) (toFixed(1) → "100.0"). Rule: below 1, floor to one decimal; ≥99 keeps the
+ *  decimal ("99.5%", "99.9%"), lower rounds normally ("87%"); r≥1 rounds ("100%", "102%"). */
+export function winPct(r: number): string {
+  const v = r * 100;
+  if (r >= 1) return `${Math.round(v)}%`;
+  const f = Math.floor(v * 10) / 10;
+  return f >= 99 ? `${f.toFixed(1)}%` : `${Math.round(v)}%`;
+}
+
 export type Requirement = { item: string; statute: string };
 
 /** STATIC rules table (BUILD-SPEC: statutory items never come from the model). Keyed by

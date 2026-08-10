@@ -7,7 +7,7 @@ import { BackLink } from "@/components/notice-back";
 import { NoticeEnrich } from "@/components/notice-enrich";
 import { roundOf } from "@/lib/search-types";
 import {
-  getNotice, getSimilarAwards, parseBoq, philgepsUrl, requirementsFor, type NoticeDetail,
+  getNotice, getSimilarAwards, parseBoq, philgepsUrl, requirementsFor, winPct, type NoticeDetail,
 } from "@/lib/notice";
 
 export const dynamic = "force-dynamic"; // countdown + enrich state must be request-fresh
@@ -29,6 +29,18 @@ export async function generateMetadata({ params }: PageProps<"/notice/[id]">): P
 // Full-precision peso — contractors care about the exact ABC.
 const peso = (v: number) =>
   `₱${v.toLocaleString("en-PH", { minimumFractionDigits: v % 1 ? 2 : 0, maximumFractionDigits: 2 })}`;
+
+// Mirror of awards.py norm_winner: one canonical key per supplier, so the display string
+// "DANILYN'S ENTERPRISES, INC." links to the same /supplier/ page as "Danilyns Enterprises Inc".
+// (SimilarAward doesn't carry winner_norm — normalize the display string the same way.)
+const WINNER_SUFFIX = new Set(["INC", "INCORPORATED", "CORP", "CORPORATION", "CO", "COMPANY", "LTD", "LIMITED", "OPC"]);
+function normWinner(name: string | null): string | null {
+  if (!name) return null;
+  const s = name.toUpperCase().replace(/['’.]/g, "").replace(/[^A-Z0-9 ]+/g, " ");
+  const toks = s.split(/\s+/).filter(Boolean);
+  while (toks.length > 1 && WINNER_SUFFIX.has(toks[toks.length - 1])) toks.pop();
+  return toks.join(" ") || null;
+}
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 // corpus datetimes are naive PH-local strings — format from parts, never via Date (server TZ varies)
@@ -91,7 +103,14 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
           #{nt.id}{nt.solicitation_no ? ` · ${nt.solicitation_no}` : ""} · Source: PhilGEPS{nt.source === "legacy" ? " (legacy)" : ""}
         </p>
         <h1 className="mt-2 text-xl font-bold leading-snug md:text-2xl">{nt.title}</h1>
-        <p className="mt-1 text-sm text-muted-foreground">{nt.agency}</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {nt.agency ? (
+            <Link href={`/entity/${encodeURIComponent(nt.agency)}`} data-testid="agency-link"
+              className="underline-offset-2 hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+              {nt.agency}
+            </Link>
+          ) : nt.agency}
+        </p>
 
         <div className="mt-4 flex flex-wrap items-baseline gap-x-4 gap-y-1">
           <span className="font-mono text-4xl font-bold tabular-nums tracking-tight md:text-5xl" data-testid="notice-abc">
@@ -193,22 +212,29 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
               <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Similar recent awards</h2>
               <p className="mt-1 text-xs text-muted-foreground">who wins contracts like this one, and at what price</p>
               <ul className="mt-2 space-y-3" data-testid="similar-awards">
-                {awards.map((a, i) => (
+                {awards.map((a, i) => {
+                  const slug = normWinner(a.winner);
+                  return (
                   <li key={i} className="text-sm">
                     <p className="font-medium">
-                      {a.winner}
+                      {slug ? (
+                        <Link href={`/supplier/${encodeURIComponent(slug)}`} data-testid="winner-link"
+                          className="underline-offset-2 hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                          {a.winner}
+                        </Link>
+                      ) : a.winner}
                       {a.winner_province && <span className="ml-2 font-normal text-muted-foreground">({a.winner_province})</span>}
                     </p>
                     <p className="font-mono text-xs tabular-nums text-foreground/80">
                       won {peso(a.contract_amount)}
                       {a.win_ratio != null && a.abc != null &&
-                        // never round a sub-100% winning bid up to "100% of the budget"
-                        ` — ${a.win_ratio < 1 && a.win_ratio > 0.995 ? (a.win_ratio * 100).toFixed(1) : Math.round(a.win_ratio * 100)}% of the ${peso(a.abc)} budget`}
+                        ` — ${winPct(a.win_ratio)} of the ${peso(a.abc)} budget`}
                       {a.award_date && ` · ${fmtDay(a.award_date) ?? a.award_date}`}
                     </p>
                     <p className="mt-0.5 line-clamp-1 text-xs text-muted-foreground">{a.title}</p>
                   </li>
-                ))}
+                  );
+                })}
               </ul>
             </section>
           )}

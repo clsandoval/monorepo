@@ -44,6 +44,15 @@ const e = N.parseBoq(await desc(13180327));
 ok("13180327 prose description → null (fallback)", e === null, JSON.stringify(e?.slice(0, 3)));
 ok("empty/null description → null", N.parseBoq(null) === null && N.parseBoq("") === null);
 
+// --- winPct: the two verified live rounding holes must stay closed ---
+ok("winPct 0.995 → 99.5% (was '100%')", N.winPct(0.995) === "99.5%", N.winPct(0.995));
+ok("winPct 0.9995 → 99.9% (was '100.0%')", N.winPct(0.9995) === "99.9%", N.winPct(0.9995));
+ok("winPct 0.99949 → 99.9%", N.winPct(0.99949) === "99.9%", N.winPct(0.99949));
+ok("winPct 1 → 100%", N.winPct(1) === "100%");
+ok("winPct 1.02 → 102%", N.winPct(1.02) === "102%");
+ok("winPct 0.87 → 87%", N.winPct(0.87) === "87%");
+ok("winPct never shows 100 for r<1", ![0.995, 0.999, 0.9999, 0.99999].some((r) => N.winPct(r).startsWith("100")));
+
 // --- guardBoq: measured garbage shapes must reject (verify pass findings; wrong-but-confident
 // quantities are worse than prose for a bidder) ---
 for (const [id, why] of [
