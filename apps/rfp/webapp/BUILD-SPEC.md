@@ -250,3 +250,45 @@ Ultracode re-invoked; same $30 cap (~$4.95 spent); polish to done like M3.
   390/768/1280; palette gate on detail page; existing 17 E2E stay green.
 - D5 regression + P0: chat eval 8/8, search-eval 7/7, live drive on prod incl. one real
   enrich, video + Telegram report.
+
+---
+
+# Milestone 5 — "The Map" (2026-08-10, from Carlos's roadmap doc)
+
+**Source:** Carlos's "RFP Finder — Possible Next Features" doc (Telegram, scratchpad/tg/
+message-2.txt). Through-line: *"contractors can't buy connections from an app, but they can
+buy the map — who decides, who really wins, which markets are open."* Build order follows
+his doc: awards at scale → supplier profiles + feed → entity dossiers + contestability v0.
+**Budget: the remaining ~$20 of the $30 cap.** Approved 2026-08-10.
+
+## HARD RULE — evidence only (ship-blocking gate, from the doc's libel guardrail)
+Show verifiable facts with sources; NEVER render conclusions about named parties: no
+"shell company", "dummy", "rigged", "wired", "corrupt" anywhere (UI, enrich output, model
+prompts, scores). Scores describe MARKETS ("concentrated, low competition"), never accuse
+entities. Model-generated text about suppliers/entities passes a banned-terms check.
+
+## Waves
+- **W-A awards at scale** (prerequisite for everything): extend ingestion to award notices
+  on both systems (legacy ungated w/ peso amounts; mPhilGEPS award pages per notice).
+  Backfill as deep as accessible + wire into daily.sh. Normalize winner names (casing/
+  punctuation dedupe). Gate: coverage report (awards/entity, awards/supplier distributions)
+  + zero regression to notice ingest.
+- **W-B supplier profiles + recent-awards feed**: /supplier/[slug] SSR (wins, entities,
+  categories, total value, price-vs-ABC behavior over time); winners in detail-page
+  similar-awards link to profiles; "Just awarded" feed surface. Gate: SSR + palette +
+  E2E + evidence-only check.
+- **W-C entity dossiers v0 + contestability v0**: /entity/[slug] SSR (contact roster,
+  spending profile from awards, open notices, timing note) + score from computable
+  signals ONLY (award concentration, price-to-budget ratios, failed→negotiated rate,
+  mode mix — avg-bidders deferred until abstracts spike lands), each signal shown with
+  its evidence. Gate: score reproducible from displayed evidence; no accusation language.
+- **W-S spikes (propose-first, 30-60 min each)**: (1) abstracts-of-bids access probe;
+  (2) PCAB AMO join feasibility (pcab_ingest.py exists). Report findings, build nothing.
+- **W-D alerts (cheap, if budget allows)**: saved-filter → daily Telegram digest via the
+  existing bot. Gate: one real digest delivered.
+- **W-E ops**: nightly cron for daily.sh + bundle refresh + deploy (or volume-mounted
+  corpus swap) so prod data is ≤24h stale without manual runs. Measured: 10 min, ₱9/run.
+
+## Gates & stop conditions
+Per-wave gates above + all existing suites stay green + P0 live drive per deploy.
+Stop: all waves green OR $30 total cap OR blocked gate → stop+report (Telegram).
