@@ -290,4 +290,44 @@ describe('results > ResultsView', () => {
       expect(screen.getByText(/Estate Escheats to the State/i)).toBeInTheDocument();
     });
   });
+
+  // A stored output_json is read back weeks/months later; a case computed by an
+  // older engine can be missing whole arrays this view reads .length/.map on.
+  // These crashed the prod page ("Cannot read properties of undefined (reading
+  // 'length')") on 2026-08-10 because withOutputDefaults did not exist and the
+  // journey gate only ever rendered one pristine seeded case. Each legacy shape
+  // must render, not throw.
+  describe('legacy / partial stored output (regression)', () => {
+    // The JSONB blob has no compile-time guarantee, so a legacy row really can
+    // arrive without these keys — force that by deleting them off a valid output.
+    function legacyOutput(drop: (keyof EngineOutput)[]): EngineOutput {
+      const o = createOutput() as Record<string, unknown>;
+      for (const k of drop) delete o[k];
+      return o as unknown as EngineOutput;
+    }
+
+    it.each([
+      ['narratives'],
+      ['warnings'],
+      ['per_heir_shares'],
+      ['computation_log'],
+    ] as [keyof EngineOutput][])('renders when stored output is missing %s', (field) => {
+      expect(() => renderResults({ output: legacyOutput([field]) })).not.toThrow();
+      expect(screen.getByTestId('results-view')).toBeInTheDocument();
+    });
+
+    it('renders when a share is missing its legal_basis array', () => {
+      const o = createOutput();
+      delete (o.per_heir_shares[0] as unknown as Record<string, unknown>).legal_basis;
+      expect(() => renderResults({ output: o })).not.toThrow();
+      expect(screen.getByTestId('results-view')).toBeInTheDocument();
+    });
+
+    it('still shows the heir figures a partial output does carry', () => {
+      renderResults({ output: legacyOutput(['narratives', 'warnings']) });
+      expect(screen.getByTestId('results-view')).toBeInTheDocument();
+      // the money the row did store must still reach the screen
+      expect(screen.getAllByText(/2,500,000/).length).toBeGreaterThan(0);
+    });
+  });
 });
