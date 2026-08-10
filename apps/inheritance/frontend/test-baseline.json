@@ -1,8 +1,8 @@
 {
   "$comment": "Ledger of known-failing frontend tests. It records reality; it is NOT permission to fail. This ledger may only shrink. Appending a new entry to make the gate pass is PROHIBITED \u2014 the correct response to a new failure is to fix the regression. When a listed test starts passing, the gate fails with STALE BASELINE until its entry is deleted from this file.",
-  "generated": "2026-08-10T14:18:00Z",
-  "total_tests": 2449,
-  "min_total_tests": 2449,
+  "generated": "2026-08-10T14:42:00Z",
+  "total_tests": 2453,
+  "min_total_tests": 2453,
   "known_failures": [],
   "floor_lowered": {
     "date": "2026-08-01",
