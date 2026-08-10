@@ -393,6 +393,7 @@ export default function EgoGraph({ data, height = 420 }: { data: EgoData; height
         aria-label={`Award relationship map centered on ${centerLabel}`}
         viewBox={`${view.x} ${view.y} ${view.w} ${view.h}`}
         width="100%" height={height}
+        style={{ aspectRatio: `${Math.round(lay.vb.w)} / ${Math.round(lay.vb.h)}`, height: "auto", maxHeight: height }}
         className="block touch-none select-none"
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}

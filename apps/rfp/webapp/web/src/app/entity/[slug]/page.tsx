@@ -60,7 +60,7 @@ export default async function EntityPage({ params }: PageProps<"/entity/[slug]">
     <div className="min-h-dvh bg-background text-foreground">
       <SiteHeader />
 
-      <main className="mx-auto max-w-5xl px-4 pt-10 pb-6" data-testid="entity-dossier">
+      <main className="mx-auto max-w-5xl px-4 pt-10 pb-12" data-testid="entity-dossier">
         {/* hero — same stat anatomy as the supplier page: number, label below */}
         <p className="font-mono text-xs text-muted-foreground">Procuring entity · PhilGEPS record</p>
         <h1 className="mt-2 text-xl font-bold leading-snug md:text-2xl">{titleCaseIfShouty(ent.agency)}</h1>
@@ -139,7 +139,7 @@ export default async function EntityPage({ params }: PageProps<"/entity/[slug]">
               <div className="mt-2 overflow-hidden rounded-md border border-border bg-muted/20">
                 <EgoGraph data={ego} height={380} />
                 <p className="border-t border-border px-4 py-2 font-mono text-xs text-muted-foreground">
-                  suppliers ○ · procuring entities □ · line weight = awarded value — hover to trace, click to open
+                  suppliers ○ · procuring entities □ · line weight = awarded value — <span className="sm:hidden">tap a node to open</span><span className="hidden sm:inline">hover to trace, click to open</span>
                 </p>
               </div>
             </section>

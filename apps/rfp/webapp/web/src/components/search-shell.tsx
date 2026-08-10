@@ -69,8 +69,11 @@ export function SearchShell() {
     if (q) setInput(q);
     try {
       const saved = JSON.parse(sessionStorage.getItem("bidkita-results") ?? "null") as
-        { q: string; state: ListState; scrollTop: number } | null;
-      if (saved && saved.q === q && saved.state.phase === "ready") {
+        { q: string; state: ListState; scrollTop: number; at?: number } | null;
+      // stale snapshots lie: rows saved before a batch deadline restore as a wall of
+      // "closed" chips under an "open notices" headline — 15-minute freshness window
+      if (saved && saved.q === q && saved.state.phase === "ready"
+          && saved.at != null && Date.now() - saved.at < 15 * 60_000) {
         setState(saved.state); setActiveQ(q);
         requestAnimationFrame(() => {
           const el = document.getElementById("pane-results");
@@ -91,7 +94,7 @@ export function SearchShell() {
       if (stateRef.current.phase !== "ready") return;
       try {
         sessionStorage.setItem("bidkita-results", JSON.stringify({
-          q: activeQRef.current, state: stateRef.current,
+          q: activeQRef.current, state: stateRef.current, at: Date.now(),
           scrollTop: document.getElementById("pane-results")?.scrollTop ?? 0,
         }));
       } catch { /* quota — nonfatal */ }
@@ -191,7 +194,7 @@ export function SearchShell() {
             <Input id="shell-q" value={input} onChange={(e) => setInput(e.target.value)}
               placeholder="Search open tenders — try “drainage works in Cavite”"
               data-testid="search-input" autoComplete="off"
-              className="h-11 rounded-full bg-muted/40 pl-4 pr-12 md:text-base" />
+              className="h-11 truncate rounded-full bg-muted/40 pl-4 pr-14 md:text-base" />
             <button type="submit" data-testid="search-submit" aria-label="Search"
               className="absolute right-1 top-1/2 grid size-9 -translate-y-1/2 place-items-center rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
               <Search className="size-4" />
@@ -233,7 +236,7 @@ export function SearchShell() {
                 <span className="ml-auto flex items-center gap-2">
                   <button onClick={() => setFiltersOpen((v) => !v)} data-testid="filters-toggle"
                     aria-expanded={filtersOpen}
-                    className={`h-9 rounded-md border px-3 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                    className={`h-11 sm:h-9 rounded-md border px-3 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                       filtersOpen || nFilters ? "border-primary/50 text-primary" : "border-input text-muted-foreground hover:text-foreground"}`}>
                     Filters{nFilters ? ` · ${nFilters}` : ""}
                   </button>
@@ -243,7 +246,7 @@ export function SearchShell() {
                       const v = e.target.value as NonNullable<SearchPlan["sort"]>;
                       set(v === "relevance" ? {} : { sort: v }, v === "relevance" ? ["sort"] : []);
                     }}
-                    className="h-9 rounded-md border border-input bg-background px-2 text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                    className="h-11 sm:h-9 rounded-md border border-input bg-background px-2 text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                     <option value="relevance">Sort: relevance</option>
                     <option value="closing">Sort: closing soon</option>
                     <option value="newest">Sort: newest first</option>

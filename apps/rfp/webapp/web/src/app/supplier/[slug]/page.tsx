@@ -68,7 +68,7 @@ function WinRow({ w, peso }: { w: import("@/lib/map").SupplierWin; peso: (v: num
   const title = raw && !isRefCode ? titleCaseIfShouty(raw) : null;
   return (
     <li className="py-2.5 text-sm">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-0.5">
         <p className={`min-w-0 flex-1 leading-snug ${title ? "font-medium" : "text-muted-foreground/70"}`}>
           {noticeId != null && Number.isSafeInteger(noticeId) ? (
             <Link href={`/notice/${noticeId}`} data-testid="win-notice-link"
@@ -119,7 +119,7 @@ export default async function SupplierPage({ params }: PageProps<"/supplier/[slu
     <div className="min-h-dvh bg-background text-foreground">
       <SiteHeader />
 
-      <main className="mx-auto max-w-5xl px-4 pt-10 pb-6" data-testid="supplier-profile">
+      <main className="mx-auto max-w-5xl px-4 pt-10 pb-12" data-testid="supplier-profile">
         {/* hero */}
         <p className="font-mono text-xs text-muted-foreground">Supplier · PhilGEPS record</p>
         <h1 className="mt-2 text-xl font-bold leading-snug md:text-2xl">{titleCaseIfShouty(sp.winner)}</h1>
@@ -159,8 +159,7 @@ export default async function SupplierPage({ params }: PageProps<"/supplier/[slu
               <div className="mt-2 overflow-hidden rounded-md border border-border bg-muted/20">
                 <EgoGraph data={ego} height={380} />
                 <p className="border-t border-border px-4 py-2 font-mono text-xs text-muted-foreground">
-                  suppliers ○ · procuring entities □ · line weight = awarded value — hover to trace, click to open
-                </p>
+                  suppliers ○ · procuring entities □ · line weight = awarded value — <span className="sm:hidden">tap a node to open</span><span className="hidden sm:inline">hover to trace, click to open</span></p>
               </div>
             </section>
           )}
@@ -170,7 +169,7 @@ export default async function SupplierPage({ params }: PageProps<"/supplier/[slu
               <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Categories</h2>
               <div className="mt-2 flex flex-wrap gap-1.5" data-testid="supplier-categories">
                 {sp.categories.slice(0, 16).map((c) => (
-                  <span key={c.name} className="rounded border border-border px-2 py-0.5 text-xs text-muted-foreground">
+                  <span key={c.name} className="rounded border border-border px-2 py-1 text-xs leading-snug text-muted-foreground">
                     {c.name} <span className="font-mono tabular-nums">×{c.n}</span>
                   </span>
                 ))}
@@ -186,13 +185,13 @@ export default async function SupplierPage({ params }: PageProps<"/supplier/[slu
                 {sp.entities.slice(0, 16).map((e) =>
                   agencyBuyers.has(e.name) ? (
                     <Link key={e.name} href={`/entity/${encodeURIComponent(e.name)}`}
-                      className="rounded border border-border px-2 py-0.5 text-xs text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                      className="rounded border border-border px-2 py-1 text-xs leading-snug text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                       {titleCaseIfShouty(e.name)} <span className="font-mono tabular-nums">×{e.n}</span>
                     </Link>
                   ) : (
                     <span key={e.name} title="buyer-side recording officer"
-                      className="rounded border border-border px-2 py-0.5 text-xs text-muted-foreground">
-                      {titleCaseIfShouty(e.name)} <span className="font-mono tabular-nums">×{e.n}</span>
+                      className="rounded border border-border px-2 py-1 text-xs leading-snug text-muted-foreground">
+                      {personCase(e.name)} <span className="font-mono tabular-nums">×{e.n}</span>
                     </span>
                   ))}
               </div>

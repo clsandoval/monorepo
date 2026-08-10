@@ -267,7 +267,9 @@ export function Workspace({ seedQuery }: { seedQuery?: string } = {}) {
               <span className="block h-0.5 w-5 bg-current" /><span className="block h-0.5 w-5 bg-current" /><span className="block h-0.5 w-5 bg-current" />
             </span>
           </button>
-          <span className="text-sm font-bold lowercase text-primary">bidkita</span>
+          {/* the page header above already carries the wordmark — this bar is the
+              session drawer's handle, not a second masthead */}
+          <span className="text-sm font-medium text-muted-foreground">Chats</span>
         </div>
         <div ref={scrollRef} onScroll={() => setAtBottom(nearBottom())} className="relative flex-1 overflow-y-auto">
           <div className="mx-auto max-w-2xl px-4 py-6" role="log" aria-live="polite" aria-busy={busy}>
@@ -295,7 +297,7 @@ export function Workspace({ seedQuery }: { seedQuery?: string } = {}) {
                             : "")}
                     </div>
                     {m.notices && m.notices.length > 0 && (
-                      <div className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2
+                      <div className="-mx-4 flex min-w-0 snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 scroll-px-4
                         [scrollbar-width:thin]" data-testid="cards">
                         {m.notices.map((n) => (
                           <div key={n.id} className="w-72 shrink-0 snap-start"><TenderCard n={n} /></div>

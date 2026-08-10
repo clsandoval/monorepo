@@ -107,7 +107,7 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
     <div className="min-h-dvh bg-background text-foreground">
       <SiteHeader right={<BackLink />} />
 
-      <main className="mx-auto max-w-5xl px-4 pt-10 pb-6" data-testid="notice-detail">
+      <main className="mx-auto max-w-5xl px-4 pt-10 pb-12" data-testid="notice-detail">
         {/* hero */}
         <p className="font-mono text-xs text-muted-foreground tabular-nums">
           Notice #{nt.id}{nt.solicitation_no ? ` · ${nt.solicitation_no}` : ""} · PhilGEPS record{nt.source === "legacy" ? " (legacy)" : ""}
@@ -239,7 +239,7 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
             <p className="mt-1 text-xs text-muted-foreground">standard requirements for this procurement mode — confirm in the bid documents</p>
             <ul className="mt-2 space-y-1.5" data-testid="requirements-list">
               {reqs.map((r, i) => (
-                <li key={i} className="flex items-baseline justify-between gap-3 text-sm">
+                <li key={i} className="flex items-start justify-between gap-4 text-sm">
                   <span>{r.item}</span>
                   <span className="shrink-0 rounded border border-border px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">{r.statute}</span>
                 </li>
@@ -270,9 +270,9 @@ export default async function NoticePage({ params }: PageProps<"/notice/[id]">) 
                       {slug ? (
                         <Link href={`/supplier/${encodeURIComponent(slug)}`} data-testid="winner-link"
                           className="text-primary underline decoration-primary/40 underline-offset-2 hover:decoration-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                          {a.winner}
+                          {titleCaseIfShouty(a.winner)}
                         </Link>
-                      ) : a.winner}
+                      ) : titleCaseIfShouty(a.winner)}
                       {a.winner_province && <span className="ml-2 font-normal text-muted-foreground">({a.winner_province})</span>}
                     </p>
                     <p className="font-mono text-xs tabular-nums text-foreground/80">
