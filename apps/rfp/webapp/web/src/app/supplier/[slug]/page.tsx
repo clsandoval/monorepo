@@ -6,7 +6,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import { winPct } from "@/lib/notice";
-import { getSupplier } from "@/lib/map";
+import { getEgo, getSupplier } from "@/lib/map";
+import EgoGraph from "@/components/ego-graph";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +16,7 @@ function slugOf(raw: string): string {
   try { return decodeURIComponent(raw); } catch { return raw; }
 }
 const load = cache(async (raw: string) => getSupplier(slugOf(raw)));
+const loadEgo = cache(async (raw: string) => getEgo({ norm: slugOf(raw) }));
 
 export async function generateMetadata({ params }: PageProps<"/supplier/[slug]">): Promise<Metadata> {
   const sp = await load((await params).slug);
@@ -55,7 +57,8 @@ function Stat({ label, value, testid }: { label: string; value: string; testid?:
 }
 
 export default async function SupplierPage({ params }: PageProps<"/supplier/[slug]">) {
-  const sp = await load((await params).slug);
+  const { slug } = await params;
+  const [sp, ego] = await Promise.all([load(slug), loadEgo(slug)]);
   if (!sp) notFound();
 
   // Buyers whose kind is "agency" join a corpus notice → safe to link to /entity/.
@@ -128,6 +131,17 @@ export default async function SupplierPage({ params }: PageProps<"/supplier/[slu
               })}
             </ul>
           </section>
+
+          {ego != null && (ego.nodes?.length ?? 0) >= 3 && (
+            <section aria-label="Network">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Network</h2>
+              <p className="mt-1 text-xs text-muted-foreground">award relationships recorded around this supplier</p>
+              <EgoGraph data={ego} />
+              <p className="mt-1 font-mono text-xs text-muted-foreground">
+                suppliers ○ · procuring entities □ · line weight = awarded value — hover to trace, click to open
+              </p>
+            </section>
+          )}
 
           {sp.categories.length > 0 && (
             <section aria-label="Categories">

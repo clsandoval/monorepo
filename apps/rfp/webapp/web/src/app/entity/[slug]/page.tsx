@@ -8,7 +8,8 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 import { ResultRowItem } from "@/components/result-row";
 import { roundOf, type ResultRow } from "@/lib/search-types";
-import { getEntity, type EntityOpenNotice } from "@/lib/map";
+import { getEgo, getEntity, type EntityOpenNotice } from "@/lib/map";
+import EgoGraph from "@/components/ego-graph";
 
 export const dynamic = "force-dynamic";
 
@@ -16,6 +17,7 @@ function slugOf(raw: string): string {
   try { return decodeURIComponent(raw); } catch { return raw; }
 }
 const load = cache(async (raw: string) => getEntity(slugOf(raw)));
+const loadEgo = cache(async (raw: string) => getEgo({ agency: slugOf(raw) }));
 
 export async function generateMetadata({ params }: PageProps<"/entity/[slug]">): Promise<Metadata> {
   const ent = await load((await params).slug);
@@ -45,7 +47,8 @@ function toResultRow(agency: string, n: EntityOpenNotice): ResultRow {
 }
 
 export default async function EntityPage({ params }: PageProps<"/entity/[slug]">) {
-  const ent = await load((await params).slug);
+  const { slug } = await params;
+  const [ent, ego] = await Promise.all([load(slug), loadEgo(slug)]);
   if (!ent) notFound();
 
   // denominator for "14 of 23": total recorded awards behind the share bars
@@ -108,6 +111,17 @@ export default async function EntityPage({ params }: PageProps<"/entity/[slug]">
                   </li>
                 ))}
               </ul>
+            </section>
+          )}
+
+          {ego != null && (ego.nodes?.length ?? 0) >= 3 && (
+            <section aria-label="Network">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Network</h2>
+              <p className="mt-1 text-xs text-muted-foreground">award relationships recorded around this entity</p>
+              <EgoGraph data={ego} />
+              <p className="mt-1 font-mono text-xs text-muted-foreground">
+                suppliers ○ · procuring entities □ · line weight = awarded value — hover to trace, click to open
+              </p>
             </section>
           )}
 

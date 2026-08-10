@@ -6,6 +6,10 @@
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { join } from "node:path";
+// Ego-graph contract types live with the component — import, never redefine (drift risk).
+import type { EgoData } from "@/components/ego-graph";
+
+export type { EgoData, EgoNode, EgoLink } from "@/components/ego-graph";
 
 const pexec = promisify(execFile);
 const RFP_DIR = process.env.RFP_DIR ?? join(process.cwd(), "..", "..");
@@ -79,8 +83,10 @@ export interface SupplierIndexRow { winner_norm: string; winner: string; n: numb
 
 async function runMap<T>(args: string[]): Promise<T | null> {
   try {
+    // 30s: a cold page cache over the 2.1GB awards.db right after a machine swap
+    // can push a 23K-award entity past 15s — timing out here renders a false 404
     const { stdout } = await pexec("python3", ["map_query.py", ...args],
-      { cwd: RFP_DIR, timeout: 15_000, maxBuffer: 8 << 20 });
+      { cwd: RFP_DIR, timeout: 30_000, maxBuffer: 8 << 20 });
     const trimmed = stdout.trim();
     return trimmed ? (JSON.parse(trimmed) as T) : null;
   } catch {
@@ -98,6 +104,15 @@ export async function getSupplier(norm: string): Promise<SupplierProfile | null>
 export async function getEntity(agency: string): Promise<EntityDossier | null> {
   const d = await runMap<EntityDossier>(["entity", "--agency", agency]);
   return d?.agency ? d : null;
+}
+
+/** Ego network around a supplier (norm) or entity (agency); null when empty or unavailable. */
+export async function getEgo(opts: { norm?: string; agency?: string }): Promise<EgoData | null> {
+  const args = opts.norm != null ? ["ego", "--norm", opts.norm]
+    : opts.agency != null ? ["ego", "--agency", opts.agency] : null;
+  if (!args) return null;
+  const d = await runMap<EgoData>(args);
+  return d?.center && d.nodes?.length ? d : null; // {} / missing → null, callers hide the section
 }
 
 /** Suppliers with ≥minAwards awards, by total value — internal linking/QA index. */
