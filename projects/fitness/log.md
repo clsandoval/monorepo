@@ -12,6 +12,13 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-08-10
+- **Weight:** — (not logged)
+- **Cals / Protein:** ~1060 / ~47g so far (3 small street tacos, his estimate ~150g meat + ~150g tortilla total, rest onion/bell pepper/salsa: meat ~375/29g [assumed mixed fatty street-taco meat ~250/19 per 100g — 8/02 lengua ran 285/18, say if it was leaner]; tortillas ~320/8g [~215/100g corn]; veg + sauce ~75/1g; sweetened latte ~290/9g [7/29–7/31 sweet-version precedent 280–300])
+- **Carbs / Sodium:** ~97g / ~1g so far (tortillas ~62g; latte ~30g; veg/salsa ~5g. Sodium: salsa + seasoning only — thin, salt the next meal)
+- **Trained:** —
+- **Notes:** ~1060 / ~47g so far — 98g under the 145 floor with ~1140 of room to the 2200 rest-day ceiling. Book the 2 scoops now (~280/48g → ~1340/~95g), leaving ~50g from food on ~860 of room — one protein-anchored meal closes it. Fiber: taco veg only (~3g), sixth thin day running — banana. Next lift owed: **Day A** (Smith incline bench · barbell rows · RDL · leg extensions), 8 days since the last full session; walk moves the ceiling to 2500.
+
 ## 2026-08-09
 - **Weight:** 96.0 kg (fasted AM)
 - **Cals / Protein:** ~2265 / ~194g (ahi tuna tartare on cracker ~245/26g [corrected: ~100g tuna ~120/23g + sesame oil/soy dressing ~30/0g + cracker ~35/1g + wakame ~10/0.5g + ~1 tsp ikura ~15/1.5g + ~1 tsp mayo ~35/0g]; chicken brown rice elote bowl w/ mayo ~700/45g [~150g chicken ~250/40g + 1 cup brown rice ~220/5g + elote corn/mayo/cotija ~230/3g]; ½ uni butter bucatini, ~200g eaten ~400/12g [~140g cooked pasta ~210/7g + uni-butter sauce ~190/5g]; 2 lattes ~360/18g [12 oz standard ×2 per 8/02 precedent — correct me if sweetened]; 300g shredded chicken breast w/ ~1 tbsp honey + lemon pepper ~560/93g [~165/31 per 100g white meat ~495/93g + honey ~64/0g])
