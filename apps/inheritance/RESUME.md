@@ -1,4 +1,22 @@
-# Resuming the autonomous 15-phase run
+# H1 HARDENING LOOP (2026-08-10) — read this first
+
+The active work is the H1 hardening loop, contract in `BUILD-SPEC.md` (this directory).
+Resume = read BUILD-SPEC.md, run `bash scripts/ci-gates.sh` from the monorepo root, take the
+reddest thing, report to Telegram. State as of 2026-08-10T12:45+08:00:
+
+- G17 fully healed (25/25 journey steps, references re-approved after eyeball review; the
+  seeded-case poisoning by G39's borrow is fixed at the root — see resets.mjs / instrument-parity.mjs).
+- G19 money parity, G22-G39 all green individually; G24 PDF references re-approved.
+- THE ONE WALL: G20/G21 are registered-but-deleted (their features were cut under owner
+  authority). Retirement is owner-only; ruling requested on Telegram. After it: one clean
+  full-suite run should also green G8/G9.
+- Next axes: bundle split (1.4MB main chunk), responsive sweep 390/768/1280, live P0 on prod.
+- Identity mockups: owner shortlisted library / atrium / counsel styles; page mockups sent;
+  style pass only after owner locks a direction (see BUILD-SPEC "UI revamp — staged").
+
+---
+
+# Resuming the autonomous 15-phase run (historical)
 
 Written 2026-07-31 for an owner returning after several days away.
 
@@ -45,7 +63,7 @@ The only genuinely durable option is CI, and it is not wired for it yet. See
 `/home/clsandoval/.claude/projects/-home-clsandoval-cs-monorepo/ba0262ab-dc9f-47d8-83a3-ddf973495452/subagents/workflows/wf_c44e9af1-807/`.
 
 Full gate suite, any time: `bash apps/inheritance/scripts/ci-gates.sh` from the
-monorepo root. It should print `ALL GATES PASSED (37/37)` — the count is the
+monorepo root. It should print `ALL GATES PASSED (38/38)` — the count is the
 length of `gates.manifest.json`'s `gates` array, and it grows as phases land.
 
 **On this branch it does not print that.** `bash scripts/ci-gates.sh` currently
