@@ -257,7 +257,7 @@ export function EstateTaxWizard({
           data-testid="next-tab"
           className="gap-2 bg-[#1e3a5f] hover:bg-[#1e3a5f]/90"
         >
-          Next: {TAB_FULL_NAMES[activeTab + 1] ?? ''}
+          {activeTab === TAB_COUNT - 1 ? 'Next' : `Next: ${TAB_FULL_NAMES[activeTab + 1]}`}
           <ArrowRight className="h-4 w-4" />
         </Button>
       </div>
