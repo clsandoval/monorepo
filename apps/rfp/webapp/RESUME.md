@@ -34,6 +34,23 @@
 - **Deploy rule** (also above): refresh `rfp-bundle/awards.db` via `sqlite3 .backup` from
   apps/rfp/awards.db at every deploy — and re-run `bunx playwright test` after any db swap.
 - Suite: 31/31 green — share-bars test un-skipped itself with the real data.
+## M5 W-F + polish (2026-08-10 morning) — graph shipped, 3-round visual QA, AI #references
+
+- **Ego graph** on supplier/entity pages (`#network`): hand-rolled force sim + SVG, zero
+  deps, deterministic, adversarially verified (values reconcile vs map_query ego JSON).
+  Style-11 schematic marks per Carlos: outlined white-filled nodes, focal solid primary,
+  hairline value-weighted edges, collision-free halo labels.
+- **3-round adversarial visual panel** (unity/craft/restraint × screenshots vs mockups)
+  drove: the serif catastrophe fix (--font-sans self-reference), SiteHeader w/ compact
+  search on all pages, share-bar rescale, one row anatomy, title-casing utils, and TWO
+  data bugs: Manila-TZ (closed notices served as open ~8h) and the closed-row board pool.
+- **AI Mode #references**: type # → command-palette autocomplete over open notices;
+  server grounds the turn on up to 3 referenced notices (quote-or-omit). Verified live.
+- Notice text folds behind a closed <details> (Carlos); market-map link on every notice.
+- NEXT (Carlos): perf/responsiveness pass (python-spawn SSR + cold starts are slow);
+  attach-bar UI for references; W-S spikes; W-D alerts.
+- **Dev root moves to github.com/getbutanding/bidkita** — monorepo copy frozen after today.
+
 ## M5 W-E nightly ops (2026-08-10) — daily ingest hooked up for everything
 
 - `daily.sh` step 7 `bundle_deploy`: snapshots corpus/tags/awards dbs via `sqlite3 .backup`

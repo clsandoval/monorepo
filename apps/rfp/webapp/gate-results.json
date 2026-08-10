@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-10T04:45:00Z",
+  "updated": "2026-08-10T06:40:00Z",
   "all_green": true,
   "deployed": true,
   "prod_url": "https://rfp-finder-ph.fly.dev/",
@@ -16,7 +16,9 @@
     "M5-WA",
     "M5-WBC",
     "M5-bettergov",
-    "M5-WE"
+    "M5-WE",
+    "M5-WF",
+    "M5-polish"
   ],
   "constraints_learned": [
     "better-sqlite3 native addon segfaults in this sandbox under BOTH node and bun -> removed; corpus via 'rfp sql --json', sessions as JSON files.",
@@ -369,6 +371,51 @@
           "name": "TG completion ping",
           "pass": true,
           "detail": "in daily.sh, absence = cron death"
+        }
+      ]
+    },
+    "M5_M5_graph": {
+      "status": "green",
+      "checks": [
+        {
+          "name": "adversarial verifier: no refutation",
+          "pass": true,
+          "detail": "tooltip values exact vs ego JSON on fresh slugs; byte-deterministic layout; palette 0 offenders; graph.spec 7/7"
+        },
+        {
+          "name": "style-11 schematic restyle per Carlos",
+          "pass": true,
+          "detail": "outlined marks, focal primary, hairline edges; eyeballed v8"
+        }
+      ]
+    },
+    "M5_M6_visual_panel": {
+      "status": "green",
+      "checks": [
+        {
+          "name": "3-round adversarial visual panel",
+          "pass": true,
+          "detail": "round1: serif catastrophe+9; round2: graph hierarchy+TZ bug; round3: closed-board bug+labels. All fixed; residuals: contact-blob prose (unparseable), batch same-hour chips (real data)"
+        },
+        {
+          "name": "TZ correctness",
+          "pass": true,
+          "detail": "board never serves closed notices; chips viewer-TZ-independent"
+        }
+      ]
+    },
+    "M5_M7_ai_references": {
+      "status": "green",
+      "checks": [
+        {
+          "name": "#id grounding",
+          "pass": true,
+          "detail": "live turn answers exact ABC+deadline from referenced notice"
+        },
+        {
+          "name": "autocomplete popover",
+          "pass": true,
+          "detail": "suggest endpoint + command-palette UI, eyeballed v6"
         }
       ]
     }

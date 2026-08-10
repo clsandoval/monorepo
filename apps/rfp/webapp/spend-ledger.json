@@ -1,6 +1,6 @@
 {
   "cap_usd": 30.0,
-  "spent_usd": 18.01,
+  "spent_usd": 22.51,
   "entries": [
     {
       "wave": "W1",
@@ -155,6 +155,13 @@
       "usd": 1.5,
       "ts": "2026-08-10T04:45:00Z",
       "note": "BetterGov 5.08M-row import + map upgrades + 3 deploys, all inline (est high side)"
+    },
+    {
+      "wave": "M5-WF-polish",
+      "kind": "claude-subagents",
+      "usd": 4.5,
+      "ts": "2026-08-10T06:35:00Z",
+      "note": "W-F graph workflow (192K) + 3 visual judge rounds (431K) + inline polish/fix cycles + 5 deploys (est high side)"
     }
   ],
   "note": "Every loop cycle appends {wave, kind, usd, ts}. Stop at cap. Main driving-session tokens tracked separately by the harness. All build work so far done inline \u2014 zero subagent spend."
