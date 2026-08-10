@@ -288,6 +288,14 @@ entities. Model-generated text about suppliers/entities passes a banned-terms ch
   existing bot. Gate: one real digest delivered.
 - **W-E ops**: nightly cron for daily.sh + bundle refresh + deploy (or volume-mounted
   corpus swap) so prod data is ≤24h stale without manual runs. Measured: 10 min, ₱9/run.
+- **W-F knowledge-graph UI** (AFTER B/C green — Carlos 2026-08-10): interactive ego graph
+  on dossier/supplier pages + /map explorer later. Hand-rolled force sim + SVG (zero new
+  deps, full design-system control). Entities=squares, suppliers=circles; size=₱ volume,
+  edge weight=awarded value; hover → blue neighborhood highlight + mini stat-card tooltip,
+  everything else fades; click → navigate. Settle-once animation, pan/zoom. Cluster
+  evidence (post PCAB/registry spike) renders as dashed edges labeled with the receipt
+  ("same address") — evidence-only rule applies to every label. Gate: palette + 60fps-ish
+  interaction on a 200-node ego graph + E2E hover/click + banned-terms.
 
 ## Gates & stop conditions
 Per-wave gates above + all existing suites stay green + P0 live drive per deploy.
