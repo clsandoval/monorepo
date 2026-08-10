@@ -126,8 +126,9 @@ describe('shared > EnumSelect', () => {
       const onValues = vi.fn();
       render(<EnumSelectWrapper onValues={onValues} />);
 
-      const select = screen.getByRole('combobox') ?? screen.getByRole('listbox');
-      await userEvent.selectOptions(select, 'LegitimateChild');
+      // Radix Select: open the trigger, then click the option by its label
+      await userEvent.click(screen.getByRole('combobox'));
+      await userEvent.click(await screen.findByRole('option', { name: 'Legitimate Child' }));
 
       await userEvent.click(screen.getByText('Submit'));
       await waitFor(() => {
@@ -141,8 +142,8 @@ describe('shared > EnumSelect', () => {
       const onValues = vi.fn();
       render(<EnumSelectWrapper onValues={onValues} />);
 
-      const select = screen.getByRole('combobox') ?? screen.getByRole('listbox');
-      await userEvent.selectOptions(select, 'SurvivingSpouse');
+      await userEvent.click(screen.getByRole('combobox'));
+      await userEvent.click(await screen.findByRole('option', { name: 'Surviving Spouse' }));
 
       await userEvent.click(screen.getByText('Submit'));
       await waitFor(() => {
@@ -154,8 +155,11 @@ describe('shared > EnumSelect', () => {
 
     it('pre-selects from default value', () => {
       render(<EnumSelectWrapper defaultValue="AdoptedChild" />);
-      const select = screen.getByRole('combobox') as HTMLSelectElement;
-      expect(select.value).toBe('AdoptedChild');
+      // The Radix trigger displays the selected option's label...
+      expect(screen.getByRole('combobox')).toHaveTextContent('Adopted Child');
+      // ...and the hidden native select (form bridge) carries the enum value
+      const hidden = document.querySelector('select');
+      expect(hidden).toHaveValue('AdoptedChild');
     });
   });
 
@@ -165,8 +169,10 @@ describe('shared > EnumSelect', () => {
       const select = screen.getByRole('combobox') ?? screen.getByRole('listbox');
       fireEvent.click(select);
 
-      expect(screen.getByText('Full')).toBeInTheDocument();
-      expect(screen.getByText('Half')).toBeInTheDocument();
+      // Role queries skip the aria-hidden native mirror select Radix renders
+      expect(screen.getByRole('option', { name: 'Full' })).toBeInTheDocument();
+      expect(screen.getByRole('option', { name: 'Half' })).toBeInTheDocument();
+      expect(screen.getAllByRole('option')).toHaveLength(2);
     });
 
     it('selecting "Full" updates form value', async () => {
@@ -175,8 +181,8 @@ describe('shared > EnumSelect', () => {
         <EnumSelectWrapper options={BLOOD_TYPE_OPTIONS} label="Blood Type" onValues={onValues} />,
       );
 
-      const select = screen.getByRole('combobox') ?? screen.getByRole('listbox');
-      await userEvent.selectOptions(select, 'Full');
+      await userEvent.click(screen.getByRole('combobox'));
+      await userEvent.click(await screen.findByRole('option', { name: 'Full' }));
 
       await userEvent.click(screen.getByText('Submit'));
       await waitFor(() => {
@@ -201,20 +207,22 @@ describe('shared > EnumSelect', () => {
   describe('grouped options', () => {
     it('renders option groups when options have group property', () => {
       render(<EnumSelectWrapper options={GROUPED_RELATIONSHIP_OPTIONS} />);
+      // Radix mounts group elements in the popover, so open it first
+      fireEvent.click(screen.getByRole('combobox'));
 
-      // Should render optgroup elements for each group
       const groups = screen.getAllByRole('group');
       expect(groups.length).toBeGreaterThanOrEqual(2); // At least Compulsory + Collateral
     });
 
     it('renders "Compulsory Heirs" group', () => {
       render(<EnumSelectWrapper options={GROUPED_RELATIONSHIP_OPTIONS} />);
-      // optgroup label attribute is not text content; use getByRole with name
+      fireEvent.click(screen.getByRole('combobox'));
       expect(screen.getByRole('group', { name: 'Compulsory Heirs' })).toBeInTheDocument();
     });
 
     it('renders "Collateral Heirs" group', () => {
       render(<EnumSelectWrapper options={GROUPED_RELATIONSHIP_OPTIONS} />);
+      fireEvent.click(screen.getByRole('combobox'));
       expect(screen.getByRole('group', { name: 'Collateral Heirs' })).toBeInTheDocument();
     });
   });
@@ -228,7 +236,7 @@ describe('shared > EnumSelect', () => {
       const select = screen.getByRole('combobox') ?? screen.getByRole('listbox');
       fireEvent.click(select);
 
-      expect(screen.getByText(/Legitimate Child/)).toBeInTheDocument();
+      expect(screen.getByRole('option', { name: /Legitimate Child/ })).toBeInTheDocument();
       expect(screen.queryByText(/Sibling/)).not.toBeInTheDocument();
     });
   });
