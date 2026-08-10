@@ -13,7 +13,7 @@
 # Exit codes: 0 all good · 3 a guardrail stopped work (disk cap) · anything else, a stage failed.
 set -uo pipefail
 cd "$(dirname "$0")"
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.fly/bin:$PATH"
 [ -f ../../.env ] && set -a && . ../../.env && set +a
 
 DOCS=1; TAG=1
@@ -60,6 +60,21 @@ step "ops audit" python3 audit_ops.py
 #    failure -- an award-side hiccup must never mark the whole nightly ingest red.
 step "awards backfill" sh -c 'python3 awards.py backfill --budget-seconds 900 || true'
 
+# 7. Ship fresh data to prod (M5 W-E). The bundle is fully derived here every night:
+#    dbs via `.backup` (consistent even if a stray writer is up — a plain cp of a
+#    mid-write sqlite file shipped a corrupt awards.db once conceptually, don't risk it)
+#    and the python/CLI helpers copied from this directory, so a code change here
+#    reaches prod on the next nightly without a manual bundle step.
+bundle_deploy() {
+  local W=webapp/web/rfp-bundle
+  sqlite3 corpus.db ".backup '$W/corpus.db'" || return 1
+  sqlite3 tags.db   ".backup '$W/tags.db'"   || return 1
+  sqlite3 awards.db ".backup '$W/awards.db'" || return 1
+  cp -f map_query.py awards_similar.py enrich_fetch.py extract_lib.py rfp profile.md "$W/" || return 1
+  (cd webapp/web && fly deploy --remote-only --strategy immediate)
+}
+step "bundle + deploy" bundle_deploy
+
 echo; echo "=== summary  $(date -u +%H:%M:%SZ)"
 python3 - <<'PY'
 import sqlite3
@@ -73,5 +88,11 @@ seen = "select count(*) from corpus where date(seen_at) = date('now')"
 print(f"  closing today  {q(closing):,}")
 print(f"  seen today     {q(seen):,}")
 PY
+
+# One line to Telegram so a silent cron death is visible by its absence and a red
+# run is visible by its content. Never fails the run itself.
+open_n=$(sqlite3 "file:corpus.db?mode=ro" "select count(*) from corpus_state where state='open'" 2>/dev/null || echo "?")
+aw_n=$(sqlite3 "file:awards.db?mode=ro" "select count(*) from awards" 2>/dev/null || echo "?")
+webapp/qa-tg.sh "rfp nightly: rc=$rc · $open_n open notices · $aw_n awards · deployed $(date -u +%H:%MZ)" || true
 
 exit $rc
