@@ -328,6 +328,11 @@ for (const marker of [
 }
 console.log('=========================================================');
 
+// Read by scripts/check-gate-skips.mjs (G8) on pass and fail alike; the five
+// named checks above are this gate's assertion set and none is skippable.
+// Deliberately absent on the cannot-run path, where nothing was checked.
+console.log('GATE-SKIPS total=5 skipped=0');
+
 if (violations.length > 0) {
   console.log(`ONE FACT SET CHECK FAILED — ${violations.length} violation(s)`);
   process.exit(1);
