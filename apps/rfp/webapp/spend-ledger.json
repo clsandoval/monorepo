@@ -1,6 +1,6 @@
 {
   "cap_usd": 30.0,
-  "spent_usd": 10.001,
+  "spent_usd": 16.51,
   "entries": [
     {
       "wave": "W1",
@@ -127,6 +127,27 @@
       "usd": 0.02,
       "ts": "2026-08-10T02:20:00Z",
       "note": "prod P0: 2 live enriches (legacy + docs/OCR path) + record-live video turns"
+    },
+    {
+      "wave": "M5-WA",
+      "kind": "claude-subagents",
+      "usd": 2.5,
+      "ts": "2026-08-10T01:30:00Z",
+      "note": "W-A awards backfill workflow, interrupted mid-run ~230K tokens (est, high side)"
+    },
+    {
+      "wave": "M5-WBC",
+      "kind": "claude-subagents",
+      "usd": 4.0,
+      "ts": "2026-08-10T03:30:00Z",
+      "note": "W-B/C supplier+entity build+verify workflow 397K tokens + orchestration (est, high side)"
+    },
+    {
+      "wave": "M5-live",
+      "kind": "luna-eval",
+      "usd": 0.01,
+      "ts": "2026-08-10T04:10:00Z",
+      "note": "e2e rerun real Luna turns + prod P0 drive"
     }
   ],
   "note": "Every loop cycle appends {wave, kind, usd, ts}. Stop at cap. Main driving-session tokens tracked separately by the harness. All build work so far done inline \u2014 zero subagent spend."

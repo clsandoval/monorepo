@@ -2,6 +2,22 @@
 
 **Live:** https://rfp-finder-ph.fly.dev · branch `rfp-webapp` · spend ledger `spend-ledger.json` ($30 cap)
 
+## M5 W-B/C (2026-08-10 ~04:00 UTC) — supplier profiles + entity dossiers, shipped LIVE
+
+- **`/supplier/[slug]` SSR**: winner_norm-keyed profile — total won, contracts, awarding
+  entities, median % of budget (band-safe `winPct()`), recent wins w/ % of budget, category +
+  buyer chips. **`/entity/[slug]` SSR**: procuring-entity dossier — contestability signals
+  (evidence-only vocabulary, every line carries digits), winner share bars (activate as
+  awards↔corpus joins land), open notices, BAC contact.
+- Suite: 31 tests (30 pass, 1 skip-guarded on share bars). Slugs picked at RUNTIME from the db.
+- **Live P0 caught a real red**: first deploy's bundle awards.db predated the winner_norm
+  migration → supplier pages 500'd on prod while local e2e was green (local db ≠ bundle db).
+  Fixed with `sqlite3 .backup` snapshot of the migrated db + redeploy. **Deploy rule: refresh
+  bundle awards.db from apps/rfp/awards.db at every deploy** (it's live-backfilled).
+- W-A backfill running detached through ~09:24 UTC (resumable; `pgrep -af "awards.py backfill"`
+  before touching awards.db). Next per HANDOFF.md: BetterGov 5.5M-row import, W-S spikes, W-D
+  alerts, W-E cron, W-F graph.
+
 ## M4 (2026-08-09 evening) — notice detail + enrich, shipped
 
 Derived from a contractor walk of the live site ("what stops me from hitting submit?").
