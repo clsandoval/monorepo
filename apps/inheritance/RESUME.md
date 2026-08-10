@@ -13,9 +13,14 @@ reddest thing, report to Telegram. State as of 2026-08-10T14:10+08:00:
   resurrection guard; seo-smoke drives today's public surface (landing+auth).
 - Bundle: landing JS 401→174 KB gz (route-level lazy split, commit 67b4476e9). Responsive:
   390/768/1280 clean on every route. Styled 404 added.
-- **PROD DEPLOYED** (2026-08-10): inheritance-frontend.fly.dev serves the hardening build
-  (index-Dpv2XtOn.js); live P0 passed (landing/auth/404 render, 0 overflow). `fly deploy` rollback
-  available if needed.
+- **PROD DEPLOYED** (2026-08-10): inheritance-frontend.fly.dev serves the hardening build +
+  crash fix (bundle index-DuafyoFo.js); live P0 passed, 0 page errors. `fly deploy` rollback available.
+- **CRASH FIX** (commit f8ed206): real cases with legacy/partial output_json crashed the results
+  page ("reading 'length'") — the journey gate only ever loaded ONE pristine seeded case so it
+  never caught this. Fixed with withOutputDefaults() (normalizes any stored output at render) +
+  a router-level defaultErrorComponent (TanStack's per-route boundary was showing its bare default
+  instead of the app ErrorBoundary). Both verified; unit test in results/__tests__/normalize.test.ts.
+  GATE GAP worth closing later: journey should render a degraded/legacy output, not just the golden one.
 - **OPEN — needs a credential I don't have:** migration 017 is applied LOCALLY but NOT on prod.
   The prod anonymous `get_shared_case` RPC is still live (verified HTTP 200 to anon on 2026-08-10).
   Applying it needs a Supabase access token / prod DB connection string (run
