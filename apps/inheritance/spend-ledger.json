@@ -1,12 +1,24 @@
 {
   "milestone": "H1-hardening",
   "cap_usd": 40.0,
-  "spent_usd": 1.5,
+  "spent_usd": 5.75,
   "entries": [
     {
       "at": "2026-08-10T11:45:00+08:00",
       "what": "gpt-image-2 x6 site-identity mockups (batch 1)",
       "usd": 1.5,
+      "note": "estimated high side"
+    },
+    {
+      "at": "2026-08-10T12:00:00+08:00",
+      "what": "gpt-image-2 x5 identity mockups (batch 2, swiss+library energy)",
+      "usd": 1.25,
+      "note": "estimated high side"
+    },
+    {
+      "at": "2026-08-10T14:05:00+08:00",
+      "what": "gpt-image-2 x12 page mockups (batch 3)",
+      "usd": 3.0,
       "note": "estimated high side"
     }
   ]

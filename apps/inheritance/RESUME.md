@@ -2,17 +2,27 @@
 
 The active work is the H1 hardening loop, contract in `BUILD-SPEC.md` (this directory).
 Resume = read BUILD-SPEC.md, run `bash scripts/ci-gates.sh` from the monorepo root, take the
-reddest thing, report to Telegram. State as of 2026-08-10T12:45+08:00:
+reddest thing, report to Telegram. State as of 2026-08-10T14:10+08:00:
 
-- G17 fully healed (25/25 journey steps, references re-approved after eyeball review; the
-  seeded-case poisoning by G39's borrow is fixed at the root — see resets.mjs / instrument-parity.mjs).
-- G19 money parity, G22-G39 all green individually; G24 PDF references re-approved.
-- THE ONE WALL: G20/G21 are registered-but-deleted (their features were cut under owner
-  authority). Retirement is owner-only; ruling requested on Telegram. After it: one clean
-  full-suite run should also green G8/G9.
-- Next axes: bundle split (1.4MB main chunk), responsive sweep 390/768/1280, live P0 on prod.
-- Identity mockups: owner shortlisted library / atrium / counsel styles; page mockups sent;
-  style pass only after owner locks a direction (see BUILD-SPEC "UI revamp — staged").
+- **ALL 38 GATES GREEN** — first complete pass in this branch's history (LOOP STATUS GREEN,
+  record 114). Engine 2440/2440 (zero accepted failures, floor raised 2119→2440), journey 25/25
+  with real baselines, money parity, isolation, PDF suite, legal traceability, share/seo/instrument.
+- G17 healed at the root (seeded-case poisoning by G39's borrow — resets.mjs / instrument-parity.mjs).
+- G20/G21 restored honestly against the post-cut product WITHOUT touching the frozen lock:
+  migration 017 drops the orphaned anonymous `get_shared_case` RPC; share-exposure.mjs is now a
+  resurrection guard; seo-smoke drives today's public surface (landing+auth).
+- Bundle: landing JS 401→174 KB gz (route-level lazy split, commit 67b4476e9). Responsive:
+  390/768/1280 clean on every route. Styled 404 added.
+- **PROD DEPLOYED** (2026-08-10): inheritance-frontend.fly.dev serves the hardening build
+  (index-Dpv2XtOn.js); live P0 passed (landing/auth/404 render, 0 overflow). `fly deploy` rollback
+  available if needed.
+- **OPEN — needs a credential I don't have:** migration 017 is applied LOCALLY but NOT on prod.
+  The prod anonymous `get_shared_case` RPC is still live (verified HTTP 200 to anon on 2026-08-10).
+  Applying it needs a Supabase access token / prod DB connection string (run
+  `supabase login` then `supabase db push`, or psql against the prod DB with 017). This is the one
+  thing the loop cannot do unattended — flagged on Telegram.
+- Identity mockups: owner shortlisted library / atrium / counsel; page mockups sent; style pass
+  only after owner locks a direction (see BUILD-SPEC "UI revamp — staged" + deferred cohesion debt).
 
 ---
 
