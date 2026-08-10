@@ -6,7 +6,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { EstateTaxWizard } from '../EstateTaxWizard';
-import { createDefaultEstateTaxState } from '@/types/estate-tax';
+import { createDefaultEstateTaxState, isTabValid } from '@/types/estate-tax';
 import type { EstateTaxWizardState } from '@/types/estate-tax';
 import type { AutoSaveStatus } from '@/types';
 
@@ -134,9 +134,10 @@ describe('tax-wizard > EstateTaxWizard', () => {
     expect(screen.getByTestId('auto-save-status')).toHaveTextContent('Saved');
   });
 
-  it('shows "Error saving" when autoSaveStatus is error', () => {
+  it('shows "Save error" when autoSaveStatus is error', () => {
+    // Copy is "Save error" since c8ea1132f (shadcn restyle of the wizard header)
     renderWizard({ autoSaveStatus: 'error' });
-    expect(screen.getByTestId('auto-save-status')).toHaveTextContent('Error saving');
+    expect(screen.getByTestId('auto-save-status')).toHaveTextContent('Save error');
   });
 
   it('hides save status when idle', () => {
@@ -157,45 +158,76 @@ describe('tax-wizard > EstateTaxWizard', () => {
 
   // ========================================================================
   // Tab validation checkmarks
+  //
+  // Since c8ea1132f (shadcn restyle) the checkmark is a lucide <Check> SVG
+  // that replaces the step number, and it only renders on tabs that are BOTH
+  // valid AND behind the active tab (completed). Validity of a tab is still
+  // what the checkmark proves — we navigate past a tab to observe it.
   // ========================================================================
 
-  it('shows checkmark on tab 0 when decedent fields are filled', () => {
+  /** A completed tab renders the lucide Check SVG in place of its number. */
+  function hasCheckmark(tab: HTMLElement): boolean {
+    return tab.querySelector('svg') !== null;
+  }
+
+  it('shows checkmark on tab 0 when decedent fields are filled', async () => {
     const state = createDefaultEstateTaxState();
     state.decedent.name = 'Juan dela Cruz';
     state.decedent.dateOfDeath = '2024-03-15';
     state.decedent.address = 'Makati City';
     renderWizard({ state });
 
+    // Move past tab 0 so its completed (valid) state is rendered
+    await userEvent.click(screen.getByTestId('tab-1'));
+
     const tab0 = screen.getByTestId('tab-0');
-    expect(tab0.textContent).toContain('✓');
+    expect(hasCheckmark(tab0)).toBe(true);
+    // The step number is replaced by the checkmark
+    expect(tab0.textContent).not.toContain('1');
   });
 
-  it('does not show checkmark on tab 0 when name is empty', () => {
+  it('does not show checkmark on tab 0 when name is empty', async () => {
     const state = createDefaultEstateTaxState();
     // Leave name empty, fill other fields
     state.decedent.dateOfDeath = '2024-03-15';
     state.decedent.address = 'Makati City';
     renderWizard({ state });
 
+    // Move past tab 0 — even behind the active tab, an invalid tab gets no checkmark
+    await userEvent.click(screen.getByTestId('tab-1'));
+
     const tab0 = screen.getByTestId('tab-0');
-    expect(tab0.textContent).not.toContain('✓');
+    expect(hasCheckmark(tab0)).toBe(false);
+    expect(tab0.textContent).toContain('1');
   });
 
-  it('shows checkmark on tab 1 when executor name is filled', () => {
+  it('shows checkmark on tab 1 when executor name is filled', async () => {
     const state = createDefaultEstateTaxState();
     state.executor.name = 'Maria Santos';
     renderWizard({ state });
 
+    // Move past tab 1 so its completed (valid) state is rendered
+    await userEvent.click(screen.getByTestId('tab-2'));
+
     const tab1 = screen.getByTestId('tab-1');
-    expect(tab1.textContent).toContain('✓');
+    expect(hasCheckmark(tab1)).toBe(true);
+    expect(tab1.textContent).not.toContain('2');
   });
 
-  it('tabs 2-7 always show checkmark (empty = valid)', () => {
-    renderWizard();
-    for (let i = 2; i <= 7; i++) {
+  it('tabs 2-7 always show checkmark (empty = valid)', async () => {
+    const state = createDefaultEstateTaxState();
+    renderWizard({ state });
+
+    // Jump to the last tab: every valid tab behind it renders a checkmark
+    await userEvent.click(screen.getByTestId('tab-7'));
+    for (let i = 2; i <= 6; i++) {
       const tab = screen.getByTestId(`tab-${i}`);
-      expect(tab.textContent).toContain('✓');
+      expect(hasCheckmark(tab)).toBe(true);
     }
+    // Tab 7 is the active tab and can never render as "completed" in the UI,
+    // so its empty-is-valid claim is asserted via the same validator the
+    // tab strip consumes.
+    expect(isTabValid(7, state)).toBe(true);
   });
 });
 
@@ -396,9 +428,17 @@ describe('tax-wizard > OtherAssetsTab', () => {
     await userEvent.click(screen.getByTestId('tab-4'));
 
     expect(screen.getByTestId('other-assets-tab')).toBeInTheDocument();
-    expect(screen.getByTestId('taxable-transfer-count')).toHaveTextContent('0 transfer(s)');
-    expect(screen.getByTestId('business-interest-count')).toHaveTextContent('0 interest(s)');
-    expect(screen.getByTestId('exempt-asset-count')).toHaveTextContent('0 asset(s)');
+    // Since c8ea1132f the zero state renders explicit empty-state copy
+    // instead of "0 <thing>(s)" counters — same testids, same zero-state intent.
+    expect(screen.getByTestId('taxable-transfer-count')).toHaveTextContent(
+      'No taxable transfers added.',
+    );
+    expect(screen.getByTestId('business-interest-count')).toHaveTextContent(
+      'No business interests added.',
+    );
+    expect(screen.getByTestId('exempt-asset-count')).toHaveTextContent(
+      'No exempt assets added.',
+    );
   });
 });
 
