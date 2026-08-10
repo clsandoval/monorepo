@@ -1,0 +1,27 @@
+app = "rfp-finder-ph"
+primary_region = "sin"
+
+[build]
+
+[env]
+  PORT = "8080"
+  RFP_DIR = "/rfp"
+  RFP_SESSIONS_DIR = "/data/sessions"
+  RFP_ENRICH_DIR = "/data/enrich"
+  RFP_PROMPT_PATH = "/app/system-prompt.txt"
+
+[[mounts]]
+  source = "rfp_data"
+  destination = "/data"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 1
+
+[[vm]]
+  memory = "2gb"
+  cpu_kind = "shared"
+  cpus = 2

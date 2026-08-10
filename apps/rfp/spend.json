@@ -1,0 +1,3633 @@
+{
+ "cap_php": 1000.0,
+ "model": "gpt-5.6-luna",
+ "rate_in_usd_per_mtok": 0.2,
+ "rate_out_usd_per_mtok": 1.2,
+ "php_per_usd": 58.0,
+ "batches": 2829,
+ "calls_failed": 0,
+ "notices": 22699,
+ "tokens_in": 12720057,
+ "tokens_out": 2462364,
+ "usd": 5.498848,
+ "php": 318.9332,
+ "tiers": {
+  "base": {
+   "batches": 2210,
+   "notices": 22080,
+   "tokens_in": 8462133,
+   "tokens_out": 2188498,
+   "php": 250.4802
+  },
+  "doc": {
+   "batches": 619,
+   "notices": 619,
+   "tokens_in": 4257924,
+   "tokens_out": 273866,
+   "php": 68.453
+  }
+ },
+ "history": [
+  {
+   "at": "2026-08-08T21:22:05+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11786,
+   "tokens_out": 690,
+   "php_batch": 0.1847,
+   "php_cum": 284.1073
+  },
+  {
+   "at": "2026-08-08T21:22:06+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10818,
+   "tokens_out": 689,
+   "php_batch": 0.1734,
+   "php_cum": 284.2807
+  },
+  {
+   "at": "2026-08-08T21:22:07+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10792,
+   "tokens_out": 508,
+   "php_batch": 0.1605,
+   "php_cum": 284.4412
+  },
+  {
+   "at": "2026-08-08T21:22:08+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11108,
+   "tokens_out": 628,
+   "php_batch": 0.1726,
+   "php_cum": 284.6138
+  },
+  {
+   "at": "2026-08-08T21:22:09+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10185,
+   "tokens_out": 303,
+   "php_batch": 0.1392,
+   "php_cum": 284.753
+  },
+  {
+   "at": "2026-08-08T21:22:12+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11499,
+   "tokens_out": 620,
+   "php_batch": 0.1765,
+   "php_cum": 284.9296
+  },
+  {
+   "at": "2026-08-08T21:22:13+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10633,
+   "tokens_out": 675,
+   "php_batch": 0.1703,
+   "php_cum": 285.0999
+  },
+  {
+   "at": "2026-08-08T21:22:13+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11322,
+   "tokens_out": 407,
+   "php_batch": 0.1597,
+   "php_cum": 285.2595
+  },
+  {
+   "at": "2026-08-08T21:22:14+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11478,
+   "tokens_out": 656,
+   "php_batch": 0.1788,
+   "php_cum": 285.4384
+  },
+  {
+   "at": "2026-08-08T21:22:16+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11319,
+   "tokens_out": 421,
+   "php_batch": 0.1606,
+   "php_cum": 285.599
+  },
+  {
+   "at": "2026-08-08T21:22:18+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11409,
+   "tokens_out": 398,
+   "php_batch": 0.16,
+   "php_cum": 285.759
+  },
+  {
+   "at": "2026-08-08T21:22:18+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10817,
+   "tokens_out": 503,
+   "php_batch": 0.1605,
+   "php_cum": 285.9195
+  },
+  {
+   "at": "2026-08-08T21:22:19+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10803,
+   "tokens_out": 584,
+   "php_batch": 0.166,
+   "php_cum": 286.0855
+  },
+  {
+   "at": "2026-08-08T21:22:21+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10283,
+   "tokens_out": 465,
+   "php_batch": 0.1516,
+   "php_cum": 286.2371
+  },
+  {
+   "at": "2026-08-08T21:22:23+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10901,
+   "tokens_out": 518,
+   "php_batch": 0.1625,
+   "php_cum": 286.3996
+  },
+  {
+   "at": "2026-08-08T21:22:24+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11088,
+   "tokens_out": 528,
+   "php_batch": 0.1654,
+   "php_cum": 286.565
+  },
+  {
+   "at": "2026-08-08T21:22:26+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10628,
+   "tokens_out": 639,
+   "php_batch": 0.1678,
+   "php_cum": 286.7327
+  },
+  {
+   "at": "2026-08-08T21:22:28+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1592,
+   "tokens_out": 315,
+   "php_batch": 0.0404,
+   "php_cum": 286.7731
+  },
+  {
+   "at": "2026-08-08T21:22:28+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11321,
+   "tokens_out": 567,
+   "php_batch": 0.1708,
+   "php_cum": 286.9439
+  },
+  {
+   "at": "2026-08-08T21:22:31+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11247,
+   "tokens_out": 496,
+   "php_batch": 0.165,
+   "php_cum": 287.1089
+  },
+  {
+   "at": "2026-08-08T21:22:33+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11537,
+   "tokens_out": 537,
+   "php_batch": 0.1712,
+   "php_cum": 287.2801
+  },
+  {
+   "at": "2026-08-08T21:22:34+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11232,
+   "tokens_out": 503,
+   "php_batch": 0.1653,
+   "php_cum": 287.4454
+  },
+  {
+   "at": "2026-08-08T21:22:34+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10291,
+   "tokens_out": 480,
+   "php_batch": 0.1528,
+   "php_cum": 287.5982
+  },
+  {
+   "at": "2026-08-08T21:22:36+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10324,
+   "tokens_out": 511,
+   "php_batch": 0.1553,
+   "php_cum": 287.7535
+  },
+  {
+   "at": "2026-08-08T21:22:38+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11399,
+   "tokens_out": 526,
+   "php_batch": 0.1688,
+   "php_cum": 287.9223
+  },
+  {
+   "at": "2026-08-08T21:22:40+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10435,
+   "tokens_out": 685,
+   "php_batch": 0.1687,
+   "php_cum": 288.091
+  },
+  {
+   "at": "2026-08-08T21:22:40+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11227,
+   "tokens_out": 664,
+   "php_batch": 0.1764,
+   "php_cum": 288.2675
+  },
+  {
+   "at": "2026-08-08T21:22:41+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1459,
+   "tokens_out": 488,
+   "php_batch": 0.0509,
+   "php_cum": 288.3184
+  },
+  {
+   "at": "2026-08-08T21:22:43+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10568,
+   "tokens_out": 418,
+   "php_batch": 0.1517,
+   "php_cum": 288.4701
+  },
+  {
+   "at": "2026-08-08T21:22:45+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2043,
+   "tokens_out": 293,
+   "php_batch": 0.0441,
+   "php_cum": 288.5142
+  },
+  {
+   "at": "2026-08-08T21:22:45+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 8667,
+   "tokens_out": 360,
+   "php_batch": 0.1256,
+   "php_cum": 288.6398
+  },
+  {
+   "at": "2026-08-08T21:22:46+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2058,
+   "tokens_out": 326,
+   "php_batch": 0.0466,
+   "php_cum": 288.6864
+  },
+  {
+   "at": "2026-08-08T21:22:47+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11017,
+   "tokens_out": 655,
+   "php_batch": 0.1734,
+   "php_cum": 288.8597
+  },
+  {
+   "at": "2026-08-08T21:22:49+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2060,
+   "tokens_out": 343,
+   "php_batch": 0.0478,
+   "php_cum": 288.9075
+  },
+  {
+   "at": "2026-08-08T21:22:49+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1495,
+   "tokens_out": 434,
+   "php_batch": 0.0475,
+   "php_cum": 288.955
+  },
+  {
+   "at": "2026-08-08T21:22:50+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10743,
+   "tokens_out": 331,
+   "php_batch": 0.1477,
+   "php_cum": 289.1027
+  },
+  {
+   "at": "2026-08-08T21:22:51+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10901,
+   "tokens_out": 516,
+   "php_batch": 0.1624,
+   "php_cum": 289.2651
+  },
+  {
+   "at": "2026-08-08T21:22:53+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1284,
+   "tokens_out": 323,
+   "php_batch": 0.0374,
+   "php_cum": 289.3024
+  },
+  {
+   "at": "2026-08-08T21:22:53+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 12116,
+   "tokens_out": 391,
+   "php_batch": 0.1678,
+   "php_cum": 289.4702
+  },
+  {
+   "at": "2026-08-08T21:22:56+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10594,
+   "tokens_out": 422,
+   "php_batch": 0.1523,
+   "php_cum": 289.6225
+  },
+  {
+   "at": "2026-08-08T21:22:57+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 17225,
+   "tokens_out": 405,
+   "php_batch": 0.228,
+   "php_cum": 289.8505
+  },
+  {
+   "at": "2026-08-08T21:22:57+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1100,
+   "tokens_out": 381,
+   "php_batch": 0.0393,
+   "php_cum": 289.8897
+  },
+  {
+   "at": "2026-08-08T21:22:58+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10525,
+   "tokens_out": 396,
+   "php_batch": 0.1497,
+   "php_cum": 290.0394
+  },
+  {
+   "at": "2026-08-08T21:23:00+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 3509,
+   "tokens_out": 387,
+   "php_batch": 0.0676,
+   "php_cum": 290.107
+  },
+  {
+   "at": "2026-08-08T21:23:02+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 3446,
+   "tokens_out": 565,
+   "php_batch": 0.0793,
+   "php_cum": 290.1863
+  },
+  {
+   "at": "2026-08-08T21:23:03+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10543,
+   "tokens_out": 627,
+   "php_batch": 0.1659,
+   "php_cum": 290.3522
+  },
+  {
+   "at": "2026-08-08T21:23:03+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10634,
+   "tokens_out": 531,
+   "php_batch": 0.1603,
+   "php_cum": 290.5125
+  },
+  {
+   "at": "2026-08-08T21:23:06+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1360,
+   "tokens_out": 254,
+   "php_batch": 0.0335,
+   "php_cum": 290.546
+  },
+  {
+   "at": "2026-08-08T21:23:07+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10555,
+   "tokens_out": 641,
+   "php_batch": 0.1671,
+   "php_cum": 290.7131
+  },
+  {
+   "at": "2026-08-08T21:23:07+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11029,
+   "tokens_out": 449,
+   "php_batch": 0.1592,
+   "php_cum": 290.8723
+  },
+  {
+   "at": "2026-08-08T21:23:09+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11025,
+   "tokens_out": 686,
+   "php_batch": 0.1756,
+   "php_cum": 291.0479
+  },
+  {
+   "at": "2026-08-08T21:23:11+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11040,
+   "tokens_out": 396,
+   "php_batch": 0.1556,
+   "php_cum": 291.2035
+  },
+  {
+   "at": "2026-08-08T21:23:12+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11065,
+   "tokens_out": 591,
+   "php_batch": 0.1695,
+   "php_cum": 291.373
+  },
+  {
+   "at": "2026-08-08T21:23:13+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1397,
+   "tokens_out": 269,
+   "php_batch": 0.0349,
+   "php_cum": 291.408
+  },
+  {
+   "at": "2026-08-08T21:23:13+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11154,
+   "tokens_out": 672,
+   "php_batch": 0.1762,
+   "php_cum": 291.5841
+  },
+  {
+   "at": "2026-08-08T21:23:15+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10763,
+   "tokens_out": 412,
+   "php_batch": 0.1535,
+   "php_cum": 291.7376
+  },
+  {
+   "at": "2026-08-08T21:23:15+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1403,
+   "tokens_out": 345,
+   "php_batch": 0.0403,
+   "php_cum": 291.7779
+  },
+  {
+   "at": "2026-08-08T21:23:19+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 8581,
+   "tokens_out": 478,
+   "php_batch": 0.1328,
+   "php_cum": 291.9107
+  },
+  {
+   "at": "2026-08-08T21:23:20+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11436,
+   "tokens_out": 683,
+   "php_batch": 0.1802,
+   "php_cum": 292.0909
+  },
+  {
+   "at": "2026-08-08T21:23:22+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10734,
+   "tokens_out": 522,
+   "php_batch": 0.1608,
+   "php_cum": 292.2517
+  },
+  {
+   "at": "2026-08-08T21:23:23+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1440,
+   "tokens_out": 288,
+   "php_batch": 0.0367,
+   "php_cum": 292.2885
+  },
+  {
+   "at": "2026-08-08T21:23:25+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 17261,
+   "tokens_out": 706,
+   "php_batch": 0.2494,
+   "php_cum": 292.5378
+  },
+  {
+   "at": "2026-08-08T21:23:25+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2011,
+   "tokens_out": 679,
+   "php_batch": 0.0706,
+   "php_cum": 292.6084
+  },
+  {
+   "at": "2026-08-08T21:23:26+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 7901,
+   "tokens_out": 440,
+   "php_batch": 0.1223,
+   "php_cum": 292.7308
+  },
+  {
+   "at": "2026-08-08T21:23:28+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 8014,
+   "tokens_out": 482,
+   "php_batch": 0.1265,
+   "php_cum": 292.8573
+  },
+  {
+   "at": "2026-08-08T21:23:28+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1791,
+   "tokens_out": 270,
+   "php_batch": 0.0396,
+   "php_cum": 292.8968
+  },
+  {
+   "at": "2026-08-08T21:23:30+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1756,
+   "tokens_out": 370,
+   "php_batch": 0.0461,
+   "php_cum": 292.9429
+  },
+  {
+   "at": "2026-08-08T21:23:31+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 4481,
+   "tokens_out": 596,
+   "php_batch": 0.0935,
+   "php_cum": 293.0364
+  },
+  {
+   "at": "2026-08-08T21:23:32+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 9549,
+   "tokens_out": 369,
+   "php_batch": 0.1365,
+   "php_cum": 293.1728
+  },
+  {
+   "at": "2026-08-08T21:23:33+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11625,
+   "tokens_out": 418,
+   "php_batch": 0.1639,
+   "php_cum": 293.3368
+  },
+  {
+   "at": "2026-08-08T21:23:35+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1416,
+   "tokens_out": 425,
+   "php_batch": 0.046,
+   "php_cum": 293.3828
+  },
+  {
+   "at": "2026-08-08T21:23:35+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1762,
+   "tokens_out": 359,
+   "php_batch": 0.0454,
+   "php_cum": 293.4282
+  },
+  {
+   "at": "2026-08-08T21:23:36+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1055,
+   "tokens_out": 306,
+   "php_batch": 0.0335,
+   "php_cum": 293.4617
+  },
+  {
+   "at": "2026-08-08T21:23:39+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10740,
+   "tokens_out": 630,
+   "php_batch": 0.1684,
+   "php_cum": 293.6302
+  },
+  {
+   "at": "2026-08-08T21:23:40+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10801,
+   "tokens_out": 498,
+   "php_batch": 0.16,
+   "php_cum": 293.7901
+  },
+  {
+   "at": "2026-08-08T21:23:43+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10296,
+   "tokens_out": 617,
+   "php_batch": 0.1624,
+   "php_cum": 293.9525
+  },
+  {
+   "at": "2026-08-08T21:23:45+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11377,
+   "tokens_out": 623,
+   "php_batch": 0.1753,
+   "php_cum": 294.1279
+  },
+  {
+   "at": "2026-08-08T21:23:45+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1934,
+   "tokens_out": 467,
+   "php_batch": 0.0549,
+   "php_cum": 294.1828
+  },
+  {
+   "at": "2026-08-08T21:23:47+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10727,
+   "tokens_out": 397,
+   "php_batch": 0.1521,
+   "php_cum": 294.3349
+  },
+  {
+   "at": "2026-08-08T21:23:49+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1369,
+   "tokens_out": 352,
+   "php_batch": 0.0404,
+   "php_cum": 294.3752
+  },
+  {
+   "at": "2026-08-08T21:23:51+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10370,
+   "tokens_out": 583,
+   "php_batch": 0.1609,
+   "php_cum": 294.5361
+  },
+  {
+   "at": "2026-08-08T21:23:52+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1353,
+   "tokens_out": 251,
+   "php_batch": 0.0332,
+   "php_cum": 294.5692
+  },
+  {
+   "at": "2026-08-08T21:23:54+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1378,
+   "tokens_out": 291,
+   "php_batch": 0.0362,
+   "php_cum": 294.6055
+  },
+  {
+   "at": "2026-08-08T21:23:56+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1361,
+   "tokens_out": 398,
+   "php_batch": 0.0435,
+   "php_cum": 294.649
+  },
+  {
+   "at": "2026-08-08T21:23:59+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1785,
+   "tokens_out": 390,
+   "php_batch": 0.0478,
+   "php_cum": 294.6968
+  },
+  {
+   "at": "2026-08-08T21:23:59+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2616,
+   "tokens_out": 319,
+   "php_batch": 0.0525,
+   "php_cum": 294.7494
+  },
+  {
+   "at": "2026-08-08T21:24:00+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1447,
+   "tokens_out": 270,
+   "php_batch": 0.0356,
+   "php_cum": 294.7849
+  },
+  {
+   "at": "2026-08-08T21:24:03+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11045,
+   "tokens_out": 461,
+   "php_batch": 0.1602,
+   "php_cum": 294.9452
+  },
+  {
+   "at": "2026-08-08T21:24:05+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 9781,
+   "tokens_out": 488,
+   "php_batch": 0.1474,
+   "php_cum": 295.0926
+  },
+  {
+   "at": "2026-08-08T21:24:05+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10938,
+   "tokens_out": 350,
+   "php_batch": 0.1512,
+   "php_cum": 295.2438
+  },
+  {
+   "at": "2026-08-08T21:24:06+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 3758,
+   "tokens_out": 526,
+   "php_batch": 0.0802,
+   "php_cum": 295.3241
+  },
+  {
+   "at": "2026-08-08T21:24:08+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1485,
+   "tokens_out": 472,
+   "php_batch": 0.0501,
+   "php_cum": 295.3741
+  },
+  {
+   "at": "2026-08-08T21:24:09+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10681,
+   "tokens_out": 360,
+   "php_batch": 0.149,
+   "php_cum": 295.5231
+  },
+  {
+   "at": "2026-08-08T21:24:10+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1821,
+   "tokens_out": 525,
+   "php_batch": 0.0577,
+   "php_cum": 295.5808
+  },
+  {
+   "at": "2026-08-08T21:24:10+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 3084,
+   "tokens_out": 444,
+   "php_batch": 0.0667,
+   "php_cum": 295.6474
+  },
+  {
+   "at": "2026-08-08T21:24:13+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2306,
+   "tokens_out": 432,
+   "php_batch": 0.0568,
+   "php_cum": 295.7042
+  },
+  {
+   "at": "2026-08-08T21:24:14+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2678,
+   "tokens_out": 423,
+   "php_batch": 0.0605,
+   "php_cum": 295.7647
+  },
+  {
+   "at": "2026-08-08T21:24:14+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1408,
+   "tokens_out": 324,
+   "php_batch": 0.0389,
+   "php_cum": 295.8036
+  },
+  {
+   "at": "2026-08-08T21:24:15+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2942,
+   "tokens_out": 127,
+   "php_batch": 0.043,
+   "php_cum": 295.8466
+  },
+  {
+   "at": "2026-08-08T21:24:16+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10710,
+   "tokens_out": 700,
+   "php_batch": 0.173,
+   "php_cum": 296.0195
+  },
+  {
+   "at": "2026-08-08T21:24:19+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1476,
+   "tokens_out": 321,
+   "php_batch": 0.0395,
+   "php_cum": 296.059
+  },
+  {
+   "at": "2026-08-08T21:24:19+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1803,
+   "tokens_out": 330,
+   "php_batch": 0.0439,
+   "php_cum": 296.1029
+  },
+  {
+   "at": "2026-08-08T21:24:20+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 3138,
+   "tokens_out": 280,
+   "php_batch": 0.0559,
+   "php_cum": 296.1588
+  },
+  {
+   "at": "2026-08-08T21:24:20+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10534,
+   "tokens_out": 695,
+   "php_batch": 0.1706,
+   "php_cum": 296.3294
+  },
+  {
+   "at": "2026-08-08T21:24:23+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 3170,
+   "tokens_out": 243,
+   "php_batch": 0.0537,
+   "php_cum": 296.383
+  },
+  {
+   "at": "2026-08-08T21:24:23+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2950,
+   "tokens_out": 266,
+   "php_batch": 0.0527,
+   "php_cum": 296.4357
+  },
+  {
+   "at": "2026-08-08T21:24:25+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10340,
+   "tokens_out": 539,
+   "php_batch": 0.1575,
+   "php_cum": 296.5932
+  },
+  {
+   "at": "2026-08-08T21:24:25+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1452,
+   "tokens_out": 499,
+   "php_batch": 0.0516,
+   "php_cum": 296.6448
+  },
+  {
+   "at": "2026-08-08T21:24:27+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 8058,
+   "tokens_out": 343,
+   "php_batch": 0.1173,
+   "php_cum": 296.7622
+  },
+  {
+   "at": "2026-08-08T21:24:29+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 6802,
+   "tokens_out": 346,
+   "php_batch": 0.103,
+   "php_cum": 296.8651
+  },
+  {
+   "at": "2026-08-08T21:24:30+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1329,
+   "tokens_out": 485,
+   "php_batch": 0.0492,
+   "php_cum": 296.9143
+  },
+  {
+   "at": "2026-08-08T21:24:30+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 3582,
+   "tokens_out": 265,
+   "php_batch": 0.06,
+   "php_cum": 296.9743
+  },
+  {
+   "at": "2026-08-08T21:24:31+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 9789,
+   "tokens_out": 498,
+   "php_batch": 0.1482,
+   "php_cum": 297.1225
+  },
+  {
+   "at": "2026-08-08T21:24:33+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2942,
+   "tokens_out": 235,
+   "php_batch": 0.0505,
+   "php_cum": 297.173
+  },
+  {
+   "at": "2026-08-08T21:24:34+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 3554,
+   "tokens_out": 283,
+   "php_batch": 0.0609,
+   "php_cum": 297.2339
+  },
+  {
+   "at": "2026-08-08T21:24:35+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1896,
+   "tokens_out": 348,
+   "php_batch": 0.0462,
+   "php_cum": 297.2801
+  },
+  {
+   "at": "2026-08-08T21:24:36+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10338,
+   "tokens_out": 696,
+   "php_batch": 0.1684,
+   "php_cum": 297.4485
+  },
+  {
+   "at": "2026-08-08T21:24:36+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1454,
+   "tokens_out": 272,
+   "php_batch": 0.0358,
+   "php_cum": 297.4843
+  },
+  {
+   "at": "2026-08-08T21:24:38+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 990,
+   "tokens_out": 355,
+   "php_batch": 0.0362,
+   "php_cum": 297.5205
+  },
+  {
+   "at": "2026-08-08T21:24:38+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2804,
+   "tokens_out": 223,
+   "php_batch": 0.048,
+   "php_cum": 297.5685
+  },
+  {
+   "at": "2026-08-08T21:24:40+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10550,
+   "tokens_out": 383,
+   "php_batch": 0.149,
+   "php_cum": 297.7175
+  },
+  {
+   "at": "2026-08-08T21:24:40+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1838,
+   "tokens_out": 374,
+   "php_batch": 0.0474,
+   "php_cum": 297.7649
+  },
+  {
+   "at": "2026-08-08T21:24:43+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 9011,
+   "tokens_out": 487,
+   "php_batch": 0.1384,
+   "php_cum": 297.9033
+  },
+  {
+   "at": "2026-08-08T21:24:43+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 8031,
+   "tokens_out": 456,
+   "php_batch": 0.1249,
+   "php_cum": 298.0282
+  },
+  {
+   "at": "2026-08-08T21:24:44+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 7845,
+   "tokens_out": 484,
+   "php_batch": 0.1247,
+   "php_cum": 298.1529
+  },
+  {
+   "at": "2026-08-08T21:24:44+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10596,
+   "tokens_out": 356,
+   "php_batch": 0.1477,
+   "php_cum": 298.3006
+  },
+  {
+   "at": "2026-08-08T21:24:47+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2255,
+   "tokens_out": 233,
+   "php_batch": 0.0424,
+   "php_cum": 298.343
+  },
+  {
+   "at": "2026-08-08T21:24:49+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10390,
+   "tokens_out": 522,
+   "php_batch": 0.1569,
+   "php_cum": 298.4998
+  },
+  {
+   "at": "2026-08-08T21:24:49+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 8916,
+   "tokens_out": 493,
+   "php_batch": 0.1377,
+   "php_cum": 298.6376
+  },
+  {
+   "at": "2026-08-08T21:24:52+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 6553,
+   "tokens_out": 416,
+   "php_batch": 0.105,
+   "php_cum": 298.7426
+  },
+  {
+   "at": "2026-08-08T21:24:52+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1077,
+   "tokens_out": 266,
+   "php_batch": 0.031,
+   "php_cum": 298.7735
+  },
+  {
+   "at": "2026-08-08T21:24:55+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10474,
+   "tokens_out": 610,
+   "php_batch": 0.164,
+   "php_cum": 298.9375
+  },
+  {
+   "at": "2026-08-08T21:24:56+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 9758,
+   "tokens_out": 335,
+   "php_batch": 0.1365,
+   "php_cum": 299.074
+  },
+  {
+   "at": "2026-08-08T21:24:56+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10699,
+   "tokens_out": 433,
+   "php_batch": 0.1542,
+   "php_cum": 299.2283
+  },
+  {
+   "at": "2026-08-08T21:24:58+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 3260,
+   "tokens_out": 227,
+   "php_batch": 0.0536,
+   "php_cum": 299.2819
+  },
+  {
+   "at": "2026-08-08T21:24:59+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 3059,
+   "tokens_out": 266,
+   "php_batch": 0.054,
+   "php_cum": 299.3359
+  },
+  {
+   "at": "2026-08-08T21:25:00+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2056,
+   "tokens_out": 336,
+   "php_batch": 0.0472,
+   "php_cum": 299.3831
+  },
+  {
+   "at": "2026-08-08T21:25:03+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2837,
+   "tokens_out": 421,
+   "php_batch": 0.0622,
+   "php_cum": 299.4453
+  },
+  {
+   "at": "2026-08-08T21:25:03+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 7933,
+   "tokens_out": 308,
+   "php_batch": 0.1135,
+   "php_cum": 299.5588
+  },
+  {
+   "at": "2026-08-08T21:25:05+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1311,
+   "tokens_out": 466,
+   "php_batch": 0.0476,
+   "php_cum": 299.6064
+  },
+  {
+   "at": "2026-08-08T21:25:08+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1885,
+   "tokens_out": 548,
+   "php_batch": 0.06,
+   "php_cum": 299.6665
+  },
+  {
+   "at": "2026-08-08T21:25:08+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2191,
+   "tokens_out": 270,
+   "php_batch": 0.0442,
+   "php_cum": 299.7106
+  },
+  {
+   "at": "2026-08-08T21:25:09+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 9356,
+   "tokens_out": 573,
+   "php_batch": 0.1484,
+   "php_cum": 299.8591
+  },
+  {
+   "at": "2026-08-08T21:25:10+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10627,
+   "tokens_out": 682,
+   "php_batch": 0.1707,
+   "php_cum": 300.0298
+  },
+  {
+   "at": "2026-08-08T21:25:12+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2104,
+   "tokens_out": 352,
+   "php_batch": 0.0489,
+   "php_cum": 300.0787
+  },
+  {
+   "at": "2026-08-08T21:25:15+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 3619,
+   "tokens_out": 319,
+   "php_batch": 0.0642,
+   "php_cum": 300.1429
+  },
+  {
+   "at": "2026-08-08T21:25:15+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2304,
+   "tokens_out": 519,
+   "php_batch": 0.0628,
+   "php_cum": 300.2057
+  },
+  {
+   "at": "2026-08-08T21:25:16+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10198,
+   "tokens_out": 700,
+   "php_batch": 0.167,
+   "php_cum": 300.3727
+  },
+  {
+   "at": "2026-08-08T21:25:17+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 7885,
+   "tokens_out": 488,
+   "php_batch": 0.1254,
+   "php_cum": 300.4982
+  },
+  {
+   "at": "2026-08-08T21:25:19+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1291,
+   "tokens_out": 251,
+   "php_batch": 0.0324,
+   "php_cum": 300.5306
+  },
+  {
+   "at": "2026-08-08T21:25:19+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1481,
+   "tokens_out": 353,
+   "php_batch": 0.0417,
+   "php_cum": 300.5724
+  },
+  {
+   "at": "2026-08-08T21:25:21+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10697,
+   "tokens_out": 450,
+   "php_batch": 0.1554,
+   "php_cum": 300.7278
+  },
+  {
+   "at": "2026-08-08T21:25:21+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 3142,
+   "tokens_out": 363,
+   "php_batch": 0.0617,
+   "php_cum": 300.7895
+  },
+  {
+   "at": "2026-08-08T21:25:21+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1822,
+   "tokens_out": 170,
+   "php_batch": 0.033,
+   "php_cum": 300.8225
+  },
+  {
+   "at": "2026-08-08T21:25:22+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 925,
+   "tokens_out": 127,
+   "php_batch": 0.0196,
+   "php_cum": 300.842
+  },
+  {
+   "at": "2026-08-08T21:25:24+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1773,
+   "tokens_out": 318,
+   "php_batch": 0.0427,
+   "php_cum": 300.8847
+  },
+  {
+   "at": "2026-08-08T21:25:24+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1528,
+   "tokens_out": 266,
+   "php_batch": 0.0362,
+   "php_cum": 300.9209
+  },
+  {
+   "at": "2026-08-08T21:25:25+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1231,
+   "tokens_out": 257,
+   "php_batch": 0.0322,
+   "php_cum": 300.9531
+  },
+  {
+   "at": "2026-08-08T21:25:25+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 9304,
+   "tokens_out": 379,
+   "php_batch": 0.1343,
+   "php_cum": 301.0875
+  },
+  {
+   "at": "2026-08-08T21:25:28+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1584,
+   "tokens_out": 360,
+   "php_batch": 0.0434,
+   "php_cum": 301.1308
+  },
+  {
+   "at": "2026-08-08T21:25:29+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1292,
+   "tokens_out": 274,
+   "php_batch": 0.0341,
+   "php_cum": 301.1649
+  },
+  {
+   "at": "2026-08-08T21:25:29+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1073,
+   "tokens_out": 500,
+   "php_batch": 0.0472,
+   "php_cum": 301.2122
+  },
+  {
+   "at": "2026-08-08T21:25:30+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1505,
+   "tokens_out": 409,
+   "php_batch": 0.0459,
+   "php_cum": 301.2581
+  },
+  {
+   "at": "2026-08-08T21:25:32+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1515,
+   "tokens_out": 269,
+   "php_batch": 0.0363,
+   "php_cum": 301.2944
+  },
+  {
+   "at": "2026-08-08T21:25:32+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1676,
+   "tokens_out": 295,
+   "php_batch": 0.04,
+   "php_cum": 301.3344
+  },
+  {
+   "at": "2026-08-08T21:25:33+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 933,
+   "tokens_out": 266,
+   "php_batch": 0.0293,
+   "php_cum": 301.3637
+  },
+  {
+   "at": "2026-08-08T21:25:35+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1471,
+   "tokens_out": 342,
+   "php_batch": 0.0409,
+   "php_cum": 301.4045
+  },
+  {
+   "at": "2026-08-08T21:25:35+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2000,
+   "tokens_out": 254,
+   "php_batch": 0.0409,
+   "php_cum": 301.4454
+  },
+  {
+   "at": "2026-08-08T21:25:36+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1065,
+   "tokens_out": 245,
+   "php_batch": 0.0294,
+   "php_cum": 301.4748
+  },
+  {
+   "at": "2026-08-08T21:25:36+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 5918,
+   "tokens_out": 306,
+   "php_batch": 0.0899,
+   "php_cum": 301.5648
+  },
+  {
+   "at": "2026-08-08T21:25:39+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1637,
+   "tokens_out": 377,
+   "php_batch": 0.0452,
+   "php_cum": 301.61
+  },
+  {
+   "at": "2026-08-08T21:25:40+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 3430,
+   "tokens_out": 423,
+   "php_batch": 0.0692,
+   "php_cum": 301.6792
+  },
+  {
+   "at": "2026-08-08T21:25:40+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1964,
+   "tokens_out": 297,
+   "php_batch": 0.0435,
+   "php_cum": 301.7227
+  },
+  {
+   "at": "2026-08-08T21:25:40+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 9662,
+   "tokens_out": 309,
+   "php_batch": 0.1336,
+   "php_cum": 301.8563
+  },
+  {
+   "at": "2026-08-08T21:25:43+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 3420,
+   "tokens_out": 359,
+   "php_batch": 0.0647,
+   "php_cum": 301.921
+  },
+  {
+   "at": "2026-08-08T21:25:43+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1091,
+   "tokens_out": 296,
+   "php_batch": 0.0333,
+   "php_cum": 301.9542
+  },
+  {
+   "at": "2026-08-08T21:25:43+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1044,
+   "tokens_out": 276,
+   "php_batch": 0.0313,
+   "php_cum": 301.9855
+  },
+  {
+   "at": "2026-08-08T21:25:44+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2280,
+   "tokens_out": 397,
+   "php_batch": 0.0541,
+   "php_cum": 302.0396
+  },
+  {
+   "at": "2026-08-08T21:25:47+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2315,
+   "tokens_out": 343,
+   "php_batch": 0.0507,
+   "php_cum": 302.0903
+  },
+  {
+   "at": "2026-08-08T21:25:48+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2167,
+   "tokens_out": 400,
+   "php_batch": 0.053,
+   "php_cum": 302.1433
+  },
+  {
+   "at": "2026-08-08T21:25:48+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 9623,
+   "tokens_out": 341,
+   "php_batch": 0.1354,
+   "php_cum": 302.2787
+  },
+  {
+   "at": "2026-08-08T21:25:49+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10483,
+   "tokens_out": 482,
+   "php_batch": 0.1552,
+   "php_cum": 302.4338
+  },
+  {
+   "at": "2026-08-08T21:25:52+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1322,
+   "tokens_out": 335,
+   "php_batch": 0.0387,
+   "php_cum": 302.4725
+  },
+  {
+   "at": "2026-08-08T21:25:52+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10353,
+   "tokens_out": 336,
+   "php_batch": 0.1435,
+   "php_cum": 302.6159
+  },
+  {
+   "at": "2026-08-08T21:25:53+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10387,
+   "tokens_out": 314,
+   "php_batch": 0.1423,
+   "php_cum": 302.7583
+  },
+  {
+   "at": "2026-08-08T21:25:56+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10421,
+   "tokens_out": 389,
+   "php_batch": 0.148,
+   "php_cum": 302.9063
+  },
+  {
+   "at": "2026-08-08T21:25:57+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10403,
+   "tokens_out": 518,
+   "php_batch": 0.1567,
+   "php_cum": 303.063
+  },
+  {
+   "at": "2026-08-08T21:25:57+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10366,
+   "tokens_out": 419,
+   "php_batch": 0.1494,
+   "php_cum": 303.2124
+  },
+  {
+   "at": "2026-08-08T21:26:00+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 3447,
+   "tokens_out": 394,
+   "php_batch": 0.0674,
+   "php_cum": 303.2798
+  },
+  {
+   "at": "2026-08-08T21:26:01+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2658,
+   "tokens_out": 666,
+   "php_batch": 0.0772,
+   "php_cum": 303.357
+  },
+  {
+   "at": "2026-08-08T21:26:01+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1042,
+   "tokens_out": 331,
+   "php_batch": 0.0351,
+   "php_cum": 303.3921
+  },
+  {
+   "at": "2026-08-08T21:26:02+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 8336,
+   "tokens_out": 433,
+   "php_batch": 0.1268,
+   "php_cum": 303.5189
+  },
+  {
+   "at": "2026-08-08T21:26:04+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1546,
+   "tokens_out": 194,
+   "php_batch": 0.0314,
+   "php_cum": 303.5504
+  },
+  {
+   "at": "2026-08-08T21:26:05+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1058,
+   "tokens_out": 275,
+   "php_batch": 0.0314,
+   "php_cum": 303.5818
+  },
+  {
+   "at": "2026-08-08T21:26:05+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10038,
+   "tokens_out": 326,
+   "php_batch": 0.1391,
+   "php_cum": 303.7209
+  },
+  {
+   "at": "2026-08-08T21:26:07+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1627,
+   "tokens_out": 242,
+   "php_batch": 0.0357,
+   "php_cum": 303.7566
+  },
+  {
+   "at": "2026-08-08T21:26:09+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1627,
+   "tokens_out": 434,
+   "php_batch": 0.0491,
+   "php_cum": 303.8057
+  },
+  {
+   "at": "2026-08-08T21:26:09+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2689,
+   "tokens_out": 405,
+   "php_batch": 0.0594,
+   "php_cum": 303.8651
+  },
+  {
+   "at": "2026-08-08T21:26:11+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 7969,
+   "tokens_out": 350,
+   "php_batch": 0.1168,
+   "php_cum": 303.9819
+  },
+  {
+   "at": "2026-08-08T21:26:13+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1260,
+   "tokens_out": 520,
+   "php_batch": 0.0508,
+   "php_cum": 304.0327
+  },
+  {
+   "at": "2026-08-08T21:26:14+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2548,
+   "tokens_out": 502,
+   "php_batch": 0.0645,
+   "php_cum": 304.0972
+  },
+  {
+   "at": "2026-08-08T21:26:14+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10927,
+   "tokens_out": 497,
+   "php_batch": 0.1613,
+   "php_cum": 304.2585
+  },
+  {
+   "at": "2026-08-08T21:26:15+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1529,
+   "tokens_out": 283,
+   "php_batch": 0.0374,
+   "php_cum": 304.296
+  },
+  {
+   "at": "2026-08-08T21:26:17+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1245,
+   "tokens_out": 282,
+   "php_batch": 0.0341,
+   "php_cum": 304.3301
+  },
+  {
+   "at": "2026-08-08T21:26:20+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10480,
+   "tokens_out": 693,
+   "php_batch": 0.1698,
+   "php_cum": 304.4998
+  },
+  {
+   "at": "2026-08-08T21:36:52+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11132,
+   "tokens_out": 544,
+   "php_batch": 0.167,
+   "php_cum": 304.6669
+  },
+  {
+   "at": "2026-08-08T21:36:53+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11139,
+   "tokens_out": 580,
+   "php_batch": 0.1696,
+   "php_cum": 304.8364
+  },
+  {
+   "at": "2026-08-08T21:36:56+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 13344,
+   "tokens_out": 702,
+   "php_batch": 0.2036,
+   "php_cum": 305.0401
+  },
+  {
+   "at": "2026-08-08T21:36:56+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 13341,
+   "tokens_out": 628,
+   "php_batch": 0.1985,
+   "php_cum": 305.2385
+  },
+  {
+   "at": "2026-08-08T21:36:58+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 13340,
+   "tokens_out": 512,
+   "php_batch": 0.1904,
+   "php_cum": 305.4289
+  },
+  {
+   "at": "2026-08-08T21:37:02+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 13351,
+   "tokens_out": 544,
+   "php_batch": 0.1927,
+   "php_cum": 305.6217
+  },
+  {
+   "at": "2026-08-08T21:37:02+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11130,
+   "tokens_out": 561,
+   "php_batch": 0.1682,
+   "php_cum": 305.7898
+  },
+  {
+   "at": "2026-08-08T21:37:02+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10437,
+   "tokens_out": 967,
+   "php_batch": 0.1884,
+   "php_cum": 305.9782
+  },
+  {
+   "at": "2026-08-08T21:37:04+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 13347,
+   "tokens_out": 524,
+   "php_batch": 0.1913,
+   "php_cum": 306.1695
+  },
+  {
+   "at": "2026-08-08T21:37:06+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10163,
+   "tokens_out": 466,
+   "php_batch": 0.1503,
+   "php_cum": 306.3198
+  },
+  {
+   "at": "2026-08-08T21:37:06+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 13352,
+   "tokens_out": 347,
+   "php_batch": 0.179,
+   "php_cum": 306.4989
+  },
+  {
+   "at": "2026-08-08T21:37:11+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11078,
+   "tokens_out": 690,
+   "php_batch": 0.1765,
+   "php_cum": 306.6753
+  },
+  {
+   "at": "2026-08-08T21:37:13+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1098,
+   "tokens_out": 216,
+   "php_batch": 0.0278,
+   "php_cum": 306.7031
+  },
+  {
+   "at": "2026-08-08T21:37:13+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10158,
+   "tokens_out": 661,
+   "php_batch": 0.1638,
+   "php_cum": 306.867
+  },
+  {
+   "at": "2026-08-08T21:37:13+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1071,
+   "tokens_out": 333,
+   "php_batch": 0.0356,
+   "php_cum": 306.9026
+  },
+  {
+   "at": "2026-08-08T21:37:17+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 5068,
+   "tokens_out": 660,
+   "php_batch": 0.1047,
+   "php_cum": 307.0073
+  },
+  {
+   "at": "2026-08-08T21:37:17+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1364,
+   "tokens_out": 302,
+   "php_batch": 0.0368,
+   "php_cum": 307.0441
+  },
+  {
+   "at": "2026-08-08T21:37:17+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 3879,
+   "tokens_out": 409,
+   "php_batch": 0.0735,
+   "php_cum": 307.1176
+  },
+  {
+   "at": "2026-08-08T21:37:19+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1844,
+   "tokens_out": 550,
+   "php_batch": 0.0597,
+   "php_cum": 307.1773
+  },
+  {
+   "at": "2026-08-08T21:37:21+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 4478,
+   "tokens_out": 309,
+   "php_batch": 0.0735,
+   "php_cum": 307.2507
+  },
+  {
+   "at": "2026-08-08T21:37:21+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1382,
+   "tokens_out": 341,
+   "php_batch": 0.0398,
+   "php_cum": 307.2905
+  },
+  {
+   "at": "2026-08-08T21:37:22+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2171,
+   "tokens_out": 418,
+   "php_batch": 0.0543,
+   "php_cum": 307.3448
+  },
+  {
+   "at": "2026-08-08T21:37:23+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2700,
+   "tokens_out": 331,
+   "php_batch": 0.0544,
+   "php_cum": 307.3991
+  },
+  {
+   "at": "2026-08-08T21:37:25+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1121,
+   "tokens_out": 292,
+   "php_batch": 0.0333,
+   "php_cum": 307.4324
+  },
+  {
+   "at": "2026-08-08T21:37:25+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1592,
+   "tokens_out": 313,
+   "php_batch": 0.0403,
+   "php_cum": 307.4727
+  },
+  {
+   "at": "2026-08-08T21:37:27+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1782,
+   "tokens_out": 439,
+   "php_batch": 0.0512,
+   "php_cum": 307.5239
+  },
+  {
+   "at": "2026-08-08T21:37:27+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 9657,
+   "tokens_out": 280,
+   "php_batch": 0.1315,
+   "php_cum": 307.6554
+  },
+  {
+   "at": "2026-08-08T21:37:28+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1175,
+   "tokens_out": 268,
+   "php_batch": 0.0323,
+   "php_cum": 307.6877
+  },
+  {
+   "at": "2026-08-08T21:37:31+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1649,
+   "tokens_out": 295,
+   "php_batch": 0.0397,
+   "php_cum": 307.7274
+  },
+  {
+   "at": "2026-08-08T21:37:32+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1250,
+   "tokens_out": 467,
+   "php_batch": 0.047,
+   "php_cum": 307.7744
+  },
+  {
+   "at": "2026-08-08T21:37:32+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2822,
+   "tokens_out": 367,
+   "php_batch": 0.0583,
+   "php_cum": 307.8327
+  },
+  {
+   "at": "2026-08-08T21:37:33+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1909,
+   "tokens_out": 540,
+   "php_batch": 0.0597,
+   "php_cum": 307.8924
+  },
+  {
+   "at": "2026-08-08T21:37:34+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1400,
+   "tokens_out": 256,
+   "php_batch": 0.0341,
+   "php_cum": 307.9265
+  },
+  {
+   "at": "2026-08-08T21:37:36+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1890,
+   "tokens_out": 429,
+   "php_batch": 0.0518,
+   "php_cum": 307.9782
+  },
+  {
+   "at": "2026-08-08T21:37:37+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1187,
+   "tokens_out": 423,
+   "php_batch": 0.0432,
+   "php_cum": 308.0214
+  },
+  {
+   "at": "2026-08-08T21:37:37+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 966,
+   "tokens_out": 275,
+   "php_batch": 0.0303,
+   "php_cum": 308.0518
+  },
+  {
+   "at": "2026-08-08T21:37:40+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1757,
+   "tokens_out": 392,
+   "php_batch": 0.0477,
+   "php_cum": 308.0994
+  },
+  {
+   "at": "2026-08-08T21:37:41+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 8757,
+   "tokens_out": 434,
+   "php_batch": 0.1318,
+   "php_cum": 308.2313
+  },
+  {
+   "at": "2026-08-08T21:37:41+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1021,
+   "tokens_out": 406,
+   "php_batch": 0.0401,
+   "php_cum": 308.2713
+  },
+  {
+   "at": "2026-08-08T21:37:43+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2237,
+   "tokens_out": 239,
+   "php_batch": 0.0426,
+   "php_cum": 308.3139
+  },
+  {
+   "at": "2026-08-08T21:37:45+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10584,
+   "tokens_out": 408,
+   "php_batch": 0.1512,
+   "php_cum": 308.4651
+  },
+  {
+   "at": "2026-08-08T21:37:46+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10401,
+   "tokens_out": 436,
+   "php_batch": 0.151,
+   "php_cum": 308.6161
+  },
+  {
+   "at": "2026-08-08T21:37:46+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 913,
+   "tokens_out": 252,
+   "php_batch": 0.0281,
+   "php_cum": 308.6442
+  },
+  {
+   "at": "2026-08-08T21:37:47+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11755,
+   "tokens_out": 601,
+   "php_batch": 0.1782,
+   "php_cum": 308.8224
+  },
+  {
+   "at": "2026-08-08T21:37:49+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1996,
+   "tokens_out": 327,
+   "php_batch": 0.0459,
+   "php_cum": 308.8683
+  },
+  {
+   "at": "2026-08-08T21:37:51+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1510,
+   "tokens_out": 465,
+   "php_batch": 0.0499,
+   "php_cum": 308.9182
+  },
+  {
+   "at": "2026-08-08T21:37:52+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 4442,
+   "tokens_out": 382,
+   "php_batch": 0.0781,
+   "php_cum": 308.9963
+  },
+  {
+   "at": "2026-08-08T21:37:53+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10362,
+   "tokens_out": 403,
+   "php_batch": 0.1482,
+   "php_cum": 309.1446
+  },
+  {
+   "at": "2026-08-08T21:37:55+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1925,
+   "tokens_out": 409,
+   "php_batch": 0.0508,
+   "php_cum": 309.1953
+  },
+  {
+   "at": "2026-08-08T21:37:57+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1358,
+   "tokens_out": 391,
+   "php_batch": 0.043,
+   "php_cum": 309.2383
+  },
+  {
+   "at": "2026-08-08T21:37:58+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1937,
+   "tokens_out": 385,
+   "php_batch": 0.0493,
+   "php_cum": 309.2876
+  },
+  {
+   "at": "2026-08-08T21:38:00+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2562,
+   "tokens_out": 474,
+   "php_batch": 0.0627,
+   "php_cum": 309.3503
+  },
+  {
+   "at": "2026-08-08T21:38:00+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 9654,
+   "tokens_out": 362,
+   "php_batch": 0.1372,
+   "php_cum": 309.4875
+  },
+  {
+   "at": "2026-08-08T21:38:03+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1631,
+   "tokens_out": 303,
+   "php_batch": 0.04,
+   "php_cum": 309.5275
+  },
+  {
+   "at": "2026-08-08T21:38:03+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10150,
+   "tokens_out": 271,
+   "php_batch": 0.1366,
+   "php_cum": 309.6641
+  },
+  {
+   "at": "2026-08-08T21:38:04+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10549,
+   "tokens_out": 711,
+   "php_batch": 0.1719,
+   "php_cum": 309.8359
+  },
+  {
+   "at": "2026-08-08T21:38:05+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2336,
+   "tokens_out": 469,
+   "php_batch": 0.0597,
+   "php_cum": 309.8957
+  },
+  {
+   "at": "2026-08-08T21:38:08+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10628,
+   "tokens_out": 433,
+   "php_batch": 0.1534,
+   "php_cum": 310.0491
+  },
+  {
+   "at": "2026-08-08T21:38:08+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2539,
+   "tokens_out": 457,
+   "php_batch": 0.0613,
+   "php_cum": 310.1103
+  },
+  {
+   "at": "2026-08-08T21:38:08+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 9857,
+   "tokens_out": 310,
+   "php_batch": 0.1359,
+   "php_cum": 310.2463
+  },
+  {
+   "at": "2026-08-08T21:38:09+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1378,
+   "tokens_out": 592,
+   "php_batch": 0.0572,
+   "php_cum": 310.3035
+  },
+  {
+   "at": "2026-08-08T21:38:10+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 959,
+   "tokens_out": 195,
+   "php_batch": 0.0247,
+   "php_cum": 310.3282
+  },
+  {
+   "at": "2026-08-08T21:38:11+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 929,
+   "tokens_out": 221,
+   "php_batch": 0.0262,
+   "php_cum": 310.3543
+  },
+  {
+   "at": "2026-08-08T21:38:13+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1070,
+   "tokens_out": 445,
+   "php_batch": 0.0434,
+   "php_cum": 310.3977
+  },
+  {
+   "at": "2026-08-08T21:38:14+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1853,
+   "tokens_out": 482,
+   "php_batch": 0.055,
+   "php_cum": 310.4528
+  },
+  {
+   "at": "2026-08-08T21:38:15+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2620,
+   "tokens_out": 404,
+   "php_batch": 0.0585,
+   "php_cum": 310.5112
+  },
+  {
+   "at": "2026-08-08T21:38:15+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1973,
+   "tokens_out": 311,
+   "php_batch": 0.0445,
+   "php_cum": 310.5558
+  },
+  {
+   "at": "2026-08-08T21:38:17+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 7159,
+   "tokens_out": 323,
+   "php_batch": 0.1055,
+   "php_cum": 310.6613
+  },
+  {
+   "at": "2026-08-08T21:38:19+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1328,
+   "tokens_out": 414,
+   "php_batch": 0.0442,
+   "php_cum": 310.7055
+  },
+  {
+   "at": "2026-08-08T21:38:19+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1790,
+   "tokens_out": 352,
+   "php_batch": 0.0453,
+   "php_cum": 310.7508
+  },
+  {
+   "at": "2026-08-08T21:38:20+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1908,
+   "tokens_out": 491,
+   "php_batch": 0.0563,
+   "php_cum": 310.8071
+  },
+  {
+   "at": "2026-08-08T21:38:21+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1820,
+   "tokens_out": 362,
+   "php_batch": 0.0463,
+   "php_cum": 310.8534
+  },
+  {
+   "at": "2026-08-08T21:38:23+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 809,
+   "tokens_out": 216,
+   "php_batch": 0.0244,
+   "php_cum": 310.8779
+  },
+  {
+   "at": "2026-08-08T21:38:23+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2982,
+   "tokens_out": 264,
+   "php_batch": 0.053,
+   "php_cum": 310.9308
+  },
+  {
+   "at": "2026-08-08T21:38:23+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1384,
+   "tokens_out": 306,
+   "php_batch": 0.0374,
+   "php_cum": 310.9682
+  },
+  {
+   "at": "2026-08-08T21:38:24+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1457,
+   "tokens_out": 273,
+   "php_batch": 0.0359,
+   "php_cum": 311.0041
+  },
+  {
+   "at": "2026-08-08T21:38:27+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 3184,
+   "tokens_out": 340,
+   "php_batch": 0.0606,
+   "php_cum": 311.0647
+  },
+  {
+   "at": "2026-08-08T21:38:28+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2099,
+   "tokens_out": 479,
+   "php_batch": 0.0577,
+   "php_cum": 311.1223
+  },
+  {
+   "at": "2026-08-08T21:38:28+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1615,
+   "tokens_out": 332,
+   "php_batch": 0.0418,
+   "php_cum": 311.1642
+  },
+  {
+   "at": "2026-08-08T21:38:29+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1750,
+   "tokens_out": 131,
+   "php_batch": 0.0294,
+   "php_cum": 311.1936
+  },
+  {
+   "at": "2026-08-08T21:38:31+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1841,
+   "tokens_out": 411,
+   "php_batch": 0.05,
+   "php_cum": 311.2435
+  },
+  {
+   "at": "2026-08-08T21:38:32+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1716,
+   "tokens_out": 367,
+   "php_batch": 0.0454,
+   "php_cum": 311.289
+  },
+  {
+   "at": "2026-08-08T21:38:33+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10574,
+   "tokens_out": 553,
+   "php_batch": 0.1611,
+   "php_cum": 311.4501
+  },
+  {
+   "at": "2026-08-08T21:38:34+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 3170,
+   "tokens_out": 487,
+   "php_batch": 0.0707,
+   "php_cum": 311.5208
+  },
+  {
+   "at": "2026-08-08T21:38:36+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1826,
+   "tokens_out": 456,
+   "php_batch": 0.0529,
+   "php_cum": 311.5737
+  },
+  {
+   "at": "2026-08-08T21:38:37+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2046,
+   "tokens_out": 455,
+   "php_batch": 0.0554,
+   "php_cum": 311.6291
+  },
+  {
+   "at": "2026-08-08T21:38:38+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1414,
+   "tokens_out": 430,
+   "php_batch": 0.0463,
+   "php_cum": 311.6755
+  },
+  {
+   "at": "2026-08-08T21:38:38+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1437,
+   "tokens_out": 309,
+   "php_batch": 0.0382,
+   "php_cum": 311.7136
+  },
+  {
+   "at": "2026-08-08T21:38:40+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1339,
+   "tokens_out": 298,
+   "php_batch": 0.0363,
+   "php_cum": 311.7499
+  },
+  {
+   "at": "2026-08-08T21:38:41+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 919,
+   "tokens_out": 219,
+   "php_batch": 0.0259,
+   "php_cum": 311.7758
+  },
+  {
+   "at": "2026-08-08T21:38:43+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2073,
+   "tokens_out": 513,
+   "php_batch": 0.0598,
+   "php_cum": 311.8356
+  },
+  {
+   "at": "2026-08-08T21:38:45+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2244,
+   "tokens_out": 451,
+   "php_batch": 0.0574,
+   "php_cum": 311.893
+  },
+  {
+   "at": "2026-08-08T21:38:46+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 9176,
+   "tokens_out": 262,
+   "php_batch": 0.1247,
+   "php_cum": 312.0177
+  },
+  {
+   "at": "2026-08-08T21:38:49+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 9838,
+   "tokens_out": 524,
+   "php_batch": 0.1506,
+   "php_cum": 312.1682
+  },
+  {
+   "at": "2026-08-08T21:38:50+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 9698,
+   "tokens_out": 379,
+   "php_batch": 0.1389,
+   "php_cum": 312.3071
+  },
+  {
+   "at": "2026-08-08T21:38:52+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 873,
+   "tokens_out": 216,
+   "php_batch": 0.0252,
+   "php_cum": 312.3323
+  },
+  {
+   "at": "2026-08-08T21:38:53+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 3911,
+   "tokens_out": 340,
+   "php_batch": 0.069,
+   "php_cum": 312.4013
+  },
+  {
+   "at": "2026-08-08T21:38:54+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1564,
+   "tokens_out": 362,
+   "php_batch": 0.0433,
+   "php_cum": 312.4447
+  },
+  {
+   "at": "2026-08-08T21:38:56+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 7212,
+   "tokens_out": 338,
+   "php_batch": 0.1072,
+   "php_cum": 312.5519
+  },
+  {
+   "at": "2026-08-08T21:38:56+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1093,
+   "tokens_out": 200,
+   "php_batch": 0.0266,
+   "php_cum": 312.5785
+  },
+  {
+   "at": "2026-08-08T21:39:00+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 9042,
+   "tokens_out": 323,
+   "php_batch": 0.1274,
+   "php_cum": 312.7058
+  },
+  {
+   "at": "2026-08-08T21:39:01+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10395,
+   "tokens_out": 444,
+   "php_batch": 0.1515,
+   "php_cum": 312.8573
+  },
+  {
+   "at": "2026-08-08T21:39:01+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1204,
+   "tokens_out": 418,
+   "php_batch": 0.0431,
+   "php_cum": 312.9004
+  },
+  {
+   "at": "2026-08-08T21:39:01+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1925,
+   "tokens_out": 370,
+   "php_batch": 0.0481,
+   "php_cum": 312.9485
+  },
+  {
+   "at": "2026-08-08T21:39:05+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 9971,
+   "tokens_out": 372,
+   "php_batch": 0.1416,
+   "php_cum": 313.09
+  },
+  {
+   "at": "2026-08-08T21:39:06+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1874,
+   "tokens_out": 328,
+   "php_batch": 0.0446,
+   "php_cum": 313.1346
+  },
+  {
+   "at": "2026-08-08T21:39:07+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1909,
+   "tokens_out": 680,
+   "php_batch": 0.0695,
+   "php_cum": 313.2041
+  },
+  {
+   "at": "2026-08-08T21:39:07+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10712,
+   "tokens_out": 592,
+   "php_batch": 0.1655,
+   "php_cum": 313.3695
+  },
+  {
+   "at": "2026-08-08T21:39:10+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10829,
+   "tokens_out": 528,
+   "php_batch": 0.1624,
+   "php_cum": 313.5319
+  },
+  {
+   "at": "2026-08-08T21:39:12+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1786,
+   "tokens_out": 487,
+   "php_batch": 0.0546,
+   "php_cum": 313.5865
+  },
+  {
+   "at": "2026-08-08T21:39:13+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11640,
+   "tokens_out": 607,
+   "php_batch": 0.1773,
+   "php_cum": 313.7638
+  },
+  {
+   "at": "2026-08-08T21:39:14+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11343,
+   "tokens_out": 692,
+   "php_batch": 0.1797,
+   "php_cum": 313.9435
+  },
+  {
+   "at": "2026-08-08T21:39:14+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1606,
+   "tokens_out": 294,
+   "php_batch": 0.0391,
+   "php_cum": 313.9826
+  },
+  {
+   "at": "2026-08-08T21:39:16+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2274,
+   "tokens_out": 294,
+   "php_batch": 0.0468,
+   "php_cum": 314.0294
+  },
+  {
+   "at": "2026-08-08T21:39:16+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1791,
+   "tokens_out": 156,
+   "php_batch": 0.0316,
+   "php_cum": 314.0611
+  },
+  {
+   "at": "2026-08-08T21:39:21+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1447,
+   "tokens_out": 397,
+   "php_batch": 0.0444,
+   "php_cum": 314.1055
+  },
+  {
+   "at": "2026-08-08T21:39:21+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1807,
+   "tokens_out": 361,
+   "php_batch": 0.0461,
+   "php_cum": 314.1515
+  },
+  {
+   "at": "2026-08-08T21:39:22+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10431,
+   "tokens_out": 676,
+   "php_batch": 0.168,
+   "php_cum": 314.3196
+  },
+  {
+   "at": "2026-08-08T21:39:23+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10549,
+   "tokens_out": 664,
+   "php_batch": 0.1686,
+   "php_cum": 314.4882
+  },
+  {
+   "at": "2026-08-08T21:39:26+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1766,
+   "tokens_out": 337,
+   "php_batch": 0.0439,
+   "php_cum": 314.5321
+  },
+  {
+   "at": "2026-08-08T21:39:27+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1944,
+   "tokens_out": 349,
+   "php_batch": 0.0468,
+   "php_cum": 314.579
+  },
+  {
+   "at": "2026-08-08T21:39:28+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10918,
+   "tokens_out": 564,
+   "php_batch": 0.1659,
+   "php_cum": 314.7449
+  },
+  {
+   "at": "2026-08-08T21:39:30+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 3082,
+   "tokens_out": 305,
+   "php_batch": 0.057,
+   "php_cum": 314.8018
+  },
+  {
+   "at": "2026-08-08T21:39:33+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1900,
+   "tokens_out": 538,
+   "php_batch": 0.0595,
+   "php_cum": 314.8614
+  },
+  {
+   "at": "2026-08-08T21:39:33+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1015,
+   "tokens_out": 376,
+   "php_batch": 0.0379,
+   "php_cum": 314.8993
+  },
+  {
+   "at": "2026-08-08T21:39:33+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1865,
+   "tokens_out": 279,
+   "php_batch": 0.0411,
+   "php_cum": 314.9403
+  },
+  {
+   "at": "2026-08-08T21:39:35+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2033,
+   "tokens_out": 645,
+   "php_batch": 0.0685,
+   "php_cum": 315.0088
+  },
+  {
+   "at": "2026-08-08T21:39:37+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2646,
+   "tokens_out": 404,
+   "php_batch": 0.0588,
+   "php_cum": 315.0676
+  },
+  {
+   "at": "2026-08-08T21:39:37+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1203,
+   "tokens_out": 294,
+   "php_batch": 0.0344,
+   "php_cum": 315.1021
+  },
+  {
+   "at": "2026-08-08T21:39:38+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1236,
+   "tokens_out": 546,
+   "php_batch": 0.0523,
+   "php_cum": 315.1544
+  },
+  {
+   "at": "2026-08-08T21:39:38+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2439,
+   "tokens_out": 261,
+   "php_batch": 0.0465,
+   "php_cum": 315.2008
+  },
+  {
+   "at": "2026-08-08T21:39:40+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2263,
+   "tokens_out": 340,
+   "php_batch": 0.0499,
+   "php_cum": 315.2508
+  },
+  {
+   "at": "2026-08-08T21:39:41+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1443,
+   "tokens_out": 292,
+   "php_batch": 0.0371,
+   "php_cum": 315.2878
+  },
+  {
+   "at": "2026-08-08T21:39:43+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1196,
+   "tokens_out": 351,
+   "php_batch": 0.0383,
+   "php_cum": 315.3261
+  },
+  {
+   "at": "2026-08-08T21:39:45+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1549,
+   "tokens_out": 301,
+   "php_batch": 0.0389,
+   "php_cum": 315.365
+  },
+  {
+   "at": "2026-08-08T21:39:47+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 9619,
+   "tokens_out": 644,
+   "php_batch": 0.1564,
+   "php_cum": 315.5215
+  },
+  {
+   "at": "2026-08-08T21:39:47+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10610,
+   "tokens_out": 423,
+   "php_batch": 0.1525,
+   "php_cum": 315.6739
+  },
+  {
+   "at": "2026-08-08T21:39:49+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1860,
+   "tokens_out": 307,
+   "php_batch": 0.0429,
+   "php_cum": 315.7169
+  },
+  {
+   "at": "2026-08-08T21:39:51+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2201,
+   "tokens_out": 355,
+   "php_batch": 0.0502,
+   "php_cum": 315.7671
+  },
+  {
+   "at": "2026-08-08T21:39:51+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1743,
+   "tokens_out": 306,
+   "php_batch": 0.0415,
+   "php_cum": 315.8087
+  },
+  {
+   "at": "2026-08-08T21:39:51+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1510,
+   "tokens_out": 343,
+   "php_batch": 0.0414,
+   "php_cum": 315.85
+  },
+  {
+   "at": "2026-08-08T21:39:54+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 974,
+   "tokens_out": 272,
+   "php_batch": 0.0302,
+   "php_cum": 315.8803
+  },
+  {
+   "at": "2026-08-08T21:39:55+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2427,
+   "tokens_out": 434,
+   "php_batch": 0.0584,
+   "php_cum": 315.9386
+  },
+  {
+   "at": "2026-08-08T21:39:55+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1542,
+   "tokens_out": 384,
+   "php_batch": 0.0446,
+   "php_cum": 315.9832
+  },
+  {
+   "at": "2026-08-08T21:39:55+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2016,
+   "tokens_out": 327,
+   "php_batch": 0.0461,
+   "php_cum": 316.0294
+  },
+  {
+   "at": "2026-08-08T21:39:59+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1504,
+   "tokens_out": 282,
+   "php_batch": 0.0371,
+   "php_cum": 316.0665
+  },
+  {
+   "at": "2026-08-08T21:39:59+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10663,
+   "tokens_out": 422,
+   "php_batch": 0.1531,
+   "php_cum": 316.2195
+  },
+  {
+   "at": "2026-08-08T21:39:59+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1492,
+   "tokens_out": 382,
+   "php_batch": 0.0439,
+   "php_cum": 316.2634
+  },
+  {
+   "at": "2026-08-08T21:40:01+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10700,
+   "tokens_out": 482,
+   "php_batch": 0.1577,
+   "php_cum": 316.4211
+  },
+  {
+   "at": "2026-08-08T21:40:03+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1772,
+   "tokens_out": 322,
+   "php_batch": 0.043,
+   "php_cum": 316.4641
+  },
+  {
+   "at": "2026-08-08T21:40:03+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2459,
+   "tokens_out": 434,
+   "php_batch": 0.0587,
+   "php_cum": 316.5228
+  },
+  {
+   "at": "2026-08-08T21:40:04+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1841,
+   "tokens_out": 520,
+   "php_batch": 0.0575,
+   "php_cum": 316.5804
+  },
+  {
+   "at": "2026-08-08T21:40:05+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2459,
+   "tokens_out": 399,
+   "php_batch": 0.0563,
+   "php_cum": 316.6366
+  },
+  {
+   "at": "2026-08-08T21:40:06+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2203,
+   "tokens_out": 281,
+   "php_batch": 0.0451,
+   "php_cum": 316.6817
+  },
+  {
+   "at": "2026-08-08T21:40:07+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2271,
+   "tokens_out": 293,
+   "php_batch": 0.0467,
+   "php_cum": 316.7285
+  },
+  {
+   "at": "2026-08-08T21:40:07+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1248,
+   "tokens_out": 257,
+   "php_batch": 0.0324,
+   "php_cum": 316.7609
+  },
+  {
+   "at": "2026-08-08T21:40:09+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1210,
+   "tokens_out": 302,
+   "php_batch": 0.0351,
+   "php_cum": 316.7959
+  },
+  {
+   "at": "2026-08-08T21:40:10+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1212,
+   "tokens_out": 311,
+   "php_batch": 0.0357,
+   "php_cum": 316.8316
+  },
+  {
+   "at": "2026-08-08T21:40:12+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1245,
+   "tokens_out": 288,
+   "php_batch": 0.0345,
+   "php_cum": 316.8661
+  },
+  {
+   "at": "2026-08-08T21:40:13+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 924,
+   "tokens_out": 249,
+   "php_batch": 0.028,
+   "php_cum": 316.8941
+  },
+  {
+   "at": "2026-08-08T21:40:14+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1203,
+   "tokens_out": 268,
+   "php_batch": 0.0326,
+   "php_cum": 316.9267
+  },
+  {
+   "at": "2026-08-08T21:40:15+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2008,
+   "tokens_out": 265,
+   "php_batch": 0.0417,
+   "php_cum": 316.9685
+  },
+  {
+   "at": "2026-08-08T21:40:16+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1361,
+   "tokens_out": 337,
+   "php_batch": 0.0392,
+   "php_cum": 317.0077
+  },
+  {
+   "at": "2026-08-08T21:40:16+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2003,
+   "tokens_out": 326,
+   "php_batch": 0.0459,
+   "php_cum": 317.0536
+  },
+  {
+   "at": "2026-08-08T21:40:18+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2017,
+   "tokens_out": 274,
+   "php_batch": 0.0425,
+   "php_cum": 317.0961
+  },
+  {
+   "at": "2026-08-08T21:40:22+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1629,
+   "tokens_out": 219,
+   "php_batch": 0.0341,
+   "php_cum": 317.1303
+  },
+  {
+   "at": "2026-08-08T21:40:26+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1209,
+   "tokens_out": 334,
+   "php_batch": 0.0373,
+   "php_cum": 317.1675
+  },
+  {
+   "at": "2026-08-08T21:40:29+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2005,
+   "tokens_out": 324,
+   "php_batch": 0.0458,
+   "php_cum": 317.2133
+  },
+  {
+   "at": "2026-08-08T21:40:29+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1540,
+   "tokens_out": 268,
+   "php_batch": 0.0365,
+   "php_cum": 317.2499
+  },
+  {
+   "at": "2026-08-08T21:40:33+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1858,
+   "tokens_out": 397,
+   "php_batch": 0.0492,
+   "php_cum": 317.299
+  },
+  {
+   "at": "2026-08-08T21:40:33+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1515,
+   "tokens_out": 303,
+   "php_batch": 0.0387,
+   "php_cum": 317.3377
+  },
+  {
+   "at": "2026-08-08T21:40:34+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1256,
+   "tokens_out": 431,
+   "php_batch": 0.0446,
+   "php_cum": 317.3823
+  },
+  {
+   "at": "2026-08-08T21:40:37+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1241,
+   "tokens_out": 295,
+   "php_batch": 0.0349,
+   "php_cum": 317.4172
+  },
+  {
+   "at": "2026-08-08T21:40:37+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1497,
+   "tokens_out": 264,
+   "php_batch": 0.0357,
+   "php_cum": 317.4529
+  },
+  {
+   "at": "2026-08-08T21:40:37+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1733,
+   "tokens_out": 272,
+   "php_batch": 0.039,
+   "php_cum": 317.4919
+  },
+  {
+   "at": "2026-08-08T21:40:39+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2531,
+   "tokens_out": 328,
+   "php_batch": 0.0522,
+   "php_cum": 317.5441
+  },
+  {
+   "at": "2026-08-08T21:40:41+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1220,
+   "tokens_out": 354,
+   "php_batch": 0.0388,
+   "php_cum": 317.5829
+  },
+  {
+   "at": "2026-08-08T21:40:41+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1506,
+   "tokens_out": 335,
+   "php_batch": 0.0408,
+   "php_cum": 317.6237
+  },
+  {
+   "at": "2026-08-08T21:40:43+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1524,
+   "tokens_out": 266,
+   "php_batch": 0.0362,
+   "php_cum": 317.6599
+  },
+  {
+   "at": "2026-08-08T21:40:43+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1532,
+   "tokens_out": 572,
+   "php_batch": 0.0576,
+   "php_cum": 317.7175
+  },
+  {
+   "at": "2026-08-08T21:40:44+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1537,
+   "tokens_out": 305,
+   "php_batch": 0.0391,
+   "php_cum": 317.7565
+  },
+  {
+   "at": "2026-08-08T21:40:45+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1810,
+   "tokens_out": 354,
+   "php_batch": 0.0456,
+   "php_cum": 317.8022
+  },
+  {
+   "at": "2026-08-08T21:40:46+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1352,
+   "tokens_out": 239,
+   "php_batch": 0.0323,
+   "php_cum": 317.8345
+  },
+  {
+   "at": "2026-08-08T21:40:47+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 2189,
+   "tokens_out": 312,
+   "php_batch": 0.0471,
+   "php_cum": 317.8816
+  },
+  {
+   "at": "2026-08-08T21:40:48+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1815,
+   "tokens_out": 352,
+   "php_batch": 0.0456,
+   "php_cum": 317.9272
+  },
+  {
+   "at": "2026-08-08T21:40:49+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1510,
+   "tokens_out": 348,
+   "php_batch": 0.0417,
+   "php_cum": 317.9689
+  },
+  {
+   "at": "2026-08-08T21:40:50+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1529,
+   "tokens_out": 405,
+   "php_batch": 0.0459,
+   "php_cum": 318.0148
+  },
+  {
+   "at": "2026-08-08T21:40:50+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1263,
+   "tokens_out": 248,
+   "php_batch": 0.0319,
+   "php_cum": 318.0468
+  },
+  {
+   "at": "2026-08-08T21:40:53+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1502,
+   "tokens_out": 498,
+   "php_batch": 0.0521,
+   "php_cum": 318.0989
+  },
+  {
+   "at": "2026-08-08T21:40:56+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 7260,
+   "tokens_out": 428,
+   "php_batch": 0.114,
+   "php_cum": 318.2128
+  },
+  {
+   "at": "2026-08-08T21:40:56+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 10743,
+   "tokens_out": 641,
+   "php_batch": 0.1692,
+   "php_cum": 318.3821
+  },
+  {
+   "at": "2026-08-08T21:40:57+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 1303,
+   "tokens_out": 341,
+   "php_batch": 0.0388,
+   "php_cum": 318.4209
+  },
+  {
+   "at": "2026-08-08T21:41:02+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 9463,
+   "tokens_out": 686,
+   "php_batch": 0.1575,
+   "php_cum": 318.5785
+  },
+  {
+   "at": "2026-08-08T21:41:03+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11513,
+   "tokens_out": 691,
+   "php_batch": 0.1816,
+   "php_cum": 318.7601
+  },
+  {
+   "at": "2026-08-08T21:41:11+00:00",
+   "tier": "doc",
+   "notices": 1,
+   "tokens_in": 11138,
+   "tokens_out": 631,
+   "php_batch": 0.1731,
+   "php_cum": 318.9332
+  }
+ ],
+ "updated_at": "2026-08-08T21:41:11+00:00"
+}

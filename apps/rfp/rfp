@@ -1,0 +1,3373 @@
+#!/usr/bin/env python3
+"""rfp -- the tool surface a cheap model drives to find PH government notices worth bidding on.
+
+    rfp build                      merge tenders.db + legacy.db (+ tags.db) -> corpus.db
+    rfp sql "select ..."           read-only SQL over corpus.db          <- PRIMARY TOOL
+    rfp search "<query>" [filters] profile-weighted ranked hits, token-budgeted
+    rfp show <id> [id ...]         full scope text, line items, attached documents
+    rfp facets "<query>" [filters] counts by work_type/province/mode/ABC band
+    rfp profile                    print the resolved profile
+    rfp selfcheck                  assert-based tests, no framework
+
+Design: docs/plans/2026-08-08-ph-rfp-search-design.md   Spike: research/ph-rfp-spike/DECISIONS.md
+
+Three load-bearing properties, each asserted in selfcheck():
+  1. `sql` cannot write.  corpus.db is opened file:...?mode=ro AND an authorizer denies ATTACH,
+     because mode=ro alone does not stop `attach 'w.db' as w; insert into w...`.
+  2. `search` output stays inside a per-hit token budget.  Verbose hits drift the economics back
+     toward whole-corpus-in-prompt, which does not fit (1.55M tokens > 1M window).
+  3. Every filter is null-tolerant.  The measured hazards -- abc null on 39 rows, location null on
+     12.2%, closing null on the zombie rows -- fail by OMISSION, the failure mode no user reports.
+"""
+import argparse
+import hashlib
+import json
+import os
+import re
+import sqlite3
+import sys
+import time
+import unicodedata
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+DEFAULT_DB = HERE / "corpus.db"
+DOCS_DB = HERE / "docs.db"
+PROFILE_MD = HERE / "profile.md"
+SRC_MPHILGEPS = HERE / "tenders.db"
+SRC_LEGACY = HERE / "legacy.db"
+SRC_TAGS = HERE / "tags.db"
+
+URL_MPHILGEPS = "https://philgeps.gov.ph/Indexes/viewLiveTenderDetails/{}"
+URL_LEGACY = ("https://notices.philgeps.gov.ph/GEPSNONPILOT/Tender/"
+              "SplashBidNoticeAbstractUI.aspx?refID={}")
+
+# Token budget.  The design doc targets ~45 tokens/hit; measured against the estimator below a
+# 4-line hit with a real PH government title lands at ~55, because the titles are long
+# ("Supply and Delivery of ... for the ... of the Province of ...").  So: 62 is the enforced
+# mean, 78 the per-hit hard cap, and format_hit() trims (snippet first, then title) to hold it.
+# Enforcing a number we can actually hold beats printing one we can't.
+BUDGET_MEAN = 62
+BUDGET_HIT = 78
+
+# ---------------------------------------------------------------------------------------------
+# Attachment text: a SECOND index, joined by notice id.  Not merged into corpus_fts.
+#
+# The decision and the three measurements that force it (2026-08-08):
+#
+#  1. LENGTH ASYMMETRY, 46x.  Median notice that has attachments carries 154,571 chars of
+#     extracted document text against a 3,333-char mean notice body.  BM25 length-normalises,
+#     but one index means one term-frequency space, and the tail wags the dog: a 200-page ITB
+#     that says "generator" forty times in a boilerplate spec annex would outrank a notice
+#     TITLED "Supply and Delivery of One (1) Generator Set".  That is precisely backwards.
+#  2. STRUCTURAL SOURCE BIAS.  17,795 of 22,080 notices (80.6%) can never carry attachment
+#     text, because legacy's document listing is auth-gated (NOTES-extract.md: the doc_view
+#     endpoint answers 200 with a "session has been expired" shell).  Merged into one index,
+#     any attachment-flavoured query silently becomes an mPhilGEPS-only query -- the failure-by-
+#     omission class this corpus punishes hardest, and invisible to the reader.
+#  3. PROVENANCE IS UNRECOVERABLE ONCE MERGED.  One index cannot say whether 'backhoe' came
+#     from the title or from page 47 of an annex.  Ranking a cheap model can audit is the whole
+#     point, so the two scores must stay separable to the end.
+#
+# So: docs.db keeps its blob-level `doc_fts` (8,337 rows, external-content over blobs), corpus.db
+# keeps `corpus_fts`, and `rfp` ATTACHes both read-only and combines the two scores in Python
+# with an explicit weight.  Nothing is copied: duplicating 554.8M chars of document text into
+# corpus.db would cost ~500MB and a rebuild step to buy a strictly worse ranking.
+#
+# DOC_WEIGHT is the cap on how much an attachment-only match can be worth relative to a perfect
+# notice-text match.  At 0.45 an attachment hit can carry a notice into the results (which is the
+# feature -- the scope lives in the PDF) but cannot displace a strong title match (the failure
+# mode named in the brief).  Verified by selfcheck t_doc_weight.
+DOC_WEIGHT = 0.45
+# The distilled tag text (scope/keywords) is one curated sentence per notice -- high precision,
+# no bulk problem -- so it is trusted more per match than an attachment, but still less than the
+# notice's own title.
+TAG_WEIGHT = 0.60
+# doc_fts columns are (text, names).  The human filename is short and highly diagnostic
+# ("BILL OF QUANTITIES.pdf"), so it is weighted well above the body text per character.
+DOC_FTS_WEIGHTS = (1.0, 4.0)
+# Cap on blobs scored per query.  'the OR and OR of' matches 5,908 blobs in 0.215s, so this is a
+# guard against pathological queries, not a routine limit.
+DOC_MATCH_CAP = 12000
+
+# ---------------------------------------------------------------------------------------------
+# Geography.  93 distinct province tokens across both corpora (measured), all clean; `location`
+# is comma-multi-valued (71 rows mPhilGEPS + 32 legacy) so it is exploded into notice_province
+# at build time.  A region filter that compares for equality misses every multi-province notice.
+# ---------------------------------------------------------------------------------------------
+REGIONS = {
+    "NCR": ["Metro Manila"],
+    "CAR": ["Abra", "Apayao", "Benguet", "Ifugao", "Kalinga", "Mountain Province"],
+    "Region I": ["Ilocos Norte", "Ilocos Sur", "La Union", "Pangasinan"],
+    "Region II": ["Batanes", "Cagayan", "Isabela", "Nueva Vizcaya", "Quirino", "Tuguegarao"],
+    "Region III": ["Aurora", "Bataan", "Bulacan", "Nueva Ecija", "Pampanga", "Tarlac", "Zambales"],
+    "Region IV-A": ["Batangas", "Cavite", "Laguna", "Quezon", "Rizal"],
+    "MIMAROPA": ["Marinduque", "Occidental Mindoro", "Oriental Mindoro", "Palawan", "Romblon"],
+    "Region V": ["Albay", "Camarines Norte", "Camarines Sur", "Catanduanes", "Masbate", "Sorsogon"],
+    "Region VI": ["Aklan", "Antique", "Capiz", "Guimaras", "Iloilo", "Negros Occidental"],
+    "Region VII": ["Bohol", "Cebu", "Negros Oriental", "Siquijor"],
+    "Region VIII": ["Biliran", "Eastern Samar", "Leyte", "Northern Samar", "Samar",
+                    "Southern Leyte"],
+    "Region IX": ["Zamboanga Del Norte", "Zamboanga Del Sur", "Zamboanga Sibugay"],
+    "Region X": ["Bukidnon", "Camiguin", "Lanao Del Norte", "Misamis Occidental",
+                 "Misamis Oriental", "Cagayan de Oro"],
+    "Region XI": ["Davao De Oro", "Davao Del Norte", "Davao Del Sur", "Davao Occidental",
+                  "Davao Oriental"],
+    "Region XII": ["Cotabato", "North Cotabato", "Sarangani", "South Cotabato", "Sultan Kudarat"],
+    "Region XIII": ["Agusan Del Norte", "Agusan Del Sur", "Butuan", "Dinagat Island",
+                    "Dinagat Islands", "Surigao Del Norte", "Surigao Del Sur"],
+    "BARMM": ["Basilan", "Lanao Del Sur", "Maguindanao", "Maguindanao Del Norte",
+              "Maguindanao Del Sur", "Special Geographic Area", "Sulu", "Tawi-Tawi"],
+}
+# Cross-region pairs a bidder actually treats as one market.  Same-region is adjacency by
+# default; these are the exceptions that matter (NCR is a dot on the map, its market is CALABARZON
+# + Central Luzon).
+EXTRA_ADJACENT = [
+    ("Metro Manila", "Cavite"), ("Metro Manila", "Laguna"), ("Metro Manila", "Rizal"),
+    ("Metro Manila", "Bulacan"), ("Metro Manila", "Bataan"), ("Metro Manila", "Pampanga"),
+    ("Cavite", "Batangas"), ("Laguna", "Batangas"), ("Laguna", "Quezon"), ("Rizal", "Bulacan"),
+    ("Bulacan", "Nueva Ecija"), ("Pampanga", "Tarlac"), ("Cebu", "Bohol"), ("Cebu", "Leyte"),
+    ("Cebu", "Negros Oriental"), ("Iloilo", "Guimaras"), ("Iloilo", "Negros Occidental"),
+    ("Davao Del Sur", "Davao Occidental"), ("Misamis Oriental", "Bukidnon"),
+]
+# Tokens that are not provinces.  'Philippines' means nationwide, '(Independent City)' is a
+# scrape artifact of a blank city field.  Both must not read as "province mismatch".
+NON_PROVINCE = {"philippines", "(independent city)", ""}
+
+_NATIONWIDE = {"PHILIPPINES", "(INDEPENDENT CITY)", "INDEPENDENT CITY"}
+_PROV_REGION, _CANON = {}, {}
+for _r, _ps in REGIONS.items():
+    for _p in _ps:
+        _PROV_REGION[_p.lower()] = _r
+        _CANON[_p.lower()] = _p
+_ADJ = {}
+for _r, _ps in REGIONS.items():
+    for _p in _ps:
+        _ADJ.setdefault(_p.lower(), set()).update(x.lower() for x in _ps if x != _p)
+for _a, _b in EXTRA_ADJACENT:
+    _ADJ.setdefault(_a.lower(), set()).add(_b.lower())
+    _ADJ.setdefault(_b.lower(), set()).add(_a.lower())
+
+WORK_TYPES = [
+    "software", "ict_hardware", "civil_works", "consulting", "medical_supplies",
+    "lab_equipment", "office_supplies", "furniture", "vehicles_parts", "food_catering",
+    "printing_promo", "security_janitorial", "training_events", "repair_maintenance",
+    "utilities_fuel", "logistics_freight", "agriculture", "mixed_supplies",
+    "outsourced_services", "other",
+]
+
+# ABC bands.  Chosen to straddle the measured value concentration: under P1M is 49.5% of notices
+# and 1.8% of value; P15M+ is 9.7% of notices and 79.6% of value.
+ABC_BANDS = [
+    (None, 100_000, "<100K"), (100_000, 500_000, "100K-500K"), (500_000, 1_000_000, "500K-1M"),
+    (1_000_000, 5_000_000, "1M-5M"), (5_000_000, 15_000_000, "5M-15M"),
+    (15_000_000, 50_000_000, "15M-50M"), (50_000_000, None, "50M+"),
+]
+
+# Agency-name abbreviation.  Pure token economy: 'MUNICIPALITY OF SAN JOSE' -> 'MUN. SAN JOSE'
+# saves ~3 tokens on every hit, and 22,068 agency strings are dominated by these prefixes.
+AGENCY_ABBREV = [
+    ("DEPARTMENT OF PUBLIC WORKS AND HIGHWAYS", "DPWH"),
+    ("DEPARTMENT OF EDUCATION", "DepEd"), ("DEPARTMENT OF HEALTH", "DOH"),
+    ("DEPARTMENT OF AGRICULTURE", "DA"), ("DEPARTMENT OF THE INTERIOR AND LOCAL GOVERNMENT",
+                                          "DILG"),
+    ("DEPARTMENT OF SOCIAL WELFARE AND DEVELOPMENT", "DSWD"),
+    ("DEPARTMENT OF ENVIRONMENT AND NATURAL RESOURCES", "DENR"),
+    ("DEPARTMENT OF SCIENCE AND TECHNOLOGY", "DOST"),
+    ("DEPARTMENT OF TRANSPORTATION", "DOTr"),
+    ("DEPARTMENT OF NATIONAL DEFENSE", "DND"), ("DEPARTMENT OF JUSTICE", "DOJ"),
+    ("DEPARTMENT OF LABOR AND EMPLOYMENT", "DOLE"),
+    ("DEPARTMENT OF TRADE AND INDUSTRY", "DTI"),
+    ("MUNICIPALITY OF", "MUN."), ("CITY GOVERNMENT OF", "CITY OF"),
+    ("PROVINCIAL GOVERNMENT OF", "PROV."), ("PROVINCE OF", "PROV."),
+    ("BARANGAY", "BRGY."), ("LOCAL GOVERNMENT UNIT OF", "LGU"),
+    ("STATE UNIVERSITY", "SU"), ("STATE COLLEGE", "SC"),
+    ("PHILIPPINE NATIONAL POLICE", "PNP"), ("ARMED FORCES OF THE PHILIPPINES", "AFP"),
+]
+
+
+# ---------------------------------------------------------------------------------------------
+# small utilities
+# ---------------------------------------------------------------------------------------------
+def die(msg, code=2):
+    print(f"rfp: {msg}", file=sys.stderr)
+    sys.exit(code)
+
+
+def est_tokens(s):
+    """Estimated tokens.  tiktoken is not installed and this tool must not grow a dependency to
+    print a number, so: 1 token per 3.5 characters, floored by word count.  Deliberately
+    pessimistic -- the corpus is ALLCAPS-heavy agency names, which tokenize worse than prose, so
+    a real tokenizer should come in at or under this.  Every token figure this tool prints or
+    asserts on is this estimate; it is a budget guard, not an invoice.
+    """
+    if not s:
+        return 0
+    return max(int(len(s) / 3.5 + 0.5), len(s.split()))
+
+
+def peso(v):
+    if v is None:
+        return "n/s"
+    v = float(v)
+    if v >= 1e9:
+        return f"P{v/1e9:.2f}B".replace(".00B", "B")
+    if v >= 1e6:
+        return f"P{v/1e6:.1f}M".replace(".0M", "M")
+    if v >= 1e3:
+        return f"P{v/1e3:.0f}K"
+    return f"P{v:.0f}"
+
+
+def norm_ws(s):
+    return re.sub(r"\s+", " ", (s or "")).strip()
+
+
+def strip_accents(s):
+    return "".join(c for c in unicodedata.normalize("NFKD", s or "") if not unicodedata.combining(c))
+
+
+def canon_province(tok):
+    t = norm_ws(strip_accents(tok)).lower()
+    if t in NON_PROVINCE:
+        return None
+    if t in _CANON:
+        return _CANON[t]
+    t2 = re.sub(r"\s*\(.*?\)\s*", "", t).strip()          # 'Davao de Oro (Compos. Valley)'
+    if t2 in _CANON:
+        return _CANON[t2]
+    return norm_ws(tok)                                    # unknown token: keep, don't drop
+
+
+def split_locations(loc):
+    if not loc:
+        return []
+    out, seen = [], set()
+    for part in str(loc).split(","):
+        p = canon_province(part)
+        if p and p.lower() not in seen:
+            seen.add(p.lower())
+            out.append(p)
+    return out
+
+
+def province_variants(name):
+    """Every spelling of one province that appears in either corpus.  The two ingests and the
+    merge each normalise differently -- 'North Cotabato' is stored with location_norm
+    'COTABATO', 'Tawi-Tawi' as 'TAWI TAWI', 'Dinagat Island' as 'DINAGAT ISLANDS',
+    'Davao de Oro (Compos. Valley)' as 'DAVAO DE ORO'.  A province filter that knows one
+    spelling silently misses the rows stored under the other."""
+    n = norm_ws(strip_accents(str(name))).upper()
+    out = {n}
+    out.add(re.sub(r"\s*\(.*?\)\s*", " ", n).strip())
+    out.add(n.replace("-", " "))
+    out.add(n.replace(" ", "-"))
+    for a, b in (("NORTH COTABATO", "COTABATO"), ("DINAGAT ISLAND", "DINAGAT ISLANDS"),
+                 ("DAVAO DE ORO", "COMPOSTELA VALLEY"),
+                 ("MAGUINDANAO", "MAGUINDANAO DEL NORTE"),
+                 ("MAGUINDANAO", "MAGUINDANAO DEL SUR")):
+        if n == a:
+            out.add(b)
+        if n == b:
+            out.add(a)
+    return {norm_ws(x) for x in out if norm_ws(x)}
+
+
+# The 8 mode families, as (family, [substrings]) in PRIORITY ORDER.  Order is load-bearing:
+# 'negotiated procurement - small value procurement (sec. 34)' IS small value procurement
+# (4,228 legacy rows), and 'international competitive bidding' is NOT the public-bidding bucket
+# -- different procurement rules, per the design doc's warning that mode_norm collapses casing
+# but must not collapse legal modes.  mode_norm survives verbatim alongside this.
+# This single table drives BOTH the Python function and the SQL CASE, so they cannot drift;
+# selfcheck asserts they agree on every row in the corpus.
+MODE_FAMILIES = [
+    ("international", ["international"]),
+    ("svp", ["small value"]),
+    ("shopping", ["shopping"]),
+    ("limited_source", ["limited source"]),
+    ("direct", ["direct acquisition", "direct contracting"]),
+    ("competitive_dialogue", ["competitive dialogue"]),
+    ("negotiated", ["negotiated"]),
+    ("public_bidding", ["public bidding", "competitive bidding"]),
+]
+
+
+# Cities whose name collides with a different province.  Quezon City is in Metro Manila, not
+# Quezon; Cotabato City is in BARMM, not Cotabato; Isabela City is in Basilan.  Without this the
+# guess below mislabels 88 notices.
+_CITY_TRAP = {"QUEZON", "COTABATO", "ISABELA", "DAVAO", "SAMAR", "CAGAYAN"}
+# The 16 NCR cities + Pateros.  Deliberately the ONLY city->province mapping here: a full
+# ~1,600-LGU registry is deferred work (design doc, "Deferred" item 3, where it is called the
+# most defensible gap on the board).  These 17 earn their place on measurement -- they recover
+# 159 further location-null notices at 99.2% precision, and Metro Manila is the single largest
+# location value in the corpus (2,190 rows).
+_NCR_CITIES = ["CALOOCAN", "LAS PINAS", "MAKATI", "MALABON", "MANDALUYONG", "MARIKINA",
+               "MUNTINLUPA", "NAVOTAS", "PARANAQUE", "PASAY", "PASIG", "PATEROS", "SAN JUAN",
+               "TAGUIG", "VALENZUELA", "QUEZON CITY", "CITY OF MANILA"]
+_AGENCY_PROV_RX = None
+_NCR_RX = None
+
+
+def agency_province(agency):
+    """Recover geography from the procuring entity's name when `location` is blank.
+
+    Measured on this corpus: `location` is null on 1,929 of 22,068 enriched notices (8.7%), and
+    the agency string names a province in 782 of them -- 'DEPARTMENT OF PUBLIC WORKS AND HIGHWAYS
+    - BULACAN 1ST DEO'.  Validated against the 19,392 rows where location IS known and
+    single-valued: the guess fires on 76.7% of them and agrees 96.3% of the time.
+
+    So it is a RANKING aid, never a filter, and it is displayed with a '~' so nobody mistakes it
+    for a stated fact.  The residual 3.7% is mostly not error but meaning: 'DA - LIPA CITY
+    BATANGAS' delivering to Quezon is an office in one province procuring for another, which is
+    exactly why a stated `location` always wins over this.
+    """
+    global _AGENCY_PROV_RX, _NCR_RX
+    if not agency:
+        return None
+    if _AGENCY_PROV_RX is None:
+        names = sorted({p for ps in REGIONS.values() for p in ps}, key=len, reverse=True)
+        _AGENCY_PROV_RX = [(p, re.compile(r"\b" + re.escape(p.upper()).replace(r"\ ", "[ -]")
+                                          + r"\b")) for p in names]
+        _NCR_RX = re.compile(r"\b(" + "|".join(
+            re.escape(c).replace(r"\ ", "[ -]") for c in _NCR_CITIES) + r")\b")
+    A = strip_accents(str(agency)).upper()
+    for p, rx in _AGENCY_PROV_RX:
+        mt = rx.search(A)
+        if not mt:
+            continue
+        if p.upper() in _CITY_TRAP and A[mt.end():mt.end() + 6].lstrip().startswith("CITY"):
+            continue
+        return p
+    return "Metro Manila" if _NCR_RX.search(A) else None
+
+
+def mode_family(mode_norm):
+    m = (mode_norm or "").strip().lower()
+    if not m:
+        return "unknown"
+    for fam, subs in MODE_FAMILIES:
+        if any(sub in m for sub in subs):
+            return fam
+    return "other"
+
+
+def sql_mode_family(mn):
+    parts = [f"when {mn} is null or trim({mn})='' then 'unknown'"]
+    for fam, subs in MODE_FAMILIES:
+        cond = " or ".join(f"{mn} like '%{s}%'" for s in subs)
+        parts.append(f"when {cond} then '{fam}'")
+    return "case " + " ".join(parts) + " else 'other' end"
+
+
+def sql_abc_band(a):
+    parts = [f"when {a} is null then 'not stated'"]
+    for lo, hi, label in ABC_BANDS:
+        if hi is not None:
+            parts.append(f"when {a} < {hi} then '{label}'")
+    return "case " + " ".join(parts) + f" else '{ABC_BANDS[-1][2]}' end"
+
+
+MODE_SHORT = {"svp": "SVP", "public_bidding": "PB", "shopping": "SHOP", "negotiated": "NEG",
+              "international": "ICB", "limited_source": "LSB", "direct": "DIR",
+              "competitive_dialogue": "CD", "other": "?", "unknown": "?"}
+
+
+def abc_band(abc):
+    if abc is None:
+        return "not stated"
+    for lo, hi, label in ABC_BANDS:
+        if (lo is None or abc >= lo) and (hi is None or abc < hi):
+            return label
+    return "50M+"
+
+
+def iso_norm(s):
+    """Normalise the two systems' ISO strings to one comparable shape.  mPhilGEPS writes
+    '2026-08-11T14:00', legacy writes '2026-08-14T14:00:00'.  Lexicographic comparison on the
+    date prefix happens to work, but only by accident; make it not an accident."""
+    s = (s or "").strip()
+    if not s:
+        return None
+    m = re.match(r"^(\d{4}-\d{2}-\d{2})[T ]?(\d{2}):(\d{2})(?::(\d{2}))?", s)
+    if m:
+        return f"{m.group(1)}T{m.group(2)}:{m.group(3)}:{m.group(4) or '00'}"
+    m = re.match(r"^(\d{4}-\d{2}-\d{2})$", s)
+    return f"{m.group(1)}T00:00:00" if m else None
+
+
+def sha1(*parts):
+    h = hashlib.sha1()
+    for p in parts:
+        h.update((str(p) if p is not None else "").encode("utf-8", "replace"))
+        h.update(b"\x1f")
+    return h.hexdigest()
+
+
+def now_iso():
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+
+
+def days_to(closing_at, ref=None):
+    """Whole days from now to closing.  None when the notice carries no closing date -- 12 zombie
+    notices (ids 2208-2239) do exactly that and would sort FIRST under a naive order by
+    closing_at, which is why nothing here treats None as 0."""
+    if not closing_at:
+        return None
+    try:
+        dt = datetime.fromisoformat(closing_at)
+    except ValueError:
+        return None
+    # closing_at is naive MANILA wall-clock; ref must be Manila too. datetime.now()
+    # (server-local) made every notice look open ~8h past its real deadline on a UTC
+    # host -- the webapp board served already-closed notices as "1h left".
+    ref = ref or (datetime.now(timezone.utc) + timedelta(hours=8)).replace(tzinfo=None)
+    return int((dt - ref.replace(tzinfo=None)).total_seconds() // 86400)
+
+
+def abbrev_agency(a, limit=34):
+    a = norm_ws(a)
+    if not a:
+        return "?"
+    up = a.upper()
+    for long, short in AGENCY_ABBREV:
+        if up.startswith(long):
+            a = short + a[len(long):]
+            break
+        if long in up and len(long) > 12:
+            i = up.index(long)
+            a = a[:i] + short + a[i + len(long):]
+            break
+    a = norm_ws(a)
+    return a if len(a) <= limit else a[:limit - 1].rstrip(" ,-") + "…"
+
+
+ITEM_HEADER_TOKENS = ["Item No.", "UNSPSC", "Lot Name", "Lot Description", "Quantity",
+                      "Unit of Measure", "ABC(Estimated Budget)", "ABC (Estimated Budget)",
+                      "Lot No.", "Description", "Unit Price"]
+
+
+def clean_items(items):
+    """Strip the retained table header.  Every mPhilGEPS notice literally contains the words
+    'Lot Description', 'Unit of Measure', 'UNSPSC' -- index those and they match every query."""
+    if not items:
+        return None
+    lines = [l.strip() for l in str(items).splitlines()]
+    keep = [l for l in lines
+            if l and l not in ITEM_HEADER_TOKENS and not re.fullmatch(r"[\d.,]+", l)]
+    return "\n".join(keep) or None
+
+
+# ---------------------------------------------------------------------------------------------
+# profile
+# ---------------------------------------------------------------------------------------------
+PROFILE_DEFAULTS = {
+    "pcab": None, "categories": [], "regions": [], "abc_band": None,
+    "min_days_to_close": 0, "results": 10, "never": [],
+}
+
+
+def _mini_yaml(text):
+    """Enough YAML for a flat profile: scalars, inline [a, b] lists, and `- item` blocks.
+    pyyaml is used when importable; this exists so `rfp` still runs where it isn't."""
+    out, key = {}, None
+    for raw in text.splitlines():
+        line = raw.split("#", 1)[0].rstrip() if not raw.strip().startswith("#") else ""
+        if not line.strip():
+            continue
+        if line.lstrip().startswith("- ") and key is not None:
+            out.setdefault(key, [])
+            if isinstance(out[key], list):
+                out[key].append(_scalar(line.lstrip()[2:]))
+            continue
+        m = re.match(r"^([A-Za-z_][A-Za-z0-9_]*)\s*:\s*(.*)$", line)
+        if not m:
+            continue
+        key, val = m.group(1), m.group(2).strip()
+        if val == "":
+            out[key] = []
+        elif val.startswith("[") and val.endswith("]"):
+            inner = val[1:-1].strip()
+            out[key] = [_scalar(x) for x in inner.split(",")] if inner else []
+        else:
+            out[key] = _scalar(val)
+    return out
+
+
+def _scalar(s):
+    s = s.strip().strip('"').strip("'")
+    if s.lower() in ("null", "none", "~", ""):
+        return None
+    if s.lower() == "true":
+        return True
+    if s.lower() == "false":
+        return False
+    if re.fullmatch(r"-?\d+", s):
+        return int(s)
+    if re.fullmatch(r"-?\d+\.\d+", s):
+        return float(s)
+    return s
+
+
+def load_profile(path=None, enabled=True):
+    p = Path(path) if path else PROFILE_MD
+    prof = dict(PROFILE_DEFAULTS)
+    prof["_source"] = str(p)
+    prof["_enabled"] = enabled
+    if not enabled or not p.exists():
+        prof["_source"] = str(p) + (" (missing)" if not p.exists() else " (disabled)")
+        return prof
+    text = p.read_text(encoding="utf-8", errors="replace")
+    blocks = re.findall(r"```(?:ya?ml)?\s*\n(.*?)```", text, re.S)
+    body = blocks[0] if blocks else text
+    data = None
+    try:
+        import yaml
+        data = yaml.safe_load(body)
+    except Exception:
+        data = None
+    if not isinstance(data, dict):
+        data = _mini_yaml(body)
+    for k, v in (data or {}).items():
+        if k in PROFILE_DEFAULTS:
+            prof[k] = v
+    if isinstance(prof.get("abc_band"), (int, float)):
+        prof["abc_band"] = [0, prof["abc_band"]]
+    for k in ("categories", "regions", "never"):
+        v = prof.get(k) or []
+        prof[k] = [str(x).strip() for x in (v if isinstance(v, list) else [v]) if x is not None]
+    prof["results"] = int(prof.get("results") or 10)
+    prof["min_days_to_close"] = int(prof.get("min_days_to_close") or 0)
+    return prof
+
+
+def profile_provinces(prof):
+    """Expand profile `regions` (which legitimately mixes region names and province names) into a
+    province set plus its adjacency ring."""
+    want, adj = set(), set()
+    for entry in prof.get("regions") or []:
+        e = norm_ws(entry)
+        el = e.lower()
+        matched = None
+        for rname, provs in REGIONS.items():
+            if el == rname.lower() or el.replace("region ", "") == rname.lower().replace(
+                    "region ", ""):
+                matched = provs
+                break
+        if matched:
+            want.update(p.lower() for p in matched)
+        else:
+            want.add(canon_province(e).lower() if canon_province(e) else el)
+    for p in list(want):
+        adj.update(_ADJ.get(p, set()))
+    return want, adj - want
+
+
+# ---------------------------------------------------------------------------------------------
+# build: merge the two source DBs into corpus.db
+# ---------------------------------------------------------------------------------------------
+NOTICES_DDL = """
+create table notices (
+  id            integer primary key,   -- rowid alias; mPhilGEPS 2208-55594, legacy 12535432+
+  source        text not null,         -- 'mphilgeps' | 'legacy'  (disjoint by construction)
+  url           text,
+  title         text,
+  agency        text,
+  mode          text,
+  mode_norm     text,                  -- casing collapsed, legal modes NOT collapsed
+  mode_family   text,                  -- svp|public_bidding|shopping|negotiated|international|...
+  classification text,                 -- SELF-DECLARED by the PE.  Wrong often enough to matter.
+  category      text,
+  work_type     text,                  -- tag pass; what kind of FIRM bids.  null = untagged.
+  needs_pcab    integer,
+  eligibility   text,                  -- json array, universal four excluded
+  scope         text,                  -- one sentence from the tag pass
+  keywords      text,
+  location      text,                  -- raw, comma-multi-valued, null on ~12%
+  province      text,                  -- first parsed province, for display
+  provinces     text,                  -- canonical comma list
+  abc           real,                  -- notice total.  NULL on 39 rows, some published today.
+  abc_lot_min   real, abc_lot_max real,-- per-lot range; a bidder bids a lot, not a notice
+  abc_band      text,
+  publish       text, publish_at text,
+  closing       text, closing_at text, -- normalised ISO, nullable
+  closing_dow   integer,               -- 0=Mon .. 6=Sun, for the deadline-clustering fact
+  solicitation_no text, trade_agreement text,
+  delivery      text, status text, funding text, control text,
+  lot_type      text, client_agency text,
+  contact       text, contact_email text, contact_phone text,
+  downloads     text, closing_detail text, last_updated text,
+  bid_supplements integer, doc_req_list integer,
+  description   text,
+  items         text,                  -- table header stripped
+  dupe_key      text,                  -- candidate generator ONLY; never auto-merge
+  seen_at       text, enriched_at text, fetch_errors integer
+);
+create index notices_closing on notices(closing_at);
+create index notices_abc on notices(abc);
+create index notices_wt on notices(work_type);
+create index notices_mf on notices(mode_family);
+create index notices_src on notices(source);
+create index notices_dupe on notices(dupe_key);
+
+create table notice_province (
+  id integer not null, province text not null, region text,
+  primary key (id, province)
+);
+create index np_prov on notice_province(province);
+create index np_region on notice_province(region);
+
+create table meta (k text primary key, v text);
+"""
+
+# FTS5 over external content.  `corpus` is the table the design doc's example query hits
+# directly: indexed text columns plus UNINDEXED metadata, so
+#   select id,title,abc,closing_at from corpus where corpus match '...' and abc between ...
+# works verbatim, and the UNINDEXED values are read back from notices with their real types.
+FTS_INDEXED = ["title", "agency", "category", "work_type", "scope", "keywords", "location",
+               "solicitation_no", "items", "description"]
+FTS_UNINDEXED = ["id", "source", "url", "mode", "mode_norm", "mode_family", "classification",
+                 "needs_pcab", "eligibility", "province", "provinces", "abc", "abc_lot_min",
+                 "abc_lot_max", "abc_band", "publish_at", "closing", "closing_at", "closing_dow",
+                 "delivery", "status", "dupe_key"]
+# BM25 weights.  Every notice contains 'Republic Act 12009' and 'non-discretionary pass/fail', so
+# those score ~0 for free; the weighting just says a title hit beats a boilerplate-body hit.
+FTS_WEIGHTS = {"title": 8.0, "keywords": 6.0, "scope": 5.0, "category": 2.5, "work_type": 3.0,
+               "items": 2.0, "items_text": 2.0, "agency": 1.5, "location": 1.0,
+               "solicitation_no": 0.5, "description": 1.0}
+
+
+def fts_ddl():
+    cols = ", ".join(FTS_INDEXED + [f"{c} UNINDEXED" for c in FTS_UNINDEXED])
+    return f"create virtual table corpus using fts5({cols}, content='notices', tokenize='unicode61');"
+
+
+def _rows(db_path, sql):
+    if not Path(db_path).exists():
+        return []
+    con = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
+    con.row_factory = sqlite3.Row
+    try:
+        return con.execute(sql).fetchall()
+    finally:
+        con.close()
+
+
+def cmd_build(args):
+    out = Path(args.out) if args.out else DEFAULT_DB
+    if out.exists() and not args.force:
+        die(f"{out.name} already exists -- refusing to overwrite. `rfp build --force` to rebuild, "
+            f"or point RFP_DB at another file.")
+    if not SRC_MPHILGEPS.exists() and not SRC_LEGACY.exists():
+        die(f"no source DBs: expected {SRC_MPHILGEPS.name} and/or {SRC_LEGACY.name}")
+    tmp = out.with_name(out.name + ".tmp")
+    if tmp.exists():
+        tmp.unlink()
+    db = sqlite3.connect(str(tmp))
+    db.executescript("pragma journal_mode=delete; pragma synchronous=off;")
+    db.executescript(NOTICES_DDL)
+
+    tags = {}
+    if SRC_TAGS.exists():
+        for r in _rows(SRC_TAGS, "select * from tags"):
+            tags[r["id"]] = r
+    counts = {"mphilgeps": 0, "legacy": 0, "tagged": 0, "skipped_unenriched": 0}
+
+    def stage(rows, source, mapper):
+        batch, provrows = [], []
+        for r in rows:
+            rec = mapper(r)
+            if rec is None:
+                counts["skipped_unenriched"] += 1
+                continue
+            t = tags.get(rec["id"])
+            if t:
+                counts["tagged"] += 1
+                rec["work_type"] = t["work_type"]
+                rec["needs_pcab"] = t["needs_pcab"]
+                rec["eligibility"] = t["eligibility"]
+                rec["scope"] = t["scope"]
+                # tags.db pilot keywords are character-shredded ('f e a s i b l t y'); a run of
+                # single letters is not a keyword, so drop rather than index noise.
+                kw = norm_ws(t["keywords"])
+                toks = kw.split()
+                rec["keywords"] = kw if toks and sum(len(x) == 1 for x in toks) < len(toks) / 2 \
+                    else None
+            provs = split_locations(rec.get("location"))
+            rec["provinces"] = ",".join(provs) or None
+            rec["province"] = provs[0] if provs else None
+            rec["abc_band"] = abc_band(rec.get("abc"))
+            rec["mode_family"] = mode_family(rec.get("mode_norm"))
+            ca = rec.get("closing_at")
+            rec["closing_dow"] = None
+            if ca:
+                try:
+                    rec["closing_dow"] = datetime.fromisoformat(ca).weekday()
+                except ValueError:
+                    pass
+            rec["url"] = (URL_MPHILGEPS if source == "mphilgeps" else URL_LEGACY).format(rec["id"])
+            rec["source"] = source
+            if not rec.get("dupe_key"):
+                rec["dupe_key"] = sha1(norm_ws(rec.get("agency")).lower(), ca,
+                                       norm_ws(rec.get("title")).lower()[:80], rec.get("abc"))
+            batch.append(rec)
+            for p in provs:
+                provrows.append((rec["id"], p, _PROV_REGION.get(p.lower())))
+            counts[source] += 1
+        cols = [c[1] for c in db.execute("pragma table_info(notices)")]
+        ph = ",".join("?" * len(cols))
+        db.executemany(f"insert or replace into notices ({','.join(cols)}) values ({ph})",
+                       [tuple(rec.get(c) for c in cols) for rec in batch])
+        db.executemany("insert or replace into notice_province values (?,?,?)", provrows)
+
+    def map_m(r):
+        if not r["enriched_at"]:
+            return None          # 12 rows: never enriched, incl. the permanent-500 zombies
+        return dict(
+            id=r["id"], title=norm_ws(r["title"]), agency=norm_ws(r["agency"]),
+            mode=r["mode"], mode_norm=(r["mode"] or "").strip().lower(),
+            classification=r["classification"], category=r["category"],
+            location=r["location"], abc=r["abc"], abc_lot_min=r["abc_lot_min"],
+            abc_lot_max=r["abc_lot_max"], publish=r["publish"],
+            publish_at=iso_norm(r["publish_at"]), closing=r["closing"],
+            closing_at=iso_norm(r["closing_at"]), delivery=r["delivery_days"],
+            status=r["status"], funding=r["funding"], control=r["control"],
+            lot_type=r["lot_type"], client_agency=r["client_agency"], contact=r["contact"],
+            downloads=r["downloads"], closing_detail=r["closing_detail"],
+            last_updated=r["updated"], description=r["description"],
+            items=clean_items(r["items"]), seen_at=r["seen_at"], enriched_at=r["enriched_at"],
+            fetch_errors=r["fetch_errors"],
+        )
+
+    def map_l(r):
+        if not r["enriched_at"]:
+            return None
+        return dict(
+            id=r["id"], title=norm_ws(r["title"]), agency=norm_ws(r["agency"]),
+            mode=r["mode"], mode_norm=norm_ws(r["mode_norm"]).lower() or
+            (r["mode"] or "").strip().lower(),
+            classification=r["classification"], category=r["category"],
+            location=r["location"], abc=r["abc"], publish=r["publish"],
+            publish_at=iso_norm(r["publish_at"]), closing=r["closing"],
+            closing_at=iso_norm(r["closing_at"]), delivery=r["delivery_period"],
+            status=r["status"], contact=r["contact"], contact_email=r["contact_email"],
+            contact_phone=r["contact_phone"], description=r["description"],
+            solicitation_no=r["solicitation_no"], trade_agreement=r["trade_agreement"],
+            bid_supplements=r["bid_supplements"], doc_req_list=r["doc_req_list"],
+            last_updated=r["last_updated"], dupe_key=r["dupe_key"], seen_at=r["seen_at"],
+            enriched_at=r["enriched_at"], fetch_errors=r["fetch_errors"],
+        )
+
+    if SRC_MPHILGEPS.exists():
+        stage(_rows(SRC_MPHILGEPS, "select * from tenders"), "mphilgeps", map_m)
+    if SRC_LEGACY.exists():
+        stage(_rows(SRC_LEGACY, "select * from tenders"), "legacy", map_l)
+    db.commit()
+
+    db.execute(fts_ddl())
+    db.execute("insert into corpus(corpus) values('rebuild')")
+    total = db.execute("select count(*) from notices").fetchone()[0]
+    for k, v in [("built_at", now_iso()), ("mphilgeps", counts["mphilgeps"]),
+                 ("legacy", counts["legacy"]), ("tagged", counts["tagged"]),
+                 ("skipped_unenriched", counts["skipped_unenriched"]), ("notices", total),
+                 ("schema", "notices+corpus(fts5,content=notices)+notice_province"),
+                 ("builder", "rfp build")]:
+        db.execute("insert or replace into meta values (?,?)", (k, str(v)))
+    db.commit()
+    db.execute("analyze")
+    db.commit()
+    db.close()
+    tmp.replace(out)
+    print(f"built {out}  notices={total}  mphilgeps={counts['mphilgeps']} "
+          f"legacy={counts['legacy']} tagged={counts['tagged']} "
+          f"skipped_unenriched={counts['skipped_unenriched']}")
+    return 0
+
+
+# ---------------------------------------------------------------------------------------------
+# read surface
+# ---------------------------------------------------------------------------------------------
+# The authorizer is deliberately NARROW.  Writes are already impossible -- the file is opened
+# file:corpus.db?mode=ro and SQLite answers every INSERT/UPDATE/DELETE/DROP/CREATE/ALTER with
+# "attempt to write a readonly database" (all nine verified in selfcheck).  What mode=ro does NOT
+# stop is `attach 'writable.db' as w; insert into w...`, so ATTACH/DETACH is what gets denied.
+#
+# Measured trap, paid for once: denying the write actions as well BREAKS FTS5 --
+# "vtable constructor failed: corpus_fts", because fts5's xConnect prepares statements against
+# its own shadow tables and an INSERT-denying authorizer kills them.  A broader authorizer here
+# silently costs you the entire retrieval layer, which is why it is this narrow and why the
+# comment is this long.
+_DENY = {getattr(sqlite3, n) for n in ("SQLITE_ATTACH", "SQLITE_DETACH")
+         if hasattr(sqlite3, n)}
+_DENY_PRAGMA = {"writable_schema", "journal_mode", "synchronous", "temp_store_directory",
+                "data_store_directory"}
+
+
+def _authorizer(action, arg1, arg2, dbname, source):
+    if action in _DENY:
+        return sqlite3.SQLITE_DENY
+    if action == getattr(sqlite3, "SQLITE_PRAGMA", -1) and \
+            str(arg1 or "").lower() in _DENY_PRAGMA:
+        return sqlite3.SQLITE_DENY
+    return sqlite3.SQLITE_OK
+
+
+def db_path():
+    env = os.environ.get("RFP_DB")
+    if env:
+        return Path(env)
+    return DEFAULT_DB
+
+
+# Auxiliary read surfaces, attached under fixed schema names so `rfp sql` can join them.
+# Order matters only for the error message.
+AUX_DBS = [("docs", lambda: DOCS_DB), ("tags", lambda: SRC_TAGS)]
+
+
+def attach_aux(con):
+    """ATTACH docs.db and tags.db read-only, BEFORE the authorizer goes on.
+
+    The ordering is the whole trick and it is not cosmetic.  The authorizer denies SQLITE_ATTACH
+    outright -- that is what stops `attach 'writable.db' as w; insert into w...`, the one hole
+    mode=ro leaves open.  But a blanket denial also locks US out of the two databases the search
+    layer now needs.  Attaching first and arming the authorizer second gives both: the three
+    databases we intend are visible, and a model that tries to attach a fourth gets
+    'not authorized'.  Verified both directions in selfcheck t_attach.
+
+    Each aux file is itself opened `?mode=ro`, so the attached handles are read-only in their own
+    right; the main connection's mode=ro does NOT propagate to attachments.  Also verified.
+
+    Returns the list of schema names that actually attached.  A missing aux DB is not an error --
+    docs.db is 718MB and gitignored, so a fresh clone has corpus.db and nothing else, and every
+    read path degrades to 'not crawled' rather than to a silent empty list."""
+    got = []
+    for name, pathfn in AUX_DBS:
+        p = pathfn()
+        if not p.exists():
+            continue
+        try:
+            con.execute(f"attach database ? as {name}", (f"file:{p}?mode=ro",))
+            got.append(name)
+        except sqlite3.DatabaseError:
+            pass          # locked / corrupt / wrong build of sqlite: degrade, never die
+    return got
+
+
+def connect(strict=True):
+    """Read-only, three times over.  mode=ro is SQLite's own guarantee on each file; the
+    authorizer closes the `attach 'writable.db' as w; insert into w...` hole that mode=ro does
+    not.  A model that writes DELETE gets an error, not an incident."""
+    p = db_path()
+    if not p.exists():
+        die(f"{p} not found. Run `rfp build` (merges tenders.db + legacy.db + tags.db), "
+            f"or set RFP_DB=/path/to/corpus.db")
+    con = sqlite3.connect(f"file:{p}?mode=ro", uri=True)
+    con.row_factory = sqlite3.Row
+    attach_aux(con)                           # must precede set_authorizer -- see attach_aux
+    if strict:
+        con.set_authorizer(_authorizer)
+    return con
+
+
+def aux_schemas(con):
+    """Which aux databases are actually attached, asked of SQLite rather than remembered.
+    sqlite3.Connection is a C type and rejects attribute assignment, and a cache keyed on
+    id(con) goes stale the moment an id is reused after a close."""
+    try:
+        return {r[1] for r in con.execute("pragma database_list")} - {"main", "temp"}
+    except sqlite3.DatabaseError:
+        return set()
+
+
+_SCHEMA_CACHE = {}
+PROV_TABLES = ["notice_location", "notice_province"]      # sibling's merge, then rfp build's
+FTS_TABLES = ["corpus_fts", "corpus"]                     # sibling's merge, then rfp build's
+
+
+def schema(con):
+    """Introspect rather than assume.
+
+    corpus.db is built by a job this CLI does not own, and its shape is already NOT what the
+    design doc sketched: the relational table is `corpus` (not `notices`), full text lives in a
+    separate `corpus_fts` joined on `nid` (not on the site id), locations explode into
+    `notice_location`, and derived fields the doc implies -- mode_family, abc_band, province,
+    url -- do not exist as columns at all.  So: discover the base table, the FTS table and its
+    join key, the location table, and synthesise every missing column as SQL.  Every read path
+    below goes through expr(), so a schema change costs one entry in DERIVED, not a rewrite.
+    """
+    key = id(con)
+    if key in _SCHEMA_CACHE:
+        return _SCHEMA_CACHE[key]
+    info = {}
+    for (name,) in con.execute(
+            "select name from sqlite_master where type in ('table','view')").fetchall():
+        try:
+            info[name] = [r[1] for r in con.execute(f"pragma table_info({name})")]
+        except sqlite3.DatabaseError:
+            info[name] = []
+    base = next((t for t in ("notices", "corpus") if t in info and "title" in info[t]), None)
+    if base is None:
+        die("corpus.db has no table with notice columns (looked for `notices`, `corpus`); "
+            "run `rfp build --force` to build one from tenders.db + legacy.db")
+    cols = set(info[base])
+
+    fts, fts_cols, fts_key = None, [], None
+    for cand in FTS_TABLES:
+        if cand in info and cand != base:
+            fts, fts_cols = cand, info[cand]
+            break
+    if fts:
+        sql = (con.execute("select sql from sqlite_master where name=?", (fts,)).fetchone()
+               or [""])[0] or ""
+        m = re.search(r"content_rowid\s*=\s*'?([A-Za-z_][A-Za-z0-9_]*)'?", sql)
+        fts_key = m.group(1) if m else "rowid"
+        if fts_key not in cols and fts_key != "rowid":
+            fts_key = "rowid"
+    elif base == "corpus" and "corpus_fts_data" in info:
+        fts, fts_cols, fts_key = base, info[base], None      # base IS the FTS table
+    if fts and not fts_cols:
+        fts = None      # a vtab whose columns we cannot read is unusable; fall back to filters
+
+    prov = None
+    for cand in PROV_TABLES:
+        if cand in info:
+            pc = info[cand]
+            keycol = next((k for k in ("nid", "id") if k in pc), None)
+            valcol = next((v for v in ("location", "province") if v in pc), None)
+            if keycol and valcol:
+                prov = {"table": cand, "key": keycol, "val": valcol,
+                        "norm": "location_norm" if "location_norm" in pc else None,
+                        "ord": "ord" if "ord" in pc else "rowid"}
+                break
+    if prov and prov["key"] not in cols:
+        prov = None                                          # cannot join it; fall back to LIKE
+
+    # How many rows the tag pass has actually written.  Currently ZERO, which makes
+    # --work-type a silent no-op; the filter says so rather than returning an empty list.
+    tagged = None
+    if "work_type" in cols:
+        try:
+            tagged = con.execute(
+                f"select count(*) from {base} where work_type is not null").fetchone()[0]
+        except sqlite3.DatabaseError:
+            tagged = None
+    # Aux surfaces.  `tags` matters twice over: corpus.work_type is non-null on ZERO rows in the
+    # merged corpus.db (the tag pass wrote tags.db, and nothing merged it back), so --work-type,
+    # `scope` and `keywords` were dead until the attach landed.  With tags.db attached they
+    # resolve through DERIVED as correlated subqueries -- 9ms for a full-corpus work_type filter,
+    # measured -- and no FROM clause anywhere has to change.
+    aux = aux_schemas(con)
+    tags_ok, docs_ok = "tags" in aux, "docs" in aux
+    tag_src = "base" if tagged else None    # non-zero base count means the merge already ran
+    if tags_ok:
+        try:
+            n = con.execute("select count(*) from tags.tags").fetchone()[0]
+            tags_ok = n > 0
+            if tags_ok and not tagged:
+                tag_src, tagged = "tags_db", n
+        except sqlite3.DatabaseError:
+            tags_ok = False
+    if docs_ok:
+        try:
+            con.execute("select 1 from docs.doc_fts limit 1").fetchone()
+        except sqlite3.DatabaseError:
+            docs_ok = False                # no FTS index over document text -> no doc search
+    s = {"tables": info, "base": base, "cols": cols, "fts": fts, "fts_cols": fts_cols,
+         "fts_key": fts_key, "prov": prov, "tagged": tagged,
+         "tags_db": tags_ok, "docs_db": docs_ok, "aux": aux, "tag_src": tag_src,
+         "tag_fts": "tag_fts" in info and bool(info.get("tag_fts"))}
+    _SCHEMA_CACHE[key] = s
+    return s
+
+
+def _prov_subquery(s, select, extra=""):
+    p, b = s["prov"], s["base"]
+    nat = ", ".join(f"'{x}'" for x in sorted(_NATIONWIDE))
+    return (f"(select {select} from {p['table']} pv where pv.{p['key']} = {b}.{p['key']} "
+            f"and pv.{p['val']} is not null and trim(pv.{p['val']}) <> '' "
+            f"and upper(pv.{p['val']}) not in ({nat}) {extra})")
+
+
+# Columns the design doc's ranking and output need but no corpus.db actually stores.  Synthesised
+# in SQL so `rfp sql` users can copy the expression, and so filters on them stay in the database.
+DERIVED = {
+    "url": lambda s: (
+        "case {b}.source when 'legacy' then "
+        "'https://notices.philgeps.gov.ph/GEPSNONPILOT/Tender/"
+        "SplashBidNoticeAbstractUI.aspx?refID=' || {b}.id "
+        "else 'https://philgeps.gov.ph/Indexes/viewLiveTenderDetails/' || {b}.id end"
+    ).format(b=s["base"]),
+    "mode_family": lambda s: sql_mode_family(f"{s['base']}.mode_norm"),
+    "abc_band": lambda s: sql_abc_band(f"{s['base']}.abc"),
+    "delivery": lambda s: "coalesce(" + ", ".join(
+        f"{s['base']}.{c}" for c in ("delivery", "delivery_days", "delivery_period")
+        if c in s["cols"]) + ")" if any(
+        c in s["cols"] for c in ("delivery", "delivery_days", "delivery_period")) else "null",
+    "closing_dow": lambda s: f"cast(strftime('%w', {s['base']}.closing_at) as integer)",
+    "items": lambda s: (f"{s['base']}.items_text" if "items_text" in s["cols"] else "null"),
+    "province": lambda s: (
+        _prov_subquery(s, f"pv.{s['prov']['val']}", f"order by pv.{s['prov']['ord']} limit 1")
+        if s["prov"] else f"{s['base']}.location"),
+    "provinces": lambda s: (
+        _prov_subquery(s, f"group_concat(pv.{s['prov']['val']}, ',')")
+        if s["prov"] else f"{s['base']}.location"),
+}
+
+
+# PREFER: when a corpus.db carries two spellings of one field, which one wins.
+PREFER = {"items": ["items_text", "items"],
+          "last_updated": ["updated_at", "last_updated_at", "last_updated", "updated"]}
+
+
+# Columns the tag pass owns.  They exist as (entirely NULL) columns on the merged `corpus` table
+# AND as real values in tags.db, so expr() must prefer whichever one is actually populated.
+TAG_COLS = {"work_type", "needs_pcab", "eligibility", "scope", "keywords",
+            "deliverables", "doc_note", "doc_chars", "tag_tier"}
+_TAG_COL_SQL = {"tag_tier": "tier"}
+
+
+def expr(s, name, default="null"):
+    """SQL expression for a canonical column: the real column, else a synthesised one, else NULL.
+    Nothing downstream may reference a physical column directly."""
+    # Tags first: a physically-present-but-all-NULL column must lose to a populated one in
+    # tags.db, otherwise every tag-driven filter is a silent no-op returning zero rows.
+    if name in TAG_COLS and s.get("tag_src") == "tags_db":
+        return (f"(select tg.{_TAG_COL_SQL.get(name, name)} from tags.tags tg "
+                f"where tg.id = {s['base']}.id)")
+    for cand in PREFER.get(name, []):
+        if cand in s["cols"]:
+            return f"{s['base']}.{cand}"
+    if name in s["cols"]:
+        return f"{s['base']}.{name}"
+    fn = DERIVED.get(name)
+    if fn:
+        try:
+            return fn(s)
+        except Exception:
+            return default
+    return default
+
+
+def col(s, name, default="null"):
+    return expr(s, name, default)
+
+
+def relax(q):
+    """Models write `software OR ICT OR "information system"` (valid FTS5) and also `abc:>5M` or
+    `road-widening (((` (syntax errors).  On error the query is relaxed to an OR of quoted
+    barewords rather than returning zero rows, because a silent empty result for a typo is the
+    omission failure this corpus punishes hardest."""
+    words = re.findall(r"[\w][\w'&/.\-]*", norm_ws(q))
+    words = [w for w in words if w.upper() not in ("AND", "OR", "NOT", "NEAR")]
+    if not words:
+        return None
+    return " OR ".join(f'"{w}"' for w in words)
+
+
+def build_where(s, args, prof, fit_mode):
+    """Every clause here is null-tolerant on purpose.  `abc <= X` that drops the 39 null-ABC rows
+    (some published the same day) is the bug the design doc singles out."""
+    where, params, notes = [], [], []
+
+    # The 12 unenriched rows are the permanent-HTTP-500 zombies (ids 2208-2239): no ABC, no
+    # closing date, no detail. 22,080 rows - 12 = the 22,068 the design doc counts.
+    if "enriched_at" in s["cols"] and not getattr(args, "include_unenriched", False):
+        where.append(f"{expr(s,'enriched_at')} is not null")
+    if args.work_type and s.get("tagged") == 0:
+        notes.append("--work-type matches NOTHING: the tag pass has not run, work_type is null "
+                     "on every row. Filter on title/items text instead (see SKILL.md).")
+    if args.source:
+        where.append(f"{col(s,'source')} = ?")
+        params.append(args.source)
+    if args.work_type:
+        wts = [w.strip() for a in args.work_type for w in str(a).split(",") if w.strip()]
+        where.append("(" + " or ".join([f"{expr(s,'work_type')} = ?"] * len(wts)) + ")")
+        params += wts
+    if args.mode_family:
+        mfs = [w.strip() for a in args.mode_family for w in str(a).split(",") if w.strip()]
+        where.append("(" + " or ".join([f"({expr(s,'mode_family')}) = ?"] * len(mfs)) + ")")
+        params += mfs
+    if args.mode:
+        where.append(f"lower({col(s,'mode_norm',repr(''))}) like ?")
+        params.append(f"%{args.mode.lower()}%")
+    if args.agency:
+        where.append(f"lower({col(s,'agency',repr(''))}) like ?")
+        params.append(f"%{args.agency.lower()}%")
+    if args.classification:
+        where.append(f"lower({col(s,'classification',repr(''))}) like ?")
+        params.append(f"%{args.classification.lower()}%")
+
+    # --- ABC.  Multi-lot notices are findable by their PER-LOT range: notice 54278 is a P360K
+    # notice made of six P60K lots, and a bidder filtering abc<=100K must see it.
+    lo, hi = args.abc_min, args.abc_max
+    if lo is not None or hi is not None:
+        a = expr(s, "abc")
+        amin, amax = expr(s, "abc_lot_min"), expr(s, "abc_lot_max")
+        clauses, tot = [], []
+        if lo is not None:
+            tot.append(f"{a} >= ?")
+        if hi is not None:
+            tot.append(f"{a} <= ?")
+        clauses.append("(" + " and ".join(tot) + ")")
+        params += [x for x in (lo, hi) if x is not None]
+        if "abc_lot_min" in s["cols"] and "abc_lot_max" in s["cols"]:
+            lot = [f"{amax} >= ?" if lo is not None else None,
+                   f"{amin} <= ?" if hi is not None else None]
+            clauses.append("(" + " and ".join(c for c in lot if c) + ")")  # lot range overlaps
+            params += [x for x in (lo, hi) if x is not None]
+        if not args.strict_abc:
+            clauses.append(f"{a} is null")
+            notes.append("abc filter includes the 39 notices with no stated ABC "
+                         "(--strict-abc excludes them)")
+        where.append("(" + " or ".join(clauses) + ")")
+
+    # --- geography.  Match against the exploded per-province rows and against every spelling of
+    # each province; never compare `location` for equality -- 103 rows are comma-multi-valued
+    # ('Batangas,Laguna,Quezon,Rizal') and `location = 'Laguna'` misses all of them.
+    provs = [p.strip() for a in (args.province or []) for p in str(a).split(",") if p.strip()]
+    if provs:
+        want = set()
+        for p in provs:
+            hit = next((pl for rn, pl in REGIONS.items() if p.lower() == rn.lower()), None)
+            for name in (hit or [p]):
+                want |= province_variants(name)
+        want = sorted(want)
+        ph = ",".join("?" * len(want))
+        pt = s["prov"]
+        if pt:
+            match = f"upper(pv.{pt['val']}) in ({ph})"
+            binds = list(want)
+            if pt["norm"]:
+                match = f"({match} or upper(coalesce(pv.{pt['norm']},'')) in ({ph}))"
+                binds = list(want) + list(want)
+            clause = (f"exists (select 1 from {pt['table']} pv "
+                      f"where pv.{pt['key']} = {s['base']}.{pt['key']} and {match})")
+            params += binds
+        else:                                   # no exploded table: LIKE per token, still no '='
+            clause = "(" + " or ".join(
+                [f"upper(coalesce({expr(s,'location')},'')) like ?"] * len(want)) + ")"
+            params += [f"%{w}%" for w in want]
+        locnull = (f"({expr(s,'location')} is null or trim({expr(s,'location')}) = '' "
+                   f"or upper({expr(s,'location')}) = 'PHILIPPINES')")
+        if args.province_strict:
+            where.append(clause)
+        else:
+            where.append(f"({clause} or {locnull})")
+            notes.append("province filter also keeps notices with no stated location (8.7% corpus-wide, 12.2% of mPhilGEPS) "
+                         "(--province-strict drops them)")
+
+    # --- time.  `closing_at` is nullable and the null rows must not sort first.
+    ca = expr(s, "closing_at")
+    if not args.include_closed:
+        where.append(f"({ca} >= ? or {ca} is null)")
+        params.append(datetime.now().replace(microsecond=0).isoformat())
+    if args.closing_before:
+        where.append(f"{ca} <= ?")
+        params.append(args.closing_before + "T23:59:59")
+    if args.closing_after:
+        where.append(f"{ca} >= ?")
+        params.append(args.closing_after + "T00:00:00")
+    if args.days_max is not None:
+        where.append(f"julianday({ca}) - julianday('now') <= ?")
+        params.append(args.days_max + 1)
+    if args.days_min is not None:
+        where.append(f"julianday({ca}) - julianday('now') >= ?")
+        params.append(args.days_min)
+    return where, params, notes
+
+
+SELECT_COLS = ["id", "source", "url", "title", "agency", "mode", "mode_norm", "mode_family",
+               "classification", "category", "work_type", "needs_pcab", "eligibility", "scope",
+               "keywords", "location", "province", "provinces", "abc", "abc_lot_min",
+               "abc_lot_max", "abc_band", "closing", "closing_at", "publish_at", "status",
+               "delivery"]
+
+
+# ---------------------------------------------------------------------------------------------
+# Three indexes, joined by notice id.  See the DOC_WEIGHT comment at the top for why attachment
+# text is NOT merged into corpus_fts.
+#
+#   corpus_fts   notice text      title / description / items_text / category / agency   (22,080)
+#   tag_fts      distilled text   scope / keywords / deliverables from the Luna pass      (22,068)
+#   docs.doc_fts attachment text  extracted document text + human filenames, per blob      (8,337)
+#
+# Every hit reports which of the three it matched, because a ranking a cheap model cannot audit
+# is indistinguishable from vibes.
+# ---------------------------------------------------------------------------------------------
+PROV_LABEL = {"title": "ttl", "description": "desc", "items_text": "items", "items": "items",
+              "agency": "agcy", "category": "cat", "location": "loc", "keywords": "kw",
+              "scope": "scope", "deliverables": "deliv", "solicitation_no": "ref",
+              "work_type": "wt", "att": "att"}
+# Print order, so provenance reads the same way every time.
+PROV_ORDER = ["ttl", "scope", "kw", "deliv", "items", "desc", "cat", "agcy", "loc", "ref", "wt",
+              "att"]
+
+_BLOB_MAP = {}
+
+
+def blob_notice_map(con):
+    """{blob_id: [notice_id, ...]} for every attached document.
+
+    Loaded whole (9,827 rows, measured 6ms) rather than joined per query.  Blobs are deduped by
+    sha256 in docs.db, so ONE blob legitimately belongs to several notices -- the same ITB
+    boilerplate posted by the same PE under six refIDs -- and a doc-text hit must light up all of
+    them, not an arbitrary one."""
+    key = id(con)
+    if key not in _BLOB_MAP:
+        m = {}
+        try:
+            for blob_id, nid in con.execute(
+                    "select distinct blob_id, notice_id from docs.documents "
+                    "where blob_id is not null"):
+                m.setdefault(blob_id, []).append(nid)
+        except sqlite3.DatabaseError:
+            m = {}
+        _BLOB_MAP[key] = m
+    return _BLOB_MAP[key]
+
+
+def doc_match(con, match_expr, cap=DOC_MATCH_CAP):
+    """Attachment-text hits, aggregated blob-level -> notice-level.
+
+    Returns {notice_id: {"rel": float, "blob": blob_id, "ndocs": int}} where rel is positive and
+    larger-is-better (bm25 returns negative).
+
+    Per notice the score is the BEST matching blob, never the sum.  Summing would rank a notice
+    by how many PDFs it happens to carry -- an artifact of how the BAC packaged the bid docs, not
+    a relevance signal -- and notices carry up to 40 documents.
+
+    Two-phase on purpose: score every matching blob here (cheap, no snippets), then fetch
+    snippets for the handful of blobs that actually survive ranking.  Computing snippets for the
+    5,908 blobs that match a query like 'the OR and OR of' would cost seconds for output nobody
+    reads."""
+    w = ", ".join(str(x) for x in DOC_FTS_WEIGHTS)
+    try:
+        rows = con.execute(
+            f"select rowid, bm25(doc_fts, {w}) as s from docs.doc_fts "
+            f"where doc_fts match ? limit ?", (match_expr, cap)).fetchall()
+    except sqlite3.DatabaseError:
+        return {}
+    m = blob_notice_map(con)
+    by = {}
+    for blob_id, sc in rows:
+        rel = -float(sc or 0.0)
+        for nid in m.get(blob_id, ()):
+            cur = by.get(nid)
+            if cur is None:
+                by[nid] = {"rel": rel, "blob": blob_id, "ndocs": 1}
+            else:
+                cur["ndocs"] += 1
+                if rel > cur["rel"]:
+                    cur["rel"], cur["blob"] = rel, blob_id
+    return by
+
+
+def tag_match(con, s, match_expr, cap=DOC_MATCH_CAP):
+    """Hits against the distilled tag text (scope / keywords / deliverables).
+
+    This is the channel that answers 'what is actually being bought', because the notice
+    description is ~2,086 chars of RA 12009 boilerplate and the title is often a purchase-order
+    number.  Absent until `rfp reindex` has run; absence degrades to no tag channel, never to an
+    error."""
+    if not s.get("tag_fts"):
+        return {}
+    try:
+        rows = con.execute(
+            "select rowid, bm25(tag_fts, 5.0, 4.0, 3.0) as s from tag_fts "
+            "where tag_fts match ? limit ?", (match_expr, cap)).fetchall()
+    except sqlite3.DatabaseError:
+        return {}
+    return {int(r[0]): -float(r[1] or 0.0) for r in rows}
+
+
+def _col_ids(con, s, table, column, match_expr, key_sql):
+    """Notice ids whose `column` matched, for provenance.  One scoped MATCH per column,
+    sub-millisecond each (measured), so provenance costs ~5 extra FTS probes per search."""
+    try:
+        return {int(r[0]) for r in con.execute(
+            f"select {key_sql} from {table} where {table} match ?",
+            (f"{{{column}}} : ({match_expr})",))}
+    except sqlite3.DatabaseError:
+        return set()          # a query FTS5 will not accept per-column: skip that channel
+
+
+def provenance(con, s, match_expr, doc_ids, tag_ids):
+    """{notice_id: [short label, ...]} -- WHERE each hit matched.
+
+    Notice-side channels are recovered by re-running the query restricted to one column at a
+    time.  FTS5 has no 'which column matched' aux function, and the alternatives (parsing
+    highlight() output, or one FTS table per column) are both worse than five cheap probes."""
+    out = {}
+    ft, base = s.get("fts"), s["base"]
+    if match_expr and ft:
+        jk = s.get("fts_key") or "rowid"
+        if ft == base:
+            key_sql = f"{base}.id"
+            frm = ft
+        else:
+            key_sql = f"{base}.id"
+            frm = f"{ft} join {base} on {base}.{jk} = {ft}.rowid"
+        for c in s.get("fts_cols", []):
+            lab = PROV_LABEL.get(c)
+            if not lab:
+                continue
+            try:
+                ids = {int(r[0]) for r in con.execute(
+                    f"select {key_sql} from {frm} where {ft} match ?",
+                    (f"{{{c}}} : ({match_expr})",))}
+            except sqlite3.DatabaseError:
+                continue
+            for i in ids:
+                out.setdefault(i, []).append(lab)
+    for i in tag_ids:
+        out.setdefault(i, []).append("scope")
+    for i in doc_ids:
+        out.setdefault(i, []).append("att")
+    rankmap = {lab: n for n, lab in enumerate(PROV_ORDER)}
+    for i, labs in out.items():
+        out[i] = sorted(set(labs), key=lambda x: rankmap.get(x, 99))
+    return out
+
+
+def doc_snippets(con, blob_ids, match_expr, width=14):
+    """Snippet from the winning blob, plus its human filename -- the evidence line for an
+    attachment match.  Fetched only for blobs that survived ranking."""
+    if not blob_ids:
+        return {}
+    out = {}
+    ph = ",".join("?" * len(blob_ids))
+    try:
+        for r in con.execute(
+                f"select rowid, snippet(doc_fts, 0, '**', '**', '…', ?), "
+                f"       snippet(doc_fts, 1, '', '', '', 6) "
+                f"from docs.doc_fts where doc_fts match ? and rowid in ({ph})",
+                [width, match_expr] + list(blob_ids)):
+            out[int(r[0])] = {"snip": r[1] or "", "name": r[2] or ""}
+    except sqlite3.DatabaseError:
+        return {}
+    return out
+
+
+def doc_names(con, blob_ids):
+    """Human filename per blob, for hits whose snippet could not be produced."""
+    if not blob_ids:
+        return {}
+    ph = ",".join("?" * len(blob_ids))
+    try:
+        return {int(r[0]): (r[1] or "") for r in con.execute(
+            f"select blob_id, names from docs.blobs where blob_id in ({ph})", list(blob_ids))}
+    except sqlite3.DatabaseError:
+        return {}
+
+
+def run_query(con, q, args, prof, pool=None):
+    """Fetch a candidate pool, largest-BM25-first when there is a query, then let Python rerank
+    with the profile prior.  Two stages because the prior must be able to PROMOTE something BM25
+    ranked 300th (a multi-lot notice whose lot fits your band) without pulling the whole corpus."""
+    s = schema(con)
+    where, params, notes = build_where(s, args, prof, True)
+    pool = pool or max(args.pool, args.results * 12)
+    sel = ", ".join(f"({expr(s,c)}) as {c}" for c in SELECT_COLS)
+    relaxed = False
+    widened = False   # widened for recall, unlike `relaxed` which means FTS5 rejected the query
+    match_expr = norm_ws(q) or None
+
+    def attempt(e):
+        if e and s["fts"]:
+            ft = s["fts"]
+            weights = ", ".join(str(FTS_WEIGHTS.get(c, 1.0)) for c in s["fts_cols"])
+            snip = f"snippet({ft}, -1, '**', '**', '…', 9)"
+            if ft == s["base"]:                     # base table IS the FTS table
+                frm = f"{ft}"
+                cond = [f"{ft} match ?"]
+            else:
+                jk = s["fts_key"] or "rowid"
+                lhs = "rowid" if jk == "rowid" else jk
+                frm = f"{ft} join {s['base']} on {s['base']}.{lhs} = {ft}.rowid"
+                cond = [f"{ft} match ?"]
+            sql = (f"select {sel}, -bm25({ft}, {weights}) as rel, {snip} as snip from {frm} "
+                   f"where " + " and ".join(cond + where) + " order by rel desc limit ?")
+            return con.execute(sql, [e] + params + [pool]).fetchall()
+        ca = expr(s, "closing_at")
+        # soonest-closing pool must skip already-closed rows at the SQL level — on a
+        # stale snapshot thousands of expired rows otherwise fill the pool cap before
+        # a single open notice enters (closing_at is naive Manila wall-clock)
+        now8 = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime("%Y-%m-%dT%H:%M:%S")
+        cond = where + [f"({ca} is null or {ca} >= '{now8}')"]
+        order = f"case when {ca} is null then 1 else 0 end, {ca} asc"
+        sql = (f"select {sel}, 0.0 as rel, null as snip from {s['base']}"
+               + " where " + " and ".join(cond)
+               + f" order by {order} limit ?")
+        return con.execute(sql, params + [pool]).fetchall()
+
+    if match_expr and s["fts"]:
+        try:
+            rows = attempt(match_expr)
+        except sqlite3.OperationalError as e:
+            # Do not sniff the message.  FTS5 rejects a bad match expression with any of
+            # 'fts5: syntax error', 'no such column: abc' (from `abc:>5M`, read as a column
+            # filter), 'malformed MATCH expression'.  Relax and retry; if the retry fails too the
+            # fault is ours, so re-raise the original.
+            r2 = relax(q)
+            if not r2:
+                die(f"unusable query: {q!r} ({e})")
+            try:
+                rows = attempt(r2)
+            except sqlite3.OperationalError:
+                raise e
+            relaxed = True
+            notes.append(f"{q!r} is not a valid FTS5 expression ({e}); relaxed to: {r2}")
+        # A VALID query that ANDs itself down to nothing is the worse failure, because it raises
+        # no error at all. FTS5 reads a bare `vehicle spare parts repair` as an implicit AND of
+        # every term: it matches 0 of 489 Cavite notices, while `vehicle` alone matches 40, because
+        # this corpus writes "Parts and Materials". Measured cost of not doing this: recall 0.12
+        # instead of 0.53 on the eval slice. Relax on an empty result, not just on a raised error.
+        want_n = getattr(args, "results", 10) or 10
+        # Only a BARE multi-word query gets widened. A query carrying quotes, OR/NOT/NEAR, a
+        # prefix `*` or a `col:` filter is deliberate, and widening it destroys the intent --
+        # '"slump test"' is a phrase that means the phrase, not `slump OR test`.
+        bare = bool(q) and not re.search(r'["*:()]|\b(?:AND|OR|NOT|NEAR)\b', q)
+        if bare and not relaxed and not widened and len(rows) < want_n:
+            # Trigger on "could not fill the page", not just on zero. FTS5 reads a bare
+            # `vehicle spare parts repair` as an implicit AND of all four terms: 48 matches
+            # corpus-wide against 3,683 for the OR, and ~0 once a province filter applies, because
+            # this corpus writes "Parts and Materials". A too-narrow AND raises no error, so the
+            # syntax-error path never sees it -- that alone cost 24 recall points on the eval slice.
+            # Only adopt the relaxed form if it genuinely returns more.
+            r2 = relax(q)
+            if r2 and r2 != match_expr:
+                try:
+                    wider = attempt(r2)
+                except sqlite3.OperationalError:
+                    wider = []
+                if len(wider) > len(rows):
+                    notes.append(f"{q!r} as written matched only {len(rows)} notices "
+                                 f"(FTS5 ANDs bare terms); widened to OR: {r2}")
+                    rows, widened = wider, True
+    else:
+        if match_expr and not s["fts"]:
+            notes.append("this corpus.db has no FTS index; query text ignored, filters applied")
+        rows = attempt(None)
+
+    rows = [dict(r) for r in rows]
+    if match_expr:
+        eff = relax(q) if relaxed else match_expr
+        rows = _fold_aux_channels(con, s, rows, eff, args, where, params, pool, notes)
+    else:
+        for r in rows:
+            r["doc_rel"] = r["tag_rel"] = 0.0
+            r["doc_blob"] = r["doc_ndocs"] = None
+            r["matched"] = []
+    return rows, notes, relaxed
+
+
+def _fold_aux_channels(con, s, rows, match_expr, args, where, params, pool, notes):
+    """Merge the tag and attachment channels into the notice-text candidate pool.
+
+    The union step is the point of the whole night: a notice whose ONLY match is on page 12 of an
+    annexed Bill of Quantities is not in `rows` at all, because corpus_fts has never seen that
+    text.  Fetching those notices separately -- under the SAME filters, so an attachment hit
+    cannot smuggle a closed or out-of-band notice past a WHERE clause -- is what makes attachment
+    text searchable rather than merely stored."""
+    want_docs = s.get("docs_db") and not getattr(args, "no_docs_text", False)
+    dm = doc_match(con, match_expr) if want_docs else {}
+    tm = tag_match(con, s, match_expr) if not getattr(args, "no_tag_text", False) else {}
+
+    have = {r["id"] for r in rows}
+    extra = [i for i in set(dm) | set(tm) if i not in have]
+    # Bound the second fetch the same way the first one is bounded.  Ranked by the better of the
+    # two aux signals so the cap keeps the best candidates, not an arbitrary id-ordered slice.
+    extra.sort(key=lambda i: max(dm.get(i, {}).get("rel", 0.0), tm.get(i, 0.0)), reverse=True)
+    extra = extra[:pool]
+    if extra:
+        sel = ", ".join(f"({expr(s,c)}) as {c}" for c in SELECT_COLS)
+        for chunk in [extra[i:i + 500] for i in range(0, len(extra), 500)]:
+            ph = ",".join("?" * len(chunk))
+            sql = (f"select {sel}, 0.0 as rel, null as snip from {s['base']} where "
+                   + " and ".join(where + [f"{expr(s,'id')} in ({ph})"]))
+            rows.extend(dict(r) for r in con.execute(sql, params + list(chunk)))
+
+    prov = provenance(con, s, match_expr, set(dm), set(tm))
+    for r in rows:
+        i = r["id"]
+        d = dm.get(i)
+        r["doc_rel"] = d["rel"] if d else 0.0
+        r["doc_blob"] = d["blob"] if d else None
+        r["doc_ndocs"] = d["ndocs"] if d else None
+        r["tag_rel"] = tm.get(i, 0.0)
+        r["matched"] = prov.get(i, [])
+    if dm:
+        # `extra` is the union of the doc AND tag channels, so attributing all of it to the
+        # attachment channel printed nonsense like "matched 1689 notices (2521 of them
+        # invisible)". Cosmetic, except the driving model reads this note as evidence.
+        doc_only = [i for i in extra if i in dm]
+        notes.append(f"attachment text matched {len(dm)} notices "
+                     f"({len(doc_only)} of them invisible to notice-text search)")
+    elif want_docs:
+        notes.append("no attachment-text matches (only 4,285 of 22,080 notices have documents; "
+                     "legacy's document listing is auth-gated)")
+    return rows
+
+
+# ---------------------------------------------------------------------------------------------
+# profile_fit -- a prior, never a filter.  Multiplicative, floored at 0.2, never zero.
+# ---------------------------------------------------------------------------------------------
+def profile_fit(row, prof, want_prov=None, adj_prov=None):
+    if not prof.get("_enabled"):
+        return 1.0, []
+    pen, hard, notes = [], [], []
+    cats = [c.lower() for c in prof.get("categories") or []]
+    never = [c.lower() for c in prof.get("never") or []]
+    wt = (row["work_type"] or "").lower() or None
+
+    if wt and never and wt in never:
+        hard.append(0.30)
+        notes.append((1, f"never: {wt}"))
+    elif cats:
+        if wt is None:
+            pen.append(0.90)
+            notes.append((5, "untagged"))
+        elif wt in cats:
+            pass
+        else:
+            pen.append(0.70)
+            notes.append((5, f"off-category: {wt}"))
+
+    band = prof.get("abc_band")
+    if band and len(band) == 2:
+        lo, hi = float(band[0]), float(band[1])
+        abc, lmin, lmax = row["abc"], row["abc_lot_min"], row["abc_lot_max"]
+        if abc is None:
+            pen.append(0.80)
+            notes.append((0, "abc: not stated"))
+        elif lo <= abc <= hi:
+            pass
+        elif lmin is not None and lmax is not None and lmax >= lo and lmin <= hi:
+            pen.append(0.95)
+            notes.append((0, f"lot fits: {peso(lmin)}-{peso(lmax)} lots in a {peso(abc)} notice"))
+        elif abc > hi:
+            pen.append(0.55 if abc <= hi * 3 else 0.35)
+            notes.append((0, f"stretch: {peso(abc)} vs your {peso(hi)} band"))
+        else:
+            pen.append(0.60)
+            notes.append((0, f"below band: {peso(abc)} vs your {peso(lo)} floor"))
+
+    if want_prov:
+        provs = [p.strip().lower() for p in (row["provinces"] or "").split(",") if p.strip()]
+        if provs:
+            if any(p in want_prov for p in provs):
+                pass
+            elif adj_prov and any(p in adj_prov for p in provs):
+                pen.append(0.85)
+                notes.append((3, f"adjacent: {row['province']}"))
+            else:
+                pen.append(0.50)
+                notes.append((3, f"out of region: {row['province']}"))
+        else:
+            # location blank: fall back to the agency name, which recovers 40.5% of these at
+            # 96.3% precision.  Weaker than a stated location, so it never scores a clean 1.0.
+            g = agency_province(row["agency"])
+            gl = (g or "").lower()
+            if not g:
+                pen.append(0.85)
+                notes.append((5, "location not stated"))
+            elif gl in want_prov:
+                pen.append(0.95)
+                notes.append((4, f"~{g} (from agency name)"))
+            elif adj_prov and gl in adj_prov:
+                pen.append(0.80)
+                notes.append((3, f"~{g}, adjacent (from agency)"))
+            else:
+                pen.append(0.55)
+                notes.append((3, f"~{g}, out of region (from agency)"))
+
+    # PCAB.  Only needs_pcab is modelled.  The ABC-to-required-class (ARCC) thresholds are NOT
+    # modelled -- inventing them would fabricate eligibility, so a class-vs-size mismatch is a
+    # question for `rfp show`, not a score.
+    if row["needs_pcab"] and not prof.get("pcab"):
+        pen.append(0.60)
+        notes.append((2, "needs PCAB; profile has none"))
+
+    need = int(prof.get("min_days_to_close") or 0)
+    d = days_to(row["closing_at"])
+    if d is None:
+        pen.append(0.70)
+        notes.append((1, "no closing date"))
+    elif d < 0:
+        hard.append(0.15)
+        notes.append((1, "CLOSED"))
+    elif need and d < need:
+        pen.append(max(0.35, 0.35 + 0.65 * (d / need)))
+        notes.append((1, f"tight: {d}d vs your {need}d"))
+
+    # Sorted by how much the reader needs it, because format_hit drops the tail under budget
+    # pressure: money first, then time, then licence, then geography, then the low-information
+    # corpus-wide ones ("untagged" fires on 100% of rows today and must never crowd out
+    # "lot fits", which is the whole point of surfacing a multi-lot notice).
+    # Soft demotions compose SUB-LINEARLY; declared exclusions do not.
+    #
+    # A plain running product turned three mild demotions into a hard exclusion: notice 13171857
+    # (heavy-equipment parts, P188K, closing in 1 day) scored below-band 0.60 x tight 0.48 x
+    # off-category 0.70 = 0.20, the floor -- the same fit as a category in the profile's `never`
+    # list, which is exactly what S3 forbids. Taking min() instead fixed that but broke something
+    # worse: it erased mild-vs-harsh distinctions inside one row, so "lot fits" and "stretch"
+    # both scored 0.456 and multi-lot notices stopped surfacing at all.
+    #
+    # So: dampen each soft penalty toward 1.0 before multiplying. Every signal still moves the
+    # score in the right direction (nothing is erased) but three mild ones can no longer sum to an
+    # exclusion. `never` and CLOSED are the user's own declaration and a fact respectively, so they
+    # multiply in at full strength and stay severe.
+    DAMP = 0.6
+    fit = 1.0
+    for f in hard:
+        fit *= f
+    for f in pen:
+        fit *= 1.0 - DAMP * (1.0 - f)
+    return max(0.20, round(fit, 3)), [x for _, x in sorted(notes, key=lambda t: t[0])]
+def rank(rows, prof, results, loose_province=False):
+    want, adj = profile_provinces(prof) if prof.get("_enabled") else (None, None)
+    # No query means no BM25 signal at all: every rel is 0.0, so multiplying by it made every
+    # score 0.0 and the profile prior was silently ignored -- a filter-only search came back
+    # ordered by closing date with the worst-fitting notice first.  When there is no relevance
+    # signal, the prior IS the ranking.
+    mx = max((r["rel"] for r in rows), default=0.0)
+    # The three channels are normalised independently and then summed with weights, rather than
+    # thrown into one BM25 term space.  Independent normalisation is what stops attachment bulk
+    # from eating the ranking: a 200-page annex and a 40-char title each top out at 1.0 in their
+    # own channel, so the weights -- not the character counts -- decide who wins.
+    dmx = max((r.get("doc_rel") or 0.0 for r in rows), default=0.0)
+    tmx = max((r.get("tag_rel") or 0.0 for r in rows), default=0.0)
+    div = 1.0 + (DOC_WEIGHT if dmx > 0 else 0.0) + (TAG_WEIGHT if tmx > 0 else 0.0)
+    any_signal = mx > 0 or dmx > 0 or tmx > 0
+    scored = []
+    for r in rows:
+        fit, notes = profile_fit(r, prof, want, adj)
+        if not any_signal:
+            base = 1.0
+        else:
+            n = (r["rel"] / mx) if mx > 0 else 0.0
+            d = ((r.get("doc_rel") or 0.0) / dmx) if dmx > 0 else 0.0
+            t = ((r.get("tag_rel") or 0.0) / tmx) if tmx > 0 else 0.0
+            base = (n + DOC_WEIGHT * d + TAG_WEIGHT * t) / div
+        scored.append((round(base * fit, 4), fit, notes, r))
+    scored.sort(key=lambda t: (-t[0], t[3]["closing_at"] or "9999"))
+    if loose_province:
+        scored = _cap_unlocated(scored, results)
+    return scored[:results]
+
+
+NULL_LOC_SHARE = 0.30    # at --results 40 that is 12 slots, leaving 28 for province-matched rows
+
+
+def _cap_unlocated(scored, results):
+    """Stop location-null notices from eating a --province search's result budget.
+
+    Keeping them is correct -- 8.7% of the corpus has no stated location and dropping them is the
+    silent-omission bug. But they then compete for the same slots at fit 0.85 while BM25 has no
+    idea they are in the wrong province. Measured on the Cavite eval slice: only 82 of 200
+    returned rows were actually in Cavite, and 113 of the other 118 had no location at all --
+    about 24 recall points paid for rows the user did not ask for.
+
+    So: quota, not exclusion. Located rows fill up to (1 - NULL_LOC_SHARE) of the slots first,
+    unlocated rows are capped, and if there are not enough located rows the leftovers are
+    backfilled so the result count never shrinks.
+    """
+    quota = max(1, int(results * NULL_LOC_SHARE))
+    located, unlocated = [], []
+    for t in scored:
+        # Tried and REVERTED 2026-08-09: treating agency-name geography as "located" here scored
+        # worse -- natural n=40 recall 0.91 -> 0.84, expanded 0.92 -> 0.70. agency_province()
+        # returns *a* province, not necessarily the wanted one, so it promoted out-of-province
+        # notices out of the quota and let them compete freely for the same slots. The quota's job
+        # is to bound rows we cannot place IN THE TARGET province; a bare location string is the
+        # right test for that. Fixing it properly means passing want_prov in and capping
+        # placed-elsewhere rows too, which is a bigger change than it looks.
+        (located if (t[3]["location"] or "").strip() else unlocated).append(t)
+    # A CAP, not a reservation. Capping the unlocated pool and then letting everything compete on
+    # score is right; pre-allocating slots to unlocated rows is wrong and cost recall at small
+    # --results (at n=3 it forced one unlocated row in even when three located rows were available).
+    keep = located + unlocated[:quota]
+    keep.sort(key=lambda t: (-t[0], t[3]["closing_at"] or "9999"))
+    if len(keep) < results:                     # backfill rather than return fewer hits
+        seen = {id(t) for t in keep}
+        keep += [t for t in scored if id(t) not in seen][:results - len(keep)]
+        keep.sort(key=lambda t: (-t[0], t[3]["closing_at"] or "9999"))
+    return keep
+
+
+# ---------------------------------------------------------------------------------------------
+# formatting
+# ---------------------------------------------------------------------------------------------
+def days_str(closing_at):
+    d = days_to(closing_at)
+    if d is None:
+        return "no-date"
+    if d < 0:
+        return "CLOSED"
+    if d == 0:
+        return "TODAY"
+    return f"{d}d"
+
+
+def lots_str(row):
+    lmin, lmax = row["abc_lot_min"], row["abc_lot_max"]
+    if lmin is None or lmax is None or row["abc"] is None:
+        return None
+    if abs(lmin - row["abc"]) < 1 and abs(lmax - row["abc"]) < 1:
+        return None
+    if abs(lmin - lmax) < 1:
+        n = round(row["abc"] / lmin) if lmin else 0
+        return f"lots {n}x{peso(lmin)}" if n > 1 else f"lot {peso(lmin)}"
+    return f"lots {peso(lmin)}-{peso(lmax)}"
+
+
+def clean_snip(snip):
+    """Snippets come off the line-items column full of UNSPSC codes and duplicated phrases
+    ('1 43231511 Expert **system** **software** Expert **system** **software** 1'), which is
+    ~12 tokens of nothing.  Strip the codes and collapse the repeats."""
+    if not snip:
+        return None
+    s = re.sub(r"\s*\|\s*", " ", norm_ws(snip))
+    s = re.sub(r"\b\d{5,}\b", "", s)                  # UNSPSC / PR numbers
+    s = re.sub(r"(?<![\w*])\d+(?:\.\d+)?(?![\w*])", "", s)   # bare quantities
+    words = s.split()
+    out = []
+    for w in words:                                    # collapse immediate repeats, incl. runs
+        if out and w.lower() == out[-1].lower():
+            continue
+        out.append(w)
+    for n in (4, 3, 2):                                # collapse a repeated n-gram once
+        i = 0
+        while i + 2 * n <= len(out):
+            if [x.lower() for x in out[i:i + n]] == [x.lower() for x in out[i + n:i + 2 * n]]:
+                del out[i + n:i + 2 * n]
+            else:
+                i += 1
+    s = norm_ws(" ".join(out)).strip(" -,;:")
+    return s or None
+
+
+def hoist_common_notes(hits):
+    """A profile annotation that fires on nearly every hit is a property of the corpus, not of
+    the notice.  'untagged' on 40 rows costs ~120 tokens and says one thing, so it moves to a
+    single footer line.  Annotations that differ per hit (stretch, adjacent, tight) never
+    qualify and stay where the reader needs them."""
+    if len(hits) < 4:
+        return hits, []
+    counts = {}
+    for _, _, notes, _ in hits:
+        for n in notes:
+            counts[n] = counts.get(n, 0) + 1
+    common = {n for n, c in counts.items() if c >= max(4, int(0.6 * len(hits)))}
+    if not common:
+        return hits, []
+    out = [(sc, fit, [n for n in notes if n not in common], r) for sc, fit, notes, r in hits]
+    return out, [f"all/most hits: {n}" for n in sorted(common)]
+
+
+def attach_doc_evidence(con, hits, match_expr):
+    """Fill in the attachment snippet + filename for the hits that are about to be printed.
+
+    Phase two of doc_match's two-phase design: snippets are produced for the <=40 winning blobs,
+    never for the thousands that merely matched."""
+    if not match_expr or not hits:
+        return
+    blobs = [r["doc_blob"] for _, _, _, r in hits if r.get("doc_blob")]
+    if not blobs:
+        return
+    ev = doc_snippets(con, blobs, match_expr)
+    names = doc_names(con, [b for b in blobs if b not in ev])
+    for _, _, _, r in hits:
+        b = r.get("doc_blob")
+        if not b:
+            continue
+        e = ev.get(b)
+        r["doc_snip"] = (e or {}).get("snip") or ""
+        r["doc_name"] = ((e or {}).get("name") or names.get(b, "") or "").split(",")[0].strip()
+
+
+def render_hits(hits, prof, budget=BUDGET_MEAN, show_snip=True):
+    hits, footer = hoist_common_notes(hits)
+    return [format_hit(*h, prof, budget=budget, show_snip=show_snip) for h in hits], footer
+
+
+def format_hit(score, fit, notes, row, prof, budget=BUDGET_MEAN, show_snip=True):
+    """Four lines max, trimmed to fit `budget` estimated tokens: snippet goes first, then the
+    title is shortened.  Fields the design doc requires are never dropped: ABC, days-to-close,
+    province, mode, fit, title, agency, snippet."""
+    abcs = peso(row["abc"]) if row["abc"] is not None else "abc?"
+    prov = row["province"]
+    if not prov:
+        g = agency_province(row["agency"])
+        prov = f"~{g}" if g else "loc?"     # '~' = inferred from the agency name, not stated
+    mode = MODE_SHORT.get(row["mode_family"] or "", (row["mode_family"] or "?")[:4])
+    # Provenance: WHERE this hit matched, as a '+'-joined code list.  ~3 tokens, and without it
+    # the reader cannot tell an exact title match from a word buried in an annex -- which is the
+    # difference between a lead and a coincidence.
+    m = row.get("matched") or []
+    head = (f"[{row['id']}] {abcs} {days_str(row['closing_at'])} {prov} {mode} fit{fit:.2f}"
+            + (" @" + "+".join(m) if m else ""))
+    notes = [n if len(n) <= 44 else n[:43] + "…" for n in notes]
+    bits = [abbrev_agency(row["agency"])]
+    if row["work_type"]:
+        bits.append(row["work_type"])
+    lot = lots_str(row)
+    if lot:
+        bits.append(lot)
+    l3 = "  " + " | ".join(bits)
+    title = norm_ws(row["title"]) or "(no title)"
+    snip = clean_snip(row["snip"]) if show_snip else None
+    if snip:
+        plain = re.sub(r"\*\*", "", snip).lower()
+        # A snippet that only repeats the title earns nothing; spend those tokens on scope.
+        if plain and plain.strip("… ") in title.lower():
+            snip = None
+    # An attachment match earns the evidence line ahead of the notice text: it is the only
+    # channel whose hit the reader cannot otherwise verify, and naming the file is what makes it
+    # checkable ('BOQ.pdf' vs 'Annex D').
+    if show_snip and "att" in m and row.get("doc_snip"):
+        nm = (row.get("doc_name") or "").strip()
+        if len(nm) > 26:
+            nm = nm[:25] + "…"
+        snip = (f"{nm}: " if nm else "att: ") + clean_snip(row["doc_snip"])
+    if not snip and row["scope"]:
+        snip = norm_ws(row["scope"])
+
+    def render(t, sn, nmax):
+        l1 = head + (" (" + "; ".join(notes[:nmax]) + ")" if notes and nmax else "")
+        out = [l1, "  " + t, l3]
+        if sn:
+            out.append("  " + sn)
+        return "\n".join(out)
+
+    # The order of sacrifice, cheapest first: snippet length, then title length, then the SECOND
+    # profile annotation.  The first annotation is never dropped -- a demoted hit whose reason is
+    # invisible is worse than no hit, because the reader cannot tell a stretch from a mismatch.
+    ladder = ((100, 78, 2), (92, 64, 2), (84, 56, 1), (80, 0, 1), (68, 0, 1))
+    # An attachment-ONLY hit is the exception.  Its title and description do not contain the
+    # query at all, so dropping the snippet leaves a row whose presence in the results looks
+    # arbitrary -- the reader sees '@att' and no evidence.  For those, sacrifice the title and
+    # the second annotation first and keep a (shorter) evidence line to the end.
+    if m == ["att"] and snip:
+        ladder = ((88, 70, 1), (76, 62, 1), (64, 54, 1), (52, 46, 1), (46, 40, 1))
+    for tmax, smax, nmax in ladder:
+        t = title if len(title) <= tmax else title[:tmax - 1].rstrip() + "…"
+        sn = None
+        if smax and snip:
+            sn = snip if len(snip) <= smax else snip[:smax - 1].rstrip() + "…"
+        text = render(t, sn, nmax)
+        if est_tokens(text) <= budget:
+            return text
+    return render(title[:66] + "…", None, 1)
+
+
+def effective_profile(args, prof):
+    """An explicit filter must also move the RANKING, not just the WHERE clause.
+
+    `--province Cavite` keeps location-null notices on purpose (8.7% of the corpus, and dropping
+    them is the omission bug).  But if those nulls then score the same as real Cavite hits, BM25
+    decides the order and the user asked for Cavite and got Davao.  So an explicit --province /
+    --abc-* / --work-type overrides the corresponding profile field for scoring, and the
+    profile's other fields keep applying underneath.
+    """
+    eff, told = dict(prof), []
+    if not prof.get("_enabled"):
+        return eff, told
+    if args.province:
+        eff["regions"] = [p.strip() for a in args.province for p in str(a).split(",")
+                          if p.strip()]
+        told.append(f"ranking geography from --province {eff['regions']} (overrides profile)")
+    if args.abc_min is not None or args.abc_max is not None:
+        # The ranking band must be EXACTLY the filter band.  Mixing a flag with the profile's
+        # other side produced an inverted band ('P200K-P100K' from --abc-max 100000 against a
+        # [200K, 5M] profile), which then scored notice 54278 -- P360K of six P60K lots -- as
+        # 'stretch: P360K vs your P100K band' at fit 0.20, i.e. the exact notice the design doc
+        # names as the thing that must rank UP.  One side given means the other is open.
+        lo = args.abc_min if args.abc_min is not None else 0.0
+        hi = args.abc_max if args.abc_max is not None else float(10 ** 13)
+        eff["abc_band"] = [lo, hi]
+        told.append(f"ranking ABC band from flags: {peso(lo)}-"
+                    f"{'open' if args.abc_max is None else peso(hi)}")
+    if args.work_type:
+        eff["categories"] = [w.strip() for a in args.work_type for w in str(a).split(",")
+                             if w.strip()]
+    if args.min_days is not None:
+        eff["min_days_to_close"] = args.min_days
+    return eff, told
+
+
+def cmd_search(args):
+    prof = load_profile(args.profile, enabled=not args.no_profile)
+    if args.results is None:
+        args.results = prof["results"]
+    if args.abc_min is None and args.abc_max is None and prof.get("abc_band") and args.band:
+        args.abc_min, args.abc_max = prof["abc_band"][0], prof["abc_band"][1]
+    prof, told = effective_profile(args, prof)
+    con = connect()
+    rows, notes, relaxed = run_query(con, args.query, args, prof)
+    notes = told + notes
+    # A closed notice is never a search result -- the corpus is a snapshot and rows
+    # expire between ingests. Without this, a stale snapshot's soonest-closing pool is
+    # ALL closed rows and the webapp board leads with dead tenders.
+    open_rows = [r for r in rows if (days_to(r["closing_at"]) or 0) >= 0]
+    if len(open_rows) < len(rows):
+        notes.append(f"{len(rows) - len(open_rows)} closed-by-snapshot notices excluded")
+    rows = open_rows
+    hits = rank(rows, prof, args.results,
+                loose_province=bool(args.province) and not args.province_strict)
+    attach_doc_evidence(con, hits, norm_ws(args.query) if args.query else None)
+
+    if args.json:
+        out = []
+        for score, fit, fnotes, r in hits:
+            d = {k: r[k] for k in r.keys() if k != "snip"}
+            d.update(score=score, fit=fit, fit_notes=fnotes, days=days_to(r["closing_at"]),
+                     snippet=clean_snip(r["snip"]), matched_in=r.get("matched") or [],
+                     doc_snippet=clean_snip(r.get("doc_snip") or "") or None,
+                     doc_name=r.get("doc_name") or None)
+            out.append(d)
+        print(json.dumps({"query": args.query, "candidates": len(rows), "returned": len(out),
+                          "notes": notes, "hits": out}, indent=1, default=str))
+        return 0
+
+    texts, footer = render_hits(hits, prof, budget=args.budget,
+                                show_snip=not args.no_snippet)
+    header = (f"{len(hits)} of {len(rows)} candidates"
+              f"{'' if prof.get('_enabled') else ' (profile off)'}"
+              f"  q={args.query!r}" if args.query else
+              f"{len(hits)} of {len(rows)} candidates (no query: ranked by prior + soonest close)")
+    print(header)
+    for t in texts:
+        print(t)
+    for n in footer + notes:
+        print(f"note: {n}")
+    if args.verbose:
+        tot = est_tokens(header) + sum(est_tokens(t) for t in texts) \
+            + sum(est_tokens(n) for n in footer + notes)
+        per = sum(est_tokens(t) for t in texts) / max(1, len(texts))
+        print(f"note: ~{tot} est tokens total, ~{per:.0f}/hit "
+              f"(mean budget {BUDGET_MEAN}, per-hit cap {args.budget})")
+    if not hits:
+        print("note: nothing matched. Widen: drop --province, raise --abc-max, add OR terms, "
+              "or `rfp facets` to see where the notices actually are. 60% of "
+              "category x size x province cells hold exactly one open notice nationally.")
+    return 0
+
+
+# ---------------------------------------------------------------------------------------------
+def cmd_facets(args):
+    """~300 tokens of orientation over 22,068 notices.  This is what replaces 'the model can see
+    everything' -- the corpus is ~1.55M tokens of listing rows and does not fit in any window."""
+    prof = load_profile(args.profile, enabled=not args.no_profile)
+    con = connect()
+    s = schema(con)
+    args.results = 1
+    rows, notes, relaxed = run_query(con, args.query, args, prof, pool=args.pool)
+    if not rows:
+        print(f"0 notices match q={args.query!r}")
+        for n in notes:
+            print(f"note: {n}")
+        return 0
+
+    def tally(keyfn):
+        c = {}
+        for r in rows:
+            for k in keyfn(r):
+                c[k] = c.get(k, 0) + 1
+        return sorted(c.items(), key=lambda kv: (-kv[1], kv[0]))
+
+    def line(label, pairs, top):
+        shown = pairs[:top]
+        rest = sum(v for _, v in pairs[top:])
+        body = " ".join(f"{k}:{v}" for k, v in shown)
+        if rest:
+            body += f" +{len(pairs)-top}more:{rest}"
+        return f"{label} {body}"
+
+    dbands = {"<=2d": 0, "3-6d": 0, "7-13d": 0, "14-29d": 0, "30d+": 0, "no-date": 0,
+              "closed": 0}
+    for r in rows:
+        d = days_to(r["closing_at"])
+        k = ("no-date" if d is None else "closed" if d < 0 else "<=2d" if d <= 2 else
+             "3-6d" if d <= 6 else "7-13d" if d <= 13 else "14-29d" if d <= 29 else "30d+")
+        dbands[k] += 1
+    val = sum(r["abc"] or 0 for r in rows)
+    capped = " (pool capped -- raise --pool for exact counts)" if len(rows) >= args.pool else ""
+    print(f"{len(rows)} notices{capped}  value {peso(val)}  q={args.query!r}")
+    print(line("work_type", tally(lambda r: [r["work_type"] or "untagged"]), 8))
+    def prov_keys(r):
+        ps = [p.strip() for p in (r["provinces"] or "").split(",") if p.strip()]
+        if ps:
+            return ps
+        g = agency_province(r["agency"])       # '~' = inferred from the agency name, not stated
+        return [f"~{g}"] if g else ["(no location)"]
+    print(line("province ", tally(prov_keys), 12))
+    print(line("mode     ", tally(lambda r: [r["mode_family"] or "?"]), 8))
+    print(line("abc      ", tally(lambda r: [r["abc_band"] or abc_band(r["abc"])]), 8))
+    print(line("class    ", tally(lambda r: [(r["classification"] or "?")[:22]]), 5)
+          + "   <- self-declared by the agency; wrong often enough to matter")
+    print(line("days     ", sorted(dbands.items(), key=lambda kv: -kv[1]), 7))
+    print(line("source   ", tally(lambda r: [r["source"] or "?"]), 3))
+    print(line("agency   ", tally(lambda r: [abbrev_agency(r["agency"], 26)]), 6))
+    for n in notes:
+        print(f"note: {n}")
+    return 0
+
+
+# ---------------------------------------------------------------------------------------------
+def docs_for(ids, want_text=False):
+    """Attached bid documents for a set of notice ids.
+
+    Returns (docs_by_notice_id, crawl_status_by_notice_id, note).
+
+    'This notice has no attachments' and 'this notice was never crawled for attachments' are
+    different answers and the caller must be able to tell them apart.  docs.db covers the 4,285
+    mPhilGEPS notices only -- legacy's document listing is auth-gated (NOTES-extract.md: the
+    doc_view endpoint answers HTTP 200 with a 'session has been expired' shell, so there is
+    nothing to fetch without a supplier login, and we do not have one).  Reporting 17,795 legacy
+    notices as 'no documents' would be a lie the reader cannot detect.
+
+    `want_text` is off by default: the median attached document is 56,276 chars and a notice
+    carries up to 40 of them, so text is fetched only when someone asks to read it.
+    """
+    empty = ({}, {}, "docs.db not present (attached bid documents not ingested)")
+    if not DOCS_DB.exists():
+        return empty
+    if not ids:
+        return {}, {}, "no ids"
+    try:
+        con = sqlite3.connect(f"file:{DOCS_DB}?mode=ro", uri=True)
+        con.row_factory = sqlite3.Row
+    except sqlite3.DatabaseError as e:
+        return {}, {}, f"docs.db unreadable: {e}"
+    try:
+        ph = ",".join("?" * len(ids))
+        text_sel = "b.text as text," if want_text else "null as text,"
+        docs = {}
+        for r in con.execute(f"""
+                select d.notice_id as nid, d.doc_id, d.source, d.url,
+                       coalesce(d.human_name, d.filename) as name,
+                       d.member_path, d.parent_doc_id, d.seq, d.uploaded, d.is_supplement,
+                       d.blob_id, d.sha256, d.bytes, d.fmt,
+                       d.extract_status, d.extract_note,
+                       coalesce(d.chars, b.chars) as chars,
+                       b.pages, b.text_pages, b.scan_pages, b.sheets,
+                       {text_sel}
+                       b.names as blob_names
+                from documents d left join blobs b on b.blob_id = d.blob_id
+                where d.notice_id in ({ph})
+                order by d.notice_id, coalesce(d.seq, 9999), d.doc_id""", list(ids)):
+            docs.setdefault(r["nid"], []).append({k: r[k] for k in r.keys()})
+        status = {}
+        for r in con.execute(
+                f"select notice_id as nid, status, n_docs, http_status, fetch_errors "
+                f"from notices where notice_id in ({ph})", list(ids)):
+            status[r["nid"]] = {k: r[k] for k in r.keys()}
+        tot, cov = con.execute(
+            "select (select count(*) from documents), (select count(*) from notices)").fetchone()
+        note = (f"docs.db: {tot} documents across {cov} crawled notices; "
+                f"mPhilGEPS only -- legacy document listings are auth-gated, so absence here is "
+                f"NOT absence of attachments")
+        return docs, status, note
+    except sqlite3.DatabaseError as e:
+        return {}, {}, f"docs.db query failed: {e}"
+    finally:
+        con.close()
+
+
+def doc_text_for(doc_ids):
+    """Extracted text for specific doc_ids.  Separate from docs_for so listing never pays for
+    text: one blob can be 2.27M chars."""
+    if not DOCS_DB.exists() or not doc_ids:
+        return {}
+    try:
+        con = sqlite3.connect(f"file:{DOCS_DB}?mode=ro", uri=True)
+    except sqlite3.DatabaseError:
+        return {}
+    try:
+        ph = ",".join("?" * len(doc_ids))
+        return {int(r[0]): (r[1] or "") for r in con.execute(
+            f"select d.doc_id, b.text from documents d left join blobs b "
+            f"on b.blob_id = d.blob_id where d.doc_id in ({ph})", list(doc_ids))}
+    except sqlite3.DatabaseError:
+        return {}
+    finally:
+        con.close()
+
+
+def grep_text(text, pattern, ctx=1, cap=40):
+    """Matching lines (+/- ctx) from a document, for --grep.  A 200-page ITB has one paragraph
+    you care about; printing the other 199 pages to find it defeats the purpose."""
+    try:
+        rx = re.compile(pattern, re.I)
+    except re.error as e:
+        return [f"(bad --grep regex: {e})"]
+    lines = [ln.rstrip() for ln in text.splitlines()]
+    keep = set()
+    for i, ln in enumerate(lines):
+        if rx.search(ln):
+            keep.update(range(max(0, i - ctx), min(len(lines), i + ctx + 1)))
+    if not keep:
+        return []
+    out, prev = [], None
+    for i in sorted(keep):
+        if prev is not None and i > prev + 1:
+            out.append("    ...")
+        s = norm_ws(lines[i])
+        if s:
+            out.append(f"    {i+1}: {s[:300]}")
+        prev = i
+        if len(out) >= cap:
+            out.append(f"    ... (truncated at {cap} lines; tighten --grep)")
+            break
+    return out
+
+
+def cmd_show(args):
+    con = connect()
+    s = schema(con)
+    ids = [int(x) for a in args.ids for x in str(a).replace(",", " ").split()]
+    sel = ", ".join(f"{col(s,c)} as {c}" for c in SELECT_COLS + [
+        "description", "items", "contact", "contact_email", "contact_phone", "funding",
+        "control", "lot_type", "client_agency", "downloads", "closing_detail", "last_updated",
+        "solicitation_no", "trade_agreement", "bid_supplements", "doc_req_list", "dupe_key",
+        "enriched_at", "publish"])
+    ph = ",".join("?" * len(ids))
+    rows = con.execute(f"select {sel} from {s['base']} where {s['base']}.id in ({ph})",
+                       ids).fetchall()
+    found = {r["id"] for r in rows}
+    want_text = getattr(args, "doc_text", None) or (("*" if args.grep else None)
+                                                    if hasattr(args, "grep") else None)
+    docs, dstat, docnote = docs_for(ids) if not args.no_docs else ({}, {}, "docs suppressed")
+    # Text is fetched in a second pass, for the requested documents only.  The median blob is
+    # 56,276 chars and the largest is 2.27M, so `show` must never pull text it will not print.
+    dtext = {}
+    if want_text and not args.no_docs:
+        ids_w = [d["doc_id"] for dl in docs.values() for d in dl
+                 if want_text == "*" or str(d["doc_id"]) == str(want_text)]
+        dtext = doc_text_for(ids_w)
+
+    if args.json:
+        out = []
+        for r in rows:
+            d = {k: r[k] for k in r.keys()}
+            d["days"] = days_to(r["closing_at"])
+            d["items"] = clean_items(r["items"])
+            d["documents"] = docs.get(r["id"], [])
+            d["doc_crawl"] = dstat.get(r["id"])
+            out.append(d)
+        print(json.dumps({"found": out, "missing": [i for i in ids if i not in found],
+                          "docs": docnote}, indent=1, default=str))
+        return 0
+
+    for r in rows:
+        print("=" * 78)
+        print(f"[{r['id']}] {norm_ws(r['title'])}")
+        print(f"  {r['agency']}"
+              + (f"  (for {r['client_agency']})" if r["client_agency"] else ""))
+        abc_line = f"  ABC {peso(r['abc'])}"
+        if r["abc"] is None:
+            abc_line += "  <- NOT STATED on the notice (real: 39 rows do this, not a parse bug)"
+        lot = lots_str(r)
+        if lot:
+            abc_line += f"   {lot}"
+        print(abc_line)
+        print(f"  closes {r['closing'] or r['closing_at'] or '(no date)'}"
+              f"  [{days_str(r['closing_at'])}]   published {r['publish'] or r['publish_at']}")
+        print(f"  mode {r['mode']}  ({r['mode_family']})   classification {r['classification']}"
+              f"   category {r['category']}")
+        print(f"  location {r['location'] or '(null -- 12.2% of the corpus)'}"
+              + (f"   parsed: {r['provinces']}" if r["provinces"] else ""))
+        tagline = f"  work_type {r['work_type'] or '(untagged)'}   needs_pcab {r['needs_pcab']}"
+        print(tagline)
+        if r["eligibility"]:
+            try:
+                el = json.loads(r["eligibility"])
+            except Exception:
+                el = [r["eligibility"]]
+            if el:
+                print("  eligibility beyond the universal four: " + "; ".join(str(x) for x in el))
+        if r["scope"]:
+            print(f"  scope: {r['scope']}")
+        for label, key in (("solicitation", "solicitation_no"), ("status", "status"),
+                           ("delivery", "delivery"), ("funding", "funding"),
+                           ("control", "control"), ("trade agreement", "trade_agreement")):
+            if r[key]:
+                print(f"  {label}: {r[key]}")
+        if r["contact"]:
+            print(f"  contact: {norm_ws(r['contact'])[:300]}")
+        print(f"  url {r['url']}")
+        print("  --- description " + "-" * 55)
+        desc = (r["description"] or "(empty)")
+        if args.chars and len(desc) > args.chars:
+            desc = desc[:args.chars] + f"\n  [... {len(r['description'])-args.chars} more chars; "\
+                                       f"--chars 0 for all]"
+        print(desc)
+        items = clean_items(r["items"])
+        if items:
+            print("  --- line items (table header stripped) " + "-" * 32)
+            it = items
+            if args.chars and len(it) > args.chars:
+                it = it[:args.chars] + f"\n  [... {len(items)-args.chars} more chars; " \
+                                       f"--chars 0 for all]"
+            print(it)
+        dl = docs.get(r["id"], [])
+        st = dstat.get(r["id"])
+        print(f"  --- documents ({len(dl)}) " + "-" * 50)
+        if not dl:
+            # 'no documents' and 'never looked' are different answers.  Say which.
+            if st:
+                print(f"  crawled: status={st.get('status')} n_docs={st.get('n_docs')} "
+                      f"http={st.get('http_status')} -- no attachments recorded")
+            else:
+                print(f"  NOT CRAWLED for attachments. {docnote}")
+            if r["downloads"]:
+                print(f"  the notice page's own download count: {r['downloads']}")
+            if r["bid_supplements"] is not None or r["doc_req_list"] is not None:
+                print(f"  bid_supplements={r['bid_supplements']} "
+                      f"doc_req_list={r['doc_req_list']}")
+        for d in dl:
+            meta = " ".join(f"{k}={d[k]}" for k in ("fmt", "bytes", "pages", "chars",
+                                                    "extract_status")
+                            if d.get(k) not in (None, ""))
+            sup = " [SUPPLEMENT: uploaded after posting]" if d.get("is_supplement") else ""
+            inside = f" (inside {d['member_path']})" if d.get("member_path") else ""
+            print(f"  #{d['doc_id']} {d.get('name')}{inside}  {meta}{sup}")
+            if d.get("scan_pages"):
+                print(f"      {d['scan_pages']} image-only page(s): text is partial "
+                      f"(no OCR was run)")
+            if not d.get("chars") and d.get("extract_note"):
+                print(f"      no text: {d['extract_note']}")
+        if dl and not want_text:
+            print(f"  (text not shown; `rfp show {r['id']} --doc-text` for all, "
+                  f"`--doc-text <doc_id>` for one, `--grep PATTERN` to search inside)")
+
+        # --- extracted document text, on request only ---------------------------------------
+        for d in dl if want_text else []:
+            if want_text != "*" and str(d["doc_id"]) != str(want_text):
+                continue
+            t = dtext.get(d["doc_id"]) or ""
+            if not t.strip():
+                print(f"  --- #{d['doc_id']} {d.get('name')}: NO TEXT "
+                      f"({d.get('extract_status')}: {d.get('extract_note') or '-'})")
+                continue
+            print(f"  --- #{d['doc_id']} {d.get('name')} "
+                  f"({len(t):,} chars) " + "-" * 24)
+            if args.grep:
+                hits = grep_text(t, args.grep)
+                print("\n".join(hits) if hits else f"    (no line matches {args.grep!r})")
+            else:
+                cap = args.doc_chars
+                print("    " + norm_ws(t[:cap] if cap else t).replace("\n", "\n    ")
+                      + (f"\n    [... {len(t)-cap:,} more chars; --doc-chars 0 for all]"
+                         if cap and len(t) > cap else ""))
+    for i in ids:
+        if i not in found:
+            print(f"[{i}] not in corpus (unenriched, retired at fetch_errors=3, or wrong id)")
+    return 0
+
+
+# ---------------------------------------------------------------------------------------------
+def cmd_reindex(args):
+    """Build `tag_fts` inside corpus.db from tags.db.
+
+    The one thing here that writes.  It is a separate subcommand rather than part of `build`
+    because `build` merges the two ingests and takes minutes, while this reads 22,068 short rows
+    and takes about a second -- and the tag pass reruns far more often than the ingest does.
+
+    Contents are the distilled fields only (scope, keywords, deliverables).  Deliberately NOT the
+    notice body: that is already in corpus_fts, and indexing it twice would double-count it in
+    the combined score for no recall gain."""
+    p = db_path()
+    if not p.exists():
+        die(f"{p} not found; run `rfp build` first")
+    if not SRC_TAGS.exists():
+        die(f"{SRC_TAGS} not found; nothing to index")
+    con = sqlite3.connect(str(p))
+    con.execute("attach database ? as tags", (f"file:{SRC_TAGS}?mode=ro",))
+    t0 = time.time()
+    con.executescript("""
+        drop table if exists tag_fts;
+        create virtual table tag_fts using fts5(
+          scope, keywords, deliverables,
+          tokenize="porter unicode61 remove_diacritics 2"
+        );
+    """)
+    # rowid = notice id, so every join in the search path is `tag_fts.rowid = corpus.id` and no
+    # second mapping table has to be kept in step.
+    n = con.execute("""
+        insert into tag_fts(rowid, scope, keywords, deliverables)
+        select t.id, coalesce(t.scope,''), coalesce(t.keywords,''), coalesce(t.deliverables,'')
+        from tags.tags t
+        where exists (select 1 from corpus c where c.id = t.id)
+    """).rowcount
+    con.execute("insert into tag_fts(tag_fts) values('optimize')")
+    con.commit()
+    orphan = con.execute(
+        "select count(*) from corpus c where not exists "
+        "(select 1 from tag_fts f where f.rowid = c.id)").fetchone()[0]
+    con.close()
+    print(f"tag_fts: {n} rows indexed in {time.time()-t0:.1f}s ({orphan} corpus rows untagged)")
+    return 0
+
+
+def cmd_sql(args):
+    q = args.query.strip().rstrip(";").strip()
+    low = q.lower()
+    if not re.match(r"^(select|with|explain|pragma table_info|pragma table_list)\b", low):
+        die("sql accepts read statements only (select / with / explain / pragma table_info). "
+            "corpus.db is opened read-only, so a write would error anyway -- this message is "
+            "just the faster error.")
+    if ";" in q:
+        die("one statement per call (a ';' was found)")
+    con = connect()
+    try:
+        cur = con.execute(q)
+        rows = cur.fetchmany(args.limit + 1) if args.limit else cur.fetchall()
+    except sqlite3.DatabaseError as e:
+        die(f"{type(e).__name__}: {e}", 1)
+    names = [d[0] for d in (cur.description or [])]
+    truncated = bool(args.limit) and len(rows) > args.limit
+    rows = rows[:args.limit] if args.limit else rows
+    if args.json:
+        print(json.dumps([{n: r[n] for n in names} for r in rows], indent=1, default=str))
+    else:
+        if names:
+            print(" | ".join(names))
+        for r in rows:
+            print(" | ".join("" if r[n] is None else norm_ws(str(r[n]))[:args.cell]
+                             for n in names))
+        print(f"({len(rows)} rows{'; TRUNCATED, raise --limit' if truncated else ''})")
+    return 0
+
+
+def cmd_profile(args):
+    prof = load_profile(args.profile, enabled=not args.no_profile)
+    want, adj = profile_provinces(prof)
+    print(f"source {prof['_source']}")
+    for k in ("pcab", "categories", "regions", "abc_band", "min_days_to_close", "results",
+              "never"):
+        print(f"  {k}: {prof[k]}")
+    print(f"  expands to {len(want)} provinces + {len(adj)} adjacent")
+    if want:
+        print(f"  in-region:  {', '.join(sorted(_CANON.get(p,p) for p in want))}")
+        print(f"  adjacent:   {', '.join(sorted(_CANON.get(p,p) for p in adj))}")
+    unknown = [c for c in prof["categories"] + prof["never"] if c not in WORK_TYPES]
+    if unknown:
+        print(f"  WARNING: not in the work_type enum, will never match: {unknown}")
+        print(f"  enum: {' '.join(WORK_TYPES)}")
+    return 0
+
+
+def cmd_stats(args):
+    """Every number SKILL.md quotes comes from here, so it can be re-measured, not trusted."""
+    con = connect()
+    s = schema(con)
+    b = s["base"]
+    for mt in ("build_meta", "meta"):
+        if mt in s["tables"]:
+            kc, vc = s["tables"][mt][0], s["tables"][mt][1]
+            for r in con.execute(f"select {kc},{vc} from {mt} order by {kc}"):
+                v = str(r[1])
+                print(f"{r[0]}: {v if len(v) < 110 else v[:107] + '...'}")
+            break
+    print(f"schema: base={b} fts={s['fts']}(key={s['fts_key']}) "
+          f"locations={(s['prov'] or {}).get('table')}")
+    enr = f" where {expr(s,'enriched_at')} is not null" if "enriched_at" in s["cols"] else ""
+    n = con.execute(f"select count(*) from {b}{enr}").fetchone()[0]
+    raw = con.execute(f"select count(*) from {b}").fetchone()[0]
+    print(f"notices: {n} enriched of {raw} rows ({raw-n} unenriched: the permanent-500 zombies)")
+    ca, mf = expr(s, "closing_at"), expr(s, "mode_family")
+    dow = expr(s, "closing_dow")
+    q = lambda w: f"select count(*) from {b}{enr or ' where 1=1'} and ({w})"  # noqa: E731
+    for label, sql in [
+        ("value", f"select sum(abc) from {b}{enr}"),
+        ("abc null", q("abc is null")),
+        ("location null", q("location is null or trim(location)=''")),
+        ("closing null", q(f"{ca} is null")),
+        ("untagged (work_type null)", q(f"{expr(s,'work_type')} is null")),
+        ("multi-lot", q("abc_lot_min is not null and abc_lot_max > abc_lot_min")
+         if "abc_lot_min" in s["cols"] else None),
+        ("closes <=6d", q(f"{ca} is not null and julianday({ca})-julianday('now') between 0 and 6")),
+        ("closes <=2d", q(f"{ca} is not null and julianday({ca})-julianday('now') between 0 and 2")),
+        ("deadline Mon or Tue", q(f"{dow} in (1,2)")),
+        ("deadline Mon/Tue before noon", q(f"{dow} in (1,2) and cast(substr({ca},12,2) as int)<12")),
+        ("public bidding", q(f"({mf})='public_bidding'")),
+        ("svp", q(f"({mf})='svp'")),
+        ("dupe_key groups >1", f"select count(*) from (select dupe_key from {b}{enr} "
+                               f"group by 1 having count(*)>1)"),
+    ]:
+        if sql is None:
+            continue
+        try:
+            v = con.execute(sql).fetchone()[0] or 0
+            print(f"{label}: {peso(v) if label == 'value' else v}"
+                  + (f"  ({100.0*v/n:.1f}%)" if label != "value" and n else ""))
+        except sqlite3.DatabaseError as e:
+            print(f"{label}: n/a ({e})")
+    return 0
+
+
+# ---------------------------------------------------------------------------------------------
+# selfcheck
+# ---------------------------------------------------------------------------------------------
+def _fake_row(**kw):
+    d = {k: None for k in SELECT_COLS + ["rel", "snip"]}
+    d.update(kw)
+    return d
+
+
+class _R(dict):
+    def keys(self):
+        return list(super().keys())
+
+
+def selfcheck(args):
+    ok, n = [], 0
+
+    def check(name, fn):
+        nonlocal n
+        n += 1
+        try:
+            fn()
+            ok.append((name, None))
+        except AssertionError as e:
+            ok.append((name, f"ASSERT {e}"))
+        except Exception as e:
+            ok.append((name, f"{type(e).__name__}: {e}"))
+
+    # --- pure units, no DB needed -----------------------------------------------------------
+    def t_mode_family():
+        assert mode_family("negotiated procurement - small value procurement (sec. 34)") == "svp", \
+            "SVP under a negotiated heading is still SVP (4,228 legacy rows)"
+        assert mode_family("competitive bidding (public bidding)") == "public_bidding"
+        assert mode_family("international competitive bidding - others") == "international", \
+            "ICB must NOT collapse into public bidding -- different procurement rules"
+        assert mode_family("shopping - ordinary/regular office supplies & equipment") == "shopping"
+        assert mode_family("limited source bidding (sec. 49)") == "limited_source"
+        assert mode_family(None) == "unknown" and mode_family("") == "unknown"
+    check("mode_family keeps legal modes distinct", t_mode_family)
+
+    def t_locations():
+        assert split_locations("Batangas,Laguna,Quezon,Rizal") == \
+            ["Batangas", "Laguna", "Quezon", "Rizal"], "comma-multi-valued must split"
+        assert split_locations(None) == [] and split_locations("") == []
+        assert split_locations("Philippines") == [], "'Philippines' is nationwide, not a province"
+        assert split_locations("(Independent City)") == [], "scrape artifact, not a province"
+        assert split_locations("Davao de Oro (Compos. Valley)") == ["Davao De Oro"]
+        assert split_locations("Metro Manila, Metro Manila") == ["Metro Manila"]
+    check("location splits on comma and drops non-provinces", t_locations)
+
+    def t_regions():
+        seen = {}
+        for r, ps in REGIONS.items():
+            for p in ps:
+                assert p.lower() not in seen or seen[p.lower()] == r, \
+                    f"{p} in two regions: {seen.get(p.lower())} and {r}"
+                seen[p.lower()] = r
+        want, adj = profile_provinces({"regions": ["NCR", "Cavite", "Laguna"], "_enabled": True})
+        assert want == {"metro manila", "cavite", "laguna"}, want
+        assert "batangas" in adj and "rizal" in adj, adj
+        assert not (want & adj), "adjacency ring must not include the profile's own provinces"
+        w2, _ = profile_provinces({"regions": ["Region IV-A"], "_enabled": True})
+        assert "quezon" in w2 and len(w2) == 5, w2
+    check("region expansion + adjacency", t_regions)
+
+    def t_abc_band():
+        assert abc_band(None) == "not stated", "null ABC gets a band, never dropped"
+        assert abc_band(0) == "<100K" and abc_band(99_999) == "<100K"
+        assert abc_band(100_000) == "100K-500K" and abc_band(1_000_000) == "1M-5M"
+        assert abc_band(15_000_000) == "15M-50M" and abc_band(9e9) == "50M+"
+    check("abc_band covers null and both extremes", t_abc_band)
+
+    def t_iso():
+        assert iso_norm("2026-08-11T14:00") == "2026-08-11T14:00:00", "mPhilGEPS shape"
+        assert iso_norm("2026-08-14T14:00:00") == "2026-08-14T14:00:00", "legacy shape"
+        assert iso_norm("2026-08-14") == "2026-08-14T00:00:00"
+        assert iso_norm(None) is None and iso_norm("") is None and iso_norm("n/a") is None
+    check("iso_norm unifies the two systems' timestamps", t_iso)
+
+    def t_days():
+        assert days_to(None) is None, "12 zombie notices carry no closing date"
+        ref = datetime(2026, 8, 8, 12, 0)
+        assert days_to("2026-08-11T14:00:00", ref) == 3
+        assert days_to("2026-08-01T14:00:00", ref) == -7
+        assert days_str(None) == "no-date"
+    check("days_to tolerates null closing", t_days)
+
+    def t_items():
+        raw = "Item No.\nUNSPSC\nLot Name\nLot Description\nQuantity\nUnit of Measure\n" \
+              "ABC(Estimated Budget)\n1\n91101606\nMake up application service\nMR. & MISS SOT"
+        c = clean_items(raw)
+        for bad in ("Lot Description", "Unit of Measure", "UNSPSC"):
+            assert bad not in c, f"{bad} survived; it is in every notice and matches every query"
+        assert "Make up application service" in c and "MR. & MISS SOT" in c
+        assert clean_items(None) is None and clean_items("") is None
+    check("item table header stripped from the FTS text", t_items)
+
+    def t_agency():
+        assert abbrev_agency("MUNICIPALITY OF SAN JOSE").startswith("MUN.")
+        a = abbrev_agency("DEPARTMENT OF PUBLIC WORKS AND HIGHWAYS - REGION IV-A")
+        assert a.startswith("DPWH"), a
+        assert len(abbrev_agency("X" * 200)) <= 34
+        assert abbrev_agency(None) == "?"
+    check("agency abbreviation bounded and lossless at the head", t_agency)
+
+    def t_profile_parse():
+        import tempfile
+        body = ("---\nsome: front matter\n---\n\n```yaml\npcab: C\n"
+                "categories: [civil_works, repair_maintenance]\nregions: [NCR, Cavite, Laguna]\n"
+                "abc_band: [200000, 5000000]\nmin_days_to_close: 5\nresults: 10\n"
+                "never: [security_janitorial, food_catering]\n```\n")
+        with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False) as f:
+            f.write(body)
+            p = f.name
+        pr = load_profile(p)
+        assert pr["pcab"] == "C" and pr["results"] == 10 and pr["min_days_to_close"] == 5
+        assert pr["categories"] == ["civil_works", "repair_maintenance"], pr["categories"]
+        assert pr["abc_band"] == [200000, 5000000]
+        assert pr["never"] == ["security_janitorial", "food_catering"]
+        m = _mini_yaml(body.split("```yaml")[1].split("```")[0])
+        assert m["categories"] == ["civil_works", "repair_maintenance"], m
+        assert m["pcab"] == "C" and m["abc_band"] == [200000, 5000000]
+        os.unlink(p)
+        miss = load_profile("/nonexistent/profile.md")
+        assert miss["results"] == 10 and miss["categories"] == []
+    check("profile.md parses via yaml AND the fallback parser", t_profile_parse)
+
+    def t_fit():
+        prof = {"_enabled": True, "pcab": None, "categories": ["civil_works"],
+                "never": ["food_catering"], "abc_band": [200000, 5000000],
+                "min_days_to_close": 5, "regions": ["Cavite"], "results": 3}
+        want, adj = profile_provinces(prof)
+        far = datetime.now().replace(microsecond=0).isoformat()[:11] + "00:00:00"
+        good = _R(_fake_row(work_type="civil_works", abc=2e6, provinces="Cavite",
+                            province="Cavite",
+                            closing_at=(datetime.now().replace(year=datetime.now().year + 1)
+                                        ).isoformat()))
+        f_good, n_good = profile_fit(good, prof, want, adj)
+        assert f_good == 1.0 and n_good == [], (f_good, n_good)
+
+        big = _R(dict(good, abc=40e6))
+        f_big, n_big = profile_fit(big, prof, want, adj)
+        assert f_big < f_good and any("stretch" in x for x in n_big), (f_big, n_big)
+        assert n_big[0] == "stretch: P40M vs your P5M band", n_big
+        # ^ the annotation is the point: S3 says demote and TELL, never hide.
+        assert f_big >= 0.20, "fit is a prior: never zero, never a hard filter"
+
+        nullabc = _R(dict(good, abc=None))
+        f_n, n_n = profile_fit(nullabc, prof, want, adj)
+        assert any("not stated" in x for x in n_n) and f_n > 0.2, (f_n, n_n)
+
+        lot = _R(dict(good, abc=360000.0, abc_lot_min=60000.0, abc_lot_max=60000.0))
+        prof2 = dict(prof, abc_band=[10000, 100000])
+        f_l, n_l = profile_fit(lot, prof2, want, adj)
+        assert f_l > 0.9 and any("lot fits" in x for x in n_l), (f_l, n_l)
+        f_tot, _ = profile_fit(_R(dict(good, abc=360000.0)), prof2, want, adj)
+        assert f_l > f_tot, "a notice whose LOT fits must outrank the same total with no lots"
+
+        adjr = _R(dict(good, provinces="Batangas", province="Batangas"))
+        f_a, n_a = profile_fit(adjr, prof, want, adj)
+        outr = _R(dict(good, provinces="Cebu", province="Cebu"))
+        f_o, _ = profile_fit(outr, prof, want, adj)
+        nullp = _R(dict(good, provinces=None, province=None))
+        f_p, n_p = profile_fit(nullp, prof, want, adj)
+        assert f_good > f_a > f_o, (f_good, f_a, f_o)
+        assert f_p > f_o, "location-null must not be punished harder than a real mismatch"
+        assert any("adjacent" in x for x in n_a) and any("not stated" in x for x in n_p)
+
+        from datetime import timedelta
+        tight = _R(dict(good, closing_at=(datetime.now() + timedelta(days=2, hours=6))
+                        .replace(microsecond=0).isoformat()))
+        f_t, n_t = profile_fit(tight, prof, want, adj)
+        assert f_t < f_good and any("tight" in x for x in n_t), (f_t, n_t)
+        assert f_t > 0.2, "23.2% of the board closes in <=48h; tight is a demotion, not a drop"
+        closed = _R(dict(good, closing_at=(datetime.now() - timedelta(days=3)).isoformat()))
+        f_cl, n_cl = profile_fit(closed, prof, want, adj)
+        assert f_cl < f_t and n_cl == ["CLOSED"], (f_cl, n_cl)
+
+        nev = _R(dict(good, work_type="food_catering"))
+        f_v, n_v = profile_fit(nev, prof, want, adj)
+        assert f_v <= 0.35 and any("never" in x for x in n_v)
+        assert f_v > 0.0, "even `never` is a demotion -- S3: nothing is hidden"
+
+        untag = _R(dict(good, work_type=None))
+        f_u, n_u = profile_fit(untag, prof, want, adj)
+        assert f_good > f_u > 0.8, (f_u, "untagged is a soft penalty; most rows are untagged")
+
+        off = _R(dict(good, needs_pcab=1))
+        f_c, n_c = profile_fit(off, prof, want, adj)
+        assert f_c < f_good and any("PCAB" in x for x in n_c)
+
+        worst = _R(_fake_row(work_type="food_catering", abc=900e6, provinces="Sulu",
+                             province="Sulu", needs_pcab=1, closing_at=None))
+        f_w, _ = profile_fit(worst, prof, want, adj)
+        assert f_w == 0.20, f"floor must hold at 0.20, got {f_w}"
+        assert profile_fit(good, {"_enabled": False}, want, adj) == (1.0, []), \
+            "--no-profile must be a true bypass"
+    check("profile_fit is a prior: demotes+annotates, floors at 0.20, never hides", t_fit)
+
+    def t_relax():
+        assert relax("abc:>5M road widening") == '"abc" OR "5M" OR "road" OR "widening"', \
+            relax("abc:>5M road widening")
+        assert relax("(((") is None
+        assert relax("software OR ICT") == '"software" OR "ICT"'
+    check("bad FTS queries relax to an OR of terms", t_relax)
+
+    def t_est():
+        assert est_tokens("") == 0
+        assert est_tokens("a b c") == 3, est_tokens("a b c")
+        assert est_tokens("x" * 350) == 100
+    check("token estimator is monotone and word-floored", t_est)
+
+    # --- DB-backed ---------------------------------------------------------------------------
+    if not db_path().exists():
+        ok.append(("DB checks", f"SKIPPED: {db_path()} absent -- run `rfp build`"))
+        _report(ok)
+        return 1 if any(v for _, v in ok if v and not v.startswith("SKIPPED")) else 0
+
+    con = connect()
+    s = schema(con)
+
+    def t_ro_write():
+        """The headline guarantee: a model that writes DELETE gets an error, not an incident."""
+        for stmt in ("delete from notices",
+                     "update notices set abc = 1",
+                     "insert into notices (id, source) values (1, 'x')",
+                     "drop table notices",
+                     "create table evil (x)",
+                     "alter table notices add column evil text",
+                     "insert into corpus(corpus) values('rebuild')"):
+            try:
+                con.execute(stmt)
+                raise AssertionError(f"WRITE SUCCEEDED: {stmt!r}")
+            except (sqlite3.OperationalError, sqlite3.DatabaseError, sqlite3.Warning):
+                pass
+        # mode=ro does not stop `attach writable.db`; the authorizer must.
+        try:
+            con.execute("attach database '/tmp/rfp_evil.db' as evil")
+            raise AssertionError("ATTACH SUCCEEDED -- ro-mode alone is not enough")
+        except sqlite3.DatabaseError:
+            pass
+        assert con.execute(f"select count(*) from {s['base']}").fetchone()[0] > 0, \
+            "reads must still work"
+    check("sql refuses every write, including ATTACH", t_ro_write)
+
+    def t_cmd_sql_guard():
+        class A:
+            query, json, limit, cell = "delete from notices", False, 50, 80
+        try:
+            cmd_sql(A())
+            raise AssertionError("cmd_sql accepted a DELETE")
+        except SystemExit as e:
+            assert e.code == 2, e.code
+        class B:
+            query, json, limit, cell = "select 1; drop table notices", False, 50, 80
+        try:
+            cmd_sql(B())
+            raise AssertionError("cmd_sql accepted two statements")
+        except SystemExit as e:
+            assert e.code == 2
+    check("cmd_sql rejects writes and stacked statements before SQLite sees them", t_cmd_sql_guard)
+
+    def t_spec_query():
+        """The design doc's example query, adapted to the schema that actually shipped.
+
+        The doc writes `from corpus where corpus match ...` -- one FTS table carrying the
+        metadata.  The merge that shipped splits it: `corpus` is a plain table, `corpus_fts` is
+        external-content FTS5 joined on `corpus.nid = corpus_fts.rowid`.  So the doc's literal
+        query does NOT run, and SKILL.md documents the shape that does.  This asserts both, so
+        the day corpus.db changes shape, this test says so instead of search quietly degrading.
+        """
+        assert s["fts"], "no FTS table found: search would fall back to filters only"
+        b, ft = s["base"], s["fts"]
+        join = ("" if ft == b else
+                f" join {b} on {b}.{s['fts_key'] or 'rowid'} = {ft}.rowid")
+        rows = con.execute(
+            f"select {b}.id, {b}.title, {b}.abc, {b}.closing_at from {ft}{join} "
+            f"where {ft} match 'software OR ICT OR \"information system\"' "
+            f"  and {b}.abc between 1000000 and 5000000 "
+            f"  and {b}.closing_at > date('now','+7 days') "
+            f"order by rank limit 40").fetchall()
+        assert all(isinstance(r["abc"], float) for r in rows), \
+            "abc must come back numeric, not text"
+        if ft != b:
+            try:
+                con.execute(f"select id from {b} where {b} match 'road'").fetchall()
+                raise AssertionError(
+                    "the base table now answers MATCH -- the doc's literal query works and "
+                    "SKILL.md's 'join corpus_fts' guidance is stale")
+            except sqlite3.OperationalError:
+                pass
+    check("the design doc's example SQL runs in its shipped shape", t_spec_query)
+
+    def t_null_hazards():
+        # Must be an ENRICHED null-ABC row: the 12 unenriched zombies are excluded by default,
+        # so picking one of those would test the wrong thing.
+        row = con.execute(
+            f"select id from {s['base']} where abc is null "
+            f"and {expr(s,'enriched_at')} is not null "
+            f"and {expr(s,'closing_at')} is not null limit 1").fetchone()
+        if row:
+            worst = row["id"]
+            a = _args_for_search(abc_max=5_000_000, include_closed=True)
+            rows, _, _ = run_query(con, None, a, {"_enabled": False}, pool=100000)
+            assert worst in {r["id"] for r in rows}, \
+                f"abc<=5M dropped null-ABC notice {worst} -- the omission bug"
+            a2 = _args_for_search(abc_max=5_000_000, include_closed=True)
+            a2.strict_abc = True
+            rows2, _, _ = run_query(con, None, a2, {"_enabled": False}, pool=100000)
+            assert worst not in {r["id"] for r in rows2}, "--strict-abc must exclude nulls"
+    check("abc filters surface null-ABC notices (and --strict-abc drops them)", t_null_hazards)
+
+    def t_multilot():
+        r = con.execute(f"select id, abc, abc_lot_min from {s['base']} "
+                        f"where abc_lot_min is not null and abc_lot_min < abc/2 "
+                        f"order by id limit 1").fetchone()
+        if r is None:
+            return
+        a = _args_for_search(abc_max=int(r["abc_lot_min"]) + 1, include_closed=True)
+        rows, _, _ = run_query(con, None, a, {"_enabled": False}, pool=100000)
+        assert r["id"] in {x["id"] for x in rows}, (
+            f"notice {r['id']} is {peso(r['abc'])} of {peso(r['abc_lot_min'])} lots and must be "
+            f"findable by its per-lot range")
+    check("multi-lot notices findable by per-lot ABC", t_multilot)
+
+    def t_multiprov():
+        r = con.execute(f"select id, location from {s['base']} where location like '%,%' "
+                        f"limit 1").fetchone()
+        if r is None:
+            return
+        second = split_locations(r["location"])[1]
+        a = _args_for_search(province=[second], include_closed=True, province_strict=True)
+        rows, _, _ = run_query(con, None, a, {"_enabled": False}, pool=100000)
+        assert r["id"] in {x["id"] for x in rows}, (
+            f"notice {r['id']} location={r['location']!r} not found by its 2nd province "
+            f"{second!r} -- a region filter using '=' misses every multi-province notice")
+    check("multi-valued location searchable by any of its provinces", t_multiprov)
+
+    def t_null_location():
+        a = _args_for_search(province=["Cavite"], include_closed=True)
+        rows, notes, _ = run_query(con, None, a, {"_enabled": False}, pool=100000)
+        nulls = [r for r in rows if not r["location"]]
+        assert nulls, "province filter must keep location-null notices (12.2% of corpus)"
+        a2 = _args_for_search(province=["Cavite"], include_closed=True, province_strict=True)
+        rows2, _, _ = run_query(con, None, a2, {"_enabled": False}, pool=100000)
+        assert not [r for r in rows2 if not r["location"]], "--province-strict must drop them"
+    check("province filter keeps location-null notices by default", t_null_location)
+
+    def t_no_date_sort():
+        a = _args_for_search()
+        rows, _, _ = run_query(con, None, a, {"_enabled": False}, pool=50)
+        if any(r["closing_at"] is None for r in rows):
+            assert rows[0]["closing_at"] is not None, \
+                "no-closing-date notices must not sort first"
+    check("null closing dates do not sort to the top", t_no_date_sort)
+
+    def t_budget():
+        """The load-bearing one.  Verbose hits drift the economics back toward approach A."""
+        measured = []
+        for q, kw in [("road concreting", {}), ("supply and delivery of medical supplies", {}),
+                      ("construction", {"province": ["Cavite"]}),
+                      ("software information system", {}),
+                      ("repair", {"abc_max": 5_000_000}),
+                      (None, {})]:
+            a = _args_for_search(results=40, **kw)
+            rows, _, _ = run_query(con, q, a, {"_enabled": False})
+            prof = load_profile(enabled=True)
+            hits = rank(rows, prof, 40)
+            if not hits:
+                continue
+            texts, _footer = render_hits(hits, prof)
+            toks = [est_tokens(t) for t in texts]
+            worst = max(toks)
+            mean = sum(toks) / len(toks)
+            measured.append((q, len(toks), mean, worst))
+            assert worst <= BUDGET_HIT, \
+                f"q={q!r}: a hit cost {worst} est tokens, cap is {BUDGET_HIT}"
+            assert mean <= BUDGET_MEAN, \
+                f"q={q!r}: mean {mean:.1f} est tokens/hit, budget is {BUDGET_MEAN}"
+            assert all(len(t.splitlines()) <= 4 for t in texts), "a hit is at most 4 lines"
+        assert measured, "no query returned hits -- budget unverified"
+        selfcheck.budget = measured
+    check(f"search hits stay under {BUDGET_MEAN} est tokens mean / {BUDGET_HIT} max", t_budget)
+
+    def t_facets_budget():
+        import io
+        import contextlib
+        a = _args_for_search(results=1)
+        a.query = "construction"
+        a.pool = 5000
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            cmd_facets(a)
+        out = buf.getvalue()
+        t = est_tokens(out)
+        assert 0 < t <= 450, f"facets cost {t} est tokens, target ~300 (cap 450)"
+        assert "work_type" in out and "province" in out and "abc" in out and "mode" in out
+        selfcheck.facets_tokens = t
+    check("facets stays ~300 tokens (cap 450)", t_facets_budget)
+
+    def t_search_e2e():
+        import io
+        import contextlib
+        a = _args_for_search(results=3)
+        a.query = "concreting of barangay road"
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            cmd_search(a)
+        out = buf.getvalue()
+        assert "[" in out, out[:400]
+        a.json = True
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            cmd_search(a)
+        j = json.loads(buf.getvalue())
+        assert j["returned"] <= 3 and all("fit" in h and "score" in h for h in j["hits"])
+    check("search end-to-end, text and --json", t_search_e2e)
+
+    def t_bad_query_survives():
+        import io
+        import contextlib
+        a = _args_for_search(results=3)
+        a.query = 'abc:>5M road-widening ((('
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            cmd_search(a)
+        out = buf.getvalue()
+        assert "relaxed" in out or "candidates" in out, out[:300]
+    check("a malformed FTS query degrades instead of erroring", t_bad_query_survives)
+
+    def t_show():
+        import io
+        import contextlib
+        rid = con.execute(f"select id from {s['base']} order by id limit 1").fetchone()["id"]
+
+        class A:
+            ids, json, no_docs, chars = [str(rid)], False, False, 400
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            cmd_show(A())
+        out = buf.getvalue()
+        assert f"[{rid}]" in out and "ABC" in out and "documents" in out, out[:400]
+
+        class B:
+            ids, json, no_docs, chars = ["999999999"], False, False, 400
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            cmd_show(B())
+        assert "not in corpus" in buf.getvalue()
+    check("show renders a real notice and reports a missing id", t_show)
+
+    def t_sql_python_parity():
+        """MODE_FAMILIES and ABC_BANDS drive both a Python function and a SQL CASE.  Two
+        implementations of one rule drift; this compares them on all 22,080 rows so they cannot.
+        """
+        b = s["base"]
+        bad = con.execute(
+            f"select mode_norm, ({expr(s,'mode_family')}) as sqlv, count(*) c from {b} "
+            f"group by mode_norm, sqlv").fetchall()
+        for r in bad:
+            assert mode_family(r["mode_norm"]) == r["sqlv"], (
+                f"mode_family disagreement on {r['mode_norm']!r}: "
+                f"python={mode_family(r['mode_norm'])!r} sql={r['sqlv']!r} ({r['c']} rows)")
+        n_modes = len(bad)
+        rows = con.execute(
+            f"select abc, ({expr(s,'abc_band')}) as sqlv from {b} "
+            f"order by abc limit 4000").fetchall()
+        for r in rows:
+            assert abc_band(r["abc"]) == r["sqlv"], (r["abc"], abc_band(r["abc"]), r["sqlv"])
+        edges = con.execute(
+            f"select abc, ({expr(s,'abc_band')}) as sqlv from {b} where abc in "
+            f"(100000,500000,1000000,5000000,15000000,50000000) or abc is null "
+            f"or abc > 5e8 limit 500").fetchall()
+        for r in edges:
+            assert abc_band(r["abc"]) == r["sqlv"], (r["abc"], r["sqlv"])
+        selfcheck.parity = f"{n_modes} distinct mode_norm values, {len(rows)+len(edges)} abc rows"
+    check("SQL and Python agree on mode_family and abc_band, over the whole corpus",
+          t_sql_python_parity)
+
+    def t_province_roundtrip():
+        """Every province spelling stored in the corpus must be findable by --province with that
+        same spelling.  This is what catches the normalisation traps: 'North Cotabato' is stored
+        with location_norm 'COTABATO', 'Tawi-Tawi' as 'TAWI TAWI', 'Dinagat Island' as
+        'DINAGAT ISLANDS'."""
+        pt = s["prov"]
+        if not pt:
+            return
+        vals = [r[0] for r in con.execute(
+            f"select distinct {pt['val']} from {pt['table']} where {pt['val']} is not null "
+            f"and trim({pt['val']}) <> ''")]
+        assert len(vals) > 50, f"only {len(vals)} province values -- location table looks empty"
+        checked, misses = 0, []
+        for v in vals:
+            if v.upper() in _NATIONWIDE:
+                continue
+            a = _args_for_search(province=[v], include_closed=True, include_unenriched=True,
+                                 province_strict=True)
+            rows_, _, _ = run_query(con, None, a, {"_enabled": False}, pool=3)
+            checked += 1
+            if not rows_:
+                misses.append(v)
+        assert not misses, f"--province finds nothing for its own stored spelling: {misses}"
+        selfcheck.provinces = f"{checked} province spellings round-tripped"
+    check("every stored province spelling is findable by --province", t_province_roundtrip)
+
+    def t_no_query_ranks_by_prior():
+        """A filter-only search (no query text) must rank by the profile prior.  It did not:
+        every BM25 rel is 0.0 with no MATCH, score = rel x fit made every score 0.0, and the
+        result came back ordered by closing date with the WORST-fitting notice first."""
+        prof = load_profile(enabled=True)
+        a = _args_for_search(results=8, no_profile=False, include_closed=True)
+        rows_, _, _ = run_query(con, None, a, prof, pool=400)
+        assert rows_, "no rows for an unfiltered search"
+        assert all(r["rel"] == 0 for r in rows_), "no query should mean no BM25 signal"
+        hits = rank(rows_, prof, 8)
+        fits = [h[1] for h in hits]
+        assert fits == sorted(fits, reverse=True), \
+            f"no-query hits are not ordered by fit: {fits}"
+        assert hits[0][0] == hits[0][1], "with no relevance signal, score must equal fit"
+        # and a query DOES restore relevance ordering
+        rows2, _, _ = run_query(con, "concreting", a, prof, pool=400)
+        assert any(r["rel"] > 0 for r in rows2), "a query must produce a BM25 signal"
+    check("a filter-only search ranks by the profile prior, not by nothing",
+          t_no_query_ranks_by_prior)
+
+    def t_lot_journey():
+        """The design doc's named example, end to end: notice 54278 is P360K made of six P60K
+        lots, and a bidder filtering ABC <= P100K must not merely find it, it must rank as a fit.
+        This is the regression that caught the inverted-band bug in effective_profile()."""
+        row = con.execute(
+            f"select id from {s['base']} where abc_lot_max is not null and abc_lot_max < 100000 "
+            f"and abc > 150000 and {expr(s,'enriched_at')} is not null limit 1").fetchone() \
+            if "abc_lot_max" in s["cols"] else None
+        if not row:
+            return
+        nid = row["id"]
+        a = _args_for_search(results=400, abc_max=100000, include_closed=True, no_profile=False)
+        a.profile, a.min_days, a.band = None, None, False
+        eff, _told = effective_profile(a, load_profile(enabled=True))
+        assert eff["abc_band"] == [0.0, 100000], eff["abc_band"]
+        rows_, _, _ = run_query(con, None, a, eff, pool=100000)
+        cand = {r["id"]: r for r in rows_}
+        assert nid in cand, f"notice {nid} not even in the candidate pool at abc<=100K"
+        r = cand[nid]
+        fit, notes_ = profile_fit(r, eff, *profile_provinces(eff))
+        assert notes_ and "lot fits" in notes_[0], (
+            f"notice {nid} is {peso(r['abc'])} of {peso(r['abc_lot_max'])} lots at a "
+            f"{eff['abc_band']} band, but its first annotation is {notes_} -- the money note "
+            f"must lead, and it must say the lot fits, not that the total is a stretch")
+        # Isolate the ABC dimension: the same notice with its lot columns blanked must score
+        # STRICTLY worse, which is what proves the lot rule (and not something else) did the work.
+        blind = _R({k: (None if k in ("abc_lot_min", "abc_lot_max") else r[k]) for k in r.keys()})
+        fit_blind, notes_blind = profile_fit(blind, eff, *profile_provinces(eff))
+        assert fit > fit_blind and any("stretch" in x for x in notes_blind), (
+            fit, notes_, fit_blind, notes_blind)
+        selfcheck.lot = (f"notice {nid}: fit {fit} {notes_[0]!r} vs {fit_blind} without lot "
+                         f"columns ({notes_blind[0]!r})")
+    check("multi-lot notice ranks as a fit when a LOT fits the band", t_lot_journey)
+
+    def t_agency_province():
+        """The agency-name fallback is only allowed to exist because it was measured.  This
+        re-measures it every run against the rows where `location` IS known, so a regression in
+        the pattern list shows up as a number, not as quietly worse ranking."""
+        assert agency_province("DEPARTMENT OF PUBLIC WORKS AND HIGHWAYS - BULACAN 1ST DEO") \
+            == "Bulacan"
+        assert agency_province("CITY OF PASAY") == "Metro Manila"
+        assert agency_province("QUEZON CITY GOVERNMENT") == "Metro Manila", \
+            "Quezon City is in Metro Manila, not Quezon province"
+        assert agency_province("PROVINCE OF QUEZON") == "Quezon"
+        assert agency_province("BRGY. COMMUNAL, DAVAO CITY, DAVAO DEL SUR") == "Davao Del Sur"
+        assert agency_province("DEPARTMENT OF BUDGET AND MANAGEMENT") is None
+        assert agency_province(None) is None and agency_province("") is None
+
+        b = s["base"]
+        rows_ = con.execute(
+            f"select agency, location from {b} where {expr(s,'enriched_at')} is not null "
+            f"and location is not null and trim(location) <> '' "
+            f"and location not like '%,%'").fetchall()
+        agree = dis = noguess = 0
+        for r in rows_:
+            truth = canon_province(r["location"])
+            if truth is None:
+                continue
+            g = agency_province(r["agency"])
+            if g is None:
+                noguess += 1
+            elif g.lower() == truth.lower():
+                agree += 1
+            else:
+                dis += 1
+        prec = 100.0 * agree / max(1, agree + dis)
+        assert prec >= 93.0, f"agency-province precision fell to {prec:.1f}% (was 96.5%)"
+        nul = con.execute(f"select agency from {b} where {expr(s,'enriched_at')} is not null "
+                          f"and (location is null or trim(location) = '')").fetchall()
+        rec = sum(1 for r in nul if agency_province(r["agency"]))
+        assert nul and rec / len(nul) >= 0.40, \
+            f"recovers only {rec}/{len(nul)} of the location-null rows (was 48.8%)"
+        selfcheck.geo = (f"precision {prec:.1f}% on {agree+dis} guesses "
+                         f"({noguess} no-guess); recovers {rec}/{len(nul)} "
+                         f"({100.0*rec/len(nul):.1f}%) of location-null rows")
+    check("agency-name geography: precision and recovery still hold", t_agency_province)
+
+    def t_docs():
+        """`show` must never conflate 'no attachments' with 'never crawled'.  Legacy is 80.6% of
+        the corpus and can NEVER have documents (auth-gated listing), so a silent empty list
+        would read as fact when it is an access limit."""
+        docs, dstat, note = docs_for([-1])
+        assert isinstance(docs, dict) and isinstance(dstat, dict) and note
+        if not DOCS_DB.exists():
+            return
+        con2 = sqlite3.connect(f"file:{DOCS_DB}?mode=ro", uri=True)
+        try:
+            nid, did = con2.execute(
+                "select d.notice_id, d.doc_id from documents d join blobs b "
+                "on b.blob_id = d.blob_id where b.chars > 0 limit 1").fetchone()
+        finally:
+            con2.close()
+        d, st, note = docs_for([nid])
+        assert nid in d or nid in st, f"docs.db knows notice {nid} but docs_for found nothing"
+        got = d[nid][0]
+        assert got.get("name") and got.get("doc_id"), got
+        # Listing must NOT carry text: the median blob is 56K chars and notices carry up to 40.
+        assert got.get("text") is None, "docs_for() must not fetch text unless asked"
+        txt = doc_text_for([did])
+        assert txt.get(did), f"doc_text_for({did}) returned no text; the blobs join is broken"
+        selfcheck.docs = (f"{note}; probe notice {nid} -> {len(d.get(nid, []))} documents, "
+                          f"doc {did} -> {len(txt[did]):,} chars")
+    check("docs listing separates 'no attachments' from 'never crawled', text is opt-in", t_docs)
+
+    def t_attach():
+        """The attach-then-authorize ordering, both directions.  Get this backwards and either
+        the aux databases are invisible (search silently loses two of three channels) or the
+        `attach a writable db and INSERT into it` hole reopens."""
+        aux = aux_schemas(con)
+        assert "docs" in aux or not DOCS_DB.exists(), f"docs.db not attached: {aux}"
+        assert "tags" in aux or not SRC_TAGS.exists(), f"tags.db not attached: {aux}"
+        # every attached file is read-only in its own right (main's mode=ro does not propagate)
+        for sql in ("insert into docs.skips(at) values('x')",
+                    "update tags.tags set work_type='x'",
+                    "delete from docs.documents"):
+            tbl = sql.split()[1].split("(")[0].split(".")[0]
+            if tbl not in aux:
+                continue
+            try:
+                con.execute(sql)
+                raise AssertionError(f"WROTE to an attached db: {sql}")
+            except sqlite3.DatabaseError as e:
+                assert "readonly" in str(e).lower() or "not authorized" in str(e).lower(), e
+        # and no FOURTH database can be attached after the authorizer is armed
+        try:
+            con.execute("attach database ? as w", (str(HERE / "corpus.db"),))
+            raise AssertionError("ATTACH was permitted after the authorizer was armed")
+        except sqlite3.DatabaseError as e:
+            assert "not authorized" in str(e).lower(), e
+        selfcheck.attach = f"attached {sorted(aux)}; all read-only; further ATTACH denied"
+    check("aux DBs attach read-only, and further ATTACH is still denied", t_attach)
+
+    def t_tag_wiring():
+        """corpus.work_type is NULL on every row of the merged corpus.db -- the tag pass wrote
+        tags.db and nothing merged it back.  If expr() stops preferring tags.db, --work-type
+        silently becomes a no-op that returns zero rows, which is the omission failure."""
+        if not s.get("tags_db"):
+            return "SKIPPED (tags.db absent)"
+        n = con.execute(f"select count(*) from {s['base']} "
+                        f"where ({expr(s,'work_type')}) = 'civil_works'").fetchone()[0]
+        assert n > 100, f"only {n} civil_works rows; the tags.db join is broken"
+        a = _args_for_search(results=5, work_type=["civil_works"])
+        rows, _, _ = run_query(con, "road", a, {"_enabled": False})
+        assert rows, "--work-type civil_works returned nothing"
+        assert all(r["work_type"] == "civil_works" for r in rows), \
+            "a --work-type filter let a different work_type through"
+        assert any(r["scope"] for r in rows), "scope never populated from tags.db"
+        selfcheck.tagwire = f"{n} civil_works rows visible through tags.db"
+    check("tag columns resolve through the attached tags.db, not the empty base columns",
+          t_tag_wiring)
+
+    def t_doc_search():
+        """The point of the night: text that exists ONLY in an attachment must be findable, and
+        the hit must say so."""
+        if not s.get("docs_db"):
+            return "SKIPPED (docs.db absent)"
+        # A term that lives almost entirely in attachments.  'backhoe' would be a bad probe: it
+        # appears in 85 notice titles, so the attachment-only hits are CORRECTLY outranked and
+        # the test would fail on working code.  "slump test" is a concrete QC clause that
+        # appears in 158 notices' documents and exactly 1 notice's own text.
+        probe = '"slump test"'
+        dm = doc_match(con, probe)
+        assert dm, f"{probe!r} matched no attachment text at all"
+        # It must reach notices whose own text never mentions the term -- otherwise the
+        # attachment index is decorative and notice-text search would have found them anyway.
+        ph = ",".join("?" * len(dm))
+        vis = {r[0] for r in con.execute(
+            f"select {s['base']}.id from {s['fts']} "
+            f"join {s['base']} on {s['base']}.{s['fts_key']} = {s['fts']}.rowid "
+            f"where {s['fts']} match ? and {s['base']}.id in ({ph})",
+            [probe] + list(dm))}
+        only_doc = set(dm) - vis
+        assert only_doc, \
+            f"every {probe!r} attachment hit was already visible in notice text -- no recall gain"
+        # and the end-to-end search must actually return one of them, marked @att
+        a = _args_for_search(results=25)
+        rows, _, _ = run_query(con, probe, a, {"_enabled": False})
+        hits = rank(rows, {"_enabled": False}, 25)
+        att = [r for _, _, _, r in hits if "att" in (r.get("matched") or [])]
+        assert att, f"no hit for {probe!r} was marked as an attachment match"
+        assert any(r["id"] in only_doc for _, _, _, r in hits), \
+            "search returned no attachment-only notice; the union step is not working"
+        selfcheck.docsearch = (f"{probe!r}: {len(dm)} notices via attachments, "
+                               f"{len(only_doc)} of them invisible to notice text")
+    check("attachment-only text is findable end-to-end and marked @att", t_doc_search)
+
+    def t_doc_weight():
+        """The failure the brief names: a notice whose PDF repeats a word must not outrank a
+        notice whose TITLE is an exact match.  Asserted on the arithmetic, not on a vibe."""
+        def mk(rel, doc_rel):
+            return {"rel": rel, "doc_rel": doc_rel, "tag_rel": 0.0, "closing_at": "2026-09-01",
+                    "abc": 1e6, "province": None, "provinces": None, "agency": "X",
+                    "work_type": None, "abc_lot_min": None, "abc_lot_max": None,
+                    "needs_pcab": None, "id": 1, "matched": []}
+        title_hit = mk(10.0, 0.0)      # perfect notice-text match, no attachment
+        pdf_hit = mk(0.0, 10.0)        # perfect attachment match, no notice-text match
+        pdf_hit["id"] = 2
+        out = rank([title_hit, pdf_hit], {"_enabled": False}, 2)
+        assert out[0][3]["id"] == 1, \
+            "an attachment-only match outranked an exact notice-text match"
+        assert out[0][0] > out[1][0] * 1.5, \
+            f"attachment weight too high: {out[1][0]} vs {out[0][0]} (DOC_WEIGHT={DOC_WEIGHT})"
+        both = mk(10.0, 10.0); both["id"] = 3
+        out2 = rank([title_hit, both], {"_enabled": False}, 2)
+        assert out2[0][3]["id"] == 3, "matching in BOTH channels must beat matching in one"
+        selfcheck.docweight = (f"DOC_WEIGHT={DOC_WEIGHT} TAG_WEIGHT={TAG_WEIGHT}: "
+                               f"title-only {out[0][0]} > attachment-only {out[1][0]}")
+    check("an attachment match cannot outrank an exact notice-text match", t_doc_weight)
+
+    def t_provenance():
+        """Provenance is what makes a cheap model's ranking auditable.  A label that can be wrong
+        is worse than no label, so every claimed channel is re-verified against the source."""
+        a = _args_for_search(results=12)
+        rows, _, _ = run_query(con, "concrete", a, {"_enabled": False})
+        hits = rank(rows, {"_enabled": False}, 12)
+        assert hits, "no hits to check provenance on"
+        assert all(r.get("matched") for _, _, _, r in hits), \
+            "a returned hit carried no provenance at all"
+        for _, _, _, r in hits:
+            for lab in r["matched"]:
+                assert lab in PROV_ORDER, f"unknown provenance label {lab!r}"
+            if "ttl" in r["matched"]:
+                assert "concret" in (r["title"] or "").lower(), \
+                    f"claimed a title match but the title is {r['title']!r}"
+            if "att" in r["matched"]:
+                assert r.get("doc_blob"), "claimed @att with no blob behind it"
+        selfcheck.prov = "; ".join(
+            f"{r['id']}:{'+'.join(r['matched'])}" for _, _, _, r in hits[:4])
+    check("every hit reports where it matched, and the label is true", t_provenance)
+
+    def t_sql_surface():
+        """`rfp sql` must reach notices, tags and document text in ONE query -- that is the
+        integration.  Also pins the bm25 aggregate workaround documented in SKILL.md: FTS5
+        refuses an auxiliary function once the planner flattens a subquery into a GROUP BY, and
+        an inner LIMIT is what forces materialisation.  If a future SQLite changes that, this
+        fails here instead of in a user's query."""
+        if not (s.get("docs_db") and s.get("tags_db")):
+            return "SKIPPED (aux DBs absent)"
+        r = con.execute("""
+            select c.id, (select t.work_type from tags.tags t where t.id = c.id) wt,
+                   count(d.doc_id) nd
+            from corpus c join docs.documents d
+              on d.notice_id = c.id and d.source = c.source
+            group by c.id having nd > 3 limit 1""").fetchone()
+        assert r and r["wt"] and r["nd"] > 3, f"three-way join returned {tuple(r) if r else None}"
+        # the trap, verbatim: no inner LIMIT -> error
+        try:
+            con.execute("select d.notice_id, min(bm25(doc_fts)) from docs.doc_fts "
+                        "join docs.documents d on d.blob_id = doc_fts.rowid "
+                        "where doc_fts match 'slump' group by d.notice_id").fetchall()
+            trap = False
+        except sqlite3.DatabaseError:
+            trap = True
+        # the documented workaround: inner LIMIT materialises the subquery
+        got = con.execute(
+            "select notice_id, min(score) from (select d.notice_id, bm25(doc_fts) score "
+            "from docs.doc_fts join docs.documents d on d.blob_id = doc_fts.rowid "
+            "where doc_fts match 'slump' limit 100000) group by notice_id limit 3").fetchall()
+        assert got, "the documented bm25-aggregate workaround returned nothing"
+        selfcheck.sqlsurface = (
+            f"3-way join ok (notice {r['id']}, {r['wt']}, {r['nd']} docs); "
+            f"bm25-in-GROUP-BY {'still errors (workaround needed)' if trap else 'NOW WORKS'}; "
+            f"inner-LIMIT workaround ok")
+    check("rfp sql joins notices + tags + document text, and the bm25 workaround holds",
+          t_sql_surface)
+
+    def t_counts():
+        n = con.execute(f"select count(*) from {s['base']}").fetchone()[0]
+        assert n > 1000, f"corpus has only {n} notices -- did build run?"
+        srcs = dict(con.execute(f"select source, count(*) from {s['base']} group by 1"))
+        selfcheck.counts = (n, srcs)
+        ids = con.execute(f"select count(distinct id) from {s['base']}").fetchone()[0]
+        assert ids == n, "id must be unique -- the two systems' id ranges are disjoint"
+        fts = con.execute("select count(*) from corpus").fetchone()[0]
+        assert fts == n, f"FTS row count {fts} != notices {n}; index is stale"
+    check("corpus row counts and FTS index agree", t_counts)
+
+    _report(ok)
+    return 1 if any(v for _, v in ok if v and not str(v).startswith("SKIPPED")) else 0
+
+
+def _args_for_search(**kw):
+    d = dict(query=None, results=10, pool=600, abc_min=None, abc_max=None, strict_abc=False,
+             province=None, province_strict=False, work_type=None, mode=None, mode_family=None,
+             agency=None, classification=None, source=None, days_min=None, days_max=None,
+             closing_before=None, closing_after=None, include_closed=False,
+             include_unenriched=False, no_profile=True,
+             profile=None, json=False, verbose=False, budget=BUDGET_MEAN, no_snippet=False,
+             min_days=None, band=False, no_docs_text=False, no_tag_text=False)
+    d.update(kw)
+    return argparse.Namespace(**d)
+
+
+def _report(ok):
+    for name, err in ok:
+        if err is None:
+            print(f"  ok   {name}")
+        elif str(err).startswith("SKIPPED"):
+            print(f"  skip {name}: {err}")
+        else:
+            print(f"  FAIL {name}: {err}")
+    bad = [n for n, e in ok if e and not str(e).startswith("SKIPPED")]
+    for attr, label in (("counts", "corpus"), ("parity", "sql/python parity"), ("docs", "documents"),
+                        ("lot", "multi-lot"), ("provinces", "province round-trip"), ("geo", "agency geography"), ("budget", "token budget"),
+                        ("facets_tokens", "facets est tokens")):
+        if hasattr(selfcheck, attr):
+            v = getattr(selfcheck, attr)
+            if attr == "budget":
+                print("  measured token cost per hit (est):")
+                for q, n_, mean, worst in v:
+                    print(f"    q={str(q)[:34]:36s} n={n_:3d} mean={mean:5.1f} max={worst:3d}")
+            else:
+                print(f"  {label}: {v}")
+    print(f"{len(ok)-len(bad)}/{len(ok)} checks passed" + (f"  FAILED: {bad}" if bad else ""))
+
+
+# ---------------------------------------------------------------------------------------------
+def add_filters(p):
+    p.add_argument("query", nargs="?", default=None,
+                   help="FTS5 match expression. Bare words are AND-ed; use OR, "
+                        '"quoted phrases", NEAR, prefix*. Omit to rank by profile alone.')
+    p.add_argument("--abc-min", type=float, help="peso floor (includes null-ABC notices)")
+    p.add_argument("--abc-max", type=float, help="peso ceiling (includes null-ABC and per-lot)")
+    p.add_argument("--strict-abc", action="store_true",
+                   help="exclude notices with no stated ABC (default: surface and mark them)")
+    p.add_argument("--province", action="append",
+                   help="province or region name, repeatable/comma-separated; "
+                        "matches any of a multi-valued location")
+    p.add_argument("--province-strict", action="store_true",
+                   help="drop location-null notices (12.2% of corpus)")
+    p.add_argument("--work-type", action="append", help=f"one of: {' '.join(WORK_TYPES)}")
+    p.add_argument("--mode", help="substring of the exact legal mode (mode_norm)")
+    p.add_argument("--mode-family", action="append",
+                   help="svp|public_bidding|shopping|negotiated|international|limited_source|"
+                        "direct|competitive_dialogue")
+    p.add_argument("--agency", help="substring of the procuring entity")
+    p.add_argument("--classification", help="the agency's SELF-DECLARED classification")
+    p.add_argument("--source", choices=["mphilgeps", "legacy"])
+    p.add_argument("--days-min", type=int, help="at least N days to closing")
+    p.add_argument("--days-max", type=int, help="at most N days to closing")
+    p.add_argument("--closing-before", help="YYYY-MM-DD")
+    p.add_argument("--closing-after", help="YYYY-MM-DD")
+    p.add_argument("--include-closed", action="store_true")
+    p.add_argument("--include-unenriched", action="store_true",
+                   help="also show the 12 permanent-HTTP-500 notices (no ABC, no closing date)")
+    p.add_argument("--no-profile", action="store_true", help="rank on BM25 alone")
+    p.add_argument("--profile", help="path to profile.md (default: alongside rfp)")
+    p.add_argument("--pool", type=int, default=600,
+                   help="candidates fetched before the profile prior reranks them")
+    p.add_argument("--json", action="store_true")
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(
+        prog="rfp", description=__doc__.split("\n\n")[0],
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="corpus.db location: $RFP_DB, else corpus.db beside this script. "
+               "See SKILL.md for the schema and worked queries.")
+    sub = ap.add_subparsers(dest="cmd")
+
+    p = sub.add_parser("sql", help="read-only SQL over corpus.db (the primary tool)")
+    p.add_argument("query")
+    p.add_argument("--limit", type=int, default=200, help="row cap; 0 = no cap")
+    p.add_argument("--cell", type=int, default=140, help="chars per cell in text mode")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(fn=cmd_sql)
+
+    p = sub.add_parser("search", help="profile-weighted ranked hits, token-budgeted")
+    add_filters(p)
+    p.add_argument("-n", "--results", type=int, default=None,
+                   help="default: profile `results` (3 contractor / 40 supplier)")
+    p.add_argument("--min-days", type=int, help="override profile min_days_to_close (ranking only)")
+    p.add_argument("--band", action="store_true",
+                   help="also apply the profile abc_band as a filter, not just a prior")
+    p.add_argument("--budget", type=int, default=BUDGET_MEAN,
+                   help=f"per-hit est-token target; hits trim to fit (default {BUDGET_MEAN}, "
+                        f"hard cap {BUDGET_HIT})")
+    p.add_argument("--no-snippet", action="store_true")
+    p.add_argument("--no-doc-text", dest="no_docs_text", action="store_true",
+                   help="ignore attachment text (notice + tag channels only)")
+    p.add_argument("--no-tag-text", dest="no_tag_text", action="store_true",
+                   help="ignore the distilled scope/keywords channel")
+    p.add_argument("-v", "--verbose", action="store_true", help="print the token cost")
+    p.set_defaults(fn=cmd_search)
+
+    p = sub.add_parser("facets", help="counts by work_type/province/mode/ABC band (~300 tokens)")
+    add_filters(p)
+    p.set_defaults(fn=cmd_facets, results=1)
+    p.set_defaults(pool=30000)
+
+    p = sub.add_parser("show", help="full scope text, line items, attached documents")
+    p.add_argument("ids", nargs="+")
+    p.add_argument("--chars", type=int, default=4000, help="truncate long text; 0 = all")
+    p.add_argument("--no-docs", action="store_true")
+    p.add_argument("--doc-text", nargs="?", const="*", metavar="DOC_ID|*",
+                   help="print EXTRACTED DOCUMENT TEXT: all attachments, or one doc_id")
+    p.add_argument("--doc-chars", type=int, default=6000,
+                   help="per-document text cap for --doc-text; 0 = all")
+    p.add_argument("--grep", help="with --doc-text, print only matching lines (+/-1 line context)")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(fn=cmd_show)
+
+    p = sub.add_parser("reindex", help="(re)build tag_fts in corpus.db from tags.db")
+    p.set_defaults(fn=cmd_reindex)
+
+    p = sub.add_parser("build", help="merge tenders.db + legacy.db (+ tags.db) -> corpus.db")
+    p.add_argument("--out")
+    p.add_argument("--force", action="store_true")
+    p.set_defaults(fn=cmd_build)
+
+    p = sub.add_parser("profile", help="print the resolved profile")
+    p.add_argument("--profile")
+    p.add_argument("--no-profile", action="store_true")
+    p.set_defaults(fn=cmd_profile)
+
+    p = sub.add_parser("stats", help="corpus counts and the measured data hazards")
+    p.set_defaults(fn=cmd_stats)
+
+    p = sub.add_parser("selfcheck", help="assert-based tests, no framework")
+    p.set_defaults(fn=selfcheck)
+    sub.add_parser("test").set_defaults(fn=selfcheck)
+
+    args = ap.parse_args(argv)
+    if not getattr(args, "cmd", None):
+        ap.print_help()
+        return 0
+    if args.cmd == "facets":
+        args.pool = max(args.pool, 30000)
+    return args.fn(args) or 0
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except BrokenPipeError:
+        os._exit(0)
+    except KeyboardInterrupt:
+        sys.exit(130)

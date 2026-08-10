@@ -1,0 +1,2 @@
+{"name": "brand-11-signal-blue", "op": "edit", "model": "gpt-image-2", "usage": {"input_tokens": 1646, "input_tokens_details": {"image_tokens": 1536, "text_tokens": 110}, "output_tokens": 601, "output_tokens_details": {"image_tokens": 601, "text_tokens": 0}, "total_tokens": 2247}}
+{"name": "apply-11-signal-blue-landing", "op": "edit", "model": "gpt-image-2", "usage": {"input_tokens": 1646, "input_tokens_details": {"image_tokens": 1536, "text_tokens": 110}, "output_tokens": 601, "output_tokens_details": {"image_tokens": 601, "text_tokens": 0}, "total_tokens": 2247}}

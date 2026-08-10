@@ -1,0 +1,362 @@
+{
+ "n": 22068,
+ "n_m": 4288,
+ "n_l": 17780,
+ "value_total": 207050905419.98,
+ "abc_n": 22036,
+ "abc_median": 1000000.0,
+ "abc_mean": 9396029.470864948,
+ "abc_p90": 14849481.219999999,
+ "abc_p99": 121249017.25000076,
+ "abc_max": 13722876696.0,
+ "top1_value": 0.40889478332443135,
+ "top10_value": 0.7998973760679736,
+ "bottom50_value": 0.01826797297340299,
+ "gini": 0.8628953966760406,
+ "bunching": [
+  {
+   "t": "\u20b1100K",
+   "below": 256,
+   "above": 178,
+   "ratio": 1.4382022471910112,
+   "exact": 299,
+   "placebo": 0.8509615384615384,
+   "excess": 1.6900907763600583
+  },
+  {
+   "t": "\u20b1500K",
+   "below": 545,
+   "above": 285,
+   "ratio": 1.912280701754386,
+   "exact": 316,
+   "placebo": 1.132258064516129,
+   "excess": 1.6889088818913378
+  },
+  {
+   "t": "\u20b11M",
+   "below": 441,
+   "above": 271,
+   "ratio": 1.6273062730627306,
+   "exact": 341,
+   "placebo": 1.2,
+   "excess": 1.3560885608856088
+  },
+  {
+   "t": "\u20b15M",
+   "below": 825,
+   "above": 175,
+   "ratio": 4.714285714285714,
+   "exact": 238,
+   "placebo": 1.3146853146853146,
+   "excess": 3.5858662613981767
+  },
+  {
+   "t": "\u20b115M",
+   "below": 204,
+   "above": 93,
+   "ratio": 2.193548387096774,
+   "exact": 38,
+   "placebo": 0.9452054794520548,
+   "excess": 2.3207106124357173
+  },
+  {
+   "t": "\u20b150M",
+   "below": 177,
+   "above": 33,
+   "ratio": 5.363636363636363,
+   "exact": 23,
+   "placebo": 1.2352941176470589,
+   "excess": 4.341991341991341
+  }
+ ],
+ "round_share": {
+  "exact \u20b11,000": 0.4600653476129969,
+  "exact \u20b110,000": 0.3534216736249773,
+  "exact \u20b1100,000": 0.21678163005990198,
+  "exact \u20b11,000,000": 0.08014158649482665
+ },
+ "top_abc_values": [
+  {
+   "v": 1000000.0,
+   "n": 341
+  },
+  {
+   "v": 500000.0,
+   "n": 316
+  },
+  {
+   "v": 4950000.0,
+   "n": 306
+  },
+  {
+   "v": 100000.0,
+   "n": 299
+  },
+  {
+   "v": 2000000.0,
+   "n": 252
+  },
+  {
+   "v": 300000.0,
+   "n": 245
+  },
+  {
+   "v": 5000000.0,
+   "n": 238
+  },
+  {
+   "v": 400000.0,
+   "n": 231
+  }
+ ],
+ "dtc_n": 22068,
+ "dtc_le2": 0.21619539604857713,
+ "dtc_le6": 0.6035435925321733,
+ "dtc_median": 4.375,
+ "clock_n": 4248,
+ "clock_top": [
+  [
+   10,
+   1619
+  ],
+  [
+   9,
+   1452
+  ],
+  [
+   14,
+   364
+  ],
+  [
+   8,
+   234
+  ]
+ ],
+ "weekday": {
+  "Mon": 7233,
+  "Tue": 6467,
+  "Wed": 3753,
+  "Thu": 3163,
+  "Fri": 1355,
+  "Sat": 14,
+  "Sun": 83
+ },
+ "loc_distinct": 169,
+ "loc_unstated": 0.08741163675910821,
+ "loc_need80": 44,
+ "loc_top": [
+  {
+   "k": "Metro Manila",
+   "n": 2187,
+   "share": 0.09910277324632953
+  },
+  {
+   "k": "Batangas",
+   "n": 788,
+   "share": 0.035707812216784485
+  },
+  {
+   "k": "Cebu",
+   "n": 693,
+   "share": 0.031402936378466556
+  },
+  {
+   "k": "Iloilo",
+   "n": 599,
+   "share": 0.02714337502265724
+  },
+  {
+   "k": "Laguna",
+   "n": 510,
+   "share": 0.023110386079390973
+  },
+  {
+   "k": "Leyte",
+   "n": 505,
+   "share": 0.022883813666847923
+  },
+  {
+   "k": "Cavite",
+   "n": 485,
+   "share": 0.02197752401667573
+  },
+  {
+   "k": "Quezon",
+   "n": 479,
+   "share": 0.021705637121624072
+  },
+  {
+   "k": "Camarines Sur",
+   "n": 469,
+   "share": 0.021252492296537973
+  },
+  {
+   "k": "Bukidnon",
+   "n": 457,
+   "share": 0.020708718506434656
+  },
+  {
+   "k": "Bohol",
+   "n": 424,
+   "share": 0.019213340583650533
+  },
+  {
+   "k": "Zamboanga Del Sur",
+   "n": 378,
+   "share": 0.017128874388254486
+  },
+  {
+   "k": "Negros Oriental",
+   "n": 375,
+   "share": 0.016992930940728658
+  },
+  {
+   "k": "Negros Occidental",
+   "n": 375,
+   "share": 0.016992930940728658
+  }
+ ],
+ "cat_top": [
+  {
+   "k": "Construction Projects",
+   "n": 6253
+  },
+  {
+   "k": "Construction Materials and Supplies",
+   "n": 1467
+  },
+  {
+   "k": "General Merchandise",
+   "n": 949
+  },
+  {
+   "k": "Food Stuff",
+   "n": 589
+  },
+  {
+   "k": "Catering Services",
+   "n": 548
+  },
+  {
+   "k": "Vehicles",
+   "n": 537
+  },
+  {
+   "k": "Heavy construction services",
+   "n": 523
+  },
+  {
+   "k": "Drugs and Medicines",
+   "n": 491
+  },
+  {
+   "k": "Office Supplies and Devices",
+   "n": 440
+  },
+  {
+   "k": "Medical Supplies and Laboratory Instrument",
+   "n": 423
+  },
+  {
+   "k": "Roads and landscape",
+   "n": 408
+  },
+  {
+   "k": "Information Technology",
+   "n": 406
+  }
+ ],
+ "arch_n": 6839,
+ "arch_singleton": 0.5968708875566603,
+ "arch_max": 289,
+ "arch_median": 1,
+ "arch_need50": 504,
+ "ag_distinct": 4860,
+ "ag_top20_share": 0.08904295812941816,
+ "ag_singleton": 0.4648148148148148,
+ "ag_top": [
+  {
+   "k": "DEPARTMENT OF AGRICULTURE - LIPA CITY BATANGAS",
+   "n": 291
+  },
+  {
+   "k": "DPWH - BATANGAS 1ST DISTRICT ENGINEERING OFFIC",
+   "n": 185
+  },
+  {
+   "k": "PHILIPPINE NATIONAL POLICE - HEADQUARTERS SUPP",
+   "n": 129
+  },
+  {
+   "k": "PHILIPPINE NATIONAL POLICE - LOGISTICS SUPPORT",
+   "n": 124
+  },
+  {
+   "k": "DEPARTMENT OF PUBLIC WORKS AND HIGHWAYS - REGI",
+   "n": 111
+  },
+  {
+   "k": "CITY OF CALAMBA, LAGUNA",
+   "n": 106
+  },
+  {
+   "k": "DEPARTMENT OF PUBLIC WORKS AND HIGHWAYS - BULA",
+   "n": 94
+  },
+  {
+   "k": "CITY OF QUEZON",
+   "n": 94
+  },
+  {
+   "k": "PROVINCE OF DAVAO DEL NORTE",
+   "n": 81
+  },
+  {
+   "k": "CITY OF DAVAO, DAVAO DEL SUR",
+   "n": 78
+  },
+  {
+   "k": "DEPARTMENT OF PUBLIC WORKS AND HIGHWAYS - N EC",
+   "n": 73
+  },
+  {
+   "k": "PROVINCE OF LEYTE",
+   "n": 73
+  }
+ ],
+ "ag_tier": {
+  "BARANGAY": 3690,
+  "MUNICIPALITY": 5822,
+  "CITY": 3171,
+  "PROVINCE": 1883,
+  "DEPARTMENT": 3569
+ },
+ "inflow_mean": 582.8181818181819,
+ "class_stats": {
+  "Goods": {
+   "n": 13338,
+   "median": 479710.0,
+   "value": 63638579524.31
+  },
+  "Civil Works": {
+   "n": 6472,
+   "median": 2937542.1849999996,
+   "value": 82278045055.88
+  },
+  "Civil Works - Infra Project": {
+   "n": 1610,
+   "median": 9454060.0,
+   "value": 54132397217.94
+  },
+  "Goods - General Support Services": {
+   "n": 437,
+   "median": 537500.0,
+   "value": 4941503826.62
+  },
+  "Consulting Services": {
+   "n": 179,
+   "median": 2400000.0,
+   "value": 2060379795.23
+  }
+ }
+}

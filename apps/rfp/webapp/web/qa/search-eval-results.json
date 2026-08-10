@@ -1,0 +1,111 @@
+{
+  "updated": "2026-08-09T19:03:24.247Z",
+  "pass": true,
+  "failCount": 0,
+  "scenarios": [
+    {
+      "id": "cavite-drainage",
+      "pass": true,
+      "fails": [],
+      "usd": 0.0002,
+      "plan": {
+        "kind": "search",
+        "terms": [
+          "drainage",
+          "drain",
+          "canal",
+          "culvert"
+        ],
+        "note": "drainage works · Cavite · under ₱5M",
+        "province": "Cavite",
+        "abc_max": 5000000
+      },
+      "rows": 30,
+      "inProv": 30
+    },
+    {
+      "id": "iloilo-school-month",
+      "pass": true,
+      "fails": [],
+      "usd": 0.00022,
+      "plan": {
+        "kind": "search",
+        "terms": [
+          "school",
+          "building",
+          "repair",
+          "rehabilitation"
+        ],
+        "note": "school building repair · Iloilo · closing this month",
+        "province": "Iloilo",
+        "days_max": 30
+      },
+      "rows": 30
+    },
+    {
+      "id": "board-empty",
+      "pass": true,
+      "fails": [],
+      "usd": 0,
+      "rows": 30,
+      "total": 18024
+    },
+    {
+      "id": "greeting-fallback",
+      "pass": true,
+      "fails": [],
+      "usd": 0.00014,
+      "plan": {
+        "kind": "board",
+        "terms": [],
+        "note": ""
+      }
+    },
+    {
+      "id": "injection",
+      "pass": true,
+      "fails": [],
+      "usd": 0.00016,
+      "plan": {
+        "kind": "board",
+        "terms": [],
+        "note": ""
+      },
+      "rows": 30
+    },
+    {
+      "id": "pagination-stable",
+      "pass": true,
+      "fails": [],
+      "usd": 0,
+      "page0": 30,
+      "page1": 30
+    },
+    {
+      "id": "cost",
+      "pass": true,
+      "fails": [],
+      "usd": 0,
+      "perCall": [
+        {
+          "scenario": "cavite-drainage",
+          "usd": 0.0002
+        },
+        {
+          "scenario": "iloilo-school-month",
+          "usd": 0.00022
+        },
+        {
+          "scenario": "greeting-fallback",
+          "usd": 0.00014
+        },
+        {
+          "scenario": "injection",
+          "usd": 0.00016
+        }
+      ]
+    }
+  ],
+  "total_usd": 0.00071,
+  "total_peso": 0.041
+}
