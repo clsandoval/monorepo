@@ -1,0 +1,7 @@
+{
+  "$comment": "The committed public-surface route list journey/seo-smoke.mjs drives. These are the only routes an unauthenticated visitor can reach since cut(01)/cut(02) deleted the blog, landing-page cluster and share view (commit 4ccf06270). A route added to the public surface belongs here in the same commit that adds it.",
+  "routes": [
+    { "path": "/", "label": "marketing landing (signed out)" },
+    { "path": "/auth", "label": "sign in / sign up" }
+  ]
+}

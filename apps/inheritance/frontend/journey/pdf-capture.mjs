@@ -33,6 +33,18 @@
  *
  * This module writes nothing to disk beyond what Playwright's own download
  * machinery does inside its temporary directory.
+ *
+ * THE OPTIONAL `prepare` HOOK exists so one gate may capture a DIFFERENT fact
+ * set without duplicating the browser drive. It runs after the standard reset
+ * and before `input_json` is read, so whatever it writes is what the run
+ * computes and exports. Called with no argument, `captureExportedPdf()` behaves
+ * byte-identically to its previous behaviour, which is what keeps G23, G24 and
+ * G25 unaffected.
+ *
+ * THIS MODULE OWNS NO UNDO. A caller that supplies `prepare` is responsible for
+ * restoring every column it wrote, in a `finally` of its own.
+ * `journey/resets.mjs` states the governing rule: a reset must restore every
+ * column any step can write, not merely the one its name mentions.
  */
 
 import fs from 'node:fs';
@@ -60,9 +72,13 @@ const DOWNLOAD_TIMEOUT_MS = 60000;
  * Supabase stack, a failed build, a missing browser, a download that never
  * arrives, bytes that do not begin `%PDF-`. The caller maps that to exit 2.
  *
+ * @param {{prepare?: ((admin: object) => Promise<void>) | null}} [options]
+ *   `prepare` runs after the reset and before `input_json` is read. The caller
+ *   that supplies it must restore whatever it wrote; see the header.
  * @returns {Promise<{pdfBuffer: Buffer, expected: object, input: object, caseId: string}>}
  */
-export async function captureExportedPdf() {
+export async function captureExportedPdf(options = {}) {
+  const { prepare = null } = options;
   const env = readStackEnv();
   if (env === null || !env.API_URL) {
     throw new JourneyCannotRun('local Supabase stack is not running');
@@ -79,6 +95,10 @@ export async function captureExportedPdf() {
     // Begin from a wizard-phase case, so the product must compute rather than
     // redisplay a result some earlier run left behind.
     await RESETS['case-alpha-no-output'](admin);
+
+    // Optional: let the caller put the row into a different state, which the
+    // read below then picks up. No-op on the default path.
+    if (prepare) await prepare(admin);
 
     const { data: before, error: beforeErr } = await admin
       .from('cases')
