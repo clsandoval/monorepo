@@ -2,6 +2,25 @@
 
 **Live:** https://rfp-finder-ph.fly.dev · branch `rfp-webapp` · spend ledger `spend-ledger.json` ($30 cap)
 
+## M4 (2026-08-09 evening) — notice detail + enrich, shipped
+
+Derived from a contractor walk of the live site ("what stops me from hitting submit?").
+
+- **`/notice/[id]` SSR** (the SEO wedge): huge ABC, countdown, scope, **BOQ table** parsed from
+  the description behind an 8-guard reject-when-unsure gate (wrong-but-confident quantities are
+  worse than prose — guards tuned empirically on 300-notice scans; 8 measured garbage shapes
+  reject in `qa/detail-unit.ts`), statutory requirements checklist by mode (static table, never
+  the model), **similar recent awards** (awards.db; ABC 0.3–3× hard filter, province-ranked,
+  winner + "won at N% of budget"), contact card, "Open on PhilGEPS to bid ↗" CTA.
+- **Enrich** (`POST /api/notice/[id]/enrich`): `enrich_fetch.py` live-fetches the notice page
+  (both systems), downloads + pdftotext/OCRs mPhilGEPS attachments (poppler+tesseract in the
+  image) → one Luna pass under **quotes-or-omits + mechanical substring verification** (0
+  fabricated quotes across adversarial re-checks) → deliverables/qualifications/key dates/bid
+  security/red flags, cached at `/data/enrich`. Legacy = honest "from notice text" variant
+  (attachments login-gated). ~$0.004/enrich.
+- Rows/cards link in-app; ↗ affordance keeps the PhilGEPS deep link. ← Results restores rows +
+  scroll via sessionStorage (bfcache-independent, non-vacuous E2E test).
+
 ## M3 (2026-08-09 overnight) — results-first UI, shipped
 
 Google-pegged restructure per Carlos's directive: the default surface is a **long scrolling

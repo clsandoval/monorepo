@@ -67,6 +67,21 @@ await ask("only ones above ₱2M, closing in the next few weeks");
 await page.getByTestId("tab-results").click();
 await page.waitForTimeout(1800);
 
+// 6) M4: open a notice detail page, enrich it, come back
+await page.getByTestId("result-row").first().click();
+await page.waitForURL(/\/notice\/\d+/);
+await page.waitForTimeout(2500); // read the detail page
+const enrichBtn = page.getByRole("button", { name: /enrich/i });
+if (await enrichBtn.isVisible().catch(() => false)) {
+  await enrichBtn.click();
+  // enrich fetches + extracts + one Luna pass — up to ~2min; cached notices render instantly
+  await page.getByText(/deliverables|qualifications/i).first().waitFor({ timeout: 180_000 }).catch(() => {});
+  await page.waitForTimeout(2500);
+}
+await page.screenshot({ path: `${DIR}/../shots/live-detail-enriched.png`, fullPage: true });
+await page.getByText("← Results").click();
+await page.waitForTimeout(1500);
+
 await ctx.close(); // flushes the video
 await b.close();
 console.log("VIDEO_DIR", DIR);

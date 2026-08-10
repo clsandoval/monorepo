@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-09T17:30:00Z",
+ "updated": "2026-08-09T19:30:00Z",
  "all_green": true,
  "deployed": true,
  "prod_url": "https://rfp-finder-ph.fly.dev/",
@@ -11,7 +11,8 @@
   "G3",
   "G4",
   "G5",
-  "M3"
+  "M3",
+  "M4"
  ],
  "constraints_learned": [
   "better-sqlite3 native addon segfaults in this sandbox under BOTH node and bun -> removed; corpus via 'rfp sql --json', sessions as JSON files.",
@@ -245,6 +246,55 @@
      "name": "chat eval 8/8 real Luna + M2 reliability suite intact",
      "pass": true,
      "detail": "$0.0097"
+    }
+   ]
+  },
+  "M4_D1_detail": {
+   "status": "green",
+   "checks": [
+    {
+     "name": "SSR /notice/[id] both sources, real title/meta, 404s, BOQ 8-guard parser (reject-when-unsure, tuned on 300-notice scans)",
+     "pass": true,
+     "detail": "detail-unit incl. 8 measured garbage shapes asserted rejecting"
+    }
+   ]
+  },
+  "M4_D2_enrich": {
+   "status": "green",
+   "checks": [
+    {
+     "name": "grounded enrich: quotes-or-omits + mechanical substring verify (0 fabricated across adversarial re-checks); OCR fallback; cache; coalesced concurrent runs; graceful failures",
+     "pass": true,
+     "detail": "live runs: mphilgeps w/ docs $0.0042, legacy $0.0008, scanned\u2192OCR"
+    }
+   ]
+  },
+  "M4_D3_awards": {
+   "status": "green",
+   "checks": [
+    {
+     "name": "similar awards: ABC 0.3-3x HARD filter, province-ranked, hidden when empty",
+     "pass": true,
+     "detail": "tiny-ABC junk match eliminated (4.6K notice -> 0 rows)"
+    }
+   ]
+  },
+  "M4_D4_e2e": {
+   "status": "green",
+   "checks": [
+    {
+     "name": "18/18 incl. new bfcache-independent back-restore test; palette gate on detail; 390/768/1280",
+     "pass": true
+    }
+   ]
+  },
+  "M4_D5_regression": {
+   "status": "green",
+   "checks": [
+    {
+     "name": "search-eval 7/7, chat eval 8/8, all unit suites",
+     "pass": true,
+     "detail": "live P0 done: prod detail page eyeballed, 2 real prod enriches (legacy-text + docs-grounded w/ 2 PDFs, $0.003, 26s), video to Telegram"
     }
    ]
   }
