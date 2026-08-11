@@ -1,5 +1,11 @@
 # PH RFP finder — where things stand, 2026-08-09
 
+> **FROZEN 2026-08-11. Do not work in this directory.** Dev root is
+> github.com/getbutanding/bidkita (`~/cs/bidkita`), and everything below is a snapshot from
+> before the move. `daily.sh` here now `exit 1`s: on 2026-08-10 19:00Z the cron still pointed at
+> it, and its deploy step put this tree's pre-M6 webapp over the live lists+alerts release while
+> also shipping a corpus whose FTS index had failed to build. Both are fixed in bidkita.
+
 ## Session update, 2026-08-09 pm
 
 - **#148 brief pipeline exists**: `brief.py` renders one firm's 2-page PDF end to end

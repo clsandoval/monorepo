@@ -12,6 +12,12 @@
 #
 # Exit codes: 0 all good · 3 a guardrail stopped work (disk cap) · anything else, a stage failed.
 set -uo pipefail
+
+# FROZEN 2026-08-11. Dev root is github.com/getbutanding/bidkita -> ~/cs/bidkita.
+# On 2026-08-10 19:00Z this copy's step 7 ran `fly deploy` from its own pre-M6 webapp/ and
+# overwrote the live lists+alerts release (v24) with v25. It stays dead so that cannot recur.
+echo "FROZEN: this copy must never deploy. Run /home/clsandoval/cs/bidkita/daily.sh instead." >&2
+exit 1
 cd "$(dirname "$0")"
 export PATH="$HOME/.local/bin:$HOME/.fly/bin:$PATH"
 C="$PWD"; while [ "$C" != "/" ]; do [ -f "$C/.env" ] && set -a && . "$C/.env" && set +a && break; C="$(dirname "$C")"; done
