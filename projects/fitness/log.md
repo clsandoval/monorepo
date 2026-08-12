@@ -12,6 +12,13 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-08-12
+- **Weight:** 97.0 kg (fasted AM)
+- **Cals / Protein:** ~1255 / ~56g so far (5 pcs ebi tempura ~375/25g [~75/5g per shrimp, battered + fried]; cold buckwheat soba w/ tsuyu ~350/12g [8/05 precedent]; matcha latte ~200/8g [sweetened café version — say if unsweetened, drops it ~80]; café latte ~180/9g [12 oz standard, 8/07 precedent]; donut 150/2g [cals as given])
+- **Carbs / Sodium:** ~145g / ~2.5g so far (soba ~65g; tempura batter ~25g; matcha ~22g; latte ~15g; donut ~18g. Sodium: tsuyu + tempura dip only — thin, salt dinner or a Liquid IV)
+- **Trained:** Smith **flat** bench 3×8 @ 150 (75/side, not counting bar)
+- **Notes:** 97.0 fasted — highest since 7/03 and +1.8 off the 7/31 low (95.2). Cause is on the ledger, not a mystery: 8/10 closed ~2640 and 8/11 is unlogged (charged ~3300 by his own convention) — two days at/over TDEE back to back. Bench is the good news: **3×8 @ 150 clears 8/09's 2×8+1×6 at the same load** — that's a clean progression, hold 150 one more session before adding. Still flat instead of incline and still press-only, so **Day A remains owed** (Smith incline bench · barbell rows · RDL · leg extensions) — 10 days since a full session. Session logged → **earned-day ceiling 2500.** Day so far is **~1255 / ~56g: 89g under the floor with ~1245 of room** — an all-carb day (soba + batter + two lattes + donut, 5.6 cal per gram of nothing). Ribeye planned for dinner — it fits: **300g ribeye (~900/78g, ~300/26 per 100g) + 1 scoop → ~2295 / ~158g**, floor cleared, ~205 under the earned ceiling, ~700–800 deficit at active TDEE. Tighter option if he wants the weight moving faster: 200g ribeye + 2 scoops → ~2115 / ~154g. **The scoop is not optional** — 300g of ribeye alone lands 11g short of the floor. Nothing else after; do not spend the room on more carbs. Fiber near-zero again (eighth thin day) — banana fits easily.
+
 ## 2026-08-10
 - **Weight:** — (not logged)
 - **Cals / Protein:** ~2640 / ~112g (3 small street tacos, his estimate ~150g meat + ~150g tortilla total, rest onion/bell pepper/salsa: meat ~375/29g [assumed mixed fatty street-taco meat ~250/19 per 100g — 8/02 lengua ran 285/18, say if it was leaner]; tortillas ~320/8g [~215/100g corn]; veg + sauce ~75/1g; sweetened latte ~290/9g [7/29–7/31 sweet-version precedent 280–300]; cup noodles ~300/7g [standard ~70g cup]; giant cake slice + whipped cream ~680/6g [~600 slice + ~80 cream — say if it was a normal slice, that drops it ~200]; 200g choice ribeye grilled ~600/52g [~300/26 per 100g, 8/02 precedent])
