@@ -12,6 +12,13 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-08-14
+- **Weight:** — (not logged)
+- **Cals / Protein:** ~1245 / ~95g so far (150g uni ~200/24g [~130/16 per 100g sea urchin roe — assumed plain, add ~180/3g if it came on rice]; 100g spicy salmon ~230/18g [salmon + spicy mayo]; 100g salmon sashimi ~205/21g [8/05 precedent]; 1 grilled angus belly skewer ~250/14g [~70g fatty beef belly ~330/100g + tare]; 2 lattes ~360/18g [12 oz standard ×2, 8/09 precedent — correct me if sweetened, that's +100 each])
+- **Carbs / Sodium:** ~40g / ~2g so far (lattes ~30g; tare + spicy mayo ~8g; uni ~2g. Sodium: soy + tare only — thin, salt tonight or a Liquid IV)
+- **Trained:** —
+- **Notes:** No session → **rest-day ceiling 2200.** Day sits at **~1245 / ~95g: 50g under the floor with ~955 of room**, and it's *also* ~455 under the 1700 cal floor — this needs food, not restraint. Protein density was actually decent for eating out (13 cal/g; the raw fish carried it, the two lattes were 360 cal for 18g). Call: **2 scoops (~280/48g) + 200g cottage cheese (~164/24g) + banana (~105/1g) → ~1795 / ~167g** — floor cleared, ~405 under the rest ceiling, clear of the 1700 floor, ~900 deficit at 2700 TDEE. Shake-only (~1525/143g) breaks the cal floor *and* misses protein by 2 — don't. Banana is the fiber line: near-zero for the tenth straight day, and carbs are ~40g, the lowest in weeks. **Day A is still owed** (Smith incline bench · barbell rows · RDL · leg extensions) — 12 days since a full session, and the last two logged sessions were press-only. Incline walk tonight buys the 2500 ceiling, but the day doesn't need it.
+
 ## 2026-08-13
 - **Weight:** — (not logged)
 - **Cals / Protein:** ~2020 / ~160g planned (100g salmon ~210/21g [~205/21 per 100g, 8/05 sashimi precedent — if it was grilled skin-on add ~30]; ½ fish & chips: 50g fries ~160/2g + 50g battered fried halibut ~115/9g [~230/100g battered]; ½ regular sushi roll (3–4 pcs) ~140/6g; ½ spicy salmon salad ~180/12g [salmon + spicy mayo over greens]; 1 butter yakitori skewer ~170/11g [8/05 thigh skewer 140/11 + butter]; **dinner: 500g raw ribeye air fried ≈ 375g cooked ~940/98g** [choice, cap off, ~250/26 per 100g per 8/12 precedent — cap on / prime runs ~1125/98g]; banana ~105/1g)
