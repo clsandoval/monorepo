@@ -12,6 +12,13 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-08-19
+- **Weight:** — (not logged)
+- **Cals / Protein:** ~1230 / ~77g so far (½ of 600g raw **prime** ribeye = 300g raw ≈ 225g cooked ~675/59g [prime is more marbled than the choice cuts on 8/12–8/14 — ~300/26 per 100g cooked, the "cap on / prime" number from 8/13, not 250]; potato gratin ~200g serving ~375/9g [potato + cream + cheese, ~185/100g]; latte ~180/9g [12 oz standard, 8/07 precedent — +100 if sweetened])
+- **Carbs / Sodium:** ~45g / ~2.5g so far (gratin ~35g; latte ~15g. Sodium: gratin carries ~1.5g, steak salt the rest — thin, **salt the second half**)
+- **Trained:** —
+- **Notes:** No session → **rest-day ceiling 2200.** Day sits at **~1230 / ~77g: 68g under the protein floor, ~470 under the 1700 cal floor, with ~970 of room.** Density is fine for a steak day (16 cal/g overall, but that's the gratin + latte — 555 cal for 18g between them). **CALL: eat the other half of the ribeye + 1 scoop → ~2045 / ~160g.** Clears both floors, ~155 under the rest ceiling, ~650 deficit at 2700 TDEE, and it's real food instead of a powder dinner — the pattern that worked 8/12–8/14. If the second half is gone, fallback is **2 scoops + 300g cottage cheese → ~1755 / ~161g** (2 scoops + 200g lands ~1675, breaks the 1700 floor). Nothing else after either version; don't spend the room on more carbs. **Day A is still owed** (Smith incline bench · barbell rows · RDL · leg extensions) — last full session was pre-8/02, and the last logged lift was the 8/12 Smith flat bench. **8/15–8/18 are unlogged** (4 days) — by his own convention unlogged days charge ~3300; weight not logged this morning either, so there's no read on where the 8/12 97.0 went. Fiber near-zero again — banana fits under the ceiling in both versions.
+
 ## 2026-08-14
 - **Weight:** — (not logged)
 - **Cals / Protein:** ~2350 / ~200g planned (150g uni ~200/24g [~130/16 per 100g sea urchin roe — assumed plain, add ~180/3g if it came on rice]; 100g spicy salmon ~230/18g [salmon + spicy mayo]; 100g salmon sashimi ~205/21g [8/05 precedent]; 1 grilled angus belly skewer ~250/14g [~70g fatty beef belly ~330/100g + tare]; 2 lattes ~360/18g [12 oz standard ×2, 8/09 precedent — correct me if sweetened, that's +100 each]; **dinner: 600g raw ribeye trimmed & air fried ≈ 400g cooked, eating all of it ~1000/104g** [choice, fat trimmed, ~250/26 per 100g per 8/12 precedent]; banana ~105/1g)
