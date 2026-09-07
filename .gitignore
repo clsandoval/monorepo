@@ -42,3 +42,12 @@ entities/people/
 .worktrees/
 .superpowers/autopilot-config.json
 .superpowers/autopilot-sessions.json
+
+# Playwright / test run state (regenerable)
+test-results/
+
+# Rendered video outputs (regenerable from scripts, large)
+inbox/*.mp4
+
+# Auth session databases (credentials — never commit)
+*.session
