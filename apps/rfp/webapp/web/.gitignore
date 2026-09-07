@@ -43,6 +43,7 @@ next-env.d.ts
 test-results/
 playwright-report/
 .sessions-e2e/
+.lists-e2e/
 qa/shots/
 rfp-bundle/
 qa/video/
