@@ -14,10 +14,10 @@ Append-only. Newest at top. One line per day.
 ---
 ## 2026-09-13 — RESET (blank slate)
 - **Weight:** ~100.0 kg (self-reported, fasted status unconfirmed)
-- **Cals / Protein:** — (meal plan started; targets pending — see profile)
-- **Carbs / Sodium:** —
+- **Cals / Protein:** ~970 / ~100g so far (2 jasmine matcha teas ~200/6g [his ~100 each, assumed milk-based]; ½ roasted chicken, ~300g white meat ~550/90g [~185/30 per 100g cooked, skin partly on — skinless would be ~495/93g]; 50g flatbread ~150/5g [~300/100g]; butter ~10g ~70/0g)
+- **Carbs / Sodium:** ~70g / ~1.5–2g so far (teas ~40g; flatbread ~28g. Sodium: roast seasoning only — thin, salt dinner)
 - **Trained:** — (reports strength is UP vs August; new lift baselines pending)
-- **Notes:** Logging resumes after 25 unlogged days. **Blank slate by his call:** the August ledger (97.0 → 100.0, +3.0 kg) is closed, not audited — no charging unlogged days, no reconciling against the 7/31 low. What carries forward: the profile's physiology (bloating carbs, sodium floor, cal floor, mobility, 70–80% rule, no-morning-sessions) and the equipment. What resets: **targets, program, and the ledger.** He has started a meal plan and says strength increased — +3 kg with strength up is not all fat; new lean-mass estimate deferred until BF or measurements come in. Next: capture the meal plan's daily cals/protein, current working loads on the main lifts, and whether the 8/02 walk-engine + A/B program is still the plan or the meal plan replaces it.
+- **Notes:** Logging resumes after 25 unlogged days. **Blank slate by his call:** the August ledger (97.0 → 100.0, +3.0 kg) is closed, not audited — no charging unlogged days, no reconciling against the 7/31 low. What carries forward: the profile's physiology (bloating carbs, sodium floor, cal floor, mobility, 70–80% rule, no-morning-sessions) and the equipment. What resets: **targets, program, and the ledger.** He has started a meal plan and says strength increased — +3 kg with strength up is not all fat; new lean-mass estimate deferred until BF or measurements come in. **Food so far is lean — 9.7 cal per gram of protein, best ratio in the log** (the chicken carried it). Against the legacy numbers: 45g under the 145 floor and ~730 under the 1700 cal floor with ~1230 of room to the 2200 rest ceiling — this day needs a real dinner, not restraint: ~600–700 kcal with ~45g+ protein lands ~1600–1700 / ~145g. Meal-plan numbers still not captured, so these are provisional. Next: capture the meal plan's daily cals/protein, current working loads on the main lifts, and whether the 8/02 walk-engine + A/B program is still the plan or the meal plan replaces it.
 
 ## 2026-08-20 to 2026-09-12 (unlogged)
 - **Weight:** 97.0 → ~100.0 kg
