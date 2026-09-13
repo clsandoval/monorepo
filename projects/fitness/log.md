@@ -14,7 +14,7 @@ Append-only. Newest at top. One line per day.
 ## 2026-09-13 — RESET · coach mode on
 - **Weight:** ~100.0 kg (self-reported)
 - **Cals / Protein:** ~1990 / ~200g (AM: 2-scoop shake w/ almond milk + banana ~420/50g; 2 jasmine matcha teas ~200/6g; ½ roast chicken, ~300g white meat ~550/90g; 50g flatbread + butter ~220/5g; dinner: meal-prep béchamel dish 600/50g [plan meal, as labelled])
-- **Trained:** — (not reported)
+- **Trained:** walk · 13k steps (no lift)
 - **Notes:** Logging resumes after 25 unlogged days; August ledger closed, not audited. He handed all rule-setting to the coach → **Rules v2 in profile: ≤2200 kcal · ≥150 g protein · lift 3×/wk A/B · walk 30 min daily.** Reports strength up since August — good, keep the loads. Meal plan captured: 3 × 600/60 = 1800/180 — spine of the day, scoops only replace a skipped plan meal. Dinner was the plan meal → **~1990 / ~200g ✅**, ~210 under the ceiling, done eating. Baselines still needed: fasted weight tomorrow, working loads on the first A and B sessions.
 
 ## 2026-08-20 to 2026-09-12 (unlogged)
