@@ -12,6 +12,17 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-09-13 — RESET (blank slate)
+- **Weight:** ~100.0 kg (self-reported, fasted status unconfirmed)
+- **Cals / Protein:** — (meal plan started; targets pending — see profile)
+- **Carbs / Sodium:** —
+- **Trained:** — (reports strength is UP vs August; new lift baselines pending)
+- **Notes:** Logging resumes after 25 unlogged days. **Blank slate by his call:** the August ledger (97.0 → 100.0, +3.0 kg) is closed, not audited — no charging unlogged days, no reconciling against the 7/31 low. What carries forward: the profile's physiology (bloating carbs, sodium floor, cal floor, mobility, 70–80% rule, no-morning-sessions) and the equipment. What resets: **targets, program, and the ledger.** He has started a meal plan and says strength increased — +3 kg with strength up is not all fat; new lean-mass estimate deferred until BF or measurements come in. Next: capture the meal plan's daily cals/protein, current working loads on the main lifts, and whether the 8/02 walk-engine + A/B program is still the plan or the meal plan replaces it.
+
+## 2026-08-20 to 2026-09-12 (unlogged)
+- **Weight:** 97.0 → ~100.0 kg
+- **Notes:** 24 days, no entries. Closed unreconciled under the 2026-09-13 reset.
+
 ## 2026-08-19
 - **Weight:** 97.0 kg (fasted AM)
 - **Cals / Protein:** ~1405 / ~75g so far (½ of 600g raw **prime** ribeye = 300g raw ≈ 225g cooked **~850/57g** [REPRICED — he says it was visibly fatty, cap on, untrimmed. Prime untrimmed runs ~310–330/100g **raw** and ~19g protein/100g raw; cooking drips some fat but concentrates the rest → ~380/25 per 100g cooked. The first pass used ~300/26, which is the *trimmed* number from 8/12–8/14 — wrong cut of the same animal]; potato gratin ~200g serving ~375/9g [potato + cream + cheese, ~185/100g]; latte ~180/9g [12 oz standard, 8/07 precedent — +100 if sweetened])

@@ -3,7 +3,7 @@ type: project
 name: Fitness
 status: active
 tags: [health, fat-loss, training]
-updated: 2026-08-12
+updated: 2026-09-13
 
 ---
 
@@ -18,7 +18,8 @@ Keep it current — when weight/targets/equipment change, edit here.
 - **Age / sex:** 26, male
 - **Timezone:** GMT+8 (log dates are local)
 - **Height:** 185 cm
-- **Current:** ~97.0 kg (8/12 AM fasted), ~29% body fat → lean mass ≈ 68–69 kg
+- **Current:** ~100.0 kg (9/13, self-reported; last fasted log 97.0 on 8/19). Body fat / lean mass **unknown post-reset** — he reports strength up since August, so don't assume the +3 kg is all fat. Previous estimate (8/12): ~29% BF → LM ≈ 68–69 kg.
+- **RESET 2026-09-13 (his call — blank slate):** 25 unlogged days closed without audit. Targets, program and ledger below are **legacy until re-confirmed**; he has started a **meal plan** whose daily cals/protein are the new intake numbers once captured (fill in here). Physiology notes (bloating carbs, sodium/cal/fiber floors, mobility, 70–80% rule, no morning sessions) still stand.
 - **Goal (two-phase — added 2026-07-13):** the real target is **ripped in the mid-80s**, which is a
   muscle goal, not just a fat goal. At today's ~68–69 kg lean mass he'd be ripped at only ~78 kg
   (12% BF) — the lightweight look he says is *too lean*. Being shredded at ~84 kg needs ~74 kg lean
