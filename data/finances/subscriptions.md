@@ -29,7 +29,7 @@ Updated 2026-09-13 from Carlos’s confirmed service list. Amounts and billing c
 |---|---|---|---|---|---|---|
 | Supabase | ? | ? | monthly (verify) | ? | | |
 | Fly.io | usage-based (verify) | ? | monthly (verify) | ? | | |
-| OpenCode | ? | ? | ? | ? | | unconfirmed |
+| OpenCode | Go | ? | ? | ? | | |
 | Claude | Max previously noted; verify | ? | monthly (verify) | ? | | |
 | Codex | Billing account / plan TBD | ? | ? | ? | | |
 | Shopify | ? | ? | ? | ? | | |
@@ -39,7 +39,7 @@ Updated 2026-09-13 from Carlos’s confirmed service list. Amounts and billing c
 ## Subscription discovery — August report
 
 Carlos confirmed these services on 2026-09-13: **Claude, Codex, Fly.io,
-Supabase, Insta360, NordVPN, Duolingo, Shopify, Netflix**. The earlier phrase
+Supabase, Insta360, NordVPN, Duolingo, Shopify, Netflix, OpenCode Go**. The earlier phrase
 “onsta360” is recorded as Insta360. This is a starting inventory, not a complete
 list: Carlos expects additional subscriptions he does not remember.
 
@@ -47,8 +47,8 @@ list: Carlos expects additional subscriptions he does not remember.
   do not add their amounts a second time.
 - Codex may be covered by the recorded ChatGPT subscription or billed through
   another plan/API account. Verify before counting separate charges.
-- “OpenCode” came from the earlier unconfirmed voice list. Keep it unconfirmed
-  until a receipt establishes whether it is a distinct service.
+- Carlos explicitly confirmed **OpenCode Go** as a separate subscription;
+  do not conflate it with Codex. Its amount and billing cycle remain unverified.
 - Separate recurring subscriptions from usage-based bills and one-off purchases.
 - Discover other subscriptions from receipts and account statements. Record the
   merchant, billed amount/currency, billing interval, next renewal if known,
