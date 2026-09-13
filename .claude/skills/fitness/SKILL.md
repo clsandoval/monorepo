@@ -15,8 +15,10 @@ read it first, every time.
 
 ## Always do this first
 
-1. Read `projects/fitness/profile.md` — body stats, **targets (cal ceiling 2000, protein floor 160g)**,
-   food, equipment, training rules, advice style.
+1. Read `projects/fitness/profile.md` — **Rules v2** (≤2200 kcal · ≥150 g protein · lift 3×/wk A/B ·
+   walk daily), staple macros, non-negotiables, advice style. **Coach mode:** the coach sets the rules;
+   he reports. Don't re-open targets on request — decide, state it in one line. Everything under
+   "Archive" is history, not live rules.
 2. Read the top of `projects/fitness/log.md` for recent days (today's progress, trend).
 
 ## Then route
@@ -26,8 +28,10 @@ If the user's message already implies one (e.g. "log my macros", "should I skip 
 skip the menu and just do it.
 
 ### Log today
-Collect/confirm: weight, calories, protein, what they trained. Prepend a dated entry to `log.md`
-(newest at top) in the file's format. Then give a one-line read on the day vs targets.
+Collect/confirm: weight, calories, protein, what they trained (with loads). Prepend a dated entry to
+`log.md` (newest at top) in the file's format; notes are 1–2 sentences, no arithmetic essays. Then give
+the day verdict (✅ / ⚠️ / ❌) in one line. **Commit immediately** (see COMMIT RULE in profile.md).
+Unlogged days: one gap entry, no charging, no reconciliation.
 
 ### Add a recipe
 Get the recipe, estimate macros per serving if not given, append to `projects/fitness/recipes.md`
@@ -39,14 +43,13 @@ checklist grouped by store section, sized to hit the protein floor under the cal
 days requested. Flag the expensive items.
 
 ### Question (the default)
-Answer using the **decision rule** in profile.md:
-- **Protein 160g = floor, calories 2000 = ceiling.**
-- Under protein? → add protein (shake is the default gap-filler: 24g / 140 kcal per scoop).
-- Under cals with room? → eating more is fine.
-- At/over the ceiling? → ceiling wins, unless protein is badly missed → leanest protein source.
+Answer using **Rules v2** in profile.md:
+- **≤2200 kcal ceiling · ≥150 g protein floor.** Add the food to today's total and answer yes/no.
+- Under protein? → add protein (scoop 140/24 is the default; 2 scoops are booked daily anyway).
+- Over the ceiling? → no, unless protein is badly missed → leanest source only.
 - Floor beats ceiling when they conflict.
-- Training: consistency > intensity; 70–80% effort, no all-out/failure work; floor-start lifts only
-  (no rack). If they missed a day, the fix is "do 30 min today," not "make it up."
+- Training: 3×/wk A/B, 70–80% effort, 2 reps in the tank, never fail a set. Missed = skipped, not made up.
+- Adjustments to the numbers happen only via the 2-week rule in the profile, coach's call.
 
 ## Advice style (enforce)
 

@@ -7,21 +7,19 @@
 Append-only. Newest at top. One line per day.
 - **Weight:** kg
 - **Cals / Protein:** e.g. 1820 / 165g
-- **Carbs / Sodium:** rough estimates, e.g. ~140g / ~3g (sodium floor ~3–5g; carbs ≥130g on training days)
-- **Trained:** e.g. 6min rope, pull-ups, OHP, deadlift, rows
-- **Notes:** optional
+- **Trained:** session letter + working loads, e.g. A · bench 150×3×8 · row 135×3×10 · RDL … (or "—" / "walk")
+- **Notes:** 1–2 sentences max. Day verdict ✅ / ⚠️ / ❌ vs Rules v2 (profile.md). Carbs/sodium no longer tracked (entries before 2026-09-13 have them).
 
 ---
-## 2026-09-13 — RESET (blank slate)
-- **Weight:** ~100.0 kg (self-reported, fasted status unconfirmed)
-- **Cals / Protein:** ~970 / ~100g so far (2 jasmine matcha teas ~200/6g [his ~100 each, assumed milk-based]; ½ roasted chicken, ~300g white meat ~550/90g [~185/30 per 100g cooked, skin partly on — skinless would be ~495/93g]; 50g flatbread ~150/5g [~300/100g]; butter ~10g ~70/0g)
-- **Carbs / Sodium:** ~70g / ~1.5–2g so far (teas ~40g; flatbread ~28g. Sodium: roast seasoning only — thin, salt dinner)
-- **Trained:** — (reports strength is UP vs August; new lift baselines pending)
-- **Notes:** Logging resumes after 25 unlogged days. **Blank slate by his call:** the August ledger (97.0 → 100.0, +3.0 kg) is closed, not audited — no charging unlogged days, no reconciling against the 7/31 low. What carries forward: the profile's physiology (bloating carbs, sodium floor, cal floor, mobility, 70–80% rule, no-morning-sessions) and the equipment. What resets: **targets, program, and the ledger.** He has started a meal plan and says strength increased — +3 kg with strength up is not all fat; new lean-mass estimate deferred until BF or measurements come in. **Food so far is lean — 9.7 cal per gram of protein, best ratio in the log** (the chicken carried it). Against the legacy numbers: 45g under the 145 floor and ~730 under the 1700 cal floor with ~1230 of room to the 2200 rest ceiling — this day needs a real dinner, not restraint: ~600–700 kcal with ~45g+ protein lands ~1600–1700 / ~145g. Meal-plan numbers still not captured, so these are provisional. Next: capture the meal plan's daily cals/protein, current working loads on the main lifts, and whether the 8/02 walk-engine + A/B program is still the plan or the meal plan replaces it.
+## 2026-09-13 — RESET · coach mode on
+- **Weight:** ~100.0 kg (self-reported)
+- **Cals / Protein:** ~970 / ~100g so far (2 jasmine matcha teas ~200/6g; ½ roast chicken, ~300g white meat ~550/90g; 50g flatbread + butter ~220/5g)
+- **Trained:** — (not reported)
+- **Notes:** Logging resumes after 25 unlogged days; August ledger closed, not audited. He handed all rule-setting to the coach → **Rules v2 in profile: ≤2200 kcal · ≥150 g protein · lift 3×/wk A/B · walk 30 min daily.** Reports strength up since August — good, keep the loads. Tonight: dinner with ~50 g protein to ~1800–2000, plus 1 scoop if protein lands under 150. Baselines still needed: fasted weight tomorrow, working loads on the first A and B sessions.
 
 ## 2026-08-20 to 2026-09-12 (unlogged)
 - **Weight:** 97.0 → ~100.0 kg
-- **Notes:** 24 days, no entries. Closed unreconciled under the 2026-09-13 reset.
+- **Notes:** 24 days, no entries. Closed under the 2026-09-13 reset.
 
 ## 2026-08-19
 - **Weight:** 97.0 kg (fasted AM)
