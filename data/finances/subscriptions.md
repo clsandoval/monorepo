@@ -8,29 +8,36 @@ Status: `keep` / `unsure` / `cancel`
 
 | Service | Plan | Amount | Cycle | Next charge | ₱/mo equiv | Status |
 |---|---|---|---|---|---|---|
-| YouTube | Premium | ₱189.00 | monthly | 2026-09-12 | 189.00 | |
+| YouTube | Premium | ₱189.00 | monthly | ~2026-10-12 (inferred) | 189.00 | |
 | Discord | Nitro Monthly | ₱263.99 | monthly | 2026-09-24 | 263.99 | |
-| ChatGPT | Plus | ₱1,100.00 | monthly | 2026-10-06 | 1,100.00 | |
-| Insta360 | Moment Pro Yearly (24 clips) | ₱1,910.00 | yearly | 2026-12-05 | 159.17 | |
+| ChatGPT | Pro (replaced Plus on 2026-09-10) | ₱9,990.00 | monthly | 2026-10-06 | 9,990.00 | |
+| Insta360 | Moment Pro Yearly (24 clips); currently free trial | ₱1,910.00 after trial | yearly | 2026-12-05 | 159.17 after trial | |
+| Insta360 | 1TB Cloud Space Package | ₱6,050.00 | yearly; extended initial term | 2027-12-21 per receipt | 504.17 standard annual rate | |
+| CamScanner | Yearly Premium | ₱749.00 | yearly | ~2027-05-01 (inferred) | 62.42 | |
 | Google One | 100 GB | ₱1,190.00 | yearly | 2026-12-13 | 99.17 | |
 | Duolingo | Max | ₱3,300.00 | yearly | 2027-01-02 | 275.00 | |
 | NordVPN | 1 Year | ₱5,000.00 | yearly | 2027-02-21 | 416.67 | |
 | Telegram | Premium | ₱1,590.00 | yearly | 2027-03-11 | 132.50 | |
 
-**Play subtotal: ₱2,635.50/mo — ₱31,626/yr**
+The previous ₱2,635.50/month subtotal is obsolete following the ChatGPT upgrade
+and newly discovered plans. No complete spending total yet: trial conversion,
+extended cloud coverage, cancellations and payment reconciliation need separate
+treatment. Monthly equivalents are budgeting figures, not monthly charges.
 
-The Play list was still scrolling past Telegram — anything below that is unrecorded.
+Gmail evidence checked 2026-09-13: see [dated audit](subscription-audit-2026-09-13.md).
+Rows without evidence in that audit retain earlier user-provided values.
 
 ## Card / direct billing
 
-Updated 2026-09-13 from Carlos’s confirmed service list. Amounts and billing cycles still need receipts or statements. Confirmation of a service does not establish that its subscription is currently active.
+Updated 2026-09-13 from Carlos’s service list and Gmail receipts. Unknown amounts and billing cycles still need receipts or statements. A past receipt does not independently establish current account status.
 
 | Service | Plan | Amount | Cycle | Next charge | ₱/mo equiv | Status |
 |---|---|---|---|---|---|---|
 | Supabase | ? | ? | monthly (verify) | ? | | |
 | Fly.io | usage-based (verify) | ? | monthly (verify) | ? | | |
 | OpenCode | Go | ? | ? | ? | | |
-| Claude | Max previously noted; verify | ? | monthly (verify) | ? | | |
+| Claude | Max 20x | USD 224.00 including VAT | monthly | ~2026-09-29 (period end; verify renewal) | keep in USD | |
+| RapidAPI | Local Business Data PRO | USD 25.00 charged in August | verify interval | ? | keep in USD | |
 | Codex | Billing account / plan TBD | ? | ? | ? | | |
 | Shopify | ? | ? | ? | ? | | |
 | Netflix | ? | ? | ? | ? | | |
@@ -53,8 +60,9 @@ list: Carlos expects additional subscriptions he does not remember.
 - Discover other subscriptions from receipts and account statements. Record the
   merchant, billed amount/currency, billing interval, next renewal if known,
   payment account, supporting document and keep/unsure/cancel decision.
-- Gmail discovery was attempted on 2026-09-13, but the connector returned
-  `USER_NOT_LOGGED_IN`. No inbox audit has been completed.
+- Gmail connected successfully on 2026-09-13. Initial receipt audit completed;
+  see [findings and source messages](subscription-audit-2026-09-13.md).
+  This is not a complete inbox or bank-statement reconciliation.
 
 ## Financial accounts
 
