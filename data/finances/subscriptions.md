@@ -23,15 +23,38 @@ The Play list was still scrolling past Telegram — anything below that is unrec
 
 ## Card / direct billing
 
-Narrated 2026-09-08, names unconfirmed from voice. Amounts TBD.
+Updated 2026-09-13 from Carlos’s confirmed service list. Amounts and billing cycles still need receipts or statements. Confirmation of a service does not establish that its subscription is currently active.
 
 | Service | Plan | Amount | Cycle | Next charge | ₱/mo equiv | Status |
 |---|---|---|---|---|---|---|
-| Supabase | ? | ? | monthly | ? | | unconfirmed |
-| Fly.io | ? | ? | monthly | ? | | unconfirmed |
+| Supabase | ? | ? | monthly (verify) | ? | | |
+| Fly.io | usage-based (verify) | ? | monthly (verify) | ? | | |
 | OpenCode | ? | ? | ? | ? | | unconfirmed |
-| Claude Max | ? | ? | monthly | ? | | unconfirmed |
-| ??? | | | | | | needs re-narration |
+| Claude | Max previously noted; verify | ? | monthly (verify) | ? | | |
+| Codex | Billing account / plan TBD | ? | ? | ? | | |
+| Shopify | ? | ? | ? | ? | | |
+| Netflix | ? | ? | ? | ? | | |
+
+
+## Subscription discovery — August report
+
+Carlos confirmed these services on 2026-09-13: **Claude, Codex, Fly.io,
+Supabase, Insta360, NordVPN, Duolingo, Shopify, Netflix**. The earlier phrase
+“onsta360” is recorded as Insta360. This is a starting inventory, not a complete
+list: Carlos expects additional subscriptions he does not remember.
+
+- Insta360, NordVPN and Duolingo already appear in the Google Play section;
+  do not add their amounts a second time.
+- Codex may be covered by the recorded ChatGPT subscription or billed through
+  another plan/API account. Verify before counting separate charges.
+- “OpenCode” came from the earlier unconfirmed voice list. Keep it unconfirmed
+  until a receipt establishes whether it is a distinct service.
+- Separate recurring subscriptions from usage-based bills and one-off purchases.
+- Discover other subscriptions from receipts and account statements. Record the
+  merchant, billed amount/currency, billing interval, next renewal if known,
+  payment account, supporting document and keep/unsure/cancel decision.
+- Gmail discovery was attempted on 2026-09-13, but the connector returned
+  `USER_NOT_LOGGED_IN`. No inbox audit has been completed.
 
 ## Financial accounts
 
