@@ -69,7 +69,7 @@ export function ActionsBar({ input, output, onEditInput, }: ActionsBarProps) {
   };
 
   return (
-    <div data-testid="actions-bar">
+    <div data-testid="actions-bar" className="practice-actions no-print">
       <Separator className="mb-4" />
       <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-3">
         <Button
@@ -82,7 +82,7 @@ export function ActionsBar({ input, output, onEditInput, }: ActionsBarProps) {
         </Button>
         <Button
           type="button"
-          variant="outline"
+          variant="default"
           data-testid="export-pdf"
           onClick={handleExportPDF}
           disabled={pdfLoading}

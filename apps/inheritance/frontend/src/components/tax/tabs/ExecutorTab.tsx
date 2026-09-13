@@ -20,7 +20,7 @@ export function ExecutorTab({ data, onChange }: ExecutorTabProps) {
   return (
     <div data-testid="executor-tab" className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold text-[#1e3a5f]">Executor Details</h2>
+        <h2 className="text-lg font-semibold text-primary">Executor Details</h2>
         <p className="text-sm text-muted-foreground mt-1">
           The executor or administrator filing the estate tax return.
         </p>

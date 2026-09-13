@@ -119,7 +119,7 @@ export function EstateTaxWizard({
         </Button>
 
         <div className="text-center min-w-0">
-          <h1 className="text-base font-semibold text-[#1e3a5f] truncate">
+          <h1 className="text-base font-semibold text-primary truncate">
             Estate Tax — Estate of {decedentName}
           </h1>
           <p className="text-xs text-muted-foreground">BIR Form 1801</p>
@@ -143,7 +143,7 @@ export function EstateTaxWizard({
           wizard uses at narrow widths: the full 8-tab strip cannot fit beside
           the sidebar and clipped tabs read as nonexistent steps. */}
       <div className="xl:hidden border-b bg-white px-6 py-3 flex items-center justify-between text-sm">
-        <span className="font-medium text-[#1e3a5f]">
+        <span className="font-medium text-primary">
           Step {activeTab + 1} of {TAB_COUNT}: {TAB_FULL_NAMES[activeTab]}
         </span>
       </div>
@@ -165,16 +165,16 @@ export function EstateTaxWizard({
                 onClick={() => handleTabChange(i as TabIndex)}
                 className={cn(
                   'flex items-center gap-1.5 px-2 py-1.5 rounded-md text-sm whitespace-nowrap transition-colors',
-                  isActive && 'bg-[#c5a44e]/10 text-[#1e3a5f] font-medium',
-                  isCompleted && 'text-[#1e3a5f] font-medium',
+                  isActive && 'bg-accent text-primary font-medium',
+                  isCompleted && 'text-primary font-medium',
                   !isActive && !isCompleted && 'text-muted-foreground hover:text-foreground hover:bg-muted',
                 )}
               >
                 <span
                   className={cn(
                     'flex items-center justify-center w-5 h-5 rounded-full text-xs font-semibold shrink-0',
-                    isActive && 'bg-[#1e3a5f] text-white',
-                    isCompleted && 'bg-[#1e3a5f] text-white',
+                    isActive && 'bg-primary text-white',
+                    isCompleted && 'bg-primary text-white',
                     !isActive && !isCompleted && 'bg-muted text-muted-foreground',
                   )}
                 >
@@ -261,7 +261,7 @@ export function EstateTaxWizard({
           onClick={handleNext}
           disabled={activeTab === TAB_COUNT - 1}
           data-testid="next-tab"
-          className="gap-2 bg-[#1e3a5f] hover:bg-[#1e3a5f]/90"
+          className="gap-2 bg-primary hover:bg-primary/90"
         >
           {activeTab === TAB_COUNT - 1 ? 'Next' : `Next: ${TAB_FULL_NAMES[activeTab + 1]}`}
           <ArrowRight className="h-4 w-4" />

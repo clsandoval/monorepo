@@ -60,7 +60,7 @@ export function DecedentTab({ data, onChange }: DecedentTabProps) {
   return (
     <div data-testid="decedent-tab" className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold text-[#1e3a5f]">Decedent Details</h2>
+        <h2 className="text-lg font-semibold text-primary">Decedent Details</h2>
         <p className="text-sm text-muted-foreground mt-1">
           Some fields have been pre-filled from your inheritance computation.
         </p>

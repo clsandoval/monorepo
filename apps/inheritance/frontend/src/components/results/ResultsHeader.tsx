@@ -15,6 +15,7 @@ export interface ResultsHeaderProps {
   netDistributableEstate: Money;
   decedentName: string;
   dateOfDeath: string;
+  heirCount?: number;
 }
 
 const SUCCESSION_LABELS: Record<SuccessionType, string> = {
@@ -31,7 +32,7 @@ const BADGE_CLASSES: Record<string, string> = {
   red: 'bg-red-100 text-red-800 border-red-200',
 };
 
-export function ResultsHeader({ scenarioCode, successionType, netDistributableEstate, decedentName, dateOfDeath }: ResultsHeaderProps) {
+export function ResultsHeader({ scenarioCode, successionType, netDistributableEstate, decedentName, dateOfDeath, heirCount }: ResultsHeaderProps) {
   const badgeColor = SUCCESSION_TYPE_BADGE_COLOR[successionType];
   const badgeClass = BADGE_CLASSES[badgeColor] ?? BADGE_CLASSES.blue;
 
@@ -49,7 +50,7 @@ export function ResultsHeader({ scenarioCode, successionType, netDistributableEs
 
       <Separator className="my-4" />
 
-      <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+      <div className="practice-summary flex flex-wrap items-center gap-3 sm:gap-4">
         <Badge
           data-testid="scenario-badge"
           variant="outline"
@@ -61,10 +62,11 @@ export function ResultsHeader({ scenarioCode, successionType, netDistributableEs
           {SUCCESSION_LABELS[successionType]}
         </span>
         <Separator orientation="vertical" className="h-5 hidden sm:block" />
-        <span className="text-base sm:text-lg">
+        <span className="practice-estate-total text-base sm:text-lg">
           <span className="text-muted-foreground">Total Estate: </span>
           <span className="font-semibold text-foreground" data-testid="total-estate">{formatPeso(netDistributableEstate.centavos)}</span>
         </span>
+        {heirCount !== undefined && <span className="practice-heir-count font-semibold">{heirCount} {heirCount === 1 ? 'heir' : 'heirs'}</span>}
       </div>
 
       {successionType === 'IntestateByPreterition' && (

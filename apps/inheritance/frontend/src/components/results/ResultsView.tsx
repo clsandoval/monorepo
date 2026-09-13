@@ -41,7 +41,7 @@ export function ResultsView({ input, output: rawOutput, onEditInput }: ResultsVi
   const isTestate = input.will !== null && input.will !== undefined;
 
   return (
-    <div data-testid="results-view" className="space-y-8">
+    <div data-testid="results-view" className="practice-results space-y-8">
       <PrintHeader
         firmName=""
         caseTitle={`Estate of ${input.decedent.name}`}
@@ -53,6 +53,7 @@ export function ResultsView({ input, output: rawOutput, onEditInput }: ResultsVi
         netDistributableEstate={input.net_distributable_estate}
         decedentName={input.decedent.name}
         dateOfDeath={input.decedent.date_of_death}
+        heirCount={output.per_heir_shares.length}
       />
 
       <DistributionSection

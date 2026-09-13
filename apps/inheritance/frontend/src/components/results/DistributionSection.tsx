@@ -106,7 +106,7 @@ function HeirTable({ shares, showDonations, showRepresentation, persons, layout 
             const representedName = getRepresentedName(share, persons ?? []);
             return (
               <TableRow key={share.heir_id} data-testid={`heir-row-${share.heir_id}`}>
-                <TableCell className="font-medium" data-testid={`heir-name-${share.heir_id}`}>
+                <TableCell data-label="Heir" className="font-medium" data-testid={`heir-name-${share.heir_id}`}>
                   {share.heir_name}
                   {representedName && (
                     <span className="block text-sm text-muted-foreground">
@@ -114,11 +114,11 @@ function HeirTable({ shares, showDonations, showRepresentation, persons, layout 
                     </span>
                   )}
                 </TableCell>
-                <TableCell><CategoryBadge category={share.heir_category} /></TableCell>
-                {isCollateral && <TableCell>{bloodType ?? '—'}</TableCell>}
-                {isCollateral && <TableCell>{units ?? '—'}</TableCell>}
+                <TableCell data-label="Relationship"><CategoryBadge category={share.heir_category} /></TableCell>
+                {isCollateral && <TableCell data-label="Blood Type">{bloodType ?? '—'}</TableCell>}
+                {isCollateral && <TableCell data-label="Units">{units ?? '—'}</TableCell>}
                 {showRepresentation && (
-                  <TableCell>
+                  <TableCell data-label="Inherits By">
                     {share.inherits_by === 'Representation' && (
                       <Badge variant="outline" className="text-xs bg-purple-100 text-purple-800 border-purple-200">
                         By Representation
@@ -127,13 +127,13 @@ function HeirTable({ shares, showDonations, showRepresentation, persons, layout 
                   </TableCell>
                 )}
                 {showDonations && (
-                  <TableCell data-testid={`heir-gross-${share.heir_id}`}>{formatPeso(share.gross_entitlement.centavos)}</TableCell>
+                  <TableCell data-label="Gross Entitlement" data-testid={`heir-gross-${share.heir_id}`}>{formatPeso(share.gross_entitlement.centavos)}</TableCell>
                 )}
                 {showDonations && (
-                  <TableCell className="text-muted-foreground" data-testid={`heir-donations-${share.heir_id}`}>- {formatPeso(share.donations_imputed.centavos)}</TableCell>
+                  <TableCell data-label="Donations Imputed" className="text-muted-foreground" data-testid={`heir-donations-${share.heir_id}`}>- {formatPeso(share.donations_imputed.centavos)}</TableCell>
                 )}
-                <TableCell className="font-semibold" data-testid={`heir-net-${share.heir_id}`}>{formatPeso(share.net_from_estate.centavos)}</TableCell>
-                <TableCell>
+                <TableCell data-label="Net from Estate" className="font-semibold" data-testid={`heir-net-${share.heir_id}`}>{formatPeso(share.net_from_estate.centavos)}</TableCell>
+                <TableCell data-label="Legal Basis">
                   <div className="flex flex-wrap gap-1">
                     {share.legal_basis.map((art) => (
                       <Badge key={art} variant="secondary" className="text-xs font-normal">
@@ -221,6 +221,7 @@ export function DistributionSection({
   if (layout === 'escheat') {
     return (
       <div data-testid="distribution-section">
+        <h2 className="text-base font-semibold mb-5">Distribution to heirs</h2>
         <Alert className="border-warning/30 bg-amber-50 text-amber-900">
           <Scale className="size-4 text-amber-700" />
           <AlertTitle className="text-lg font-semibold">Estate Escheats to the State</AlertTitle>
@@ -248,6 +249,7 @@ export function DistributionSection({
   if (layout === 'no-compulsory-full-fp') {
     return (
       <div data-testid="distribution-section">
+        <h2 className="text-base font-semibold mb-5">Distribution to heirs</h2>
         <Alert className="mb-6 border-blue-200 bg-blue-50 text-blue-800">
           <Info className="size-4" />
           <AlertTitle className="font-semibold">No Compulsory Heirs — Entire Estate is Free Portion</AlertTitle>
@@ -256,9 +258,9 @@ export function DistributionSection({
             disposable by will.
           </AlertDescription>
         </Alert>
-        <DistributionChart chartData={chartData} />
         {chartData.length > 0 && (
-          <HeirTable shares={shares} showDonations={showDonations} showRepresentation={showRepresentation} persons={persons} layout={layout} />
+          <><HeirTable shares={shares} showDonations={showDonations} showRepresentation={showRepresentation} persons={persons} layout={layout} />
+        <details className="practice-chart-disclosure no-print"><summary>View distribution chart</summary><DistributionChart chartData={chartData} /></details></>
         )}
       </div>
     );
@@ -267,6 +269,7 @@ export function DistributionSection({
   if (layout === 'collateral-weighted') {
     return (
       <div data-testid="distribution-section">
+        <h2 className="text-base font-semibold mb-5">Distribution to heirs</h2>
         <Alert className="mb-6 border-border bg-muted/50 text-foreground">
           <Scale className="size-4 text-muted-foreground" />
           <AlertTitle className="text-sm font-semibold">Full and Half Blood Siblings</AlertTitle>
@@ -275,8 +278,8 @@ export function DistributionSection({
             Full blood = 2 shares | Half blood = 1 share
           </AlertDescription>
         </Alert>
-        <DistributionChart chartData={chartData} />
         <HeirTable shares={shares} showDonations={showDonations} showRepresentation={showRepresentation} persons={persons} layout={layout} />
+        <details className="practice-chart-disclosure no-print"><summary>View distribution chart</summary><DistributionChart chartData={chartData} /></details>
       </div>
     );
   }
@@ -284,8 +287,9 @@ export function DistributionSection({
   if (layout === 'preterition-override') {
     return (
       <div data-testid="distribution-section">
-        <DistributionChart chartData={chartData} />
+        <h2 className="text-base font-semibold mb-5">Distribution to heirs</h2>
         <HeirTable shares={shares} showDonations={showDonations} showRepresentation={showRepresentation} persons={persons} layout={layout} />
+        <details className="practice-chart-disclosure no-print"><summary>View distribution chart</summary><DistributionChart chartData={chartData} /></details>
         <Alert className="mt-6 border-blue-200 bg-blue-50 text-blue-800">
           <Info className="size-4" />
           <AlertDescription className="text-blue-700">
@@ -300,9 +304,10 @@ export function DistributionSection({
   if (layout === 'mixed-succession') {
     return (
       <div data-testid="distribution-section">
-        <DistributionChart chartData={chartData} />
+        <h2 className="text-base font-semibold mb-5">Distribution to heirs</h2>
         <h3 className="font-serif text-base sm:text-lg font-semibold text-primary mb-3">Testate Portion</h3>
         <HeirTable shares={shares} showDonations={showDonations} showRepresentation={showRepresentation} persons={persons} layout={layout} />
+        <details className="practice-chart-disclosure no-print"><summary>View distribution chart</summary><DistributionChart chartData={chartData} /></details>
         <Separator className="my-6" />
         <h3 className="font-serif text-base sm:text-lg font-semibold text-primary mb-3">Intestate Remainder</h3>
       </div>
@@ -312,9 +317,10 @@ export function DistributionSection({
   if (layout === 'testate-with-dispositions') {
     return (
       <div data-testid="distribution-section">
-        <DistributionChart chartData={chartData} />
+        <h2 className="text-base font-semibold mb-5">Distribution to heirs</h2>
         <h3 className="font-serif text-base sm:text-lg font-semibold text-primary mb-3">Compulsory Shares (Legitime)</h3>
         <HeirTable shares={shares} showDonations={showDonations} showRepresentation={showRepresentation} persons={persons} layout={layout} />
+        <details className="practice-chart-disclosure no-print"><summary>View distribution chart</summary><DistributionChart chartData={chartData} /></details>
         <Separator className="my-6" />
         <h3 className="font-serif text-base sm:text-lg font-semibold text-primary mb-3">Free Portion (Testamentary Dispositions)</h3>
       </div>
@@ -324,8 +330,9 @@ export function DistributionSection({
   // standard-distribution (default)
   return (
     <div data-testid="distribution-section">
-      <DistributionChart chartData={chartData} />
+        <h2 className="text-base font-semibold mb-5">Distribution to heirs</h2>
       <HeirTable shares={shares} showDonations={showDonations} showRepresentation={showRepresentation} persons={persons} layout={layout} />
+        <details className="practice-chart-disclosure no-print"><summary>View distribution chart</summary><DistributionChart chartData={chartData} /></details>
     </div>
   );
 }

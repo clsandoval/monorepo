@@ -106,7 +106,7 @@ export function CaseEditorPage() {
 
 
   return (
-    <div className="max-w-3xl mx-auto py-6 sm:py-8 px-4 sm:px-6">
+    <div className="practice-case max-w-3xl mx-auto py-6 sm:py-8 px-4 sm:px-6">
       {state.phase === 'loading' && (
         <div className="flex items-center justify-center py-20">
           <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />

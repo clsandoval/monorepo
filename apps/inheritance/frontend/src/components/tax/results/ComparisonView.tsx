@@ -82,23 +82,23 @@ export function ComparisonView({ dualPathComparison }: ComparisonViewProps) {
                 <TableHead
                   className={cn(
                     'font-semibold',
-                    isAmnestyRecommended && 'text-[#1e3a5f]',
+                    isAmnestyRecommended && 'text-primary',
                   )}
                 >
                   Amnesty
                   {isAmnestyRecommended && (
-                    <Trophy className="inline h-3.5 w-3.5 ml-1.5 text-[#c5a44e]" />
+                    <Trophy className="inline h-3.5 w-3.5 ml-1.5 text-primary" />
                   )}
                 </TableHead>
                 <TableHead
                   className={cn(
                     'font-semibold',
-                    isPreTrainRecommended && 'text-[#1e3a5f]',
+                    isPreTrainRecommended && 'text-primary',
                   )}
                 >
                   Regular (pre-TRAIN)
                   {isPreTrainRecommended && (
-                    <Trophy className="inline h-3.5 w-3.5 ml-1.5 text-[#c5a44e]" />
+                    <Trophy className="inline h-3.5 w-3.5 ml-1.5 text-primary" />
                   )}
                 </TableHead>
               </TableRow>
@@ -135,14 +135,14 @@ export function ComparisonView({ dualPathComparison }: ComparisonViewProps) {
                   </TableRow>
                 );
               })}
-              <TableRow className="bg-[#1e3a5f]/5">
-                <TableCell className="font-semibold text-[#1e3a5f]">Recommended Path</TableCell>
+              <TableRow className="bg-primary/5">
+                <TableCell className="font-semibold text-primary">Recommended Path</TableCell>
                 <TableCell colSpan={2}>
                   <Badge
                     variant={recommendedPath !== 'EQUAL' ? 'default' : 'secondary'}
                     data-testid="recommended-path-badge"
                     className={cn(
-                      recommendedPath !== 'EQUAL' && 'bg-[#1e3a5f] hover:bg-[#1e3a5f]/90',
+                      recommendedPath !== 'EQUAL' && 'bg-primary hover:bg-primary/90',
                     )}
                   >
                     {recommendedPath === 'AMNESTY'

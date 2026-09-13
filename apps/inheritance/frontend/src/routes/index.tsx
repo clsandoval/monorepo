@@ -34,7 +34,7 @@ export function DashboardPage() {
       <div className="max-w-2xl mx-auto py-16 sm:py-24 px-4 sm:px-6">
         {/* Hero */}
         <div className="text-center mb-10">
-          <p className="text-[#c5a44e] text-xs font-semibold uppercase tracking-[0.2em] mb-6">
+          <p className="text-primary text-xs font-semibold uppercase tracking-[0.2em] mb-6">
             Philippine Succession Law
           </p>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight font-serif text-foreground mb-4 leading-[1.1]">

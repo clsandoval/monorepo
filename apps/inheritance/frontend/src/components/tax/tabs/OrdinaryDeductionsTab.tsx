@@ -189,7 +189,7 @@ export function OrdinaryDeductionsTab({
   return (
     <div data-testid="ordinary-deductions-tab" className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold text-[#1e3a5f]">Ordinary Deductions</h2>
+        <h2 className="text-lg font-semibold text-primary">Ordinary Deductions</h2>
         <p className="text-sm text-muted-foreground mt-1">
           Allowable deductions from the gross estate under NIRC Sec. 86(A).
         </p>
