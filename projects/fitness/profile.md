@@ -34,8 +34,8 @@ Four numbers. Nothing else is tracked.
 
 1. **Calories ≤ 2200/day. Every day.** No earned days, no activity credits. TDEE at 100 kg ≈ 2750
    → ~550 deficit ≈ 0.5 kg/week. Never below **1700** (the 7/06 episode).
-2. **Protein ≥ 150 g/day.** 2 scoops (280 kcal / 48 g) are booked every day by default — that leaves
-   ~100 g from food on ~1900 kcal, which any chicken/fish/steak-anchored day clears.
+2. **Protein ≥ 150 g/day.** On a plan day this is automatic (below). Off-plan or a skipped meal →
+   1 scoop per missed meal (140 / 24 g) plus a real protein anchor.
 3. **Lift 3×/week, ~30 min, alternating A / B.** Any 3 non-consecutive days; on return home, shoes on,
    go. Missed session = skipped, never made up. Travel = rope only.
    - **A:** Smith incline bench 3×8 · barbell row 3×10 · RDL 3×8 · leg extension 3×10
@@ -64,8 +64,11 @@ Unlogged days are not charged, not reconciled, not discussed — log the next da
 Over 2200 → no, unless protein is under 150, then the leanest source only (scoop 5.8 cal/g · cottage
 cheese 6.8 · David's bar 5.4). One-line answer, then the number.
 
-**Meal plan (started ~Sep 2026):** he's on one. It runs *inside* rules 1–2 — if a plan day lands over
-2200 or under 150 g, the rules win and the coach says what to drop or add.
+**Meal plan (started Sep 2026): 3 delivered meals/day, each ~600 kcal / ~60 g protein = 1800 / 180 g.**
+That is the day's spine and it clears rule 2 on its own — **no default scoops while on the plan.**
+The remaining **~400 kcal is discretionary**: coffee/matcha, 2 fruit, almond milk. A shake replaces a
+plan meal he skips; it is not additive. Eating out replaces a plan meal, and the coach prices it against
+the 600/60 it displaced — over 600 comes out of the 400 discretionary, not the next meal.
 
 ## Staple macros (label values — use these)
 | Item | Serving | kcal | Protein |
