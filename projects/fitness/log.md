@@ -13,9 +13,9 @@ Append-only. Newest at top. One line per day.
 ---
 ## 2026-09-14
 - **Weight:** — (not yet logged)
-- **Cals / Protein:** ~645 / ~60g so far (meal 1: plan meal, beef rendang 600/60 as labelled; 1 tbsp balsamic glaze ~40/0g; iced long black w/ stevia ~5/0g)
+- **Cals / Protein:** ~1280 / ~103g so far (meal 1: plan meal, beef rendang 600/60 as labelled; 1 tbsp balsamic glaze ~40/0g; iced long black w/ stevia ~5/0g; lunch out, replaces plan meal 2: uni ~60g ~80/10g + cold buckwheat soba w/ tsuyu ~350/12g + salmon sashimi ~100g ~205/21g = ~635/43g)
 - **Trained:** — (no lift yet; first A session owed)
-- **Notes:** First plan meal of the day. On track for 1800/180 if meals 2 and 3 land; ~1600 of room, ~400 of it discretionary.
+- **Notes:** Lunch out swapped for plan meal 2, ~35 over and 17g short on protein vs the 600/60 it displaced. Plan meal 3 lands the day ~1880 / ~163g ✅ — no scoop needed, ~320 of room left.
 
 ## 2026-09-13 — RESET · coach mode on
 - **Weight:** ~100.0 kg (self-reported)
