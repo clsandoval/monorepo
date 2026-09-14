@@ -64,7 +64,7 @@ export function AdvisorPanel({ suggestions, onApply, onRevert }: AdvisorPanelPro
                 size="sm"
                 data-testid={`apply-suggestion-${index}`}
                 onClick={() => onApply(suggestion.patch)}
-                className="bg-[#1e3a5f] hover:bg-[#1e3a5f]/90 h-7 text-xs"
+                className="bg-primary hover:bg-primary/90 h-7 text-xs"
               >
                 Apply
               </Button>

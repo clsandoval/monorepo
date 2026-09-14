@@ -56,7 +56,7 @@ export function PersonalPropertiesTab({ data, onChange }: PersonalPropertiesTabP
   return (
     <div data-testid="personal-properties-tab" className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold text-[#1e3a5f]">Personal Properties</h2>
+        <h2 className="text-lg font-semibold text-primary">Personal Properties</h2>
         <p className="text-sm text-muted-foreground mt-1">
           Movable property owned by the decedent at time of death.
         </p>

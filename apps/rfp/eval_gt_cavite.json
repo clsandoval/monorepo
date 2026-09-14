@@ -1,0 +1,35 @@
+{
+ "slice": {"province": "CAVITE", "definition": "notice_location.location_norm='CAVITE'", "n": 489},
+ "queries": {
+  "Q1_drainage": {
+   "label": "small civil-works contractor: drainage, canals, canal lining/cover, declogging",
+   "natural": "drainage",
+   "expanded": "drainage OR drainages OR canal OR declogging OR waterway",
+   "gt": [13124928,13133080,13133130,13164730,13172291,13175331,13175332,13177115,13177155,13177651,13177737,13178596,13179808,13184024]
+  },
+  "Q2_streetlights": {
+   "label": "electrical / solar streetlight installer",
+   "natural": "solar streetlights",
+   "expanded": "streetlight OR streetlights OR \"street light\" OR \"street lights\" OR \"street lighting\"",
+   "gt": [13147155,13147164,13147176,13153140,13159697,13162103,13162129,13162905,13162926,13162941,13162950,13162964,13164341,13169797,13170041,13171445,13171862,13171891,13171920,13172278,13177615,13177767,13180252,13182541,13182564,13184158]
+  },
+  "Q3_schoolbldg": {
+   "label": "building contractor: classroom / school building construction",
+   "natural": "school building construction",
+   "expanded": "classroom OR classrooms OR \"school building\"",
+   "gt": [13130937,13130954,13140737,13147059,13147081,13147094,13147123,13147147,13161976,13162040,13162067,13171873,13171883,13171890,13176326,13176774]
+  },
+  "Q4_cctv": {
+   "label": "security systems integrator: CCTV supply and installation",
+   "natural": "CCTV",
+   "expanded": "cctv OR surveillance OR \"video camera\"",
+   "gt": [13164272,13165497,13169476,13172641,13177501,13177657,13177949,13178463,13180080,13182568]
+  },
+  "Q5_vehparts": {
+   "label": "auto/heavy-equipment parts supplier and repair shop",
+   "natural": "vehicle spare parts repair",
+   "expanded": "vehicle OR vehicles OR spareparts OR \"spare parts\" OR \"heavy equipment\" OR \"repair and maintenance\"",
+   "gt": [13164535,13171843,13171853,13171857,13171867,13171876,13171880,13171886,13171894,13172582,13175066,13175792,13176144,13176156,13176167,13176176,13176179,13176197,13176211,13176261,13176275,13176288,13176301,13177113,13179426]
+  }
+ }
+}

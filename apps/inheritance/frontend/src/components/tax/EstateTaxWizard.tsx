@@ -106,20 +106,20 @@ export function EstateTaxWizard({
   return (
     <div data-testid="estate-tax-wizard" className="space-y-0">
       {/* Header */}
-      <div className="flex items-center justify-between px-6 py-4 border-b bg-white">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between px-6 py-4 border-b bg-white">
         <Button
           variant="ghost"
           size="sm"
           onClick={onBack}
           data-testid="back-to-inheritance"
-          className="gap-2 text-muted-foreground hover:text-foreground"
+          className="gap-2 text-muted-foreground hover:text-foreground self-start sm:self-auto"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Inheritance Results
         </Button>
 
-        <div className="text-center">
-          <h1 className="text-base font-semibold text-[#1e3a5f]">
+        <div className="text-center min-w-0">
+          <h1 className="text-base font-semibold text-primary truncate">
             Estate Tax — Estate of {decedentName}
           </h1>
           <p className="text-xs text-muted-foreground">BIR Form 1801</p>
@@ -139,9 +139,18 @@ export function EstateTaxWizard({
         </div>
       </div>
 
+      {/* Compact step indicator below lg — the same pattern the succession
+          wizard uses at narrow widths: the full 8-tab strip cannot fit beside
+          the sidebar and clipped tabs read as nonexistent steps. */}
+      <div className="xl:hidden border-b bg-white px-6 py-3 flex items-center justify-between text-sm">
+        <span className="font-medium text-primary">
+          Step {activeTab + 1} of {TAB_COUNT}: {TAB_FULL_NAMES[activeTab]}
+        </span>
+      </div>
+
       {/* Tab strip */}
-      <div className="border-b bg-white px-4 overflow-x-auto">
-        <div className="flex gap-0.5 py-3 min-w-max" role="tablist">
+      <div className="hidden xl:block border-b bg-white px-2 overflow-x-auto">
+        <div className="flex gap-0 py-3 min-w-max" role="tablist">
           {TAB_NAMES.map((name, i) => {
             const valid = isTabValid(i as TabIndex, state);
             const isActive = activeTab === i;
@@ -155,17 +164,17 @@ export function EstateTaxWizard({
                 data-testid={`tab-${i}`}
                 onClick={() => handleTabChange(i as TabIndex)}
                 className={cn(
-                  'flex items-center gap-2 px-3 py-1.5 rounded-md text-sm whitespace-nowrap transition-colors',
-                  isActive && 'bg-[#c5a44e]/10 text-[#1e3a5f] font-medium',
-                  isCompleted && 'text-[#1e3a5f] font-medium',
+                  'flex items-center gap-1.5 px-2 py-1.5 rounded-md text-sm whitespace-nowrap transition-colors',
+                  isActive && 'bg-accent text-primary font-medium',
+                  isCompleted && 'text-primary font-medium',
                   !isActive && !isCompleted && 'text-muted-foreground hover:text-foreground hover:bg-muted',
                 )}
               >
                 <span
                   className={cn(
                     'flex items-center justify-center w-5 h-5 rounded-full text-xs font-semibold shrink-0',
-                    isActive && 'bg-[#1e3a5f] text-white',
-                    isCompleted && 'bg-[#1e3a5f] text-white',
+                    isActive && 'bg-primary text-white',
+                    isCompleted && 'bg-primary text-white',
                     !isActive && !isCompleted && 'bg-muted text-muted-foreground',
                   )}
                 >
@@ -175,9 +184,6 @@ export function EstateTaxWizard({
               </button>
             );
           })}
-          <span className="ml-auto flex items-center text-xs text-muted-foreground px-2 shrink-0">
-            Step {activeTab + 1} of {TAB_COUNT}
-          </span>
         </div>
       </div>
 
@@ -255,9 +261,9 @@ export function EstateTaxWizard({
           onClick={handleNext}
           disabled={activeTab === TAB_COUNT - 1}
           data-testid="next-tab"
-          className="gap-2 bg-[#1e3a5f] hover:bg-[#1e3a5f]/90"
+          className="gap-2 bg-primary hover:bg-primary/90"
         >
-          Next: {TAB_FULL_NAMES[activeTab + 1] ?? ''}
+          {activeTab === TAB_COUNT - 1 ? 'Next' : `Next: ${TAB_FULL_NAMES[activeTab + 1]}`}
           <ArrowRight className="h-4 w-4" />
         </Button>
       </div>

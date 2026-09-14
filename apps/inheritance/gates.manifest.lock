@@ -186,6 +186,11 @@
       "id": "G38",
       "command": "cd frontend && npx tsx journey/deed-parity.ts",
       "blocking": true
+    },
+    {
+      "id": "G39",
+      "command": "cd frontend && node journey/instrument-parity.mjs",
+      "blocking": true
     }
   ]
 }

@@ -145,7 +145,8 @@ function AuthPage() {
             )}
           </div>
           <CardTitle data-testid="auth-title" className="font-serif">
-            {mode === 'signin' ? 'Sign In' : 'Create Account'}
+            {/* h1 for the document outline; preflight makes it inherit CardTitle's styling */}
+            <h1>{mode === 'signin' ? 'Sign In' : 'Create Account'}</h1>
           </CardTitle>
           <CardDescription>
             {mode === 'signin'

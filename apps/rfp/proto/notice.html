@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>bidkita — ITB-2026-071 · Construction of Multi-Purpose Building, Basud</title>
+<script>
+  var a = localStorage.getItem('accent');
+  if (a) document.documentElement.dataset.accent = a;
+</script>
+<link rel="stylesheet" href="style.css">
+<style>
+  /* notice.html local styles — layout only, palette stays token-bound */
+  .notice-surface { max-width: 1120px; margin: 0 auto; padding: 0; overflow: hidden; }
+  .notice-grid { display: grid; grid-template-columns: 62fr 38fr; }
+  .notice-left { padding: 32px 40px 40px; }
+  .notice-right { padding: 32px 32px 40px; border-left: 1px solid var(--hairline); }
+  .crumb { font-family: var(--mono); font-size: 12px; color: var(--grey); }
+  .crumb:hover { color: var(--ink); }
+  .notice-title { font-size: clamp(26px, 3.4vw, 40px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin-top: 14px; }
+  .notice-meta { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 13px; color: var(--grey); margin-top: 14px; }
+  .notice-actions { margin-top: 20px; }
+  .block { margin-top: 40px; }
+  .block .label { display: block; padding-bottom: 8px; border-bottom: 1px solid var(--hairline); }
+  .row-line { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 13px 0; border-bottom: 1px solid var(--hairline); font-size: 14px; }
+  .file-size { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 12px; color: var(--grey); white-space: nowrap; }
+  .file-end { display: inline-flex; align-items: center; gap: 12px; }
+  .dl { display: inline-flex; color: var(--grey); }
+  .dl:hover { color: var(--ink); }
+  .award { padding: 14px 0; border-bottom: 1px solid var(--hairline); }
+  .award-name { font-weight: 700; }
+  .award-meta { font-size: 13px; color: var(--grey); margin-top: 2px; }
+  .award-figures { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 13px; margin-top: 6px; }
+  .award-figures .muted { font-family: var(--mono); }
+  .glance { margin-top: 12px; }
+  .glance-row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--hairline); }
+  .glance-row:last-child { border-bottom: 0; }
+  .glance-row dt { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--grey); }
+  .glance-row dd { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 13px; text-align: right; }
+  .notice-cta { width: 100%; margin-top: 24px; }
+  @media (max-width: 900px) {
+    .notice-grid { grid-template-columns: 1fr; }
+    .notice-right { border-left: 0; border-top: 1px solid var(--hairline); }
+    .notice-left { padding: 24px; }
+    .notice-right { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<aside class="rail">
+  <a class="rail-mark" href="index.html">b.</a>
+  <nav class="rail-nav">
+    <a class="rail-icon active" href="app.html" title="Search &amp; board" aria-label="Search and board">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <circle cx="11" cy="11" r="7"/>
+        <line x1="16.5" y1="16.5" x2="21" y2="21"/>
+      </svg>
+    </a>
+    <a class="rail-icon" href="brief.html" title="Brief" aria-label="Brief">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 3h9l4 4v14H6z"/>
+        <line x1="9" y1="11" x2="16" y2="11"/>
+        <line x1="9" y1="15" x2="16" y2="15"/>
+      </svg>
+    </a>
+    <a class="rail-icon" href="#" title="Settings" aria-label="Settings">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <line x1="4" y1="7" x2="20" y2="7"/>
+        <circle cx="9" cy="7" r="2.25" fill="#FCFBF8"/>
+        <line x1="4" y1="16" x2="20" y2="16"/>
+        <circle cx="15" cy="16" r="2.25" fill="#FCFBF8"/>
+      </svg>
+    </a>
+  </nav>
+  <div class="rail-foot">
+    <div class="accent-toggle" aria-label="Accent colour">
+      <button class="swatch swatch-r" data-accent="" title="Signal red">R</button>
+      <button class="swatch swatch-b" data-accent="blue" title="Blue">B</button>
+    </div>
+  </div>
+</aside>
+
+<main class="app-main">
+  <section class="surface notice-surface">
+    <div class="notice-grid">
+
+      <div class="notice-left">
+        <a class="crumb" href="app.html">&larr; Open opportunities</a>
+        <h1 class="notice-title">Construction of Multi-Purpose Building, Brgy. Taba-taba, Basud</h1>
+        <p class="notice-meta">ITB-2026-071 &middot; PHP 4,983,586.00 &middot; closes Tue 18 Aug 14:00 &middot; 09d 04h left</p>
+        <div class="notice-actions">
+          <a class="btn-ghost" href="https://philgeps.gov.ph/Indexes/viewLiveTenderDetails/51226/OPEN_MORE">Verify on PhilGEPS &#8599;</a>
+        </div>
+
+        <section class="block">
+          <span class="label">Eligibility</span>
+          <div class="row-line">PCAB licence required</div>
+          <div class="row-line">Similar contract within 10 years</div>
+          <div class="row-line">At least 75% Filipino ownership</div>
+        </section>
+
+        <section class="block">
+          <span class="label">Bid documents</span>
+          <div class="row-line">
+            <span>Invitation to Bid.pdf</span>
+            <span class="file-end">
+              <span class="file-size">412 KB</span>
+              <a class="dl" href="#" aria-label="Download Invitation to Bid">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="4" x2="12" y2="15"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="5" y1="19" x2="19" y2="19"/>
+                </svg>
+              </a>
+            </span>
+          </div>
+          <div class="row-line">
+            <span>Bill of Quantities.xlsx</span>
+            <span class="file-end">
+              <span class="file-size">96 KB</span>
+              <a class="dl" href="#" aria-label="Download Bill of Quantities">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="4" x2="12" y2="15"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="5" y1="19" x2="19" y2="19"/>
+                </svg>
+              </a>
+            </span>
+          </div>
+          <div class="row-line">
+            <span>Technical Specifications.pdf</span>
+            <span class="file-end">
+              <span class="file-size">2.1 MB</span>
+              <a class="dl" href="#" aria-label="Download Technical Specifications">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="4" x2="12" y2="15"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="5" y1="19" x2="19" y2="19"/>
+                </svg>
+              </a>
+            </span>
+          </div>
+          <div class="row-line">
+            <span>Plans and Drawings.zip</span>
+            <span class="file-end">
+              <span class="file-size">18.4 MB</span>
+              <a class="dl" href="#" aria-label="Download Plans and Drawings">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="4" x2="12" y2="15"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="5" y1="19" x2="19" y2="19"/>
+                </svg>
+              </a>
+            </span>
+          </div>
+        </section>
+
+        <section class="block">
+          <span class="label">Who won work like this</span>
+          <div class="award">
+            <div class="award-name">AVZ Construction &amp; Supply</div>
+            <div class="award-meta">Construction of Multi-Purpose Building (Covered Court), Labo</div>
+            <div class="award-figures"><span class="peso">PHP 9,602,575.00</span> &middot; <span class="muted">97.0% of ABC</span> &middot; <span class="muted">Jul 2026</span></div>
+          </div>
+          <div class="award">
+            <div class="award-name">Bigfoot Construction and Supply</div>
+            <div class="award-meta">Field Office Building, Mabinay</div>
+            <div class="award-figures"><span class="peso">PHP 4,851,940.62</span> &middot; <span class="muted">99.9% of ABC</span> &middot; <span class="muted">Jul 2026</span></div>
+          </div>
+        </section>
+      </div>
+
+      <aside class="notice-right">
+        <span class="label">At a glance</span>
+        <dl class="glance">
+          <div class="glance-row">
+            <dt>Agency</dt>
+            <dd>Provincial Government of Camarines Norte</dd>
+          </div>
+          <div class="glance-row">
+            <dt>Mode</dt>
+            <dd>Public bidding</dd>
+          </div>
+          <div class="glance-row">
+            <dt>ABC</dt>
+            <dd>PHP 4,983,586.00</dd>
+          </div>
+          <div class="glance-row">
+            <dt>Closing</dt>
+            <dd>Tue 18 Aug, 14:00</dd>
+          </div>
+          <div class="glance-row">
+            <dt>Days left</dt>
+            <dd>09d 04h</dd>
+          </div>
+        </dl>
+        <button class="btn notice-cta">Add to my week</button>
+        <p class="caption">No prediction of whether you will win &mdash; published facts only.</p>
+      </aside>
+
+    </div>
+  </section>
+</main>
+
+<script>
+  document.querySelectorAll('.accent-toggle .swatch').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.documentElement.dataset.accent = btn.dataset.accent;
+      localStorage.setItem('accent', btn.dataset.accent);
+    });
+  });
+</script>
+</body>
+</html>

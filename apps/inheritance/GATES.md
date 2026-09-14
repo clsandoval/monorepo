@@ -2002,3 +2002,83 @@ red in a browser; the refusal rules themselves are proven by unit tests.
 **When it fires.** Make the clause agree with the engine. Never edit this gate, never add an
 exception, never add a tolerance term. If a check cannot legitimately pass, that is a finding to
 report as BLOCKED with the pasted output — not an obstacle to route around.
+
+## 29. Instrument parity (G39)
+
+**Command.** `cd frontend && node journey/instrument-parity.mjs`
+**Precondition.** `test -f frontend/journey/instrument-parity.mjs`
+**Order.** 36 — after **G38**, before **G8**.
+
+**What it runs.** It obtains a PDF the way a user obtains one: `journey/pdf-capture.mjs` builds the
+app, starts a preview, opens a browser with the clock pinned to `PDF_FIXED_CLOCK`, navigates to the
+Alpha case's review step, clicks `compute-distribution`, waits for the results view and clicks
+`export-pdf`. The bytes that download are the bytes this gate asserts against. It then extracts the
+text with `pdftotext` and makes five checks.
+
+**The five markers.**
+
+- **`LETTERHEAD MISSING`** — the exported document does not contain the firm name or the firm
+  address that this run wrote into the Alpha user's profile. This is the marker that fires if
+  `ActionsBar` ever again hands `downloadPDF` a null profile, which is the exact defect INST-01
+  closed: `EstatePDF` gates the letterhead on that third argument, so a null made a configured
+  letterhead unrenderable no matter what was saved at `/settings`.
+- **`ATTRIBUTION LINE MISSING`** — one of the five labelled counsel credentials is absent. The
+  expected string is the label, one space, and the fixture's value, so a credential printed under
+  the wrong label fails rather than passing because the number appears somewhere on the page.
+- **`WARNING NOT PRINTED`**, with its siblings `WARNING SECTION MISSING`,
+  `WARNING SEVERITY NOT PRINTED` and `WARNING HEIR NOT PRINTED` — an engine warning did not reach
+  the document with its description, its severity token and the heir it names. The expected set is
+  the compiled engine's own output for this run.
+- **`MARKDOWN ASTERISK IN PDF`** — a markdown emphasis marker survived into the extracted text.
+  The marker is built from character codes so this gate's own source holds no asterisk pair.
+- **`CITATION ARTICLE REPEATED`** — a citation line names its article more than once. A citation
+  line is one whose trimmed form begins with three letters, a period, a number, an optional
+  paragraph-sign suffix, a colon and a space.
+
+**`INSTRUMENT CORPUS EMPTY`.** Zero warnings, zero attribution lines or zero citation lines examined
+is a failure, not a pass. The three counts are printed on both the pass and the fail path.
+
+**Why the fixture is a copy of a committed engine case.** The seeded Alpha case is a verbatim copy
+of `engine/examples/cases/02-married-3lc.json`, and it emits **zero warnings** — a run capturing it
+would assert warning parity over an empty set and pass vacuously. `journey/fixtures/warning-input-alpha.json`
+is therefore a byte-for-byte copy of `engine/examples/cases/17-adopted-child.json`, measured as one
+of only two committed cases that produce a warning and the only one whose warning carries a
+`related_heir_id`. It is a copy rather than a hand-written family because choosing a family
+structure is the beginning of a legal judgment no agent here may make.
+
+**Why it borrows and restores the seeded Alpha rows.** The gate needs a different fact set in the
+case row and a configured profile on the Alpha user, and G17, G19, G23, G24 and G25 all read those
+rows afterwards. It stashes `input_json` and the seven profile columns **before** it writes anything
+and restores both in a `finally` that runs on the pass path, the fail path and the throw path.
+`journey/resets.mjs` states the governing rule: a reset must restore every column any step can
+write, not merely the one its name mentions. `captureExportedPdf` gained one optional `prepare`
+hook for this; called with no argument it behaves exactly as before, so G23, G24 and G25 are
+unaffected.
+
+**Observed red before registration.** Five injections, one at a time, each reverted with the gate
+returning to exit 0 before the next:
+
+| Injection | Marker observed | Exit |
+|---|---|---|
+| `ActionsBar` passes `null` as `downloadPDF`'s third argument again | `LETTERHEAD MISSING` (×2) and `ATTRIBUTION LINE MISSING` (×5) | 1 |
+| the `Roll of Attorneys No.:` pair removed from `ATTRIBUTION_LABELS` | `ATTRIBUTION LINE MISSING` | 1 |
+| `WarningsSection` returns `null` unconditionally | `WARNING SECTION MISSING`, `WARNING NOT PRINTED`, `WARNING SEVERITY NOT PRINTED`, `WARNING HEIR NOT PRINTED` | 1 |
+| the `stripMarkdownBold` call removed from `NarrativesSection` | `MARKDOWN ASTERISK IN PDF` | 1 |
+| `PerHeirBreakdownSection` restored to the two-child citation form | `CITATION ARTICLE REPEATED` | 1 |
+
+The fifth reproduced the pre-change string character for character:
+`Art. 980: Children of the deceased shall always inherit from him (Art. 980 NCC)`.
+
+**No exception list, no baseline, no mutating flag.** The script reads no argv. It writes into
+neither reference image directory and has no approval, repair, acceptance or regeneration switch.
+
+**What it does not prove.** It decides no point of Philippine law: it compares text against the
+engine's own output and against a committed fixture of facts, and never judges whether a warning is
+correct or whether an article is the right one for a family. It does not assert the firm **logo** —
+`EstatePDF` never passes `logoDataUrl` and no seeded row carries a `logo_url`, so the logo is
+deliberately out of scope and remains unreachable. It says nothing about `Form1801PDF`, which
+carries no letterhead and no attribution block.
+
+**When it fires.** Make the document carry what the product promised. Never edit this gate, never
+add an exception, never add a tolerance term. If a check cannot legitimately pass, that is a finding
+to report as BLOCKED with the pasted output.

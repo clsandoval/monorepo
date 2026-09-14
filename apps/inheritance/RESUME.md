@@ -1,4 +1,43 @@
-# Resuming the autonomous 15-phase run
+# H1 HARDENING LOOP (2026-08-10) — read this first
+
+The active work is the H1 hardening loop, contract in `BUILD-SPEC.md` (this directory).
+Resume = read BUILD-SPEC.md, run `bash scripts/ci-gates.sh` from the monorepo root, take the
+reddest thing, report to Telegram. State as of 2026-08-10T14:10+08:00:
+
+- **ALL 38 GATES GREEN** — first complete pass in this branch's history (LOOP STATUS GREEN,
+  record 114). Engine 2440/2440 (zero accepted failures, floor raised 2119→2440), journey 25/25
+  with real baselines, money parity, isolation, PDF suite, legal traceability, share/seo/instrument.
+- G17 healed at the root (seeded-case poisoning by G39's borrow — resets.mjs / instrument-parity.mjs).
+- G20/G21 restored honestly against the post-cut product WITHOUT touching the frozen lock:
+  migration 017 drops the orphaned anonymous `get_shared_case` RPC; share-exposure.mjs is now a
+  resurrection guard; seo-smoke drives today's public surface (landing+auth).
+- Bundle: landing JS 401→174 KB gz (route-level lazy split, commit 67b4476e9). Responsive:
+  390/768/1280 clean on every route. Styled 404 added.
+- **PROD DEPLOYED** (2026-08-10): inheritance-frontend.fly.dev serves the hardening build +
+  crash fix (bundle index-DuafyoFo.js); live P0 passed, 0 page errors. `fly deploy` rollback available.
+- **CRASH FIX** (commit f8ed206): real cases with legacy/partial output_json crashed the results
+  page ("reading 'length'") — the journey gate only ever loaded ONE pristine seeded case so it
+  never caught this. Fixed with withOutputDefaults() (normalizes any stored output at render) +
+  a router-level defaultErrorComponent (TanStack's per-route boundary was showing its bare default
+  instead of the app ErrorBoundary). Both verified; unit test in results/__tests__/normalize.test.ts.
+  GATE GAP worth closing later: journey should render a degraded/legacy output, not just the golden one.
+- **DOGFOOD FIXES** (commit dc1ac04, deployed prod bundle index-vRsOOkbr.js): drove all 20 engine
+  scenario fixtures through the UI. Fixed (a) family-tree node showed gross total not net_from_estate
+  (collation cases contradicted the table); (b) escheat deed clause labeled the State "Legitimate
+  Child" instead of "Beneficiary". Also de-flaked a ReviewStep scenario-badge test that raced WASM
+  compute under full-suite load. Deferred (presentation, in BUILD-SPEC): tree omits spouse/ascendant
+  nodes, clips wide families, duplicate parent pie color — for the identity pass.
+- **OPEN — needs a credential I don't have:** migration 017 is applied LOCALLY but NOT on prod.
+  The prod anonymous `get_shared_case` RPC is still live (verified HTTP 200 to anon on 2026-08-10).
+  Applying it needs a Supabase access token / prod DB connection string (run
+  `supabase login` then `supabase db push`, or psql against the prod DB with 017). This is the one
+  thing the loop cannot do unattended — flagged on Telegram.
+- Identity mockups: owner shortlisted library / atrium / counsel; page mockups sent; style pass
+  only after owner locks a direction (see BUILD-SPEC "UI revamp — staged" + deferred cohesion debt).
+
+---
+
+# Resuming the autonomous 15-phase run (historical)
 
 Written 2026-07-31 for an owner returning after several days away.
 
@@ -45,7 +84,7 @@ The only genuinely durable option is CI, and it is not wired for it yet. See
 `/home/clsandoval/.claude/projects/-home-clsandoval-cs-monorepo/ba0262ab-dc9f-47d8-83a3-ddf973495452/subagents/workflows/wf_c44e9af1-807/`.
 
 Full gate suite, any time: `bash apps/inheritance/scripts/ci-gates.sh` from the
-monorepo root. It should print `ALL GATES PASSED (37/37)` — the count is the
+monorepo root. It should print `ALL GATES PASSED (38/38)` — the count is the
 length of `gates.manifest.json`'s `gates` array, and it grows as phases land.
 
 **On this branch it does not print that.** `bash scripts/ci-gates.sh` currently

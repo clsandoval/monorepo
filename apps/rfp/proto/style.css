@@ -1,0 +1,382 @@
+/* ============================================================
+   bidkita — proto/style.css
+   "signal" direction (style 11, Vignelli restraint).
+   One ground, one ink, one grey, ONE accent. Nothing else.
+   ============================================================ */
+
+/* ---------- tokens ---------- */
+:root {
+  --paper: #FCFBF8;
+  --ink: #16130F;
+  --grey: #8E8A82;
+  --hairline: #E4E1DB;
+  --accent: #D93025;
+  --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --rail-w: 60px;
+}
+html[data-accent="blue"] { --accent: #1550D8; }
+
+/* ---------- reset / base ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+input, textarea { font: inherit; color: inherit; }
+::placeholder { color: var(--grey); opacity: 1; }
+
+/* ---------- type scale ---------- */
+.hero {
+  font-size: clamp(40px, 6vw, 84px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+}
+.h2 {
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+.h3 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.label {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--grey);
+}
+.lede { font-size: 16px; color: var(--grey); max-width: 52ch; }
+.muted { color: var(--grey); }
+/* Row/item title: board project cells, chat match cards, brief notice rows. */
+.item-title { font-weight: 700; letter-spacing: -0.01em; margin: 2px 0 4px; }
+/* Small grey caption under tables and CTAs. */
+.caption { font-size: 12px; color: var(--grey); margin-top: 12px; }
+.mono, .num, .ref, .count, .peso {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+.ref { color: var(--ink); border-bottom: 1px solid var(--hairline); }
+.ref:hover { border-bottom-color: var(--ink); }
+
+/* The ONE thin accent rule permitted per screen. */
+.rule-accent { border: 0; height: 2px; background: var(--accent); }
+.rule { border: 0; height: 1px; background: var(--hairline); }
+
+/* ---------- layout helpers ---------- */
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+.stack > * + * { margin-top: 16px; }
+
+/* Floating rounded content surface */
+.surface {
+  background: #fff;
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  box-shadow: 0 1px 2px rgba(22, 19, 15, 0.03), 0 8px 32px rgba(22, 19, 15, 0.05);
+  padding: 24px;
+}
+
+/* ---------- marketing top nav ---------- */
+.topnav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 20px 32px;
+  border-bottom: 1px solid var(--hairline);
+}
+.wordmark {
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+.topnav-links { display: flex; gap: 24px; }
+.topnav-links a { color: var(--grey); font-size: 13px; }
+.topnav-links a:hover { color: var(--ink); }
+.topnav-right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+
+/* ---------- app left rail ---------- */
+.rail {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: var(--rail-w);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0 16px;
+  border-right: 1px solid var(--hairline);
+  background: var(--paper);
+  z-index: 10;
+}
+.rail-mark {
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+  margin-bottom: 28px;
+}
+.rail-nav { display: flex; flex-direction: column; gap: 6px; }
+.rail-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  color: var(--grey);
+}
+.rail-icon:hover { color: var(--ink); background: rgba(22, 19, 15, 0.04); }
+.rail-icon.active { color: var(--ink); }
+.rail-foot { margin-top: auto; }
+.rail .accent-toggle { flex-direction: column; }
+
+/* Content area beside the rail */
+.app-main { margin-left: var(--rail-w); padding: 28px 32px 64px; }
+
+/* ---------- data table ---------- */
+.data { width: 100%; border-collapse: collapse; }
+.data th {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--grey);
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--hairline);
+  white-space: nowrap;
+}
+.data td {
+  padding: 18px 12px;
+  border-bottom: 1px solid var(--hairline);
+  vertical-align: middle;
+}
+.data tr:last-child td { border-bottom: 0; }
+.data tbody tr:hover { background: rgba(22, 19, 15, 0.02); }
+.data th.num, .data td.num { text-align: right; }
+.data td.num {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+/* Selected row: a thin accent bar on the left edge (rationed accent). */
+.data tr.selected td { background: rgba(22, 19, 15, 0.02); }
+.data tr.selected td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+
+/* ---------- pills / chips ---------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 5px 8px 5px 14px;
+}
+.chip-x {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  color: var(--grey);
+  font-size: 12px;
+  line-height: 1;
+}
+.chip-x:hover { color: var(--ink); background: rgba(22, 19, 15, 0.06); }
+
+/* Countdown chip: mono figures, grey outline by default. */
+.count {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  color: var(--ink);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 3px 10px;
+  white-space: nowrap;
+}
+/* Nearest deadline only — one of the rationed accent elements. */
+.count.soon {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 999px;
+  padding: 9px 20px;
+  white-space: nowrap;
+}
+.btn:hover { filter: brightness(0.94); }
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 8px 20px;
+  white-space: nowrap;
+}
+.btn-ghost:hover { border-color: var(--grey); }
+
+/* ---------- search field ---------- */
+.search {
+  width: 100%;
+  background: #fff;
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  padding: 10px 14px;
+  outline: none;
+}
+.search:focus { border-color: var(--grey); }
+
+/* ---------- chat panel ---------- */
+.chat { display: flex; flex-direction: column; gap: 16px; }
+.msg { max-width: 85%; }
+.msg.user {
+  align-self: flex-end;
+  background: #F0EEE8;
+  border-radius: 14px 14px 4px 14px;
+  padding: 10px 14px;
+}
+.msg.assistant { align-self: flex-start; max-width: 100%; }
+
+/* Match card inside an assistant reply: hairline-ruled, no box. */
+.match-card {
+  border-top: 1px solid var(--hairline);
+  padding: 14px 0;
+}
+.match-card:last-child { border-bottom: 1px solid var(--hairline); }
+.match-card .match-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Chat input row: rounded field + circular accent send. */
+.chat-form { display: flex; align-items: center; gap: 10px; }
+.chat-input {
+  flex: 1;
+  background: #fff;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 11px 18px;
+  outline: none;
+}
+.chat-input:focus { border-color: var(--grey); }
+.send {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+}
+.send:hover { filter: brightness(0.94); }
+.send svg { width: 16px; height: 16px; }
+
+/* ---------- accent toggle ---------- */
+.accent-toggle { display: flex; align-items: center; gap: 8px; }
+.swatch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: #fff;
+}
+.swatch-r { background: #D93025; }
+.swatch-b { background: #1550D8; }
+/* Active swatch gets a ring; keyed off the html attribute so no JS class juggling. */
+html:not([data-accent="blue"]) .swatch-r,
+html[data-accent="blue"] .swatch-b {
+  box-shadow: 0 0 0 2px var(--paper), 0 0 0 3.5px var(--ink);
+}
+
+/* ---------- brief (print-friendly document) ---------- */
+.brief {
+  max-width: 880px;
+  margin: 40px auto 80px;
+  background: #fff;
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  padding: 56px 64px;
+}
+.brief h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
+.brief h2 {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--grey);
+  margin: 32px 0 12px;
+}
+.brief p { margin: 8px 0; }
+.brief table { width: 100%; border-collapse: collapse; }
+
+@media print {
+  body { background: #fff; }
+  .topnav, .rail, .accent-toggle, .btn, .chat-form { display: none !important; }
+  .app-main { margin-left: 0; padding: 0; }
+  .brief {
+    margin: 0 auto;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    max-width: 100%;
+  }
+  .surface { border: 0; box-shadow: none; padding: 0; }
+  a { color: inherit; }
+}
+
+/* ---------- small screens ---------- */
+@media (max-width: 720px) {
+  .wrap { padding: 0 20px; }
+  .topnav { padding: 16px 20px; gap: 20px; }
+  .topnav-links { display: none; }
+  .app-main { padding: 20px 16px 48px; }
+  .brief { padding: 32px 24px; border-radius: 0; margin: 0; }
+  .msg { max-width: 100%; }
+}

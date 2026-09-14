@@ -122,11 +122,11 @@ export function WhatIfPanel({ wizardState, currentOutput, onCompute }: WhatIfPan
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div className="space-y-1">
                     <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Current Tax</p>
-                    <p className="font-mono font-semibold text-[#1e3a5f]">₱{formatPesos(currentTax)}</p>
+                    <p className="font-mono font-semibold text-primary">₱{formatPesos(currentTax)}</p>
                   </div>
                   <div className="space-y-1">
                     <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Alternative Tax</p>
-                    <p className="font-mono font-semibold text-[#1e3a5f]">₱{formatPesos(altTax!)}</p>
+                    <p className="font-mono font-semibold text-primary">₱{formatPesos(altTax!)}</p>
                   </div>
                 </div>
                 {delta !== null && (

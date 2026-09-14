@@ -120,6 +120,12 @@ export interface DeedSchedule {
  * Throws on a negative value: a negative share is refused by
  * `buildDeedSchedule` under rule R0 and must never be formatted as an amount.
  */
+/** Title-case an engine narrative label ("beneficiary" → "Beneficiary") to match
+ *  the deed's category style. */
+function titleCase(s: string): string {
+  return s.replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
 export function formatDeedPesos(centavos: bigint | number | string): string {
   const c = BigInt(centavos);
   if (c < 0n) {
@@ -144,10 +150,27 @@ export function buildDeedSchedule(input: EngineInput, output: EngineOutput): Dee
     }
   }
 
+  // The engine's own human label per heir, keyed by id. Used only to correct one
+  // known mis-bucket: in an escheat the State's share carries
+  // heir_category=LegitimateChildGroup (bucketed there for the share arithmetic),
+  // but the narrative correctly labels it "beneficiary". Without this the
+  // generated deed calls the State a "Legitimate Child". Scoped to exactly that
+  // case so ordinary heirs keep their established deed wording.
+  const narrativeLabel = new Map<string, string>();
+  for (const n of output.narratives) {
+    if (n.heir_category_label) narrativeLabel.set(n.heir_id, n.heir_category_label);
+  }
+
   const lines: DeedScheduleLine[] = [];
   for (const share of output.per_heir_shares) {
-    const categoryLabel =
-      EFFECTIVE_CATEGORY_LABELS[share.heir_category] ?? (share.heir_category as string);
+    const engineLabel = narrativeLabel.get(share.heir_id);
+    const isMisbucketedBeneficiary =
+      share.heir_category === 'LegitimateChildGroup' &&
+      engineLabel !== undefined &&
+      engineLabel.toLowerCase() !== 'legitimate child';
+    const categoryLabel = isMisbucketedBeneficiary
+      ? titleCase(engineLabel!)
+      : (EFFECTIVE_CATEGORY_LABELS[share.heir_category] ?? (share.heir_category as string));
     const articles = [...share.legal_basis];
     const c = BigInt(share.net_from_estate.centavos);
 

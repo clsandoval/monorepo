@@ -3,7 +3,7 @@ type: project
 name: Fitness
 status: active
 tags: [health, fat-loss, training]
-updated: 2026-08-02
+updated: 2026-09-13
 
 ---
 
@@ -12,13 +12,89 @@ updated: 2026-08-02
 The internalized context for the `/fitness` command. Every answer keys off this.
 > **COMMIT RULE:** Every edit to `log.md` MUST be immediately followed by
 > `git add projects/fitness/log.md && git commit -m "fitness log"`. No deferring.
-Keep it current — when weight/targets/equipment change, edit here.
 
+> **COACH MODE (his call, 2026-09-13): "ignore all the rules I sent you, decide all of that for me."**
+> The coach sets targets, program and adjustments. He reports food, weight and training; he does not
+> negotiate numbers. If he proposes a rule change, the coach decides — say yes or no and why, in one line.
+> Keep it simple: the August system (activity-linked ceilings, earned days, per-day arithmetic essays)
+> was too much to run. Fewer numbers, held longer.
+
+## Who
+- **Age / sex:** 26, male · **Height:** 185 cm · **Timezone:** GMT+8
+- **Current:** ~100 kg (9/13). Strength up vs August. Body fat unknown; treat as ~28–30%.
+- **Background:** ex-judoka, competed at ~115 kg ~3 yrs ago → large muscle-memory reserve, and an
+  overtraining/injury history from that era. Home gym (Smith, cable, DBs, bench, pull-up bar, barbell no
+  rack, leg curl/ext, treadmill, rope). Travels often. Eats out in Manila a lot.
+- **Goal:** ripped in the mid-80s. Phase 1 = cut to ~85 kg at a pace that keeps strength. Phase 2 =
+  lean-bulk. Phase 2 decisions are deferred until ~88 kg.
+
+## The Rules (v2 — set by the coach, 2026-09-13)
+
+Four numbers. Nothing else is tracked.
+
+1. **Calories ≤ 2200/day. Every day.** No earned days, no activity credits. TDEE at 100 kg ≈ 2750
+   → ~550 deficit ≈ 0.5 kg/week. Never below **1700** (the 7/06 episode).
+2. **Protein ≥ 150 g/day.** On a plan day this is automatic (below). Off-plan or a skipped meal →
+   1 scoop per missed meal (140 / 24 g) plus a real protein anchor.
+3. **Lift 3×/week, ~30 min, alternating A / B.** Any 3 non-consecutive days; on return home, shoes on,
+   go. Missed session = skipped, never made up. Travel = rope only.
+   - **A:** Smith incline bench 3×8 · barbell row 3×10 · RDL 3×8 · leg extension 3×10
+   - **B:** OHP 3×8 · pull-ups (strict-then-assisted, see archive) · leg curl 3×10 · leg raises 2×12
+   - Load: 70–80% effort, leave 2 reps in the tank, never fail a set. Add weight when all sets are
+     clean two sessions running. Log the working load — that's the progress metric alongside the scale.
+4. **Walk 30 min/day.** Walking to the coffee shop counts. Not tracked, not credited — it's just
+   what a day contains.
+
+**Non-negotiables carried forward (physiology, not preference):**
+- Rice, pasta, potatoes bloat him → carbs from fruit, oats, bread in modest amounts. 2 fruit a day for fiber.
+- Salt cooked food; electrolyte packet on heavy-sweat days. He depletes sodium.
+- No morning sessions — he won't do them. Evening only.
+- No failure sets, no "make it up harder" — connective tissue is behind his muscle memory.
+- Hinge from a height he can reach with a flat back; RDL is the main hinge.
+
+**Adjustment rule (coach only, every 2 weeks, on the 7-day weight average):**
+- Losing < 0.3 kg/wk → calories −150.
+- Losing > 1.0 kg/wk or lifts dropping → calories +150.
+- Otherwise leave it alone. Daily scale noise is ignored.
+
+**Scoring a day:** ✅ = under 2200 and over 150 g. ⚠️ = one missed. ❌ = both. That is the whole verdict.
+Unlogged days are not charged, not reconciled, not discussed — log the next day and move on.
+
+**How to answer "should I eat X":** add X to today's total. Under 2200 and it carries protein → yes.
+Over 2200 → no, unless protein is under 150, then the leanest source only (scoop 5.8 cal/g · cottage
+cheese 6.8 · David's bar 5.4). One-line answer, then the number.
+
+**Meal plan (started Sep 2026): 3 delivered meals/day, each ~600 kcal / ~60 g protein = 1800 / 180 g.**
+That is the day's spine and it clears rule 2 on its own — **no default scoops while on the plan.**
+The remaining **~400 kcal is discretionary**: coffee/matcha, 2 fruit, almond milk. A shake replaces a
+plan meal he skips; it is not additive. Eating out replaces a plan meal, and the coach prices it against
+the 600/60 it displaced — over 600 comes out of the 400 discretionary, not the next meal.
+
+## Staple macros (label values — use these)
+| Item | Serving | kcal | Protein |
+|---|---|---|---|
+| Protein powder | 1 scoop 38 g | 140 | 24 g |
+| Chobani Greek yogurt whole | 160 g | 138 | 13.7 g |
+| Bulla High Protein cottage cheese | 100 g | 82 | 12 g |
+| David's bar | 1 | 150 | 28 g |
+| Unsweetened almond milk | 250 ml | ~35 | ~1 g |
+| Chicken breast, cooked | 100 g | ~165 | ~31 g |
+| Ribeye trimmed, cooked | 100 g | ~250 | ~26 g |
+| Salmon sashimi | 100 g | ~205 | ~21 g |
+| 12 oz latte, unsweetened | 1 | ~180 | ~9 g |
+
+## Advice style
+Directive first, then 1–3 lines of why. No arithmetic essays in the log notes — one or two sentences.
+
+---
+
+# Archive — pre-2026-09-13 profile (superseded, kept for history and the pull-up scheme)
 
 - **Age / sex:** 26, male
 - **Timezone:** GMT+8 (log dates are local)
 - **Height:** 185 cm
-- **Current:** ~95.5 kg (8/01 AM), ~29% body fat → lean mass ≈ 67–68 kg
+- **Current:** ~100.0 kg (9/13, self-reported; last fasted log 97.0 on 8/19). Body fat / lean mass **unknown post-reset** — he reports strength up since August, so don't assume the +3 kg is all fat. Previous estimate (8/12): ~29% BF → LM ≈ 68–69 kg.
+- **RESET 2026-09-13 (his call — blank slate):** 25 unlogged days closed without audit. Targets, program and ledger below are **legacy until re-confirmed**; he has started a **meal plan** whose daily cals/protein are the new intake numbers once captured (fill in here). Physiology notes (bloating carbs, sodium/cal/fiber floors, mobility, 70–80% rule, no morning sessions) still stand.
 - **Goal (two-phase — added 2026-07-13):** the real target is **ripped in the mid-80s**, which is a
   muscle goal, not just a fat goal. At today's ~68–69 kg lean mass he'd be ripped at only ~78 kg
   (12% BF) — the lightweight look he says is *too lean*. Being shredded at ~84 kg needs ~74 kg lean

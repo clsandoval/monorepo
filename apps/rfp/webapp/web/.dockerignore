@@ -1,0 +1,8 @@
+node_modules
+.next
+.git
+.sessions
+.sessions-e2e
+qa/shots
+test-results
+playwright-report

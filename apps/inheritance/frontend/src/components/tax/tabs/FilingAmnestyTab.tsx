@@ -26,7 +26,7 @@ export function FilingAmnestyTab({ data, onChange, onCompute }: FilingAmnestyTab
   return (
     <div data-testid="filing-amnesty-tab" className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold text-[#1e3a5f]">Filing &amp; Amnesty</h2>
+        <h2 className="text-lg font-semibold text-primary">Filing &amp; Amnesty</h2>
         <p className="text-sm text-muted-foreground mt-1">
           Configure filing options and determine estate tax amnesty eligibility.
         </p>
@@ -95,7 +95,7 @@ export function FilingAmnestyTab({ data, onChange, onCompute }: FilingAmnestyTab
                   }
                 >
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                    <label className="flex items-start gap-3 p-3 rounded-lg border cursor-pointer hover:bg-muted/30 transition-colors has-[[data-state=checked]]:border-[#1e3a5f] has-[[data-state=checked]]:bg-[#1e3a5f]/5">
+                    <label className="flex items-start gap-3 p-3 rounded-lg border cursor-pointer hover:bg-muted/30 transition-colors has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-primary/5">
                       <RadioGroupItem value="standard" id="amnesty-standard" className="mt-0.5" />
                       <div>
                         <p className="text-sm font-medium">Standard</p>
@@ -104,7 +104,7 @@ export function FilingAmnestyTab({ data, onChange, onCompute }: FilingAmnestyTab
                         </p>
                       </div>
                     </label>
-                    <label className="flex items-start gap-3 p-3 rounded-lg border cursor-pointer hover:bg-muted/30 transition-colors has-[[data-state=checked]]:border-[#1e3a5f] has-[[data-state=checked]]:bg-[#1e3a5f]/5">
+                    <label className="flex items-start gap-3 p-3 rounded-lg border cursor-pointer hover:bg-muted/30 transition-colors has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-primary/5">
                       <RadioGroupItem value="narrow" id="amnesty-narrow" className="mt-0.5" />
                       <div>
                         <p className="text-sm font-medium">Narrow</p>
@@ -344,7 +344,7 @@ export function FilingAmnestyTab({ data, onChange, onCompute }: FilingAmnestyTab
           data-testid="compute-estate-tax"
           onClick={onCompute}
           size="lg"
-          className="w-full gap-3 bg-[#1e3a5f] hover:bg-[#1e3a5f]/90 text-base h-12"
+          className="w-full gap-3 bg-primary hover:bg-primary/90 text-base h-12"
         >
           <Calculator className="h-5 w-5" />
           Compute Estate Tax

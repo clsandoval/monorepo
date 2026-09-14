@@ -76,7 +76,8 @@ describe('shared > PersonPicker', () => {
       fireEvent.click(select);
 
       for (const person of MOCK_PERSONS) {
-        expect(screen.getByText(new RegExp(person.name))).toBeInTheDocument();
+        // Role query skips the aria-hidden native mirror select Radix renders
+        expect(screen.getByRole('option', { name: new RegExp(person.name) })).toBeInTheDocument();
       }
     });
 
@@ -91,8 +92,9 @@ describe('shared > PersonPicker', () => {
       const onValues = vi.fn();
       render(<PersonPickerWrapper onValues={onValues} />);
 
-      const select = screen.getByRole('combobox') ?? screen.getByRole('listbox');
-      await userEvent.selectOptions(select, 'lc1');
+      // Radix Select: open the trigger, then click the option by its label
+      await userEvent.click(screen.getByRole('combobox'));
+      await userEvent.click(await screen.findByRole('option', { name: /Juan Dela Cruz/ }));
 
       await userEvent.click(screen.getByText('Submit'));
       await waitFor(() => {
@@ -108,15 +110,18 @@ describe('shared > PersonPicker', () => {
       fireEvent.click(select);
 
       // Should show relationship info alongside name
-      expect(screen.getByText(/Juan Dela Cruz/)).toBeInTheDocument();
+      expect(screen.getByRole('option', { name: /Juan Dela Cruz/ })).toBeInTheDocument();
       // Multiple persons share LegitimateChild, so use getAllByText
       expect(screen.getAllByText(/LegitimateChild|Legitimate Child/).length).toBeGreaterThan(0);
     });
 
     it('pre-selects person from default value', () => {
       render(<PersonPickerWrapper defaultValue="sp" />);
-      const select = screen.getByRole('combobox') as HTMLSelectElement;
-      expect(select.value).toBe('sp');
+      // The Radix trigger displays the selected person's label...
+      expect(screen.getByRole('combobox')).toHaveTextContent(/Ana Santos/);
+      // ...and the hidden native select (form bridge) carries the person ID
+      const hidden = document.querySelector('select');
+      expect(hidden).toHaveValue('sp');
     });
   });
 
@@ -127,16 +132,16 @@ describe('shared > PersonPicker', () => {
       fireEvent.click(select);
 
       // Use "not in family tree" to avoid matching "Grandmother" which contains "other"
-      expect(screen.getByText(/not in family tree/i)).toBeInTheDocument();
+      expect(screen.getByRole('option', { name: /not in family tree/i })).toBeInTheDocument();
     });
 
     it('selecting stranger sets person_id to null', async () => {
       const onValues = vi.fn();
       render(<PersonPickerWrapper allowStranger onValues={onValues} />);
 
-      const select = screen.getByRole('combobox') ?? screen.getByRole('listbox');
-      // Select the stranger/other option via select value
-      await userEvent.selectOptions(select, '__stranger__');
+      // Select the stranger/other option by clicking it in the popover
+      await userEvent.click(screen.getByRole('combobox'));
+      await userEvent.click(await screen.findByRole('option', { name: /not in family tree/i }));
 
       await userEvent.click(screen.getByText('Submit'));
       await waitFor(() => {
@@ -167,8 +172,8 @@ describe('shared > PersonPicker', () => {
       fireEvent.click(select);
 
       // Compulsory heirs should be visible
-      expect(screen.getByText(/Juan Dela Cruz/)).toBeInTheDocument();
-      expect(screen.getByText(/Ana Santos/)).toBeInTheDocument();
+      expect(screen.getByRole('option', { name: /Juan Dela Cruz/ })).toBeInTheDocument();
+      expect(screen.getByRole('option', { name: /Ana Santos/ })).toBeInTheDocument();
 
       // Sibling (collateral) should NOT be visible
       expect(screen.queryByText(/Carlos Dela Cruz/)).not.toBeInTheDocument();
@@ -184,7 +189,7 @@ describe('shared > PersonPicker', () => {
       expect(screen.queryByText(/Ana Santos/)).not.toBeInTheDocument();
 
       // Non-excluded should remain
-      expect(screen.getByText(/Maria Dela Cruz/)).toBeInTheDocument();
+      expect(screen.getByRole('option', { name: /Maria Dela Cruz/ })).toBeInTheDocument();
     });
   });
 

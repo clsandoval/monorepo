@@ -212,15 +212,6 @@ loops:
     status: converged
     created: 2026-03-06
     converged_at: "2026-03-07"
-  angkin-design-system-reverse:
-    description: "Explore 10 exhaustive frontend design system options for the Angkin suite — 148 PH compliance tools, each with competitive benchmarking, full spec, live HTML mockup, and visual QA"
-    type: reverse
-    schedule: "*/30 * * * *"
-    max_iterations: 60
-    timeout_minutes: 30
-    status: converged
-    created: 2026-03-10
-    converged_at: "2026-03-10"
   daimon-saas-reverse:
     description: "Exhaustive product spec for Daimon self-serve SaaS — multi-tenant Decision Orchestrator with BYOK billing"
     type: reverse
@@ -238,15 +229,6 @@ loops:
     timeout_minutes: 360
     status: active
     created: 2026-03-13
-  angkin-ui-treatment-reverse:
-    description: "Comprehensive UI treatment deck for Angkin platform — typography, color, components, dark mode, mobile, sub-tool branding, example screens. Anchored on 2C Radical Clarity logo."
-    type: reverse
-    schedule: manual
-    max_iterations: 40
-    timeout_minutes: 360
-    status: converged
-    created: 2026-03-14
-    converged_at: "2026-03-15"
   pymc-content-reverse:
     description: "Scrape existing website + Discord archive + public data → complete content package for PyMC Labs website rebuild"
     type: reverse

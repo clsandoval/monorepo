@@ -1,0 +1,32 @@
+# Scraped corpora — rebuilt from the live site, not source of truth.
+#   python3 ingest.py            # mPhilGEPS  -> tenders.db  (~4.3k notices, minutes)
+#   python3 ingest_legacy.py     # legacy 1.5 -> legacy.db   (~17.8k notices, longer)
+#   python3 tag.py base all      # Luna tags  -> tags.db     (P250 measured, 22,068 notices)
+#   python3 tag.py doc           # doc-tier tags on boilerplate-only notices; see NOTES-tag.md
+#   python3 attachments.py run   # bid docs   -> docs.db + blobs/  (mPhilGEPS only, ~18.5 GB, 1.3 h)
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.log
+spend.json.lock
+
+# Downloaded bid documents. Transient by design: extract text, then delete the blob and
+# keep sha256 + url so it can be refetched. See NOTES-extract.md "Guardrails".
+blobs/
+
+# Recon scrape outputs — regenerate with docs_census.py list/sizes
+docs_list.jsonl
+docs_sizes.jsonl
+docs_recon.jsonl
+*.xlsx
+recent.log
+bigrun.log
+xlsx.log
+
+# Generated firm briefs — carry a named individual's contact details off a public award notice.
+# Regenerate with `python3 brief.py "<FIRM>"`; do not commit the rendered pages.
+briefs/
+
+# BetterGov bulk dump (CC0, huggingface.co/datasets/bettergovph/philgeps-data) — re-download, don't commit
+bettergov/

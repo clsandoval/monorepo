@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>bidkita — Board</title>
+<script>
+  var a = localStorage.getItem('accent');
+  if (a) document.documentElement.dataset.accent = a;
+</script>
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Local layout only — components come from style.css */
+  .board-split {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  .board-pane { padding: 28px; min-width: 0; }
+  .chat-pane { border-left: 1px solid var(--hairline); display: flex; flex-direction: column; }
+  .chat-pane .chat { flex: 1; }
+  .board-tools { display: flex; flex-direction: column; gap: 12px; margin: 18px 0 20px; }
+  .board-meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .board-meta .results-count { font-size: 12px; color: var(--grey); }
+  .table-scroll { overflow-x: auto; }
+  .data td:first-child { white-space: nowrap; }
+  .cell-agency { color: var(--grey); font-size: 13px; }
+  @media (max-width: 960px) {
+    .board-split { grid-template-columns: 1fr; }
+    .chat-pane { border-left: 0; border-top: 1px solid var(--hairline); }
+  }
+</style>
+</head>
+<body>
+
+<aside class="rail">
+  <a class="rail-mark" href="index.html">b.</a>
+  <nav class="rail-nav">
+    <a class="rail-icon active" href="app.html" title="Search &amp; board" aria-label="Search and board">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <circle cx="11" cy="11" r="7"/>
+        <line x1="16.5" y1="16.5" x2="21" y2="21"/>
+      </svg>
+    </a>
+    <a class="rail-icon" href="brief.html" title="Brief" aria-label="Brief">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 3h9l4 4v14H6z"/>
+        <line x1="9" y1="11" x2="16" y2="11"/>
+        <line x1="9" y1="15" x2="16" y2="15"/>
+      </svg>
+    </a>
+    <a class="rail-icon" href="#" title="Settings" aria-label="Settings">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <line x1="4" y1="7" x2="20" y2="7"/>
+        <circle cx="9" cy="7" r="2.25" fill="#FCFBF8"/>
+        <line x1="4" y1="16" x2="20" y2="16"/>
+        <circle cx="15" cy="16" r="2.25" fill="#FCFBF8"/>
+      </svg>
+    </a>
+  </nav>
+  <div class="rail-foot">
+    <div class="accent-toggle" aria-label="Accent colour">
+      <button class="swatch swatch-r" data-accent="" title="Signal red">R</button>
+      <button class="swatch swatch-b" data-accent="blue" title="Blue">B</button>
+    </div>
+  </div>
+</aside>
+
+<main class="app-main">
+  <section class="surface board-split">
+    <div class="board-pane">
+      <h1 class="h2">Open opportunities</h1>
+
+      <div class="board-tools">
+        <input class="search" type="search" placeholder="Search projects, agencies, ref numbers…" aria-label="Search opportunities">
+        <div class="board-meta">
+          <span class="mono results-count">22,324 results</span>
+          <span class="chip">Camarines Norte <button class="chip-x" aria-label="Remove filter Camarines Norte">&times;</button></span>
+          <span class="chip">Civil works <button class="chip-x" aria-label="Remove filter Civil works">&times;</button></span>
+          <span class="chip">Under P10M <button class="chip-x" aria-label="Remove filter Under P10M">&times;</button></span>
+        </div>
+      </div>
+
+      <div class="table-scroll">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>Ref</th>
+              <th>Project</th>
+              <th>Agency</th>
+              <th class="num">ABC</th>
+              <th>Closes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a class="ref" href="notice.html">ITB-2026-071</a></td>
+              <td class="item-title">Construction of Multi-Purpose Building, Brgy. Taba-taba, Basud</td>
+              <td class="cell-agency">Provincial Government of Camarines Norte</td>
+              <td class="num">PHP 4,983,586.00</td>
+              <td><span class="count">09d 04h</span></td>
+            </tr>
+            <tr>
+              <td><a class="ref" href="notice.html">VINBAC 0067-2026</a></td>
+              <td class="item-title">Construction of Farm-to-Market Road (Barangay Aguit-it)</td>
+              <td class="cell-agency">Municipality of Vinzons, Camarines Norte</td>
+              <td class="num">PHP 10,000,000.00</td>
+              <td><span class="count">09d 04h</span></td>
+            </tr>
+            <tr>
+              <td><a class="ref" href="notice.html">ITB-2026-072</a></td>
+              <td class="item-title">Construction of Slope Protection, Brgy. Pamorangon, Daet</td>
+              <td class="cell-agency">Provincial Government of Camarines Norte</td>
+              <td class="num">PHP 9,987,701.00</td>
+              <td><span class="count">09d 04h</span></td>
+            </tr>
+            <tr>
+              <td><a class="ref" href="notice.html">401-26-07-0877-A</a></td>
+              <td class="item-title">Rehabilitation of Health Station, Brgy. Hamoraon, Mercedes</td>
+              <td class="cell-agency">Municipality of Mercedes, Camarines Norte</td>
+              <td class="num">PHP 2,800,000.00</td>
+              <td><span class="count">08d 21h</span></td>
+            </tr>
+            <tr>
+              <td><a class="ref" href="notice.html">2026300001</a></td>
+              <td class="item-title">Construction of Health Station, Barangay Bagacay, Labo</td>
+              <td class="cell-agency">Municipality of Labo, Camarines Norte</td>
+              <td class="num">PHP 3,000,000.00</td>
+              <td><span class="count">10d 00h</span></td>
+            </tr>
+            <tr>
+              <td><a class="ref" href="notice.html">VINBAC 0066-2026</a></td>
+              <td class="item-title">Rehabilitation of Operation Center (OpCen), EOC Building</td>
+              <td class="cell-agency">Municipality of Vinzons, Camarines Norte</td>
+              <td class="num">PHP 3,000,000.00</td>
+              <td><span class="count">09d 04h</span></td>
+            </tr>
+            <tr>
+              <td><a class="ref" href="notice.html">202608019</a></td>
+              <td class="item-title">Concreting of Road to Central Business District</td>
+              <td class="cell-agency">Municipality of Basud, Camarines Norte</td>
+              <td class="num">PHP 5,000,000.00</td>
+              <td><span class="count">13d 12h</span></td>
+            </tr>
+            <tr>
+              <td><a class="ref" href="notice.html">ITB-2026-066</a></td>
+              <td class="item-title">Construction of Barangay Hall, Brgy. Laniton, San Lorenzo Ruiz</td>
+              <td class="cell-agency">Provincial Government of Camarines Norte</td>
+              <td class="num">PHP 4,997,803.00</td>
+              <td><span class="count">16d 04h</span></td>
+            </tr>
+            <tr>
+              <td><a class="ref" href="notice.html">ITB-2026-078</a></td>
+              <td class="item-title">Improvement of Multi-Purpose Building, Brgy. Mangkasay, Paracale</td>
+              <td class="cell-agency">Provincial Government of Camarines Norte</td>
+              <td class="num">PHP 4,992,673.00</td>
+              <td><span class="count">16d 04h</span></td>
+            </tr>
+            <tr>
+              <td><a class="ref" href="notice.html">ITB-2026-076</a></td>
+              <td class="item-title">Installation/Rehabilitation of Solar Lights, Talisay-Daet-Mercedes</td>
+              <td class="cell-agency">Provincial Government of Camarines Norte</td>
+              <td class="num">PHP 9,987,295.00</td>
+              <td><span class="count">16d 04h</span></td>
+            </tr>
+            <tr>
+              <td><a class="ref" href="notice.html">2026300003</a></td>
+              <td class="item-title">Opening with Concreting of Road, Barangay Bagacay, Labo</td>
+              <td class="cell-agency">Municipality of Labo, Camarines Norte</td>
+              <td class="num">PHP 3,600,000.00</td>
+              <td><span class="count">10d 00h</span></td>
+            </tr>
+            <tr>
+              <td><a class="ref" href="notice.html">26F00547</a></td>
+              <td class="item-title">Rehabilitation of Damaged Paved Roads, Tertiary Roads, Daet</td>
+              <td class="cell-agency">DPWH - Camarines Norte DEO</td>
+              <td class="num">PHP 19,005,674.00</td>
+              <td><span class="count soon">03d 22h</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <aside class="board-pane chat-pane" aria-label="Ask">
+      <h2 class="h3">Ask</h2>
+
+      <div class="chat" style="margin-top: 18px;">
+        <div class="msg user">buildings in Camarines Norte around 5 million</div>
+
+        <div class="msg assistant">
+          <p>I found 2 matches:</p>
+          <div class="match-card">
+            <a class="ref" href="notice.html">ITB-2026-071</a>
+            <p class="item-title">Construction of Multi-Purpose Building, Brgy. Taba-taba, Basud</p>
+            <div class="match-meta">
+              <span class="peso">PHP 4,983,586.00</span>
+            </div>
+          </div>
+          <div class="match-card">
+            <a class="ref" href="notice.html">ITB-2026-066</a>
+            <p class="item-title">Construction of Barangay Hall, Brgy. Laniton, San Lorenzo Ruiz</p>
+            <div class="match-meta">
+              <span class="peso">PHP 4,997,803.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form class="chat-form" style="margin-top: 24px;" onsubmit="return false;">
+        <input class="chat-input" type="text" placeholder="Ask anything about opportunities…" aria-label="Ask anything about opportunities">
+        <button class="send" aria-label="Send">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="19" x2="12" y2="5"/>
+            <polyline points="5 12 12 5 19 12"/>
+          </svg>
+        </button>
+      </form>
+    </aside>
+  </section>
+</main>
+
+<script>
+  document.querySelectorAll('.accent-toggle .swatch').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.documentElement.dataset.accent = btn.dataset.accent;
+      localStorage.setItem('accent', btn.dataset.accent);
+    });
+  });
+</script>
+</body>
+</html>

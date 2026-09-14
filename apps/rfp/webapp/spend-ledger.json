@@ -1,0 +1,175 @@
+{
+  "cap_usd": 30.0,
+  "spent_usd": 25.51,
+  "entries": [
+    {
+      "wave": "W1",
+      "kind": "claude-subagents",
+      "usd": 0.0,
+      "ts": "2026-08-09T13:40:00Z",
+      "note": "scaffold inline, no subagents"
+    },
+    {
+      "wave": "W2",
+      "kind": "luna-eval",
+      "usd": 0.02,
+      "ts": "2026-08-09T13:55:00Z",
+      "note": "loop port smoke"
+    },
+    {
+      "wave": "W3-G1",
+      "kind": "luna-eval",
+      "usd": 0.011,
+      "ts": "2026-08-09T15:00:00Z",
+      "note": "eval suite 7 scenarios \u20b10.555"
+    },
+    {
+      "wave": "W3-G2",
+      "kind": "luna-eval",
+      "usd": 0.0,
+      "ts": "2026-08-09T15:00:00Z",
+      "note": "unit tests: no Luna (readSql is a cheap SELECT)"
+    },
+    {
+      "wave": "G4",
+      "kind": "luna-eval",
+      "usd": 0.02,
+      "ts": "2026-08-09T15:10:00Z",
+      "note": "E2E chat turn(s) + reruns"
+    },
+    {
+      "wave": "G3",
+      "kind": "luna-eval",
+      "usd": 0.01,
+      "ts": "2026-08-09T15:30:00Z",
+      "note": "visual QA: 2 Luna turns for results+empty states"
+    },
+    {
+      "wave": "G5",
+      "kind": "luna-eval",
+      "usd": 0.01,
+      "ts": "2026-08-09T16:00:00Z",
+      "note": "prod smoke chat turn(s)"
+    },
+    {
+      "wave": "M2-P1",
+      "kind": "luna-eval",
+      "usd": 0.03,
+      "ts": "2026-08-09T16:30:00Z",
+      "note": "present-tool repros + live video record (multi-turn)"
+    },
+    {
+      "wave": "M2-P2/P3",
+      "kind": "luna-eval",
+      "usd": 0.03,
+      "ts": "2026-08-09T17:00:00Z",
+      "note": "eval 8/8 regression + live video record"
+    },
+    {
+      "wave": "M3-build",
+      "kind": "claude-subagents",
+      "usd": 3.0,
+      "ts": "2026-08-09T17:00:00Z",
+      "note": "build+verify workflow, 4 agents, 328K tokens (est $2-4, logged high side)"
+    },
+    {
+      "wave": "M3-build",
+      "kind": "luna-eval",
+      "usd": 0.03,
+      "ts": "2026-08-09T17:00:00Z",
+      "note": "plan-call unit tests + live searches + dogfood chat turns"
+    },
+    {
+      "wave": "M3-QA",
+      "kind": "claude-subagents",
+      "usd": 1.7,
+      "ts": "2026-08-09T17:15:00Z",
+      "note": "QA workflow, 3 agents, 170K tokens (est, high side)"
+    },
+    {
+      "wave": "M3-QA",
+      "kind": "luna-eval",
+      "usd": 0.02,
+      "ts": "2026-08-09T17:15:00Z",
+      "note": "search-eval 7/7 + chat eval 8/8 + E2E Luna turns x2 runs"
+    },
+    {
+      "wave": "M3-live",
+      "kind": "luna-eval",
+      "usd": 0.04,
+      "ts": "2026-08-09T17:30:00Z",
+      "note": "live smoke searches + record-live 2 turns + live AI-mode turn"
+    },
+    {
+      "wave": "M3.1",
+      "kind": "luna-eval",
+      "usd": 0.03,
+      "ts": "2026-08-09T18:00:00Z",
+      "note": "handoff+sort/filter: E2E rerun x2 + local/live handoff turns (all inline, no subagents)"
+    },
+    {
+      "wave": "M4-build",
+      "kind": "claude-subagents",
+      "usd": 5.0,
+      "ts": "2026-08-09T19:00:00Z",
+      "note": "build+verify workflow, 4 agents, 530K tokens (est, high side)"
+    },
+    {
+      "wave": "M4-build",
+      "kind": "luna-eval",
+      "usd": 0.03,
+      "ts": "2026-08-09T19:00:00Z",
+      "note": "real enriches x6 (build+verify) + eval reruns + E2E Luna turns"
+    },
+    {
+      "wave": "M4-live",
+      "kind": "luna-eval",
+      "usd": 0.02,
+      "ts": "2026-08-10T02:20:00Z",
+      "note": "prod P0: 2 live enriches (legacy + docs/OCR path) + record-live video turns"
+    },
+    {
+      "wave": "M5-WA",
+      "kind": "claude-subagents",
+      "usd": 2.5,
+      "ts": "2026-08-10T01:30:00Z",
+      "note": "W-A awards backfill workflow, interrupted mid-run ~230K tokens (est, high side)"
+    },
+    {
+      "wave": "M5-WBC",
+      "kind": "claude-subagents",
+      "usd": 4.0,
+      "ts": "2026-08-10T03:30:00Z",
+      "note": "W-B/C supplier+entity build+verify workflow 397K tokens + orchestration (est, high side)"
+    },
+    {
+      "wave": "M5-live",
+      "kind": "luna-eval",
+      "usd": 0.01,
+      "ts": "2026-08-10T04:10:00Z",
+      "note": "e2e rerun real Luna turns + prod P0 drive"
+    },
+    {
+      "wave": "M5-bettergov",
+      "kind": "claude-inline",
+      "usd": 1.5,
+      "ts": "2026-08-10T04:45:00Z",
+      "note": "BetterGov 5.08M-row import + map upgrades + 3 deploys, all inline (est high side)"
+    },
+    {
+      "wave": "M5-WF-polish",
+      "kind": "claude-subagents",
+      "usd": 4.5,
+      "ts": "2026-08-10T06:35:00Z",
+      "note": "W-F graph workflow (192K) + 3 visual judge rounds (431K) + inline polish/fix cycles + 5 deploys (est high side)"
+    },
+    {
+      "wave": "M5-close",
+      "kind": "claude-inline",
+      "usd": 3.0,
+      "ts": "2026-08-10T09:05:00Z",
+      "note": "responsive QA panel (106K) + reference-UX v2 + perf incident (TZ/index/scale) + 4 deploys, inline (est high side)"
+    }
+  ],
+  "note": "Every loop cycle appends {wave, kind, usd, ts}. Stop at cap. Main driving-session tokens tracked separately by the harness. All build work so far done inline \u2014 zero subagent spend."
+}

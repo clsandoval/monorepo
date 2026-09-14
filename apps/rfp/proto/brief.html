@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>bidkita — Weekly bid brief, Camarines Norte</title>
+<script>
+  var a = localStorage.getItem('accent');
+  if (a) document.documentElement.dataset.accent = a;
+</script>
+<link rel="stylesheet" href="style.css">
+<style>
+  /* brief.html-local components only — shared files untouched */
+  .brief-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .brief-mark { font-weight: 800; font-size: 16px; letter-spacing: -0.03em; color: var(--accent); }
+  .rule-thick { border: 0; height: 4px; background: var(--ink); margin: 14px 0 24px; }
+  .brief-hero {
+    font-size: clamp(32px, 4.6vw, 52px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.04;
+    margin: 0 0 16px;
+  }
+  .brief-hero .peso { letter-spacing: -0.02em; }
+  .strap {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--grey);
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: 999px;
+    padding: 2px 9px;
+    background: var(--ink);
+    color: #fff;
+    white-space: nowrap;
+  }
+  .tag.widened {
+    background: transparent;
+    color: var(--grey);
+    border: 1px solid var(--hairline);
+    font-weight: 500;
+  }
+  .notice-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 16px 0;
+    border-top: 1px solid var(--hairline);
+  }
+  .notice-row:last-of-type { border-bottom: 1px solid var(--hairline); }
+  .notice-main { min-width: 0; }
+  .notice-agency { font-size: 12px; color: var(--grey); }
+  .notice-reason { font-size: 12px; color: var(--grey); font-style: normal; margin-top: 2px; }
+  .notice-figs {
+    flex: none;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+  .notice-figs .peso { font-size: 13px; }
+  .fineprint {
+    font-size: 11px;
+    line-height: 1.7;
+    color: var(--grey);
+    margin-top: 48px;
+    padding-top: 16px;
+    border-top: 1px solid var(--hairline);
+  }
+  .fineprint p { margin: 4px 0; }
+  @media (max-width: 720px) {
+    .notice-row { flex-direction: column; gap: 8px; }
+    .notice-figs { align-items: flex-start; text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="wordmark" href="index.html">bidkita</a>
+  <div class="topnav-links">
+    <a href="index.html">Product</a>
+    <a href="brief.html">Brief</a>
+    <a href="app.html">App</a>
+  </div>
+  <div class="topnav-right">
+    <div class="accent-toggle" aria-label="Accent colour">
+      <button class="swatch swatch-r" data-accent="" title="Signal red">R</button>
+      <button class="swatch swatch-b" data-accent="blue" title="Blue">B</button>
+    </div>
+    <a class="btn" href="app.html">Start free</a>
+  </div>
+</nav>
+
+<main>
+  <article class="brief">
+
+    <header>
+      <div class="brief-head">
+        <span class="brief-mark">bidkita</span>
+        <a class="btn-ghost" href="#" onclick="window.print(); return false;">Download PDF</a>
+      </div>
+      <p class="label">Weekly bid brief — Camarines Norte — 9 August 2026</p>
+      <hr class="rule-thick">
+      <h1 class="brief-hero"><span class="peso">PHP 58,749,058</span> closes in Camarines Norte in the next 16 days.</h1>
+      <p class="strap">10 NOTICES — 8 CLOSE MON-TUE — 3 BIGGER THAN YOUR LAST WIN</p>
+    </header>
+
+    <section>
+      <h2>01 — Your record</h2>
+      <table class="data">
+        <thead>
+          <tr>
+            <th>Project</th>
+            <th class="num">Awarded</th>
+            <th class="num">ABC</th>
+            <th class="num">Award / ABC</th>
+            <th class="num">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Construction of Multi-Purpose Building (Covered Court), Agapito Racelis Elementary School</td>
+            <td class="num">PHP 9,602,575.00</td>
+            <td class="num">PHP 9,899,995.00</td>
+            <td class="num">97.0%</td>
+            <td class="num">24-Jul-2026</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="caption">1 award record in our sample. This is a sample, not your full history.</p>
+    </section>
+
+    <section>
+      <h2>02 — Open right now, matched to you</h2>
+
+      <div class="notice-row">
+        <div class="notice-main">
+          <a class="ref" href="notice.html">ITB-2026-071</a> <span class="tag">Match</span>
+          <p class="item-title">Construction of Multi-Purpose Building, Brgy. Taba-taba, Basud</p>
+          <p class="notice-agency">Provincial Government of Camarines Norte</p>
+        </div>
+        <div class="notice-figs">
+          <span class="peso">PHP 4,983,586.00</span>
+          <span class="count">closes 09d 04h</span>
+        </div>
+      </div>
+
+      <div class="notice-row">
+        <div class="notice-main">
+          <a class="ref" href="notice.html">401-26-07-0877-A</a> <span class="tag">Match</span>
+          <p class="item-title">Rehabilitation of Health Station, Brgy. Hamoraon, Mercedes</p>
+          <p class="notice-agency">Municipality of Mercedes, Camarines Norte</p>
+        </div>
+        <div class="notice-figs">
+          <span class="peso">PHP 2,800,000.00</span>
+          <span class="count">closes 08d 21h</span>
+        </div>
+      </div>
+
+      <div class="notice-row">
+        <div class="notice-main">
+          <a class="ref" href="notice.html">VINBAC 0066-2026</a> <span class="tag">Match</span>
+          <p class="item-title">Rehabilitation of Operation Center (OpCen), EOC Building</p>
+          <p class="notice-agency">Municipality of Vinzons, Camarines Norte</p>
+        </div>
+        <div class="notice-figs">
+          <span class="peso">PHP 3,000,000.00</span>
+          <span class="count">closes 09d 04h</span>
+        </div>
+      </div>
+
+      <div class="notice-row">
+        <div class="notice-main">
+          <a class="ref" href="notice.html">ITB-2026-072</a> <span class="tag widened">Widened</span>
+          <p class="item-title">Construction of Slope Protection, Brgy. Pamorangon, Daet</p>
+          <p class="notice-agency">Provincial Government of Camarines Norte</p>
+          <p class="notice-reason">adjacent work type — slope protection</p>
+        </div>
+        <div class="notice-figs">
+          <span class="peso">PHP 9,987,701.00</span>
+          <span class="count">closes 09d 04h</span>
+        </div>
+      </div>
+
+      <div class="notice-row">
+        <div class="notice-main">
+          <a class="ref" href="notice.html">VINBAC 0067-2026</a> <span class="tag widened">Widened</span>
+          <p class="item-title">Construction of Farm-to-Market Road (Barangay Aguit-it)</p>
+          <p class="notice-agency">Municipality of Vinzons, Camarines Norte</p>
+          <p class="notice-reason">adjacent work type — farm-to-market road</p>
+        </div>
+        <div class="notice-figs">
+          <span class="peso">PHP 10,000,000.00</span>
+          <span class="count">closes 09d 04h</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>03 — Why Friday</h2>
+      <p>In this province, <span class="num">62.1%</span> of bid deadlines fall on a Monday or Tuesday morning. A Monday deadline is not decided on Monday — it is decided the Friday before, when there is still time to pull documents, price the bill of quantities, and get a bid bond issued.</p>
+      <p>No alert exists anywhere for "civil works, Camarines Norte, <span class="peso">PHP 2.8M–10M</span>". Not on PhilGEPS, not by email, not by SMS. That gap — the Friday before the Monday deadline — is the entire product.</p>
+    </section>
+
+    <footer class="fineprint">
+      <p>Sources: PhilGEPS public notices, snapshot 9 August 2026. All amounts are the published Approved Budget for the Contract (ABC). Verify every notice by its reference number on PhilGEPS before bidding; bidding documents and supplemental notices control.</p>
+      <p>Sent under the Data Privacy Act of 2012 (RA 10173) using publicly posted procurement records. Reply STOP and we will not contact you again — first request, no questions.</p>
+    </footer>
+
+  </article>
+</main>
+
+<script>
+  document.querySelectorAll('.accent-toggle .swatch').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.documentElement.dataset.accent = btn.dataset.accent;
+      localStorage.setItem('accent', btn.dataset.accent);
+    });
+  });
+</script>
+</body>
+</html>

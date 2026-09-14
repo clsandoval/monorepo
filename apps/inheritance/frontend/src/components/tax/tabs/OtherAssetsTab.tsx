@@ -95,7 +95,7 @@ export function OtherAssetsTab({ data, onChange }: OtherAssetsTabProps) {
   return (
     <div data-testid="other-assets-tab" className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold text-[#1e3a5f]">Other Assets</h2>
+        <h2 className="text-lg font-semibold text-primary">Other Assets</h2>
         <p className="text-sm text-muted-foreground mt-1">
           Taxable transfers, business interests, and exempt assets under Section 87.
         </p>
@@ -105,7 +105,7 @@ export function OtherAssetsTab({ data, onChange }: OtherAssetsTabProps) {
       <Card>
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2">
-            <ArrowRightLeft className="h-4 w-4 text-[#1e3a5f]" />
+            <ArrowRightLeft className="h-4 w-4 text-primary" />
             <CardTitle className="text-base">Taxable Transfers</CardTitle>
           </div>
           <CardDescription>
@@ -207,7 +207,7 @@ export function OtherAssetsTab({ data, onChange }: OtherAssetsTabProps) {
       <Card>
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2">
-            <Building2 className="h-4 w-4 text-[#1e3a5f]" />
+            <Building2 className="h-4 w-4 text-primary" />
             <CardTitle className="text-base">Business Interests</CardTitle>
           </div>
           <CardDescription>
@@ -300,7 +300,7 @@ export function OtherAssetsTab({ data, onChange }: OtherAssetsTabProps) {
       <Card>
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2">
-            <Shield className="h-4 w-4 text-[#1e3a5f]" />
+            <Shield className="h-4 w-4 text-primary" />
             <CardTitle className="text-base">Exempt Assets (Sec. 87)</CardTitle>
           </div>
           <CardDescription>

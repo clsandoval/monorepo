@@ -1,5 +1,7 @@
 import { createRouter } from '@tanstack/react-router';
 import type { User } from '@supabase/supabase-js';
+import { NotFoundPage } from './components/NotFoundPage';
+import { RouteErrorPage } from './components/RouteErrorPage';
 import { rootRoute, publicRootRoute } from './routes/__root';
 import { indexRoute } from './routes/index';
 import { authRoute } from './routes/auth';
@@ -31,6 +33,8 @@ const routeTree = rootRoute.addChildren([
 
 export const router = createRouter({
   routeTree,
+  defaultNotFoundComponent: NotFoundPage,
+  defaultErrorComponent: RouteErrorPage,
   context: {
     auth: undefined as { user: User | null } | undefined,
   },

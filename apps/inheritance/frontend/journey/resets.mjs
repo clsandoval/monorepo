@@ -20,6 +20,22 @@ import { readFixtures } from './seed.mjs';
 import { computeEngineOutput } from './engine.mjs';
 
 /*
+ * The one committed source of the Alpha case's input_json. seed.sql embeds a
+ * byte-for-byte copy of this engine case — scripts/check-seed-fixture.mjs fails
+ * with SEED INPUT NOT COPIED the moment they diverge — so restoring from it is
+ * restoring the seeded value. The alpha resets restore input_json because
+ * journey/instrument-parity.mjs borrows that column (its prepare writes a
+ * warning fixture into it), and a killed run can leave the borrow unreturned:
+ * the rule below — a reset must restore every column any step can write — now
+ * includes input_json.
+ */
+export function canonicalAlphaInput() {
+  return JSON.parse(
+    readFileSync(new URL('../../engine/examples/cases/02-married-3lc.json', import.meta.url), 'utf8'),
+  );
+}
+
+/*
  * A RESET ONLY DELETES OR REVERTS ROWS REACHABLE FROM fixtures.json. It never
  * truncates a table and never touches a row it did not create — the same rule
  * frontend/supabase/seed.sql already follows, so running a gate can never
@@ -108,7 +124,15 @@ export const RESETS = Object.freeze({
     const { error } = await admin
       .from('cases')
       .update({
+        input_json: canonicalAlphaInput(),
         output_json: null,
+        // tax columns restored to their seeded NULL for the same rule: the
+        // case-alpha-tax-input reset (used directly by the parity gates) writes
+        // them, and a leak was observed 2026-08-10 when a concurrent PDF-gate
+        // run left tax_input_json populated and the tax-tab empty-state
+        // references diffed against a filled form.
+        tax_input_json: null,
+        tax_output_json: null,
         decedent_name: null,
         date_of_death: null,
         status: 'draft',
@@ -137,23 +161,16 @@ export const RESETS = Object.freeze({
    */
   'case-alpha-computed': async (admin) => {
     const caseId = readFixtures().orgs.alpha.case_id;
-    const { data, error: selectError } = await admin
-      .from('cases')
-      .select('input_json')
-      .eq('id', caseId)
-      .single();
-    if (selectError) {
-      throw new Error(`RESET FAILED case-alpha-computed (select): ${selectError.message}`);
-    }
-    if (!data || data.input_json == null) {
-      throw new Error(
-        `RESET FAILED case-alpha-computed: case ${caseId} has a null input_json, so there is nothing to compute`,
-      );
-    }
-    const output = await computeEngineOutput(data.input_json);
+    // Compute on the canonical committed input, not on whatever the row holds:
+    // a prior run killed inside instrument-parity's borrow window can leave a
+    // foreign fixture in input_json, and computing on that would faithfully
+    // render the wrong case.
+    const input = canonicalAlphaInput();
+    const output = await computeEngineOutput(input);
     const { error: updateError } = await admin
       .from('cases')
       .update({
+        input_json: input,
         output_json: output,
         decedent_name: null,
         date_of_death: null,
@@ -194,6 +211,7 @@ export const RESETS = Object.freeze({
     const { error } = await admin
       .from('cases')
       .update({
+        input_json: canonicalAlphaInput(),
         tax_input_json: taxInput,
         tax_output_json: null,
         output_json: null,

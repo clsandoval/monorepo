@@ -45,7 +45,7 @@ export function SpecialDeductionsTab({ data, onChange }: SpecialDeductionsTabPro
   return (
     <div data-testid="special-deductions-tab" className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold text-[#1e3a5f]">Special Deductions</h2>
+        <h2 className="text-lg font-semibold text-primary">Special Deductions</h2>
         <p className="text-sm text-muted-foreground mt-1">
           Special deductions under NIRC Sec. 86(A)(3)–(6).
         </p>
@@ -63,7 +63,7 @@ export function SpecialDeductionsTab({ data, onChange }: SpecialDeductionsTabPro
               <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Standard Deduction</p>
               <p
                 data-testid="standard-deduction"
-                className="text-base font-semibold text-[#1e3a5f]"
+                className="text-base font-semibold text-primary"
               >
                 ₱{data.standardDeduction.toLocaleString()}
               </p>
@@ -74,7 +74,7 @@ export function SpecialDeductionsTab({ data, onChange }: SpecialDeductionsTabPro
               <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Family Home Deduction</p>
               <p
                 data-testid="family-home-deduction"
-                className="text-base font-semibold text-[#1e3a5f]"
+                className="text-base font-semibold text-primary"
               >
                 ₱{data.familyHomeDeduction.toLocaleString()}
               </p>
@@ -133,7 +133,7 @@ export function SpecialDeductionsTab({ data, onChange }: SpecialDeductionsTabPro
       <Card data-testid="foreign-tax-credits-section">
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2">
-            <Globe className="h-4 w-4 text-[#1e3a5f]" />
+            <Globe className="h-4 w-4 text-primary" />
             <CardTitle className="text-base">Foreign Tax Credits</CardTitle>
           </div>
           <CardDescription>

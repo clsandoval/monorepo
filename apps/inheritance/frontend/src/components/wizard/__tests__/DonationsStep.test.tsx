@@ -274,9 +274,15 @@ describe('wizard-step5 > DonationsStep', () => {
           }}
         />
       );
-      // PersonPicker should show family tree members
-      expect(screen.getByText(/Juan Cruz/)).toBeInTheDocument();
-      expect(screen.getByText(/Maria Cruz/)).toBeInTheDocument();
+      // PersonPicker should show family tree members. Open the Radix Select
+      // and assert on role="option" — the selected name is also mirrored in
+      // the trigger and in Radix's hidden native <select>, so a bare
+      // getByText would match more than one node.
+      await user.click(screen.getByRole('combobox'));
+      expect(
+        await screen.findByRole('option', { name: /Juan Cruz/ })
+      ).toBeInTheDocument();
+      expect(screen.getByRole('option', { name: /Maria Cruz/ })).toBeInTheDocument();
     });
   });
 });

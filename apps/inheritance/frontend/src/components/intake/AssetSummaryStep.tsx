@@ -111,7 +111,7 @@ export function AssetSummaryStep({
           ← Back
         </Button>
         <Button onClick={onNext}>
-          Next: Settlement Track →
+          Next: Review & Save →
         </Button>
       </div>
     </div>

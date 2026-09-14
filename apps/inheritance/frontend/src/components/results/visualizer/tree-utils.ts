@@ -162,7 +162,11 @@ export function buildTreeData(
 
     const role = getNodeRole(person, per_heir_shares, disinheritedIds);
     const share = shareMap.get(person.id);
-    const shareAmount = share ? formatShareAmount(share.total.centavos) : undefined;
+    // net_from_estate, not total: total is the gross entitlement before donations
+    // are collated back. The distribution table and narratives show net, so a
+    // node showing total contradicts the authoritative figure for any collation
+    // case (e.g. gross ₱5M, collated net ₱3M).
+    const shareAmount = share ? formatShareAmount(share.net_from_estate.centavos) : undefined;
 
     const children: TreeNodeData[] = [];
     if (person.children.length > 0) {

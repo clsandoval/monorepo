@@ -61,7 +61,7 @@ export function RealPropertiesTab({ data, onChange }: RealPropertiesTabProps) {
   return (
     <div data-testid="real-properties-tab" className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold text-[#1e3a5f]">Real Properties</h2>
+        <h2 className="text-lg font-semibold text-primary">Real Properties</h2>
         <p className="text-sm text-muted-foreground mt-1">
           All real property owned by the decedent at time of death.
         </p>

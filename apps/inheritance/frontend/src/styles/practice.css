@@ -1,0 +1,59 @@
+/* Practice workspace — screen styles leave the legal print layout untouched. */
+@media screen {
+  body { -webkit-font-smoothing: antialiased; }
+  .practice-shell { min-height: 100dvh; }
+  .practice-sidebar { width: 216px; position: sticky; top: 0; height: 100dvh; border-right: 1px solid var(--border); box-shadow: none; }
+  .practice-brand { font-family: var(--font-serif); font-size: 24px; font-weight: 600; letter-spacing: -0.055em; }
+  .practice-main > div { width: 100%; }
+  .practice-main h1 { color: var(--foreground); }
+  [data-slot="card"] { box-shadow: none; border-radius: 6px; }
+  [data-slot="button"] { min-height: 40px; }
+  [data-slot="table-head"] { background: var(--muted); padding: 14px 16px; font-size: 12px; color: var(--muted-foreground); }
+  [data-slot="table-cell"] { padding: 17px 16px; font-variant-numeric: tabular-nums; }
+  .practice-results { display: flex; flex-direction: column; gap: 24px; }
+  .practice-results > * { margin-block: 0; }
+  .practice-results [data-testid="results-header"] h1 { font-size: clamp(26px, 3vw, 38px); line-height: 1.2; font-weight: 500; }
+  .practice-summary { background: var(--muted); padding: 22px 24px; border-radius: 6px; margin-top: 24px; }
+  .practice-estate-total { order: -2; margin-right: auto; }
+  .practice-heir-count { order: -1; border-left: 1px solid var(--border); padding-left: 24px; font-size: 20px; }
+  .practice-summary [data-testid="total-estate"] { display: block; font-size: 30px; letter-spacing: -0.035em; font-variant-numeric: tabular-nums; }
+  .practice-results [data-testid="distribution-section"] { border: 1px solid var(--border); border-radius: 6px; background: var(--card); padding: 24px; }
+  .practice-chart-disclosure { margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px; }
+  .practice-chart-disclosure summary { cursor: pointer; color: var(--muted-foreground); font-size: 13px; }
+  .practice-chart-disclosure[open] summary { margin-bottom: 16px; }
+  .practice-actions { order: -1; padding: 0 0 16px; border-bottom: 1px solid var(--border); }
+  .practice-actions > [data-slot="separator"] { display: none; }
+  .practice-actions [data-testid="export-pdf"] { margin-left: auto; order: 4; }
+  .practice-results [data-testid="heir-table"] { min-width: 0; }
+  .practice-results [data-testid="heir-table"] td { white-space: normal; }
+  .practice-results [data-testid="heir-table"] td[data-label="Net from Estate"] { white-space: nowrap; text-align: right; }
+  .practice-results [data-testid="heir-table"] th:nth-last-child(2) { text-align: right; }
+  .practice-results [data-testid="heir-table"] [data-slot="badge"] { background: transparent; color: var(--muted-foreground); border: 0; padding: 0; white-space: normal; }
+  @media (min-width: 768px) {
+    .practice-main > .practice-case { max-width: 1200px; padding: 32px 40px; }
+  }
+  @media (max-width: 767px) {
+    .practice-main > .practice-case { padding: 24px 16px; }
+    [data-slot="input"], [data-slot="select-trigger"] { min-height: 44px; }
+    [data-slot="card"] [data-slot="card"] { border: 0; padding-block: 0; }
+    [data-slot="card"] [data-slot="card"] > [data-slot="card-content"],
+    [data-slot="card"] [data-slot="card"] > [data-slot="card-header"] { padding-inline: 0; }
+    .practice-main [data-testid="case-card"] { padding-block: 12px; }
+    .practice-summary { padding: 18px; gap: 12px; }
+    .practice-summary [data-testid="total-estate"] { font-size: 27px; }
+    .practice-results [data-testid="distribution-section"] { padding: 16px; }
+    .practice-results [data-testid="heir-table"],
+    .practice-results [data-testid="heir-table"] tbody { display: block; width: 100%; }
+    .practice-results [data-testid="heir-table"] thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+    .practice-results [data-testid="heir-table"] tr { display: grid; grid-template-columns: minmax(0, 1fr); border: 1px solid var(--border); border-radius: 6px; margin-bottom: 12px; padding: 14px; }
+    .practice-results [data-testid="heir-table"] td { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 5px 0; font-size: 13px; }
+    .practice-results [data-testid="heir-table"] td::before { content: attr(data-label); color: var(--muted-foreground); font-size: 11px; flex-shrink: 0; }
+    .practice-results [data-testid="heir-table"] td:first-child { display: block; font-size: 16px; padding-top: 0; }
+    .practice-results [data-testid="heir-table"] td:first-child::before { display: none; }
+    .practice-results [data-testid="heir-table"] td[data-label="Net from Estate"] { font-size: 17px; padding-block: 10px; }
+    .practice-results { padding-bottom: 80px; }
+    .practice-actions { order: 0; padding-top: 16px; border-top: 1px solid var(--border); border-bottom: 0; }
+    .practice-actions > div { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .practice-actions [data-testid="export-pdf"] { position: fixed; bottom: max(16px, env(safe-area-inset-bottom)); left: 16px; right: 16px; width: calc(100% - 32px); height: 48px; margin: 0; z-index: 20; box-shadow: 0 0 0 12px var(--background); }
+  }
+}

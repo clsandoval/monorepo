@@ -114,10 +114,11 @@ describe('wizard-step4 > WillStep', () => {
 
     it('renders 4 sub-tabs', () => {
       render(<WillStepWrapper />);
-      expect(screen.getByRole('button', { name: /^Institutions$/i })).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /^Legacies$/i })).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /^Devises$/i })).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /^Disinheritances$/i })).toBeInTheDocument();
+      // Sub-tabs are Radix Tabs triggers, exposed with role="tab" (not "button").
+      expect(screen.getByRole('tab', { name: /^Institutions$/i })).toBeInTheDocument();
+      expect(screen.getByRole('tab', { name: /^Legacies$/i })).toBeInTheDocument();
+      expect(screen.getByRole('tab', { name: /^Devises$/i })).toBeInTheDocument();
+      expect(screen.getByRole('tab', { name: /^Disinheritances$/i })).toBeInTheDocument();
     });
 
     it('defaults to Institutions sub-tab active', () => {

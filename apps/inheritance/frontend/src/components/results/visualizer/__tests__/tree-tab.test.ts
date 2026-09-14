@@ -441,6 +441,24 @@ describe('tree-tab > buildTreeData', () => {
     expect(tree.shareAmount).toBeUndefined();
   });
 
+  // The node must show net_from_estate (what the heir receives), not total (the
+  // gross entitlement before collation). For a collated heir these differ, and a
+  // node showing total contradicts the distribution table (dogfound 2026-08-10,
+  // 20-collation: gross ₱5M, collated net ₱3M).
+  it('shows net_from_estate, not gross total, when donations are collated', () => {
+    const input = createTestInput();
+    const output = createTestOutput();
+    const maria = output.per_heir_shares.find((s) => s.heir_id === 'lc1')!;
+    maria.total = { centavos: 500000000 };
+    maria.gross_entitlement = { centavos: 500000000 };
+    maria.donations_imputed = { centavos: 200000000 };
+    maria.net_from_estate = { centavos: 300000000 };
+    const tree = buildTreeData(input, output);
+    const node = tree.children!.find((c) => c.name === 'Maria dela Cruz')!;
+    expect(node.shareAmount).toContain('3,000,000');
+    expect(node.shareAmount).not.toContain('5,000,000');
+  });
+
   it('handles predeceased persons correctly', () => {
     const input = createTestInput({
       family_tree: [
