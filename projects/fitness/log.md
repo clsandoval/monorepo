@@ -11,6 +11,12 @@ Append-only. Newest at top. One line per day.
 - **Notes:** 1–2 sentences max. Day verdict ✅ / ⚠️ / ❌ vs Rules v2 (profile.md). Carbs/sodium no longer tracked (entries before 2026-09-13 have them).
 
 ---
+## 2026-09-14
+- **Weight:** — (not yet logged)
+- **Cals / Protein:** ~600 / ~60g so far (meal 1: plan meal, beef rendang 600/60 as labelled)
+- **Trained:** — (no lift yet; first A session owed)
+- **Notes:** First plan meal of the day. On track for 1800/180 if meals 2 and 3 land; ~1600 of room, ~400 of it discretionary.
+
 ## 2026-09-13 — RESET · coach mode on
 - **Weight:** ~100.0 kg (self-reported)
 - **Cals / Protein:** ~1990 / ~200g (AM: 2-scoop shake w/ almond milk + banana ~420/50g; 2 jasmine matcha teas ~200/6g; ½ roast chicken, ~300g white meat ~550/90g; 50g flatbread + butter ~220/5g; dinner: meal-prep béchamel dish 600/50g [plan meal, as labelled])
