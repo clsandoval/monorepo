@@ -13,9 +13,9 @@ Append-only. Newest at top. One line per day.
 ---
 ## 2026-09-14
 - **Weight:** — (not yet logged)
-- **Cals / Protein:** ~1130 / ~97g so far (meal 1: plan meal, beef rendang 600/60 as labelled; 1 tbsp balsamic glaze ~40/0g; iced long black w/ stevia ~5/0g; lunch out, replaces plan meal 2 — corrected to actual order: 100g cold soba w/ tsuyu ~140/7g [generic cooked buckwheat soba + dipping sauce, ~140/7 per 100g] + uni ~50g assumed (no weight given, flag if off) ~65/8g [~130/16 per 100g, per log precedent] + 2 sticks grilled chicken thigh yakitori ~280/22g [~140/11 per skewer, tare glaze, 8/05 precedent] = ~485/37g)
+- **Cals / Protein:** ~1535 / ~120g so far (meal 1: plan meal, beef rendang 600/60 as labelled; 1 tbsp balsamic glaze ~40/0g; iced long black w/ stevia ~5/0g; lunch out, replaces plan meal 2 — Carlos's weights: 200g cold soba w/ tsuyu ~280/14g [~140/7 per 100g] + 100g uni ~130/16g [~130/16 per 100g, log precedent] + 2 sticks grilled chicken thigh yakitori ~280/22g [~140/11 per skewer, tare glaze, 8/05 precedent] = ~690/52g; matcha latte after ~200/8g [sweetened, 8/05 precedent])
 - **Trained:** — (no lift yet; first A session owed)
-- **Notes:** Lunch corrected — actual order was cold soba + uni + chicken thigh yakitori, not the earlier salmon-sashimi guess. ~485/37g, ~115 under the 600/60 plan-meal target it displaced and 23g short on protein. Day so far ~1130/97g. Plan meal 3 (600/60) lands the day ~1730 / ~157g ✅ — floor cleared, ~470 of room left under the 2200 ceiling.
+- **Notes:** Lunch corrected twice — actual order was cold soba + uni + chicken thigh yakitori (not the salmon-sashimi guess), then Carlos gave weights: 200g soba, 100g uni. Lunch ~690/52g, ~90 over the 600/60 plan-meal slot and 8g short on protein. Matcha latte ~200/8g on top. Day so far ~1535/120g. Plan meal 3 (600/60) lands the day ~2135 / ~180g ✅ floor cleared but only ~65 under the 2200 ceiling — no more drinks or extras tonight.
 
 ## 2026-09-13 — RESET · coach mode on
 - **Weight:** ~100.0 kg (self-reported)
