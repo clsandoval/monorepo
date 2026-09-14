@@ -5,6 +5,7 @@
 #   30 11 * * * dinner    (19:30 PHT)
 # Haiku reads Rules v2 + today's log (passed inline, no tools) and writes a ≤6-line nudge.
 # The message is sent from bash, so a model hiccup can never drop the reminder entirely.
+# Replies to the sent message are handled by fitness-reply.py (see its docstring).
 set -uo pipefail
 
 SLOT="${1:-checkin}"
@@ -51,4 +52,11 @@ if [ -z "$MSG" ] || printf "%s" "$MSG" | grep -q "Not logged in"; then
   MSG="🍽️ ${SLOT} check-in (${NOW}). Coach bot failed to think — log anyway: send today's food, weight if fasted, and what you trained. Rules: <2200 kcal, >150 g protein."
 fi
 
-$TG "$MSG"
+# Send, then record the message_id so replies to it (or to anything in its reply chain) are
+# picked up by automations/fitness-reply.py (cron, every minute) and handed to Haiku here.
+SENT=$($TG "$MSG")
+echo "$SENT"
+MID=$(printf '%s' "$SENT" | sed -n 's/.*message_id: \([0-9]*\).*/\1/p')
+if [ -n "$MID" ]; then
+  python3 "$REPO/automations/fitness-reply.py" record --slot "$SLOT" --message-id "$MID" --text "$MSG"
+fi
