@@ -13,7 +13,7 @@ Append-only. Newest at top. One line per day.
 ---
 ## 2026-09-14
 - **Weight:** — (not yet logged)
-- **Cals / Protein:** ~640 / ~60g so far (meal 1: plan meal, beef rendang 600/60 as labelled; 1 tbsp balsamic glaze ~40/0g)
+- **Cals / Protein:** ~645 / ~60g so far (meal 1: plan meal, beef rendang 600/60 as labelled; 1 tbsp balsamic glaze ~40/0g; iced long black w/ stevia ~5/0g)
 - **Trained:** — (no lift yet; first A session owed)
 - **Notes:** First plan meal of the day. On track for 1800/180 if meals 2 and 3 land; ~1600 of room, ~400 of it discretionary.
 
